@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -41,11 +41,11 @@ const userSchema = new Schema(
         },
       },
     ],
-    post_code: {
+    postcode: {
       type: String,
     },
     favorites_shops: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Shop" }],
-    shopId: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
+    shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
   },
   { timestamps: true }
 );

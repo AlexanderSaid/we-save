@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const shopSchema = new Schema(
   {
@@ -9,18 +9,18 @@ const shopSchema = new Schema(
     },
 
     address: {
-      street_name: {
+      street: {
         type: String,
         required: true,
       },
-      house_number: {
+      house: {
         type: Number,
         required: true,
       },
       addition: {
         type: String,
       },
-      post_code: {
+      postcode: {
         type: String,
         required: true,
       },
