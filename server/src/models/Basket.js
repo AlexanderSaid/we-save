@@ -26,9 +26,9 @@ const basketSchema = new Schema(
     },
     image: { type: String },
 
-    shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
+    // shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
   },
   { timestamps: true }
 );
 
-export const basket = mongoose.model("Basket", basketSchema);
+export default mongoose.model("Basket", basketSchema);

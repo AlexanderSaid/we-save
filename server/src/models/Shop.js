@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const shopSchema = new Schema(
   {
-    shop_name: {
+    name: {
       type: String,
       required: true,
     },
@@ -63,4 +63,4 @@ const shopSchema = new Schema(
   { timestamps: true }
 );
 
-export const shop = mongoose.model("Shop", shopSchema);
+export default mongoose.model("Shop", shopSchema);
