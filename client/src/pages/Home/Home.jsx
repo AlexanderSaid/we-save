@@ -1,14 +1,12 @@
 import React from "react";
+import SetLocationSection from "../../components/SetLocationSection/SetLocationSection";
 
 import TEST_ID from "./Home.testid";
 
 const Home = () => {
   return (
-    <div className="homePage" data-testid={TEST_ID.container}>
-      <div className="searchSection">
-        <h1>Search Here</h1>
-        <input></input>
-      </div>
+    <div data-testid={TEST_ID.container}>
+      <SetLocationSection />
       <div className="customerInfo">
         <h1>CustomerInfo</h1>
       </div>
