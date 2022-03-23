@@ -20,6 +20,7 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+/* NAVBAR */
 .navBar a {
   text-decoration: none;
   margin: 6px 20px;
@@ -41,7 +42,16 @@ body {
   justify-content: flex-end;
   grid-column: 3/6;
 }
-
+/* BODY SECTION */
+.homePage {
+}
+.homePage .searchSection {
+  width: 100%;
+  background-color: var(--color-primary);
+  height: 80vh;
+  text-align: center;
+}
+/* FOOTER  */
 .footer {
   background-color: var(--color-dark-background);
   color: var(--color-light-color);
