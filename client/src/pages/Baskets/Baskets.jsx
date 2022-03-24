@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import useFetch from '../../hooks/useFetch'
+import { useEffect, useState } from "react"
+import useFetch from "../../hooks/useFetch"
 
-import SetLocationSection from '../../components/SetLocationSection/SetLocationSection'
+import SetLocationSection from "../../components/SetLocationSection/SetLocationSection"
 
 const Baskets = () => {
   const [shops, setShops] = useState([])
-  const { isLoading, error, performFetch, cancelFetch } = useFetch('/api/shops')
+  const { isLoading, error, performFetch, cancelFetch } = useFetch("/api/shops")
   
   return (
     <div>
