@@ -1,5 +1,5 @@
 import React from "react";
-import SetLocationSection from "../../../components/SetLocationSection/SetLocationSection";
+import SetLocationSection from "../../components/SetLocationSection/SetLocationSection";
 function SloganContainer() {
   return (
     <section
