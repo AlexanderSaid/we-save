@@ -1,7 +1,7 @@
 import React from "react";
 import HomepageSection from "../../components/HomepageSection";
 import TEST_ID from "./Home.testid";
-import SloganContainer from "../../components/SloganContainer";
+import SloganContainer from "./component/SloganContainer";
 
 const Home = () => {
   return (
