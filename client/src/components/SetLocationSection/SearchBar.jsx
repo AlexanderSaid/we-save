@@ -4,6 +4,7 @@ import useFetchAPI from "../../hooks/useFetchAPI";
 import { Link } from "react-router-dom";
 // import { getDistance } from "geolib";
 import AddressList from "./AddressList";
+import PropTypes from "prop-types";
 
 const SearchBar = ({ location, handleLocation }) => {
   let url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`;
@@ -27,6 +28,11 @@ const SearchBar = ({ location, handleLocation }) => {
       <AddressList addresses={addresses} />
     </>
   );
+};
+
+SearchBar.propTypes = {
+  location: PropTypes.string,
+  handleLocation: PropTypes.string,
 };
 
 export default SearchBar;

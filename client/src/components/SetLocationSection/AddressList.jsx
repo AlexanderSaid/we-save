@@ -1,5 +1,6 @@
 import React from "react";
 import AddressItem from "./AddressItem";
+import PropTypes from "prop-types";
 
 const AddressList = ({ addresses }) => {
   return (
@@ -10,6 +11,10 @@ const AddressList = ({ addresses }) => {
         ))}
     </ul>
   );
+};
+
+AddressList.propTypes = {
+  addresses: PropTypes.string.isRequired,
 };
 
 export default AddressList;
