@@ -32,7 +32,8 @@
     "lint": "npm run lint:client && npm run lint:server",
     "lint:client": "cd client && npm run lint && cd ..",
     "lint:server": "cd server && npm run lint && cd ..",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "Staart": "concurrently \"npm start --prefix client\" \"npm run client\""
   },
   "repository": {
     "type": "git",
