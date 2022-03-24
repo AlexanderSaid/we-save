@@ -24,28 +24,7 @@
 body {
   font-family: "Roboto", sans-serif;
 }
-/* NAVBAR */
-.navBar a {
-  text-decoration: none;
-  margin: 6px 20px;
-  color: var(--color-light-color);
-}
-.navBar {
-  background-color: var(--color-dark-background);
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-.logo {
-  color: #f1f1f1;
-  padding: 12px;
-  grid-column: 2/3;
-}
-.navBar ul {
-  list-style: none;
-  display: flex;
-  justify-content: flex-end;
-  grid-column: 3/6;
-}
+
 /* BODY SECTION */
 .homePage {
 }
