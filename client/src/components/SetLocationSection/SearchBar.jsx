@@ -23,7 +23,7 @@ const SearchBar = ({ location, handleLocation }) => {
           placeholder="Enter Your Post Code"
           onChange={(e) => handleLocation(e)}
         />
-        <Link to="/products">Search</Link>
+        <Link to="/baskets">Search</Link>
       </form>
       <AddressList addresses={addresses} />
     </>
