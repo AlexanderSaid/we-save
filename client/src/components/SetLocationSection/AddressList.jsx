@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const AddressList = ({ addresses }) => {
   return (
-    <ul>
+    <ul className='mt-10'>
       {addresses &&
         addresses.map((item, index) => (
           <AddressItem

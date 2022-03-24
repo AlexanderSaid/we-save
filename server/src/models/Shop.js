@@ -32,6 +32,8 @@ const shopSchema = new Schema(
         type: String,
         required: true,
       },
+      lat: Number,
+      lon: Number,
     },
     phone: {
       type: String,
