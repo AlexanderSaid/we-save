@@ -7,7 +7,12 @@ const AddressList = ({ addresses }) => {
     <ul>
       {addresses &&
         addresses.map((item, index) => (
-          <AddressItem key={index} formatted={item.properties.formatted} />
+          <AddressItem
+            key={index}
+            formatted={item.properties.formatted}
+            lat={item.properties.lat}
+            lon={item.properties.lon}
+          />
         ))}
     </ul>
   );
