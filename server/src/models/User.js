@@ -1,33 +1,53 @@
 import mongoose from "mongoose";
 
-import validateAllowedFields from "../util/validateAllowedFields.js";
+const { Schema } = mongoose;
 
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-});
+const userSchema = new Schema(
+  {
+    name: {
+      first: {
+        type: String,
+        required: true,
+      },
+      last: {
+        type: String,
+        required: true,
+      },
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      min: 8,
+    },
+    role: [
+      {
+        is_admin: {
+          type: Boolean,
+          default: false,
+        },
+        is_owner: {
+          type: Boolean,
+          default: false,
+        },
+        is_customer: {
+          type: Boolean,
+          default: true,
+        },
+      },
+    ],
+    postcode: {
+      type: String,
+    },
+    favorites_shops: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Shop" }],
+    shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
+  },
+  { timestamps: true }
+);
 
-const User = mongoose.model("users", userSchema);
-
-export const validateUser = (userObject) => {
-  const errorList = [];
-  const allowedKeys = ["name", "email"];
-
-  const validatedKeysMessage = validateAllowedFields(userObject, allowedKeys);
-
-  if (validatedKeysMessage.length > 0) {
-    errorList.push(validatedKeysMessage);
-  }
-
-  if (userObject.name == null) {
-    errorList.push("name is a required field");
-  }
-
-  if (userObject.email == null) {
-    errorList.push("email is a required field");
-  }
-
-  return errorList;
-};
-
-export default User;
+export default mongoose.model("User", userSchema);
