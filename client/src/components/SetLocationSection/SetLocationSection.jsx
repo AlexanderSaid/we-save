@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import SearchBar from "./SearchBar";
+import SearchBar from './SearchBar'
+
 const SetLocationSection = () => {
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState('')
 
   const handleLocation = (e) => {
-    setLocation(e.target.value);
-  };
+    setLocation(e.target.value)
+  }
 
   return (
     <div>
       <SearchBar location={location} handleLocation={handleLocation} />
     </div>
-  );
-};
+  )
+}
 
-export default SetLocationSection;
+export default SetLocationSection
