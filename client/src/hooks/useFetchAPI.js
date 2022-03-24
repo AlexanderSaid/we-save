@@ -17,7 +17,7 @@ export default function useFetchAPI(url) {
         setLoading(false);
       }
     })();
-  }, [url]);
+  }, []);
 
   return { data, error, loading };
 }
