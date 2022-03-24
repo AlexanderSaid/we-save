@@ -4,26 +4,18 @@ import express from "express";
 dotenv.config();
 
 import app from "./app.js";
-import { logInfo, logError } from "./util/logging.js";
 import connectDB from "./db/connectDB.js";
 import testRouter from "./testRouter.js";
 
 // The environment should set the port
 const port = process.env.PORT;
 
-if (port == null) {
-  // If this fails, make sure you have created a `.env` file in the right place with the PORT set
-  logError(new Error("Cannot find a PORT number, did you create a .env file?"));
-}
-
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(port, () => {
-      logInfo(`Server started on port ${port}`);
-    });
+    app.listen(port);
   } catch (error) {
-    logError(error);
+    console.log(error);
   }
 };
 
