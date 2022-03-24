@@ -11,12 +11,8 @@ import testRouter from "./testRouter.js";
 const port = process.env.PORT;
 
 const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(port);
-  } catch (error) {
-    console.log(error);
-  }
+  await connectDB();
+  app.listen(port);
 };
 
 /****** Host our client code for Heroku *****/
