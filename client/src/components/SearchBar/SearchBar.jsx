@@ -17,12 +17,12 @@ const SearchBar = ({ location, handleLocation }) => {
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
         Find Shops Near You
       </h3>
-      <div className="flex rounded bg-white w-[30rem]">
+      <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem]  ">
         <BiCurrentLocation />
         <input
           type="text"
           name="location"
-          className="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none"
+          className="w-full  border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none "
           placeholder="Enter Your Post Code"
           onChange={(e) => handleLocation(e)}
         />
