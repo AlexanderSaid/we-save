@@ -4,7 +4,7 @@ import { MdBakeryDining } from "react-icons/md";
 
 const Categories = () => {
   return (
-    <section className="container mx-auto px-6 my-1 flex flex-wrap -m-4 justify-center">
+    <section className="container mx-auto px-6 my-1 flex flex-wrap -m-4 justify-center mt-4">
       <div className="p-2 md:w-40 ">
         <a
           href="#"

@@ -1,7 +1,7 @@
 import React from "react";
-import { BiCurrentLocation } from "react-icons/bi";
 import useFetchAPI from "../../hooks/useFetchAPI";
 import { Link } from "react-router-dom";
+import CurrentLocation from "../../../public/assets/location.png";
 // import { getDistance } from "geolib";
 import AddressList from "./AddressList";
 import PropTypes from "prop-types";
@@ -17,8 +17,12 @@ const SearchBar = ({ location, handleLocation }) => {
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
         Find Shops Near You
       </h3>
-      <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem]  ">
-        <BiCurrentLocation />
+      <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem]  border border-darkBg">
+        <img
+          src={CurrentLocation}
+          className="w-[2rem] h-[2rem] 
+        mt-3 ml-2"
+        />
         <input
           type="text"
           name="location"

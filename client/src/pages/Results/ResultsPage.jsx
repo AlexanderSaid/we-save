@@ -5,7 +5,7 @@ import BasketInfo from "./ResultsComponents/BasketInfo";
 const ResultsPage = () => {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center bg-darkBg">
+      <div className="flex flex-col items-center justify-center ">
         <SearchBar />
       </div>
       <Categories />

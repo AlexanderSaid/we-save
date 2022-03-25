@@ -6,7 +6,7 @@ import Footer from "./Footer";
 const Layout = () => {
   return (
     <>
-      <header className="The header width is 100% and has background">
+      <header className="max-w-[1440px]">
         <NavBar />
       </header>
       <main className="The main width is 100%">
