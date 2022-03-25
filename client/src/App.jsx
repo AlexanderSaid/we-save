@@ -4,7 +4,7 @@ import Home from "./pages/Home/Home";
 // import Baskets from "./pages/Baskets/Baskets";
 import "./css/index.css";
 import Layout from "./components/layout/Layout";
-import ResultsPage from "./pages/Results/ResultsPage";
+import Results from "./pages/Results/Results";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="results" element={<ResultsPage />} />
+          <Route path="results" element={<Results />} />
         </Route>
       </Routes>
     </>
