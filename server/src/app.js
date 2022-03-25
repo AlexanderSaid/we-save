@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import shopRouter from "./routes/shopsRoutes.js";
-
+import basketRouter from "./routes/basketRoutes.js";
 // Create an express server
 const app = express();
 
@@ -17,5 +17,6 @@ app.use(cors());
  * As we also host our client code on heroku we want to separate the API endpoints.
  */
 app.use("/api/shops", shopRouter);
+app.use("/api/baskets", basketRouter);
 
 export default app;
