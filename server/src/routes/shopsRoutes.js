@@ -1,7 +1,7 @@
-import express from 'express'
-const router = express.Router()
-import { getAllShops } from '../controllers/shopsControllers.js'
+import express from "express";
+const router = express.Router();
+import { getAllShops } from "../controllers/shopsControllers.js";
 
-router.route('/').get(getAllShops)
+router.route("/").get(getAllShops);
 
-export default router
+export default router;

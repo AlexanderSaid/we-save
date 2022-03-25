@@ -1,10 +1,10 @@
-import React from 'react'
-import AddressItem from './AddressItem'
-import PropTypes from 'prop-types'
+import React from "react";
+import AddressItem from "./AddressItem";
+import PropTypes from "prop-types";
 
 const AddressList = ({ addresses }) => {
   return (
-    <ul className='mt-10'>
+    <ul>
       {addresses &&
         addresses.map((item, index) => (
           <AddressItem
@@ -15,11 +15,11 @@ const AddressList = ({ addresses }) => {
           />
         ))}
     </ul>
-  )
-}
+  );
+};
 
 AddressList.propTypes = {
-  addresses: PropTypes.string,
-}
+  addresses: PropTypes.string.isRequired,
+};
 
-export default AddressList
+export default AddressList;

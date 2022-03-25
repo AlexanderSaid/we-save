@@ -1,16 +1,18 @@
 import React from "react";
-import HomepageSection from "../../components/HomepageSection";
+
 import TEST_ID from "./Home.testid";
-import SloganContainer from "../component/SloganContainer";
+import IntroSearch from "./HomeComponents/IntroSearch";
+import CustomerGuid from "./HomeComponents/CustomerGuid";
+import ShopGuid from "./HomeComponents/ShopGuid";
+import HowItWorks from "./HomeComponents/HowItWorks";
 
 const Home = () => {
   return (
     <div data-testid={TEST_ID.container}>
-      <SloganContainer />
-      <HomepageSection />
-      <div className="howItGoes">
-        <h1>How It Goes</h1>
-      </div>
+      <IntroSearch />
+      <CustomerGuid />
+      <ShopGuid />
+      <HowItWorks />
     </div>
   );
 };
