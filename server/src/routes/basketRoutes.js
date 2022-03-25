@@ -9,5 +9,3 @@ router.route("/").get(getAllBasket);
 router.route("/:category").get(getByCategoryBasket);
 
 export default router;
-
-

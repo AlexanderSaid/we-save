@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const SearchBar = () => {
   const { handleLocation } = useContext(AddressContext);
-  const [currentLocation, setCurrentLocation] = useState({
+  const [setCurrentLocation] = useState({
     lat: null,
     long: null,
   });
