@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
-import useFetchAPI from "../../hooks/useFetchAPI";
 import { Link } from "react-router-dom";
-// import { getDistance } from "geolib";
 import AddressList from "./AddressList";
 import PropTypes from "prop-types";
-const SearchBar = ({ location, handleLocation }) => {
-  let addresses;
-  if (location) {
-    let url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`;
-    const { data } = useFetchAPI(url);
-    addresses = data.features;
+
+const SearchBar = () => {
+  const [addresses, setAddresses] = useState([]);
+  const [location, setLocation] = useState("");
+
+  const handleLocation = (e) => {
+    setLocation(e.target.value);
+  };
+  async function fetchData() {
+    if (location) {
+      const response = await fetch(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
+      );
+      const data = await response.json();
+      setAddresses(data.features);
+    }
   }
+
+  useEffect(() => {
+    fetchData();
+  }, [location]);
   return (
     <div className="search-bar">
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
