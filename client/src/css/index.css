@@ -23,11 +23,12 @@
 }
 body {
   font-family: "Roboto", sans-serif;
+  margin: 0 auto;
+  padding: 0 auto;
 }
 
 /* BODY SECTION */
-.homePage {
-}
+
 .homePage .searchSection {
   width: 100%;
   background-color: var(--color-primary);
