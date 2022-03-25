@@ -2,6 +2,7 @@ import React from "react";
 import { BiCurrentLocation } from "react-icons/bi";
 import useFetchAPI from "../../hooks/useFetchAPI";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 // import { getDistance } from "geolib";
 import AddressList from "./AddressList";
 import PropTypes from "prop-types";
@@ -12,13 +13,34 @@ const SearchBar = ({ location, handleLocation }) => {
     const { data } = useFetchAPI(url);
     addresses = data.features;
   }
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: null,
+    long: null,
+  });
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      alert("Geolocation is not supported by the browser");
+    }
+  };
+
+  const getCoordinates = (position) => {
+    setCurrentLocation({
+      lat: position.coords.latitude,
+      long: position.coords.longitude,
+    });
+    console.log(position);
+  };
+
   return (
     <div className="search-bar">
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
         Find Shops Near You
       </h3>
       <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem]  ">
-        <BiCurrentLocation />
+        <BiCurrentLocation size={60} onClick={getLocation} />
         <input
           type="text"
           name="location"
@@ -31,6 +53,11 @@ const SearchBar = ({ location, handleLocation }) => {
             Search
           </button>
         </Link>
+      </div>
+      <div style={{ color: "white" }}>
+        <h4>Coordinates</h4>
+        <p>Latitude: {currentLocation.lat}</p>
+        <p>Longtitude: {currentLocation.long}</p>
       </div>
       <AddressList addresses={addresses} />
     </div>
