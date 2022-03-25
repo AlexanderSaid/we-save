@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import AddressList from "./AddressList";
 import PropTypes from "prop-types";
+import AddressContext from "../../context/AddressContext";
 
 const SearchBar = () => {
-  const [addresses, setAddresses] = useState([]);
-  const [location, setLocation] = useState("");
+  const { handleLocation } = useContext(AddressContext);
 
-  const handleLocation = (e) => {
-    setLocation(e.target.value);
-  };
-  async function fetchData() {
-    if (location) {
-      const response = await fetch(
-        `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
-      );
-      const data = await response.json();
-      setAddresses(data.features);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, [location]);
   return (
     <div className="search-bar">
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
@@ -44,7 +28,7 @@ const SearchBar = () => {
           </button>
         </Link>
       </div>
-      <AddressList addresses={addresses} />
+      <AddressList />
     </div>
   );
 };

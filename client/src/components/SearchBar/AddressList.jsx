@@ -1,25 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import AddressItem from "./AddressItem";
 import PropTypes from "prop-types";
-
-const AddressList = ({ addresses }) => {
-  return (
-    <ul>
-      {addresses &&
-        addresses.map((item, index) => (
-          <AddressItem
-            key={index}
-            formatted={item.properties.formatted}
-            lat={item.properties.lat}
-            lon={item.properties.lon}
-          />
-        ))}
-    </ul>
-  );
+import AddressContext from "../../context/AddressContext";
+const AddressList = () => {
+  const { coordinates } = useContext(AddressContext);
+  return coordinates ? (
+    <AddressItem
+      // formatted={item.properties.formatted}
+      lat={coordinates.latitude}
+      lon={coordinates.longitude}
+    />
+  ) : null;
 };
 
 AddressList.propTypes = {
-  addresses: PropTypes.string.isRequired,
+  addresses: PropTypes.string,
 };
 
 export default AddressList;
