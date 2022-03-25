@@ -34,7 +34,7 @@ const NavBar = () => {
           id="navbar-collapse"
         >
           <Link
-            to="#"
+            to="/"
             className="p-2 lg:px-4 md:mx-2 text-darkFont rounded bg-primary"
           >
             Home

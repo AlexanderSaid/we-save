@@ -1,8 +1,7 @@
 import React from "react";
-import SearchBar from "../../components/SetLocationSection/SearchBar";
-import BasketInfo from "./components/BasketInfo";
-import Categories from "./components/Categories";
-
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Categories from "./ResultsComponents/Categories";
+import BasketInfo from "./ResultsComponents/BasketInfo";
 const ResultsPage = () => {
   return (
     <div>

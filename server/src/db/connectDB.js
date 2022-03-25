@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const connectDB = () => mongoose.connect(process.env.MONGODB_URL)
+const connectDB = () => mongoose.connect(process.env.MONGODB_URL);
 
-export default connectDB
+export default connectDB;

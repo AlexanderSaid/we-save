@@ -4,7 +4,7 @@ import Home from "./pages/Home/Home";
 // import Baskets from "./pages/Baskets/Baskets";
 import "./css/index.css";
 import Layout from "./components/layout/Layout";
-import ResultsPage from "./pages/ResultsPage/ResultsPage";
+import ResultsPage from "./pages/Results/ResultsPage";
 
 const App = () => {
   return (
