@@ -14,7 +14,6 @@ const SearchBar = ({ location, handleLocation }) => {
   return (
     <>
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
-        {" "}
         Find Shops Near You
       </h3>
 
@@ -27,15 +26,12 @@ const SearchBar = ({ location, handleLocation }) => {
           placeholder="Enter Your Post Code"
           onChange={(e) => handleLocation(e)}
         />
-        <Link to="/baskets">
+        <Link to="/results">
           <button
-            className={`m-2 rounded px-4 px-4 py-2 font-semibold text-black-400 ${
-              location.length > 0
-                ? "bg-primary"
-                : "bg-gray-500 cursor-not-allowed"
-            }`}
+            className={
+              "m-2 rounded px-4 px-4 py-2 font-semibold text-black-400"
+            }
           >
-            {" "}
             Search
           </button>
         </Link>
