@@ -1,18 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
-import useFetchAPI from "../../hooks/useFetchAPI";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-// import { getDistance } from "geolib";
 import AddressList from "./AddressList";
 import PropTypes from "prop-types";
-const SearchBar = ({ location, handleLocation }) => {
-  let addresses;
-  if (location) {
-    let url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`;
-    const { data } = useFetchAPI(url);
-    addresses = data.features;
-  }
+import AddressContext from "../../context/AddressContext";
+import { useState } from "react";
+
+const SearchBar = () => {
+  const { handleLocation } = useContext(AddressContext);
   const [currentLocation, setCurrentLocation] = useState({
     lat: null,
     long: null,
@@ -32,7 +27,6 @@ const SearchBar = ({ location, handleLocation }) => {
       long: position.coords.longitude,
     });
   };
-
   return (
     <div className="search-bar">
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
@@ -53,12 +47,7 @@ const SearchBar = ({ location, handleLocation }) => {
           </button>
         </Link>
       </div>
-      <div style={{ color: "white" }}>
-        <h4>Coordinates</h4>
-        <p>Latitude: {currentLocation.lat}</p>
-        <p>Longtitude: {currentLocation.long}</p>
-      </div>
-      <AddressList addresses={addresses} />
+      <AddressList />
     </div>
   );
 };
