@@ -4,17 +4,14 @@ import AppWrapper from "./AppWrapper";
 import App from "./App";
 import { Routes, Route } from "react-router-dom";
 import { AddressProvider } from "./context/AddressContext";
-import { CategoryProvider } from "./context/CategoryContext";
 
 ReactDOM.render(
   <AppWrapper>
-    <CategoryProvider>
-      <AddressProvider>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
-      </AddressProvider>
-    </CategoryProvider>
+    <AddressProvider>
+      <Routes>
+        <Route path="/*" element={<App />} />
+      </Routes>
+    </AddressProvider>
   </AppWrapper>,
   document.getElementById("root")
 );

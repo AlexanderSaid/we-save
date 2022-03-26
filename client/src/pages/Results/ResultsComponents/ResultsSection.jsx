@@ -6,13 +6,6 @@ import AddressContext from "../../../context/AddressContext";
 const ResultsSection = ({ baskets }) => {
   const { coordinates } = useContext(AddressContext);
 
-  // const filterBaskets = (category) => {
-  //   nearLocation &&
-  //     nearLocation.filter((item) => {
-  //       item.baskets[0].categories[0] === category;
-  //     });
-  // };
-
   return (
     <div className="flex flex-col items-center">
       <ul className="w-[50%] min-w-[400px] max-w-[700px]">
