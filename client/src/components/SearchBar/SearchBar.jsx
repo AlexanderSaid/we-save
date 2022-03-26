@@ -37,16 +37,17 @@ const SearchBar = () => {
         <input
           type="text"
           name="location"
-          className="w-full  border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none "
+          className="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none "
           placeholder="Enter Your Post Code"
           onChange={(e) => handleLocation(e)}
         />
         <Link to="/results">
-          <button className="m-2 rounded px-4 px-4 py-2 font-semibold text-black-400">
+          <button className="px-4 py-2 m-2 font-semibold rounded text-black-400">
             Search
           </button>
         </Link>
       </div>
+      {currentLocation}
       <AddressList />
     </div>
   );

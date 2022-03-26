@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import Shop from "../../models/Shop.js";
 import { faker } from "@faker-js/faker";
+const { Types } = mongoose;
+
 mongoose.connect(
   "mongodb+srv://c34candc:GfzMj4ZFqnkxGeR8@cluster0.pmphz.mongodb.net/devDatabase?retryWrites=true&w=majority"
 );
@@ -142,7 +144,7 @@ const seedDb = async () => {
       kvk: "123456",
       iban: faker.finance.iban(),
       description: faker.lorem.sentences(3),
-      baskets: ["6239d98016ce4b23701bdd22"],
+      baskets: [Types.ObjectId("623d89742e21a2b84d209761")],
       image: faker.image.avatar(),
     });
   }
