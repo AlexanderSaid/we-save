@@ -133,6 +133,21 @@ const addresses = [
     lon: 4.815199428000001,
   },
 ];
+
+const ids = [
+  "5ca4bbc7a2dd94ee58162392",
+  "5ca4bbc7a2dd94ee58162396",
+  "5ca4bbc7a2dd94ee581623b8",
+  "5ca4bbc7a2dd94ee581623a4",
+  "5ca4bbc7a2dd94ee581623bc",
+  "5ca4bbc7a2dd94ee581623d1",
+  "5ca4bbc7a2dd94ee581623da",
+  "5ca4bbc7a2dd94ee581623de",
+  "5ca4bbc7a2dd94ee581623e5",
+  "5ca4bbc7a2dd94ee581623e6",
+  "5ca4bbc7a2dd94ee581623e7",
+  "5ca4bbc7a2dd94ee581623e8",
+];
 const seedDb = async () => {
   await Shop.deleteMany({});
   for (let i = 0; i < 10; i++) {
@@ -144,7 +159,7 @@ const seedDb = async () => {
       kvk: "123456",
       iban: faker.finance.iban(),
       description: faker.lorem.sentences(3),
-      baskets: [Types.ObjectId("623d89742e21a2b84d209761")],
+      baskets: [Types.ObjectId(ids[i])],
       image: faker.image.avatar(),
     });
   }
