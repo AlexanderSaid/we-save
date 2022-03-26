@@ -1,28 +1,41 @@
-import React from "react";
-import useFetchAPI from "../../hooks/useFetchAPI";
 import { Link } from "react-router-dom";
-import CurrentLocation from "../../../public/assets/location.png";
-// import { getDistance } from "geolib";
+import React, { useState, useContext } from "react";
+import { BiCurrentLocation } from "react-icons/bi";
+
 import AddressList from "./AddressList";
 import PropTypes from "prop-types";
-const SearchBar = ({ location, handleLocation }) => {
-  let addresses;
-  if (location) {
-    let url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`;
-    const { data } = useFetchAPI(url);
-    addresses = data.features;
-  }
+import AddressContext from "../../context/AddressContext";
+
+const SearchBar = () => {
+  const { handleLocation } = useContext(AddressContext);
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: null,
+    long: null,
+  });
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      alert("Geolocation is not supported by the browser");
+    }
+  };
+
+  const getCoordinates = (position) => {
+    setCurrentLocation({
+      lat: position.coords.latitude,
+      long: position.coords.longitude,
+    });
+  };
   return (
     <div className="search-bar">
-      <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl">
+      <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl ">
         Find Shops Near You
       </h3>
-      <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem]  border border-darkBg">
-        <img
-          src={CurrentLocation}
-          className="w-[2rem] h-[2rem] 
-        mt-3 ml-2"
-        />
+
+      <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem] border border-darkBg mb-10">
+        <BiCurrentLocation size={60} onClick={getLocation} />
+
         <input
           type="text"
           name="location"
@@ -31,12 +44,13 @@ const SearchBar = ({ location, handleLocation }) => {
           onChange={(e) => handleLocation(e)}
         />
         <Link to="/results">
-          <button className="m-2 rounded px-4 px-4 py-2 font-semibold text-black-400">
+          <button className="m-2 rounded px-4  py-2 font-semibold text-black-400 bg-primary ">
             Search
           </button>
         </Link>
       </div>
-      <AddressList addresses={addresses} />
+      <AddressList />
+      {currentLocation.lat}
     </div>
   );
 };

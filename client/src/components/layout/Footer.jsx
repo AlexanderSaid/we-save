@@ -9,13 +9,13 @@ import {
 
 const Footer = () => {
   return (
-    <div className="mb-0">
-      <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+    <div className="mb-0 flex-col r">
+      <div className="lg:ml-40 px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-          <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+          <a className="flex lg:ml-[150px] title-font font-medium items-center md:justify-start justify-center text-gray-900">
             <SiFoodpanda size={70} color="white" />
           </a>
-          <p className="mt-2 text-sm text-white">Food Saver</p>
+          <p className="lg:ml-[150px] mt-2 text-sm text-white">Food Saver</p>
         </div>
         <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
