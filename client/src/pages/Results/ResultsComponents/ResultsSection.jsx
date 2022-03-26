@@ -16,7 +16,7 @@ const ResultsSection = () => {
     })();
   }, []);
 
-  if (shops) {
+  if (shops && coordinates.latitude) {
     for (let i = 0; i < shops.length; i++) {
       const distance = getDistance(coordinates, {
         latitude: shops[i].address.lat,
