@@ -29,7 +29,7 @@ const ShopGuid = () => {
             </p>
             <a className="block mt-8 text-indigo-700 ">
               <button className="border border-teal-500 text-darkFont block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-teal-500 hover:text-white">
-                Customer Page
+                Owner Page
               </button>
             </a>
           </div>

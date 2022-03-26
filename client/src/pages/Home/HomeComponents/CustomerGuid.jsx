@@ -3,9 +3,9 @@ import React from "react";
 const CostumerGuid = () => {
   return (
     <section className="bg-white">
-      <div className="max-w-5xl px-6 py-16 mx-auto">
-        <div className="items-center md:flex md:space-x-6">
-          <div className="md:w-1/2">
+      <div className="max-w-5xl px-6 py-16 mx-auto ">
+        <div className="items-center  lg:flex md:space-x-6 ">
+          <div className="md:w-1/2 ">
             <h3 className="text-2xl font-semibold text-gray-800">
               Lorem ipsum dolor sit amet, consectetur
             </h3>
