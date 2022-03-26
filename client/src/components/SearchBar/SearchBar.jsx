@@ -1,32 +1,13 @@
 import { Link } from "react-router-dom";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
-
-import AddressList from "./AddressList";
 import PropTypes from "prop-types";
 import AddressContext from "../../context/AddressContext";
 
 const SearchBar = () => {
-  const { handleLocation } = useContext(AddressContext);
-  const [setCurrentLocation] = useState({
-    lat: null,
-    long: null,
-  });
+  const { handleLocation, getLocation, postcode, location } =
+    useContext(AddressContext);
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getCoordinates);
-    } else {
-      alert("Geolocation is not supported by the browser");
-    }
-  };
-
-  const getCoordinates = (position) => {
-    setCurrentLocation({
-      lat: position.coords.latitude,
-      long: position.coords.longitude,
-    });
-  };
   return (
     <div className="search-bar">
       <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl ">
@@ -39,8 +20,11 @@ const SearchBar = () => {
         <input
           type="text"
           name="location"
+          value={location}
           className="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none "
-          placeholder="Enter Your Post Code"
+          placeholder={
+            postcode ? `Your Postcode ${postcode}` : "Enter Your Post Code"
+          }
           onChange={(e) => handleLocation(e)}
         />
         <Link to="/results">
@@ -49,7 +33,6 @@ const SearchBar = () => {
           </button>
         </Link>
       </div>
-      <AddressList />
     </div>
   );
 };
