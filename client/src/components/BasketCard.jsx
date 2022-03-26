@@ -30,10 +30,8 @@ const BasketCard = ({
       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
         <p>
           {" "}
-          <span className="line-through text-gray-300">
-            `${oldPrice} €`
-          </span>{" "}
-          <span> ` ${newPrice} €`</span>{" "}
+          <span className="line-through text-gray-300">{oldPrice} €</span>{" "}
+          <span> {newPrice} €</span>{" "}
         </p>
       </div>
     </div>

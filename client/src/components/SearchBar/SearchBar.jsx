@@ -15,7 +15,9 @@ const SearchBar = () => {
       </h3>
 
       <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem] border border-darkBg mb-10">
-        <BiCurrentLocation size={60} onClick={getLocation} />
+        <div className="p-4">
+          <BiCurrentLocation size={30} onClick={getLocation} />
+        </div>
 
         <input
           type="text"
