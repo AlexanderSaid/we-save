@@ -49,9 +49,7 @@ const SearchBar = () => {
           </button>
         </Link>
       </div>
-      {currentLocation}
       <AddressList />
-      {currentLocation.lat}
     </div>
   );
 };

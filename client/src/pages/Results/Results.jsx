@@ -10,7 +10,9 @@ const Results = () => {
         <SearchBar />
       </div>
       <Categories />
-      <ResultsSection />
+      <div className="h-[100vh]">
+        <ResultsSection />
+      </div>
     </div>
   );
 };

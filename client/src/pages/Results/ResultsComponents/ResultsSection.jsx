@@ -11,7 +11,7 @@ const ResultsSection = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get("http://localhost:5001/api/shops");
+      const { data } = await axios.get("http://localhost:5000/api/shops");
       setShops(data);
     })();
   }, []);

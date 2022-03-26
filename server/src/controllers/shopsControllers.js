@@ -1,5 +1,5 @@
 import Shop from "../models/Shop.js";
-import Basket from "../models/Basket.js";
+// import Basket from "../models/Basket.js";
 import asyncHandler from "express-async-handler";
 
 const getAllShops = asyncHandler(async (req, res) => {

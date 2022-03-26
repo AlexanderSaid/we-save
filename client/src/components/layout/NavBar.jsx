@@ -14,7 +14,7 @@ const NavBar = () => {
 
   return (
     <nav className="bg-darkBg py-2 md:py-4 ">
-      <div className="container px-4 mx-auto md:flex md:items-center">
+      <div className="container px-4 mx-auto md:flex md:items-center ">
         <div className="flex justify-between items-center">
           <div className="font-bold text-xl text-lightFont">
             <SiFoodpanda size={50} />
