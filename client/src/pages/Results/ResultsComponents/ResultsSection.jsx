@@ -27,6 +27,7 @@ const ResultsSection = () => {
       }
     }
   }
+
   return (
     <div>
       <ul>
