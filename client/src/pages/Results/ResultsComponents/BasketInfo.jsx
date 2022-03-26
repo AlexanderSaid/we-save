@@ -3,7 +3,7 @@ import { FaShoppingBasket } from "react-icons/fa";
 
 const BasketInfo = () => {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto mb-20 mt-10">
       <div className="p-4 max-w-2xl bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
