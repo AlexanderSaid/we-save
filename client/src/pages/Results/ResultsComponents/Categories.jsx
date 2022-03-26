@@ -26,14 +26,14 @@ const Categories = ({ baskets, filteredBaskets }) => {
   return (
     <section className="container flex flex-col flex-wrap justify-center px-6 mx-auto my-1 -m-4 md:flex-row">
       {categoryList.map((title, index) => (
-        <div className="p-2 md:w-48" key={index} onClick={handleClick}>
+        <div className="p-2 md:w-48" key={index}>
           <a
             href="#"
             className="flex flex-col items-center p-1 bg-blue-200 shadow-xs cursor-pointer rounded-2xl hover:bg-blue-500 hover:text-gray-100"
           >
             {/* <MdBakeryDining size={30} /> */}
-            <div name={title}>
-              <p className="font-medium text-s">{title}</p>
+            <div name={title} onClick={handleClick} className="w-full ">
+              <p className="font-medium text-center text-s w-[100%]">{title}</p>
             </div>
           </a>
         </div>
