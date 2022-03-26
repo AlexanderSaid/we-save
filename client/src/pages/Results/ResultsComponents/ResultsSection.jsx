@@ -34,10 +34,12 @@ const ResultsSection = () => {
         {nearLocation &&
           nearLocation.sort((a, b) => a - b) &&
           nearLocation.map((shop) => (
-            <li key={shop._id}>
+            <li key={shop._id} className="py-3 sm:py-4">
               <BasketCard
                 name={shop.name}
-                category={"Breakfast basket"}
+                category={shop.baskets[0].categories[0]}
+                oldPrice={shop.baskets[0].price.original}
+                newPrice={shop.baskets[0].price.discounted}
                 lat={shop.address.lat}
                 lon={shop.address.lon}
                 coordinates={coordinates}
