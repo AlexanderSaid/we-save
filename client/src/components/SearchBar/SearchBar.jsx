@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import AddressContext from "../../context/AddressContext";
 
 const SearchBar = () => {
-  const { handleLocation, getLocation, postcode, location } =
+  const { handleLocation, getLocation, postcode, location, notification } =
     useContext(AddressContext);
 
   return (
@@ -29,12 +29,17 @@ const SearchBar = () => {
           }
           onChange={(e) => handleLocation(e)}
         />
-        <Link to="/results">
+        <Link
+          to={
+            notification.length === 0 && location.length >= 6 ? "/results" : "/"
+          }
+        >
           <button className="px-4 py-2 m-2 font-semibold rounded text-black-400">
             Search
           </button>
         </Link>
       </div>
+      <span>{notification}</span>
     </div>
   );
 };
