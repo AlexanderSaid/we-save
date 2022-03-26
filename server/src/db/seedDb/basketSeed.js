@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
 import Basket from "../../models/Basket.js";
-mongoose.connect(
-  "mongodb+srv://c34candc:GfzMj4ZFqnkxGeR8@cluster0.pmphz.mongodb.net/devDatabase?retryWrites=true&w=majority"
-);
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-  console.log("Database connected");
-});
+// import dotenv from "dotenv";
+import connectDB from "../connectDB";
+
+connectDB();
+// dotenv.config({ path: "../../../.env" });
+// mongoose.connect(process.env.MONGODB_URL);
 
 const seedDb = async () => {
   await Basket.deleteMany({});
