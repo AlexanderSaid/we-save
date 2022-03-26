@@ -7,9 +7,10 @@ const basketSchema = new Schema(
       type: String,
       enum: [
         "Breakfast basket",
-        "Launch basket",
+        "Lunch basket",
         "Dinner basket",
         "Surprise basket",
+        "Pastries basket",
       ],
       required: [true, "Please choose the basket name"],
     },
