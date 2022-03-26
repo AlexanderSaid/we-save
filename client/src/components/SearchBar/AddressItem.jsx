@@ -6,8 +6,8 @@ const AddressItem = ({ lat, lon }) => {
 };
 
 AddressItem.propTypes = {
-  lat: PropTypes.string.isRequired,
-  lon: PropTypes.string.isRequired,
+  lat: PropTypes.number,
+  lon: PropTypes.number,
 };
 
 export default AddressItem;
