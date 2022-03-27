@@ -17,7 +17,11 @@ const SearchBar = () => {
 
         <div className="flex rounded bg-white lg:w-[30rem] sm:w-[20rem] border border-darkBg mb-10 ">
           <div className="p-4">
-            <BiCurrentLocation size={30} onClick={getLocation} />
+            <BiCurrentLocation
+              size={30}
+              onClick={getLocation}
+              className="cursor-pointer	"
+            />
           </div>
 
           <input
@@ -30,13 +34,7 @@ const SearchBar = () => {
             }
             onChange={(e) => handleLocation(e)}
           />
-          <Link
-            to={
-              notification.length === 0 && location.length >= 6
-                ? "/results"
-                : "/"
-            }
-          >
+          <Link to={"/results"}>
             <button
               className="px-4 py-2  text-bodySmall rounded text-black-400 text-center bg-primary
             h-full "
