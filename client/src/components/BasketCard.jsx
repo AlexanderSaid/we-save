@@ -11,11 +11,13 @@ const BasketCard = ({
   coordinates,
   lat,
   lon,
+  amount,
 }) => {
   return (
     <div className="flex items-center space-x-4">
       <div className="flex-shrink-0">
         <FaShoppingBasket size={40} />
+        <span className="text-gray-600 "> {amount} left</span>
       </div>
       <div className="flex-1 min-w-0">
         <h4>{name}</h4>
@@ -47,5 +49,6 @@ BasketCard.propTypes = {
   coordinates: PropTypes.object,
   oldPrice: PropTypes.number,
   newPrice: PropTypes.number,
+  amount: PropTypes.number,
 };
 export default BasketCard;

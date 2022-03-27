@@ -24,6 +24,7 @@ const ResultsSection = ({ baskets }) => {
                   lat={shop.address.lat}
                   lon={shop.address.lon}
                   coordinates={coordinates}
+                  amount={shop.baskets.length}
                 />
               </li>
             ))}
