@@ -1,5 +1,6 @@
 import React, { useEffect, useState, createContext } from "react";
 import PropTypes from "prop-types";
+import ErrorMessage from "../components/layout/ErrorMessage";
 const AddressContext = createContext({});
 
 export const AddressProvider = ({ children }) => {
@@ -54,9 +55,7 @@ export const AddressProvider = ({ children }) => {
 
       if (location.length >= 6) {
         if (address.features[0].properties.city != "Amsterdam") {
-          setNotification(
-            "We are now available in the city of Amsterdam We hope to expand our services to your city soon."
-          );
+          setNotification(<ErrorMessage />);
         } else {
           setNotification("");
         }
