@@ -23,15 +23,17 @@ const BasketCard = ({
           {category}
         </p>
         <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-          {getDistance(coordinates, { latitude: lat, longitude: lon }) / 1000}{" "}
+          {(
+            getDistance(coordinates, { latitude: lat, longitude: lon }) / 1000
+          ).toFixed(1)}
           km away
         </p>
       </div>
       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
         <p>
           {" "}
-          <span className="line-through text-gray-300">{oldPrice} €</span>{" "}
-          <span> {newPrice} €</span>{" "}
+          <span className="line-through  text-error">{oldPrice} €</span>{" "}
+          <span className="text-green-600"> {newPrice} €</span>{" "}
         </p>
       </div>
     </div>

@@ -7,8 +7,8 @@ const ResultsSection = ({ baskets }) => {
   const { coordinates } = useContext(AddressContext);
 
   return (
-    <div className="flex flex-col items-center">
-      <ul className="w-[50%] min-w-[400px] max-w-[700px]">
+    <div className="flex flex-col items-center ">
+      <ul className="w-[50%] min-w-[400px] max-w-[700px] overflow-auto">
         {baskets &&
           baskets.sort((a, b) => a - b) &&
           baskets.map((shop) => (
