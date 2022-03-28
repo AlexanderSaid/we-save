@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 import AddressContext from "../../context/AddressContext";
 
 const SearchBar = () => {
-  const { handleLocation, getLocation, postcode, location, notification } =
+  const { handleLocation, getCurrentLocation, postcode, inputValue } =
     useContext(AddressContext);
 
   return (
     <>
-      <div className="search-bar flex flex-col">
-        <h3 className="mt-2 mb-4 text-3xl font-bold text-white md:text-xl block ">
+      <div className="flex flex-col search-bar">
+        <h3 className="block mt-2 mb-4 text-3xl font-bold text-white md:text-xl ">
           Find Shops Near You
         </h3>
 
@@ -19,15 +19,15 @@ const SearchBar = () => {
           <div className="p-4">
             <BiCurrentLocation
               size={30}
-              onClick={getLocation}
-              className="cursor-pointer	"
+              onClick={getCurrentLocation}
+              className="cursor-pointer "
             />
           </div>
 
           <input
             type="text"
             name="location"
-            value={location}
+            value={inputValue}
             className="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none "
             placeholder={
               postcode ? `Your Postcode ${postcode}` : "Enter Your Post Code"
@@ -35,21 +35,17 @@ const SearchBar = () => {
             onChange={(e) => handleLocation(e)}
           />
           <Link to={"/results"}>
-            <button
-              className="px-4 py-2  text-bodySmall rounded text-black-400 text-center bg-primary
-            h-full "
-            >
+            <button className="h-full px-4 py-2 text-center rounded text-bodySmall text-black-400 bg-primary ">
               Search
             </button>
           </Link>
         </div>
-        <div className="lg:w-[30rem] sm:w-[20rem]">{notification}</div>
       </div>
     </>
   );
 };
 SearchBar.propTypes = {
-  location: PropTypes.string,
+  inputValue: PropTypes.string,
   handleLocation: PropTypes.func,
 };
 export default SearchBar;

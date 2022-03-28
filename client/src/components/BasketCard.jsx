@@ -34,7 +34,7 @@ const BasketCard = ({
       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
         <p>
           {" "}
-          <span className="line-through  text-error">{oldPrice} €</span>{" "}
+          <span className="line-through text-error">{oldPrice} €</span>{" "}
           <span className="text-green-600"> {newPrice} €</span>{" "}
         </p>
       </div>
