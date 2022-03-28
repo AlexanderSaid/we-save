@@ -8,6 +8,7 @@ import AddressContext from "../../context/AddressContext";
 
 const Results = () => {
   const { coordinates } = useContext(AddressContext);
+  // All shops in the database
   const [shops, setShops] = useState(null);
   const [filteredCategories, setFilteredCategories] = useState();
 
