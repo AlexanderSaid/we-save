@@ -8,7 +8,7 @@ const getAllShops = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("there are no shops");
   }
-  res.status(201).json(shops);
+  res.status(201).json({ success: true, result: shops });
 });
 
 export { getAllShops };
