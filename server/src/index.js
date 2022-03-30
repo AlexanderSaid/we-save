@@ -12,7 +12,9 @@ const port = process.env.PORT;
 
 const startServer = async () => {
   await connectDB();
-  app.listen(port);
+  app.listen(port, () => {
+    console.log(`welcome on ${port}`);
+  });
 };
 
 /****** Host our client code for Heroku *****/

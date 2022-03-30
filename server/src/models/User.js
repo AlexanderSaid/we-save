@@ -23,24 +23,20 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      min: 8,
+      min: [6, "Too short password"],
     },
-    role: [
-      {
-        is_admin: {
-          type: Boolean,
-          default: false,
-        },
-        is_owner: {
-          type: Boolean,
-          default: false,
-        },
-        is_customer: {
-          type: Boolean,
-          default: true,
-        },
-      },
-    ],
+    is_admin: {
+      type: Boolean,
+      default: false,
+    },
+    is_owner: {
+      type: Boolean,
+      default: false,
+    },
+    is_customer: {
+      type: Boolean,
+      default: true,
+    },
     postcode: {
       type: String,
     },

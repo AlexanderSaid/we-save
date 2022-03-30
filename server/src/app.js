@@ -3,11 +3,14 @@ import cors from "cors";
 
 import shopRouter from "./routes/shopsRoutes.js";
 import basketRouter from "./routes/basketRoutes.js";
+import userRouter from "./routes/userRoutes.js";
+
 // Create an express server
 const app = express();
 
 // Tell express to use the json middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Allow everyone to access our API. In a real application, we would need to restrict this!
 app.use(cors());
 
@@ -18,5 +21,6 @@ app.use(cors());
  */
 app.use("/api/shops", shopRouter);
 app.use("/api/baskets", basketRouter);
+app.use("/api/users", userRouter);
 
 export default app;
