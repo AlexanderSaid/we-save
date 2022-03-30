@@ -11,8 +11,8 @@ export const AddressProvider = ({ children }) => {
     longitude: null,
   });
   // the result of API to transfer from coordinates
-  const [postcode, setPostcode] = useState(null);
-
+  const [postcode, setPostcode] = useState("");
+  const [current, setCurrent] = useState(false);
   const handleLocation = (e) => {
     setInputValue(e.target.value);
   };
@@ -34,7 +34,7 @@ export const AddressProvider = ({ children }) => {
 
   useEffect(() => {
     getPostCode();
-  }, [coordinates]);
+  }, [current]);
 
   // API to get the information about the address or postcode.
   async function getAddress() {
@@ -63,7 +63,8 @@ export const AddressProvider = ({ children }) => {
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(getCoordinates);
-      setInputValue("");
+      setInputValue(postcode);
+      setCurrent(!current);
     } else {
       alert("Geolocation is not supported by the browser");
     }

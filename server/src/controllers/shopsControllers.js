@@ -7,7 +7,7 @@ const getAllShops = asyncHandler(async (req, res) => {
   if (!shops) {
     res.status(401).json({ message: "there are no shops" });
   }
-  res.status(201).json(shops);
+  res.status(201).json({ success: true, result: shops });
 });
 
 export { getAllShops };
