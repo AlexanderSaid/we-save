@@ -4,7 +4,8 @@ import Basket from "../models/Basket.js";
 const getAllBasket = asyncHandler(async (req, res) => {
   const allBaskets = await Basket.find({});
   if (!allBaskets) {
-    res.status(401).json({ message: "there are no baskets" });
+    res.status(401);
+    throw new Error("there are no baskets");
   }
   res.status(201).json(allBaskets);
 });
@@ -12,15 +13,17 @@ const getByCategoryBasket = asyncHandler(async (req, res) => {
   const { category } = req.params;
   const allBaskets = await Basket.find({});
   if (!allBaskets) {
-    res.status(401).json({ message: "there are no baskets" });
+    res.status(401);
+    throw new Error("there are no baskets");
   }
   const basketCategory = allBaskets.filter((basket) =>
     basket.categories.includes(category)
   );
   if (!basketCategory || basketCategory.length === 0) {
-    res.status(401).json({
-      message: "there is no basket available this moment with this category",
-    });
+    res.status(401);
+    throw new Error(
+      "there is no basket available this moment with this category"
+    );
   }
   res.status(201).json(basketCategory);
 });
