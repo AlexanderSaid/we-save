@@ -7,7 +7,7 @@ import AddressContext from "../../context/AddressContext";
 import useFetch from "../../hooks/useFetch";
 
 const Results = () => {
-  const { coordinates } = useContext(AddressContext);
+  const { coordinates, currentCoordinates } = useContext(AddressContext);
   // All shops in the database
   const [shops, setShops] = useState(null);
   const [filteredCategories, setFilteredCategories] = useState();
@@ -32,35 +32,37 @@ const Results = () => {
   }, []);
 
   //Post Method
-  const { performFetch: performPost, cancelFetch: cleanPost } = useFetch(
-    "/users",
-    (response) => {
-      setShops(response.result);
-    }
-  );
+  // const { performFetch: performPost, cancelFetch: cleanPost } = useFetch(
+  //   "/users",
+  //   (response) => {
+  //     setShops(response.result);
+  //   }
+  // );
 
-  useEffect(() => {
-    performPost({
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        first: "Roy",
-        last: "Roumieh",
-        email: "roy.2621@gmail.com",
-        postcode: "7523dh",
-        password: "123456",
-      }),
-    });
-    return cleanPost;
-  }, []);
+  // useEffect(() => {
+  //   performPost({
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       first: "Roy",
+  //       last: "Roumieh",
+  //       email: "roy.2621@gmail.com",
+  //       postcode: "7523dh",
+  //       password: "123456",
+  //     }),
+  //   });
+  //   return cleanPost;
+  // }, []);
   // console.log(error);
 
-  if (shops && coordinates.latitude) {
+  const coord = currentCoordinates.latitude ? currentCoordinates : coordinates;
+
+  if (shops && coord.latitude) {
     for (let i = 0; i < shops.length; i++) {
-      const distance = getDistance(coordinates, {
+      const distance = getDistance(coord, {
         latitude: shops[i].address.lat,
         longitude: shops[i].address.lon,
       });
@@ -69,6 +71,7 @@ const Results = () => {
       }
     }
   }
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center ">

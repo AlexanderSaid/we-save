@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import AddressContext from "../../context/AddressContext";
 
 const SearchBar = () => {
-  const { handleLocation, getCurrentLocation, postcode, inputValue } =
+  const { handleLocation, getCurrentLocation, inputValue } =
     useContext(AddressContext);
 
   return (
@@ -29,9 +29,7 @@ const SearchBar = () => {
             name="location"
             value={inputValue}
             className="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none "
-            placeholder={
-              postcode ? `Your Postcode ${postcode}` : "Enter Your Post Code"
-            }
+            placeholder={"Enter Your Post Code"}
             onChange={(e) => handleLocation(e)}
           />
           <Link to={"/results"}>
