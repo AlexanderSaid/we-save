@@ -21,8 +21,6 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   const firstNameRef = useRef();
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
-  let user;
-  const [submit, setSubmit] = useState(false);
 
   /**
    * Every input has 3 states:
@@ -112,16 +110,13 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   //   return cancelFetch;
   // }, []);
 
-  const { performFetch, cancelFetch, error } = useFetch(
-    "/users",
-    (response) => {
-      user = response.result;
-    },
-  );
+  const { performFetch, cancelFetch, error } = useFetch("/users", () => {
+    setSuccess(true);
+  });
 
   useEffect(() => {
     return cancelFetch;
-  }, [submit]);
+  }, []);
 
   //- Connect with backend
   const handleSubmit = async (e) => {
@@ -140,43 +135,31 @@ const SignUp = ({ openSignUp, setSignUp }) => {
         password: password,
       }),
     });
-
-    // eslint-disable-next-line no-console
-    // console.log({ firstName, lastName, email, password, postcode });
-    // try {
-    //   const response = await axios.post(
-    //     url,
-    //     JSON.stringify({ first: firstName, lastName, email, password, postcode }),
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   setSuccess(true);
-    //   // clear input fields
-    // } catch (error) {
-    //   if (!error?.response) {
-    //     setErrorMessage("No Server Response");
-    //   }
-    //   if (errMessage.response?.state === 409) {
-    //     setErrorMessage(
-    //       `There is already an account using the email: ${email}`
-    //     );
-    //   }
-    //   setErrorMessage("Signing Up Failed");
-    //   //- Focus on error message when error
-    //   errRef.current.focus();
-    // }
   };
 
   if (success) {
     return (
-      <section>
-        <h3>You are signed up successfully!</h3>
-        <p>
-          <a href="#">Sign In</a>
-          <a href="#">Home Page</a>
-        </p>
+      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
+            <h3 className="mb-8 text-3xl text-center text-accent">
+              You are signed up successfully!
+            </h3>
+            <p>
+              <a href="#">Sign In</a>
+              <a href="#">Home Page</a>
+            </p>
+            <button
+              onClick={() => {
+                setSuccess(false);
+                setSignUp(false);
+              }}
+              className="w-full py-3 my-1 text-center rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none mt-9"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </section>
     );
   }
