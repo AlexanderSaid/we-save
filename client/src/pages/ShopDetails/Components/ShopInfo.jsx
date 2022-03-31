@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Header = ({ shop }) => {
+const ShopInfo = ({ shop }) => {
   return (
     <div className="w-full relative mt-0 overflow-hidden">
       <div className="top h-64 w-full bg-blue-600 overflow-hidden relative">
@@ -43,7 +43,7 @@ const Header = ({ shop }) => {
     </div>
   );
 };
-Header.propTypes = {
+ShopInfo.propTypes = {
   shop: PropTypes.object,
 };
-export default Header;
+export default ShopInfo;

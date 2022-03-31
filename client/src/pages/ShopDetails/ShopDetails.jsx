@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import Header from "./Components/Header";
+import ShopInfo from "./Components/ShopInfo";
 import BasketCard from "./Components/BasketCard";
 import Map from "./Components/Map";
 
@@ -28,15 +28,17 @@ const ShopDetails = () => {
   }, []);
   return shop ? (
     <div>
-      <Header shop={shop} />
-      <div className="my-4 bg-darkBg">
+      <ShopInfo shop={shop} />
+      <div className="my-4 bg-darkBg ">
         <h1 className="w-full text-center font-bold text-2xl my-10 text-white">
           {" "}
           AVAILABLE BASKETS
         </h1>
-        {shop.baskets.map((basket, index) => {
-          return <BasketCard key={index} data={basket} />;
-        })}
+        <div className="flex justify-center">
+          {shop.baskets.map((basket, index) => {
+            return <BasketCard key={index} data={basket} />;
+          })}
+        </div>
         <div className="w-full flex justify-center ">
           <a
             href="#"

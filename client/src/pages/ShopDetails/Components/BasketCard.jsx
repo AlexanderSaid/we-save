@@ -39,7 +39,6 @@ const BasketCard = ({ data }) => {
             <div className="flex flex-1 flex-col">
               <span className="font-semibold">Pick-up Time:</span>
               <p className="font-thin">
-                From{" "}
                 <span className="text-green-700 font-semibold">
                   {data.pickup.from.slice(14, 19)}
                 </span>{" "}
