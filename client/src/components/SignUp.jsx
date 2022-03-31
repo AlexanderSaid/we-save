@@ -120,32 +120,26 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   );
 
   useEffect(() => {
-    if (submit) {
-      performFetch({
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          first: firstName,
-          last: lastName,
-          email: email,
-          postcode: postcode,
-          password: password,
-        }),
-      });
-      // console.log("data sended");
-
-      return cancelFetch;
-    }
+    return cancelFetch;
   }, [submit]);
 
   //- Connect with backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmit(true);
-    // Post Method
+    performFetch({
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        first: firstName,
+        last: lastName,
+        email: email,
+        postcode: postcode,
+        password: password,
+      }),
+    });
 
     // eslint-disable-next-line no-console
     // console.log({ firstName, lastName, email, password, postcode });
