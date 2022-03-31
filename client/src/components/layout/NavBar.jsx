@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
-import SignIn from "./SignIn";
+
 import SignUp from "../SignUp";
 
 const NavBar = () => {

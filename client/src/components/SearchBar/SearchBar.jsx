@@ -10,8 +10,8 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="flex flex-col search-bar">
-        <h3 className="block mt-2 mb-4 text-3xl font-bold text-white md:text-xl ">
+      <div className="flex flex-col mt-10">
+        <h3 className="block mt-2 mb-4 lg:text-3xl font-bold text-white text-xl ">
           Find Shops Near You
         </h3>
 

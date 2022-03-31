@@ -13,7 +13,7 @@ const IntroSearch = () => {
       style={{ height: "500px" }}
     >
       <div className="text-center">
-        <h2 className="mt-6 text-3xl font-bold text-white md:text-5xl">
+        <h2 className="mt-6 lg:text-3xl font-bold text-white  text-2xl">
           TIME TO SAVE YOUR FOOD
         </h2>
         <div className="flex justify-center mt-8">

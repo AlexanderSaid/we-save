@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import SignIn from "./layout/SignIn";
 //- Declare regex validations
 const NAME_REGEX = /^[a-zA-Z]{3,}$/;
 const EMAIL_REGEX =
@@ -54,6 +55,8 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   const [errMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [signinPage, setSigninPage] = useState(false);
+
   //- FirstName input focus
   // useEffect(() => {
   //   firstNameRef.current.focus();
@@ -86,6 +89,12 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   useEffect(() => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
+
+  //- switch to signin page
+  const handleSigninPage = () => {
+    setSigninPage(true);
+    setSignUp(false);
+  };
 
   //- Connect with backend
   const handleSubmit = async (e) => {
@@ -129,10 +138,13 @@ const SignUp = ({ openSignUp, setSignUp }) => {
       </section>
     );
   }
+  if (signinPage) {
+    return <SignIn setSigninPage={setSigninPage} setSignUp={setSignUp} />;
+  }
 
   return (
     openSignUp && (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+      <section className="flex flex-col fixed top-0 bg-[rgba(19,19,19,0.62)]   left-0 right-0 w-full  h-full  z-[1000]">
         <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2  mb-6">
           <p
             ref={errRef}
@@ -337,7 +349,12 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </span>
                 <br />
                 Already have an account?
-                <span className="text-accent px-2">Sign in</span>
+                <span
+                  className="text-accent px-2 cursor-pointer"
+                  onClick={handleSigninPage}
+                >
+                  Sign in
+                </span>
               </div>
               <button
                 //- Disable SignUp button till all validation passed
