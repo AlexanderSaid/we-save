@@ -4,7 +4,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#E9FFC0",
-        accent: "#E9FFC0",
+        accent: "#2F998A",
         darkBg: "#092A35",
         lightBg: "#F6FFE6",
         darkFont: "#092A35",
@@ -25,6 +25,9 @@ module.exports = {
         bodyRegular: "16px",
         bodySmall: "14px",
         button: "10px",
+      },
+      screen: {
+        xs: { max: "640px" },
       },
     },
   },

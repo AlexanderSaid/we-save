@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
+import SignIn from "./SignIn";
+import SignUp from "../SignUp";
 
 const NavBar = () => {
   const [hidden, setHidden] = useState(true);
   const [flex, setFlex] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const navbarCollapse = () => {
     setHidden(!hidden);
@@ -61,8 +64,12 @@ const NavBar = () => {
             to="#"
             className=" p-2 lg:px-4 md:mx-2 text-lightFont rounded hover:bg-primary hover:text-gray-700 transition-colors duration-300 justify-center"
           >
-            <FiLogIn size={24} />
+            <div onClick={() => setIsOpen(true)}>
+              <FiLogIn size={24} />
+            </div>
           </Link>
+
+          <SignUp openSignUp={isOpen} setSignUp={setIsOpen} />
         </div>
       </div>
     </nav>
