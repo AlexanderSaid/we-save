@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 function SignIn({ close, setClose }) {
   const closeWindow = () => {
     close(false);
@@ -42,5 +42,9 @@ function SignIn({ close, setClose }) {
     </div>
   );
 }
+SignIn.propTypes = {
+  close: PropTypes.bool,
+  setClose: PropTypes.func,
+};
 
 export default SignIn;
