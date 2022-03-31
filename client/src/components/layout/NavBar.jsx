@@ -64,7 +64,11 @@ const NavBar = () => {
             to="#"
             className="justify-center p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
-            <div onClick={() => setIsOpen(true)}>
+            <div
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
               <FiLogIn size={24} />
             </div>
           </Link>
