@@ -23,5 +23,4 @@ app.use("/api/shops", shopRouter);
 app.use("/api/baskets", basketRouter);
 app.use("/api/users", userRouter);
 
-
 export default app;
