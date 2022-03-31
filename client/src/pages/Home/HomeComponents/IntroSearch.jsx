@@ -9,7 +9,7 @@ const IntroSearch = () => {
 
   return (
     <section
-      className="flex items-center justify-center bg-darkBg block"
+      className="flex items-center justify-center bg-darkBg block max-w-1440"
       style={{ height: "500px" }}
     >
       <div className="text-center">

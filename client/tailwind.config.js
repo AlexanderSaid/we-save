@@ -29,6 +29,9 @@ module.exports = {
       screen: {
         xs: { max: "640px" },
       },
+      maxWidth: {
+        1440: "1440px",
+      },
     },
   },
   plugins: [],

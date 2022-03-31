@@ -49,7 +49,7 @@ const NavBar = () => {
             Store Owner?
           </Link>
           <Link
-            to="#"
+            to="about-us"
             className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
             About Us
