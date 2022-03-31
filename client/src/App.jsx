@@ -6,6 +6,7 @@ import "./css/index.css";
 import Layout from "./components/layout/Layout";
 import Results from "./pages/Results/Results";
 import SignUp from "./components/SignUp";
+import Contact from "./pages/Contact/Contact";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="results" element={<Results />} />
           <Route path="sign-up" element={<SignUp />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
     </>

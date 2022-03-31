@@ -31,33 +31,6 @@ const Results = () => {
     return cleanUpGet;
   }, []);
 
-  //Post Method
-  // const { performFetch: performPost, cancelFetch: cleanPost } = useFetch(
-  //   "/users",
-  //   (response) => {
-  //     setShops(response.result);
-  //   }
-  // );
-
-  // useEffect(() => {
-  //   performPost({
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       first: "Roy",
-  //       last: "Roumieh",
-  //       email: "roy.2621@gmail.com",
-  //       postcode: "7523dh",
-  //       password: "123456",
-  //     }),
-  //   });
-  //   return cleanPost;
-  // }, []);
-  // console.log(error);
-
   const coord = currentCoordinates.latitude ? currentCoordinates : coordinates;
 
   if (shops && coord.latitude) {

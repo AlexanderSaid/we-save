@@ -5,6 +5,7 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import shopRouter from "./routes/shopsRoutes.js";
 import basketRouter from "./routes/basketRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import contactRouter from "./routes/contactRoutes.js";
 
 // Create an express server
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/api/shops", shopRouter);
 app.use("/api/baskets", basketRouter);
 app.use("/api/users", userRouter);
+app.use("/api/contact", contactRouter);
 
 app.use(errorHandler);
 

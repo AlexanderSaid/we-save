@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
-import SignIn from "./SignIn";
+// import SignIn from "./SignIn";
 import SignUp from "../SignUp";
 
 const NavBar = () => {
@@ -16,14 +16,14 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-darkBg py-2 md:py-4 ">
+    <nav className="py-2 bg-darkBg md:py-4 ">
       <div className="container px-4 mx-auto md:flex md:items-center ">
-        <div className="flex justify-between items-center">
-          <div className="font-bold text-xl text-lightFont">
+        <div className="flex items-center justify-between">
+          <div className="text-xl font-bold text-lightFont">
             <SiFoodpanda size={50} />
           </div>
           <button
-            className="border border-solid border-primary px-3 py-1 rounded text-lightBg opacity-50 hover:opacity-75 md:hidden"
+            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 md:hidden"
             id="navbar-toggle"
             onClick={navbarCollapse}
           >
@@ -38,31 +38,31 @@ const NavBar = () => {
         >
           <Link
             to="/"
-            className="p-2 lg:px-4 md:mx-2 text-darkFont rounded bg-primary"
+            className="p-2 rounded lg:px-4 md:mx-2 text-darkFont bg-primary"
           >
             Home
           </Link>
           <Link
             to="#"
-            className="p-2 lg:px-4 md:mx-2 text-lightFont rounded hover:bg-primary hover:text-gray-700 transition-colors duration-300"
+            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
             Store Owner?
           </Link>
           <Link
             to="#"
-            className="p-2 lg:px-4 md:mx-2 text-lightFont rounded hover:bg-primary hover:text-gray-700 transition-colors duration-300"
+            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
             About Us
           </Link>
           <Link
-            to="#"
-            className="p-2 lg:px-4 md:mx-2 text-lightFont rounded hover:bg-primary hover:text-gray-700 transition-colors duration-300"
+            to="/contact"
+            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
-            FAQ
+            Contact
           </Link>
           <Link
             to="#"
-            className=" p-2 lg:px-4 md:mx-2 text-lightFont rounded hover:bg-primary hover:text-gray-700 transition-colors duration-300 justify-center"
+            className="justify-center p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
             <div onClick={() => setIsOpen(true)}>
               <FiLogIn size={24} />
