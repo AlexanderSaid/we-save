@@ -8,7 +8,7 @@ module.exports = {
         darkBg: "#092A35",
         lightBg: "#F6FFE6",
         darkFont: "#092A35",
-        lightFont: "#FAF9F6",
+        lightFont: "#FCFFFC",
         error: "#940949",
       },
       fontFamily: {
