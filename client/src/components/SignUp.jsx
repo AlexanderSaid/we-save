@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import useFetch from "../hooks/useFetch.js";
 //- Declare regex validations
 const NAME_REGEX = /^[a-zA-Z]{3,}$/;
 const EMAIL_REGEX =
@@ -20,6 +21,8 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   const firstNameRef = useRef();
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
+  let user;
+  const [submit, setSubmit] = useState(false);
 
   /**
    * Every input has 3 states:
@@ -87,35 +90,89 @@ const SignUp = ({ openSignUp, setSignUp }) => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
 
+  // const { performFetch, cancelFetch, error } = useFetch("/users");
+
+  // useEffect(() => {
+  //   performFetch({
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       first: firstName,
+  //       last: lastName,
+  //       email: email,
+  //       postcode: postcode,
+  //       password: password,
+  //     }),
+  //   });
+  //   console.log("data sended");
+
+  //   return cancelFetch;
+  // }, []);
+
+  const { performFetch, cancelFetch, error } = useFetch(
+    "/users",
+    (response) => {
+      user = response.result;
+    },
+  );
+
+  useEffect(() => {
+    if (submit) {
+      performFetch({
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first: firstName,
+          last: lastName,
+          email: email,
+          postcode: postcode,
+          password: password,
+        }),
+      });
+      // console.log("data sended");
+
+      return cancelFetch;
+    }
+  }, [submit]);
+
   //- Connect with backend
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmit(true);
+    // Post Method
+
     // eslint-disable-next-line no-console
-    console.log({ firstName, lastName, email, password, postcode });
-    try {
-      // const response = await axios.post(
-      //   url,
-      //   JSON.stringify({ first: firstName, lastName, email, password, postcode }),
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //     withCredentials: true,
-      //   }
-      // );
-      setSuccess(true);
-      // clear input fields
-    } catch (error) {
-      if (!error?.response) {
-        setErrorMessage("No Server Response");
-      }
-      if (errMessage.response?.state === 409) {
-        setErrorMessage(
-          `There is already an account using the email: ${email}`
-        );
-      }
-      setErrorMessage("Signing Up Failed");
-      //- Focus on error message when error
-      errRef.current.focus();
-    }
+    // console.log({ firstName, lastName, email, password, postcode });
+    // try {
+    //   const response = await axios.post(
+    //     url,
+    //     JSON.stringify({ first: firstName, lastName, email, password, postcode }),
+    //     {
+    //       headers: { "Content-Type": "application/json" },
+    //       withCredentials: true,
+    //     }
+    //   );
+    //   setSuccess(true);
+    //   // clear input fields
+    // } catch (error) {
+    //   if (!error?.response) {
+    //     setErrorMessage("No Server Response");
+    //   }
+    //   if (errMessage.response?.state === 409) {
+    //     setErrorMessage(
+    //       `There is already an account using the email: ${email}`
+    //     );
+    //   }
+    //   setErrorMessage("Signing Up Failed");
+    //   //- Focus on error message when error
+    //   errRef.current.focus();
+    // }
   };
 
   if (success) {
@@ -133,7 +190,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   return (
     openSignUp && (
       <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
-        <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2  mb-6">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
           <p
             ref={errRef}
             className={`h-10 w-60 text-error ${
@@ -144,7 +201,10 @@ const SignUp = ({ openSignUp, setSignUp }) => {
             {errMessage}
           </p>
           <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-            <h1 className="mb-8 text-3xl text-accent text-center">
+            {error && (
+              <h1 className="mb-4 text-xl text-center text-red">{error}</h1>
+            )}
+            <h1 className="mb-8 text-3xl text-center text-accent">
               CREATE ACCOUNT
             </h1>
             <button
@@ -303,7 +363,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                   The confirmation does not match the password.
                 </p>
               </div>
-              <div className="input-container relative">
+              <div className="relative input-container">
                 <input
                   type="text"
                   id="postcode"
@@ -331,13 +391,13 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </p>
               </div>
 
-              <div className="text-darkFont mt-6 text-bodySmall pl-3 ">
-                <span className="text-button text-gray-400 lg:float-right ">
+              <div className="pl-3 mt-6 text-darkFont text-bodySmall ">
+                <span className="text-gray-400 text-button lg:float-right ">
                   Field with * is required
                 </span>
                 <br />
                 Already have an account?
-                <span className="text-accent px-2">Sign in</span>
+                <span className="px-2 text-accent">Sign in</span>
               </div>
               <button
                 //- Disable SignUp button till all validation passed
@@ -350,7 +410,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                     ? true
                     : false
                 }
-                className="w-full text-center py-3 rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none my-1 mt-9"
+                className="w-full py-3 my-1 text-center rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none mt-9"
               >
                 Create Account
               </button>
