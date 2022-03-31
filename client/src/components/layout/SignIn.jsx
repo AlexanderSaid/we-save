@@ -34,7 +34,7 @@ function SignIn({ setSigninPage, setSignUp }) {
   };
 
   return (
-    <section className="flex  flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+    <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
       <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2  mb-6">
         <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
           <h1 className="mb-8 text-3xl text-accent text-center">Sign In</h1>
@@ -83,7 +83,7 @@ function SignIn({ setSigninPage, setSignUp }) {
               </label>
             </div>
 
-            <div className="mt-4">
+            <div className=" text-darkFont mt-6 text-bodySmall pl-3">
               Create new Account?
               <span
                 className="text-accent px-2 cursor-pointer"
