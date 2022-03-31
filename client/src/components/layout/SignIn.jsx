@@ -72,7 +72,7 @@ function SignIn({ setSigninPage, setSignUp }) {
                 placeholder="password"
                 onChange={handleChange}
               />
-              <div className="absolute top-2 right-1">
+              <div className="absolute top-2 right-1 cursor-pointer">
                 <AiFillEye onClick={() => setShowPassword((prev) => !prev)} />
               </div>
               <label
@@ -94,7 +94,7 @@ function SignIn({ setSigninPage, setSignUp }) {
             </div>
             <button
               type="submit"
-              className="w-full text-center py-3 rounded bg-primary text-black hover:bg-green-dark focus:outline-none my-1 mt-4"
+              className=" cursor-pointer w-full text-center py-3 rounded bg-primary text-black hover:bg-green-dark focus:outline-none my-1 mt-4"
             >
               Sign In
             </button>

@@ -367,7 +367,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                     ? true
                     : false
                 }
-                className="w-full text-center py-3 rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none my-1 mt-9"
+                className="w-full text-center py-3 rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none my-1 mt-9 cursor-pointer"
               >
                 Create Account
               </button>
