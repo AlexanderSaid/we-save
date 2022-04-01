@@ -9,7 +9,7 @@ import asyncHandler from "express-async-handler";
 const getSingleShop = asyncHandler(async (req, res) => {
   const { id } = req.params;
   //get shop
-  const shop = await Shop.findById(id);
+  const shop = await Shop.findById(id).populate("baskets");
   if (!shop) {
     res.status(401).json({ msg: "Shop not found" });
   }

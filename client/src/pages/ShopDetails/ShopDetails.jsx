@@ -11,13 +11,9 @@ const ShopDetails = () => {
   const [shop, setShop] = useState(null);
   //Get Method
   const { performFetch: performGet, cancelFetch: cleanUpGet } = useFetch(
-    "/shops",
+    `/shops/${id}`,
     (response) => {
-      response.result.map((shop) => {
-        if (shop._id == id) {
-          setShop(shop);
-        }
-      });
+      setShop(response.result);
     }
   );
 
