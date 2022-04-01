@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const BasketCard = ({ data }) => {
+const ShopBasketCard = ({ data }) => {
   return (
     <div className="w-[320px]  mx-10">
       <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
@@ -55,10 +55,10 @@ const BasketCard = ({ data }) => {
               </span>
             </div>
           </div>
-          <p className="font-normal text-gray-700 mb-3 dark:text-gray-400">
-            <h2 className="font-semibold">Basket Description:</h2>
+          <div className="font-normal text-gray-700 mb-3 dark:text-gray-400">
+            <p className="font-semibold">Basket Description:</p>
             {data.description}
-          </p>
+          </div>
           <a
             href="#"
             className="flex w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 justify-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -70,7 +70,7 @@ const BasketCard = ({ data }) => {
     </div>
   );
 };
-BasketCard.propTypes = {
+ShopBasketCard.propTypes = {
   data: PropTypes.object,
 };
-export default BasketCard;
+export default ShopBasketCard;
