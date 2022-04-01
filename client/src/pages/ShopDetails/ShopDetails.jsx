@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import ShopInfo from "./Components/ShopInfo";
-import BasketCard from "./Components/BasketCard";
+import ShopBasketCard from "./Components/ShopBasketCard";
 import Map from "./Components/Map";
 
 const ShopDetails = () => {
@@ -32,7 +32,7 @@ const ShopDetails = () => {
         </h1>
         <div className="flex justify-center">
           {shop.baskets.map((basket, index) => {
-            return <BasketCard key={index} data={basket} />;
+            return <ShopBasketCard key={index} data={basket} />;
           })}
         </div>
         <div className="w-full flex justify-center ">

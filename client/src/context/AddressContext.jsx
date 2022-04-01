@@ -7,12 +7,12 @@ export const AddressProvider = ({ children }) => {
   const [inputValue, setInputValue] = useState("");
   // coordinates for inputValue
   const [currentCoordinates, setCurrentCoordinates] = useState({
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
   });
   const [coordinates, setCoordinates] = useState({
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
   });
   // the result of API to transfer from coordinates
   const [postcode, setPostcode] = useState("");
@@ -36,8 +36,8 @@ export const AddressProvider = ({ children }) => {
       longitude: position.coords.longitude,
     });
     setCoordinates({
-      latitude: "",
-      longitude: "",
+      latitude: 0,
+      longitude: 0,
     });
   };
 
@@ -76,8 +76,8 @@ export const AddressProvider = ({ children }) => {
         longitude: address.features[0].properties.lon,
       });
       setCurrentCoordinates({
-        latitude: "",
-        longitude: "",
+        latitude: 0,
+        longitude: 0,
       });
     } catch (error) {
       // eslint-disable-next-line no-console

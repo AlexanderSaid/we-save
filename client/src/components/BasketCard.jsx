@@ -49,8 +49,8 @@ const BasketCard = ({
 BasketCard.propTypes = {
   name: PropTypes.string,
   category: PropTypes.string,
-  lat: PropTypes.string,
-  lon: PropTypes.string,
+  lat: PropTypes.number,
+  lon: PropTypes.number,
   coordinates: PropTypes.object,
   oldPrice: PropTypes.number,
   newPrice: PropTypes.number,
