@@ -62,10 +62,6 @@ const SignUp = ({ openSignUp, setSignUp }) => {
 
   const [signinPage, setSigninPage] = useState(false);
 
-  //- FirstName input focus
-  // useEffect(() => {
-  //   firstNameRef.current.focus();
-  // }, []);
   const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
@@ -173,6 +169,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </h1>
               </div>
             )}
+
             <h1 className="mb-8 text-3xl text-center text-accent">
               CREATE ACCOUNT
             </h1>
@@ -402,23 +399,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                   Sign in
                 </span>
               </div>
-              {/* <div>
-                <button
-                  //- Disable SignUp button till all validation passed
-                  disabled={
-                    !validFirstName ||
-                    !validLastName ||
-                    !validEmail ||
-                    !validPassword ||
-                    !validMatch
-                      ? true
-                      : false
-                  }
-                  className="w-full text-center py-3 rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none my-1 mt-9 cursor-pointer"
-                >
-                  <span className="px-2 text-accent"> Sign in</span>
-                </button>
-              </div> */}
+
               <button
                 //- Disable SignUp button till all validation passed
                 disabled={isDisabled}

@@ -7,7 +7,7 @@ const FORM_INPUT_CLASSES =
 const FORM_LABEL_CLASSES =
   " text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
 
-function SignIn({ setSigninPage, setSignUp }) {
+function SignIn({ setOpenSignIn }) {
   const [signinForm, setSigninForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,12 +25,10 @@ function SignIn({ setSigninPage, setSignUp }) {
     alert(signin);
   };
   const closeWindow = () => {
-    setSigninPage(false);
-    setSignUp(false);
+    setOpenSignIn(false);
   };
   const handleSignupPage = () => {
-    setSigninPage(false);
-    setSignUp(true);
+    setOpenSignIn(true);
   };
 
   return (
@@ -40,7 +38,7 @@ function SignIn({ setSigninPage, setSignUp }) {
           <h1 className="mb-8 text-3xl text-accent text-center">Sign In</h1>
           <button
             className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-            onClick={() => setSignUp(false)}
+            onClick={() => setOpenSignIn(false)}
           >
             <AiOutlineArrowLeft onClick={closeWindow} />
           </button>
@@ -105,8 +103,8 @@ function SignIn({ setSigninPage, setSignUp }) {
   );
 }
 SignIn.propTypes = {
-  setSigninPage: PropTypes.func,
-  setSignUp: PropTypes.func,
+  setOpenSignIn: PropTypes.func,
+  openSignIn: PropTypes.func,
 };
 
 export default SignIn;
