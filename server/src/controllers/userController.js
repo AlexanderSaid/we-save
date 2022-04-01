@@ -10,8 +10,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const { first, last, email, password, postcode } = req.body;
   // validation of fields
   if (!first || !last || !email || !password) {
-    res.status(400);
-    throw new Error("please include all fields");
+    res.status(401).json({ msg: "please include all fields" });
   }
 
   const userExist = await User.findOne({ email });
@@ -32,7 +31,6 @@ const registerUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
     postcode,
   });
-
   if (user) {
     res.status(201).json({ success: true, result: user });
   } else {
