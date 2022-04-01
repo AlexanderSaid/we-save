@@ -1,8 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import SignIn from "./layout/SignIn";
-
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import useFetch from "../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
@@ -23,7 +21,7 @@ const FORM_LABEL_CLASSES =
 const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 
-const SignUp = ({ openSignUp, setSignUp }) => {
+const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -59,8 +57,6 @@ const SignUp = ({ openSignUp, setSignUp }) => {
 
   const [errMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
-
-  const [signinPage, setSigninPage] = useState(false);
 
   const [isDisabled, setDisabled] = useState(true);
 
@@ -115,8 +111,8 @@ const SignUp = ({ openSignUp, setSignUp }) => {
 
   //- switch to signin page
   const handleSigninPage = () => {
-    setSigninPage(true);
-    setSignUp(false);
+    setSignInOpen(true);
+    setSignUpOpen(false);
   };
 
   //- Connect with backend
@@ -144,15 +140,11 @@ const SignUp = ({ openSignUp, setSignUp }) => {
     });
   };
 
-  if (signinPage) {
-    return <SignIn setSigninPage={setSigninPage} setSignUp={setSignUp} />;
-  }
-
   return (
-    openSignUp &&
+    signUpOpen &&
     (success ? (
       <>
-        <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUp} />
+        <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUpOpen} />
       </>
     ) : (
       <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
@@ -175,7 +167,7 @@ const SignUp = ({ openSignUp, setSignUp }) => {
             </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-              onClick={() => setSignUp(false)}
+              onClick={() => setSignUpOpen(false)}
             >
               <AiOutlineArrowLeft />
             </button>
@@ -418,8 +410,9 @@ const SignUp = ({ openSignUp, setSignUp }) => {
 };
 
 SignUp.propTypes = {
-  openSignUp: PropTypes.bool,
-  setSignUp: PropTypes.func,
+  signUpOpen: PropTypes.bool,
+  setSignUpOpen: PropTypes.func,
+  setSignInOpen: PropTypes.func,
 };
 
 export default SignUp;
