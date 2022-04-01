@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import errorHandler from "./middleware/errorMiddleware.js";
 
 import shopRouter from "./routes/shopsRoutes.js";
 import basketRouter from "./routes/basketRoutes.js";
@@ -25,7 +24,5 @@ app.use("/api/shops", shopRouter);
 app.use("/api/baskets", basketRouter);
 app.use("/api/users", userRouter);
 app.use("/api/contact", contactRouter);
-
-app.use(errorHandler);
 
 export default app;
