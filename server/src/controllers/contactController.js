@@ -16,17 +16,17 @@ const contactEmail = (req, res) => {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "hotmail",
     auth: {
-      user: "georgeroumieh95@gmail.com", // generated ethereal user
-      pass: "george-12345", // generated ethereal password
+      user: "save-food2022@outlook.com", // generated ethereal user
+      pass: "save-food", // generated ethereal password
     },
   });
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: req.body.email, // sender address
-    to: "georgeroumieh95@gmail.com", // list of receivers
+    from: "save-food2022@outlook.com", // sender address
+    to: "george95.2621@gmail.com", // list of receivers
     subject: "My Resume Contact Request", // Subject line
     text: "Hello world?", // plain text body
     html: output, // html body
@@ -39,7 +39,7 @@ const contactEmail = (req, res) => {
     }
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    res.status(201).json({ success: true, result: output });
+    res.status(201).json({ success: true, result: "success" });
   });
 };
 

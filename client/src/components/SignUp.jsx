@@ -88,28 +88,6 @@ const SignUp = ({ openSignUp, setSignUp }) => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
 
-  // const { performFetch, cancelFetch, error } = useFetch("/users");
-
-  // useEffect(() => {
-  //   performFetch({
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       first: firstName,
-  //       last: lastName,
-  //       email: email,
-  //       postcode: postcode,
-  //       password: password,
-  //     }),
-  //   });
-  //   console.log("data sended");
-
-  //   return cancelFetch;
-  // }, []);
-
   const { performFetch, cancelFetch, error } = useFetch("/users", () => {
     setSuccess(true);
   });

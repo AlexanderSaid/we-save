@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const InputField = ({ label, name, onChange, placeholder }) => {
+const InputField = ({ label, name, onChange, placeholder, value }) => {
   return (
     <div>
       <div className="flex flex-col">
@@ -16,6 +16,7 @@ const InputField = ({ label, name, onChange, placeholder }) => {
           id="full_name"
           name={name}
           type="text"
+          value={value}
           onChange={onChange}
           className="flex items-center w-64 h-10 pl-3 text-sm font-normal border border-gray-300 rounded focus:outline-none focus:border focus:border-indigo-700"
           placeholder={placeholder}
@@ -30,5 +31,6 @@ InputField.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
 };
 export default InputField;
