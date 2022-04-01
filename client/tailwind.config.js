@@ -5,8 +5,8 @@ module.exports = {
       colors: {
         primary: "#E9FFC0",
         accent: "#2F998A",
-        darkBg: "#092A35",
-        lightBg: "#F6FFE6",
+        darkBg: "#033343",
+        lightBg: "#FEFFFB",
         darkFont: "#092A35",
         lightFont: "#FAF9F6",
         error: "#940949",

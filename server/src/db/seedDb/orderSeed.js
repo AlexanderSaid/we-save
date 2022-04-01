@@ -1,14 +1,7 @@
 import mongoose from "mongoose";
 import Order from "../../models/Order.js";
 import { faker } from "@faker-js/faker";
-mongoose.connect(
-  "mongodb+srv://c34candc:GfzMj4ZFqnkxGeR8@cluster0.pmphz.mongodb.net/devDatabase?retryWrites=true&w=majority"
-);
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-  console.log("Database connected");
-});
+mongoose.connect(process.env.MONGODB_URL);
 
 const orderSeed = async () => {
   await Order.deleteMany({});
