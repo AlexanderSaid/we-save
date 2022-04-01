@@ -94,7 +94,7 @@ function SignIn({ setSigninPage, setSignUp }) {
             </div>
             <button
               type="submit"
-              className=" cursor-pointer w-full text-center py-3 rounded bg-primary text-black hover:bg-green-dark focus:outline-none my-1 mt-4"
+              className="  text-white lg:float-right w-full text-center py-3 rounded bg-accent px-2 cursor-pointe hover:bg-green-dark focus:outline-none my-1 mt-4"
             >
               Sign In
             </button>
