@@ -12,8 +12,8 @@ module.exports = {
         error: "#940949",
       },
       fontFamily: {
-        title: "'Lato'",
-        title1: "'Oswald'",
+        title: "Lato",
+        title1: "Oswald",
       },
       fontSize: {
         title: "64px",
@@ -28,6 +28,9 @@ module.exports = {
       },
       screen: {
         xs: { max: "640px" },
+      },
+      maxWidth: {
+        1440: "1440px",
       },
     },
   },

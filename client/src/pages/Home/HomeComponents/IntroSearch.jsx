@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import SearchBar from "../../../components/SearchBar/SearchBar";
+import React from "react";
+import SearchBar from "../../../components/Search-Bar/SearchBar";
 const IntroSearch = () => {
-  const [location, setLocation] = useState("");
+  // const [location, setLocation] = useState("");
 
-  const handleLocation = (e) => {
-    setLocation(e.target.value);
-  };
+  // const handleLocation = (e) => {
+  //   setLocation(e.target.value);
+  // };
 
   return (
     <section
@@ -17,7 +17,7 @@ const IntroSearch = () => {
           TIME TO SAVE YOUR FOOD
         </h2>
         <div className="flex justify-center mt-8">
-          <SearchBar location={location} handleLocation={handleLocation} />
+          <SearchBar />
         </div>
       </div>
     </section>
