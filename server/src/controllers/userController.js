@@ -11,15 +11,13 @@ const registerUser = asyncHandler(async (req, res) => {
   const { first, last, email, password, postcode } = req.body;
   // validation of fields
   if (!first || !last || !email || !password) {
-    res.status(400);
-    throw new Error("please include all fields");
+    res.status(401).json({ msg: "please include all fields" });
   }
 
   const userExist = await User.findOne({ email });
   // check whether the user email exist.
   if (userExist) {
-    res.status(401);
-    throw new Error("user already exist");
+    res.status(401).json({ msg: "This email already exists." });
   }
   const name = { first, last };
 
@@ -34,20 +32,21 @@ const registerUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
     postcode,
   });
-
   if (user) {
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      postcode: user.postcode,
-      is_admin: user.is_admin,
-      is_owner: user.is_owner,
-      token: generateToken(user._id),
+      success: true,
+      result: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        postcode: user.postcode,
+        is_admin: user.is_admin,
+        is_owner: user.is_owner,
+        token: generateToken(user._id),
+      },
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid user data");
+    res.status(400).json({ msg: "invalid user data" });
   }
 });
 
@@ -59,25 +58,26 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // validation of fields
   if (!email || !password) {
-    res.status(400);
-    throw new Error("please include all fields");
+    res.status(400).json({ msg: "please include all fields" });
   }
 
   const user = await User.findOne({ email });
   //check if user and password mach
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      postcode: user.postcode,
-      is_admin: user.is_admin,
-      is_owner: user.is_owner,
-      token: generateToken(user._id),
+      success: true,
+      result: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        postcode: user.postcode,
+        is_admin: user.is_admin,
+        is_owner: user.is_owner,
+        token: generateToken(user._id),
+      },
     });
   } else {
-    res.status(401);
-    throw new Error("Invalid credentials");
+    res.status(401).json({ msg: "Invalid credentials" });
   }
 });
 
@@ -85,14 +85,15 @@ const getProfile = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   if (!user) {
-    res.status(401);
-    throw new Error("user does not exist");
+    res.status(401).json({ msg: "user does not exist" });
   }
   if (req.user._id.toString() === user._id.toString()) {
-    res.status(200).json(user);
+    res.status(200).json({
+      success: true,
+      result: user,
+    });
   } else {
-    res.status(400);
-    throw new Error("Not authorized");
+    res.status(400).json({ msg: "Not authorized" });
   }
 });
 export { registerUser, loginUser, getProfile };
