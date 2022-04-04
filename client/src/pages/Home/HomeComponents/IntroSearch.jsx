@@ -9,13 +9,14 @@ const IntroSearch = () => {
 
   return (
     <section
-      className="flex items-center justify-center bg-darkBg block"
+      className="flex items-center justify-center bg-darkBg block "
       style={{ height: "500px" }}
     >
       <div className="text-center">
-        <h2 className="mt-6 text-3xl font-bold text-white md:text-5xl">
+        <h2 className="mt-20 lg:text-3xl font-title font-bold text-white  text-2xl">
           TIME TO SAVE YOUR FOOD
         </h2>
+
         <div className="flex justify-center mt-8">
           <SearchBar location={location} handleLocation={handleLocation} />
         </div>
