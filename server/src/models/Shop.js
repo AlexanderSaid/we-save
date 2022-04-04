@@ -59,8 +59,18 @@ const shopSchema = new Schema(
     description: {
       type: String,
     },
-    owner_id: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-    baskets: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Basket" }],
+    owner_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    baskets: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        required: true,
+        ref: "Basket",
+      },
+    ],
   },
   { timestamps: true }
 );
