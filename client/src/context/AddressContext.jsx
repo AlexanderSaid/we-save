@@ -18,7 +18,7 @@ export const AddressProvider = ({ children }) => {
   const [postcode, setPostcode] = useState("");
   // const [current, setCurrent] = useState(false);
   const handleLocation = (e) => {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value.split(" ").join(""));
   };
 
   const getCurrentLocation = () => {
@@ -66,7 +66,9 @@ export const AddressProvider = ({ children }) => {
     if (!inputValue) return;
     try {
       const response = await fetch(
-        `https://api.geoapify.com/v1/geocode/autocomplete?text=${inputValue}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${inputValue
+          .split(" ")
+          .join("")}&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
       );
 
       const address = await response.json();

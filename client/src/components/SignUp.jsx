@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import useFetch from "../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
@@ -20,7 +21,7 @@ const FORM_LABEL_CLASSES =
 const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 
-const SignUp = ({ openSignUp, setSignUp }) => {
+const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -108,6 +109,13 @@ const SignUp = ({ openSignUp, setSignUp }) => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
 
+  //- switch to signin page
+  const handleSigninPage = () => {
+    setSignInOpen(true);
+    setSignUpOpen(false);
+  };
+
+  //- Connect with backend
   //- Set error message from backend
   useEffect(() => {
     error && setErrorMessage(error);
@@ -133,10 +141,10 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   };
 
   return (
-    openSignUp &&
+    signUpOpen &&
     (success ? (
       <>
-        <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUp} />
+        <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUpOpen} />
       </>
     ) : (
       <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
@@ -153,12 +161,13 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </h1>
               </div>
             )}
+
             <h1 className="mb-8 text-3xl text-center text-accent">
               CREATE ACCOUNT
             </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-              onClick={() => setSignUp(false)}
+              onClick={() => setSignUpOpen(false)}
             >
               <AiOutlineArrowLeft />
             </button>
@@ -375,8 +384,14 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </span>
                 <br />
                 Already have an account?
-                <span className="px-2 text-accent">Sign in</span>
+                <span
+                  className="text-accent px-2 cursor-pointer"
+                  onClick={handleSigninPage}
+                >
+                  Sign in
+                </span>
               </div>
+
               <button
                 //- Disable SignUp button till all validation passed
                 disabled={isDisabled}
@@ -395,8 +410,9 @@ const SignUp = ({ openSignUp, setSignUp }) => {
 };
 
 SignUp.propTypes = {
-  openSignUp: PropTypes.bool,
-  setSignUp: PropTypes.func,
+  signUpOpen: PropTypes.bool,
+  setSignUpOpen: PropTypes.func,
+  setSignInOpen: PropTypes.func,
 };
 
 export default SignUp;
