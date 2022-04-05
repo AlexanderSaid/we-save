@@ -2,7 +2,7 @@ import React, { useState, createContext } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const UsersContext = createContext({});
+const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -12,9 +12,9 @@ export const UserProvider = ({ children }) => {
   const login = async (userData) => {
     const { data } = await axios.post(`${API_URL}/login`, userData);
     if (data) {
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data.result));
     }
-    setUser(data);
+    setUser(data.result);
   };
 
   const logout = () => {
@@ -28,12 +28,10 @@ export const UserProvider = ({ children }) => {
     logout,
   };
 
-  return (
-    <UsersContext.Provider value={value}>{children}</UsersContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 UserProvider.propTypes = {
   children: PropTypes.node,
 };
-export default UsersContext;
+export default UserContext;
