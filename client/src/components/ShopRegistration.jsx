@@ -100,14 +100,10 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
   //- Determine button state
   useEffect(() => {
-    !validShopName ||
-    !validPostcode ||
-    !validEmail ||
-    !validKvkNumber ||
-    !validPhone
+    !validShopName || !validPostcode || !validKvkNumber || !validPhone
       ? setDisabled(true)
       : setDisabled(false);
-  }, [validShopName, validPostcode, validEmail, validKvkNumber, validPhone]);
+  }, [validShopName, validPostcode, validKvkNumber, validPhone]);
 
   //- Clear error message when user start typing
   useEffect(() => {
@@ -222,7 +218,6 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
                   id="email"
                   autoComplete="off"
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   aria-invalid={validEmail ? "false" : "true"}
                   aria-describedby="email-note"
                   onFocus={() => setEmailFocus(true)}
@@ -231,7 +226,7 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
                   placeholder="Email *"
                 />
                 <label htmlFor="email" className={FORM_LABEL_CLASSES}>
-                  Email *
+                  Email
                 </label>
                 <p
                   id="email-note"
