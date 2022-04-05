@@ -3,19 +3,7 @@ import Shop from "../models/Shop.js";
 import asyncHandler from "express-async-handler";
 import User from "../models/User.js";
 import axios from "axios";
-
-//@des Get a single Shop
-//@route GET /api/shops/:shopId
-//@access public
-const getSingleShop = asyncHandler(async (req, res) => {
-  const { shopId } = req.params;
-  //get shop
-  const shop = await Shop.findById(shopId).populate("baskets");
-  if (!shop) {
-    res.status(401).json({ msg: "Shop not found" });
-  }
-  res.status(200).json({ success: true, result: shop });
-});
+import Basket from "../models/Basket.js";
 
 //@des Get all Shop
 //@route GET /api/shops
@@ -27,6 +15,23 @@ const getAllShops = asyncHandler(async (req, res) => {
     res.status(401).json({ msg: "there are no shops" });
   }
   res.status(201).json({ success: true, result: shops });
+});
+
+//@des Get a single Shop
+//@route GET /api/shops/:shopId
+//@access public
+const getSingleShop = asyncHandler(async (req, res) => {
+  const { shopId } = req.params;
+  //get shop
+
+  const shop = await Shop.findById(shopId);
+  if (!shop) {
+    res.status(401).json({ msg: "Shop not found" });
+  }
+  if (shop.owner_id.toString() !== req.user.id) {
+    res.status(401).json({ msg: "Not authorized" });
+  }
+  res.status(200).json({ success: true, result: shop });
 });
 
 //@des Create a Shop
@@ -97,7 +102,7 @@ const createShop = asyncHandler(async (req, res) => {
   });
   user.is_owner = true;
   await user.save();
-  //onDelete the shop user.is_owner = false
+
   res.status(201).json({ success: true, result: newShop });
 });
 
@@ -118,6 +123,11 @@ const deleteShop = asyncHandler(async (req, res) => {
   }
   if (shop.owner_id.toString() !== req.user.id) {
     res.status(401).json("Not Authorized");
+  }
+  if (shop.baskets.length !== 0) {
+    shop.baskets.forEach(async (bas) => {
+      await Basket.findByIdAndDelete(bas);
+    });
   }
   await shop.remove();
   user.is_owner = false;
