@@ -10,6 +10,7 @@ const SearchContext = createContext({});
 
 export const SearchProvider = ({ children }) => {
   const navigate = useNavigate();
+
   //- Input Search
   const [inputValue, setInputValue] = useState("");
 
@@ -18,9 +19,12 @@ export const SearchProvider = ({ children }) => {
 
   //- The search coordinates
   const [searchCoordinates, setSearchCoordinates] = useState({
-    latitude: 52.367611,
-    longitude: 4.904111,
+    latitude: null,
+    longitude: null,
   });
+
+  //- Selected category state to reset when search click
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   //- Set the postcode onClick search
   const onSearch = () => {
@@ -29,9 +33,15 @@ export const SearchProvider = ({ children }) => {
     const query = inputValue.split(" ").join("").toLowerCase();
     setPostcode(query);
     setToShow(INCREMENT);
+    setSelectedCategory("");
   };
 
-  const [results] = useAxios({
+  //- City state for checking
+  const [isAmsterdam, setIsAmsterdam] = useState(true);
+  //- Postcode existence
+  const [isExist, setIsExist] = useState(true);
+
+  const [searchedPostcode, searchError, searchLoading] = useAxios({
     axiosInstance: axios,
     method: "GET",
     url: `search?text=${postcode}&type=postcode&filter=countrycode:nl&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`,
@@ -39,16 +49,19 @@ export const SearchProvider = ({ children }) => {
 
   //- Set the search postcode coordinates
   useEffect(() => {
-    if (!results?.features?.length) return;
-    function setCoordinates() {
-      const coordinates = results.features[0].properties;
-      setSearchCoordinates({
-        latitude: coordinates.lat,
-        longitude: coordinates.lon,
-      });
-    }
-    return setCoordinates();
-  }, [results]);
+    !searchedPostcode.features?.length
+      ? setIsExist(false)
+      : (() => {
+          setIsExist(true);
+          const coordinates = searchedPostcode.features[0].properties;
+          setSearchCoordinates({
+            latitude: coordinates.lat,
+            longitude: coordinates.lon,
+          });
+          const city = searchedPostcode.features[0].properties.city;
+          setIsAmsterdam(city === "Amsterdam" ? true : false);
+        })();
+  }, [searchedPostcode.features]);
 
   /** Fetch shops */
 
@@ -69,7 +82,7 @@ export const SearchProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!shops || !searchCoordinates) return;
+    if (!shops || !searchCoordinates.latitude) return;
 
     function getShopDistance() {
       const addDistance = [];
@@ -115,6 +128,13 @@ export const SearchProvider = ({ children }) => {
     INCREMENT,
     toShow,
     setToShow,
+    setPostcode,
+    searchLoading,
+    searchError,
+    selectedCategory,
+    setSelectedCategory,
+    isAmsterdam,
+    isExist,
   };
   return (
     <SearchContext.Provider value={value}>{children}</SearchContext.Provider>

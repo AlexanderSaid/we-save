@@ -5,8 +5,8 @@ import ResultsSection from "./ResultsComponents/ResultsSection";
 import Categories from "./ResultsComponents/Categories";
 
 const Results = () => {
-  const { orderedShops, inputValue } = useContext(SearchContext);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const { orderedShops, inputValue, selectedCategory, setSelectedCategory } =
+    useContext(SearchContext);
   const [shopsToPass, setShopsToPass] = useState([]);
 
   const clickSelectedCategory = (e) => {

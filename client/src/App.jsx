@@ -5,7 +5,7 @@ import "./css/index.css";
 import Layout from "./components/layout/Layout";
 import Results from "./pages/Results/Results";
 import SignUp from "./components/SignUp";
-import ShopDetails from "./pages/ShopDetails/ShopDetails";
+
 const App = () => {
   return (
     <>
@@ -14,7 +14,6 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="results" element={<Results />} />
           <Route path="sign-up" element={<SignUp />} />
-          <Route path="results/shop-details/:id" element={<ShopDetails />} />
         </Route>
       </Routes>
     </>

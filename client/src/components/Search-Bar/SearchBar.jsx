@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 
-// import PropTypes from "prop-types";
-import { BiCurrentLocation } from "react-icons/bi";
-
 import SearchContext from "../../context/SearchContext";
+import CurrentLocation from "./CurrentLocation";
+
 const SearchBar = () => {
   const { inputValue, setInputValue, onSearch } = useContext(SearchContext);
 
@@ -15,14 +14,7 @@ const SearchBar = () => {
         </h3>
 
         <div className="flex rounded bg-lightFont lg:w-[30rem] sm:w-[20rem] border border-darkBg mb-10 ">
-          <div className="p-4">
-            <BiCurrentLocation
-              size={30}
-              // onClick={}
-              className="cursor-pointer "
-            />
-          </div>
-
+          <CurrentLocation />
           <input
             type="text"
             name="location"
@@ -44,5 +36,5 @@ const SearchBar = () => {
     </>
   );
 };
-SearchBar.propTypes = {};
+
 export default SearchBar;
