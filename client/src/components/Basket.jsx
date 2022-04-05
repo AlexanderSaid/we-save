@@ -8,7 +8,7 @@ const Basket = ({
   category,
   oldPrice,
   newPrice,
-  amount,
+  quantity,
   shop_id,
   distance,
 }) => {
@@ -16,7 +16,7 @@ const Basket = ({
     <div className="flex items-center space-x-4">
       <div className="flex-shrink-0">
         <FaShoppingBasket size={40} />
-        <span className="text-gray-600 "> {amount} left</span>
+        <span className="text-gray-600 "> {quantity} left</span>
       </div>
       <div className="flex-1 min-w-0">
         <h4>{name}</h4>
@@ -46,7 +46,7 @@ Basket.propTypes = {
   category: PropTypes.string,
   oldPrice: PropTypes.number,
   newPrice: PropTypes.number,
-  amount: PropTypes.number,
+  quantity: PropTypes.number,
   shop_id: PropTypes.string,
   distance: PropTypes.number,
 };

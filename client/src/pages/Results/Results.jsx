@@ -27,7 +27,7 @@ const Results = () => {
       console.log(filtered);
       //! -----------------------------------
 
-      return setShopsToPass(filtered);
+      setShopsToPass(filtered);
     }
   }, [selectedCategory, orderedShops]);
 

@@ -59,7 +59,7 @@ const ResultsSection = ({ shops }) => {
                   category={shop.baskets[0].categories[0]}
                   oldPrice={shop.baskets[0].price.original}
                   newPrice={shop.baskets[0].price.discount}
-                  amount={shop.baskets.length}
+                  quantity={shop.baskets[0].quantity}
                   shop_id={shop._id}
                   distance={shop.distance}
                 />
