@@ -24,14 +24,6 @@ const shopSchema = new Schema(
         type: String,
         required: true,
       },
-      city: {
-        type: String,
-        required: true,
-      },
-      country: {
-        type: String,
-        required: true,
-      },
       lat: Number,
       lon: Number,
     },
@@ -44,17 +36,6 @@ const shopSchema = new Schema(
     kvk: {
       type: String,
       required: true,
-    },
-    iban: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    logo: {
-      type: String,
     },
     description: {
       type: String,
