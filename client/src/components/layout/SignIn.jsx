@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import SignUp from "../SignUp";
+import UserContext from "../../context/UserContext";
 
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
 const FORM_INPUT_CLASSES =
@@ -9,6 +10,7 @@ const FORM_LABEL_CLASSES =
   " text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
 
 function SignIn({ openSignIn, setOpenSignIn }) {
+  const { login, user } = useContext(UserContext);
   const [signinForm, setSigninForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
@@ -20,11 +22,15 @@ function SignIn({ openSignIn, setOpenSignIn }) {
       [e.target.id]: e.target.value,
     }));
   };
-
+  useEffect(() => {
+    if (user) {
+      setOpenSignIn(false);
+    }
+  }, [user]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const signin = { email, password };
-    alert(signin);
+    const userData = { email, password };
+    login(userData);
   };
   const closeWindow = () => {
     setOpenSignIn(false);
