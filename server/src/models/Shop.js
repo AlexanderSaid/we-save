@@ -17,39 +17,22 @@ const shopSchema = new Schema(
         type: Number,
         required: true,
       },
-      addition: {
-        type: String,
-      },
+      addition: String,
       postcode: {
         type: String,
         required: true,
       },
-      city: {
-        type: String,
-        required: true,
-      },
-      country: {
-        type: String,
-        required: true,
-      },
+      city: String,
+      country: String,
       lat: Number,
       lon: Number,
     },
     phone: {
       type: String,
+      required: true,
     },
-    email: {
-      type: String,
-    },
+    email: String,
     kvk: {
-      type: String,
-      required: true,
-    },
-    iban: {
-      type: String,
-      required: true,
-    },
-    image: {
       type: String,
       required: true,
     },
@@ -67,7 +50,6 @@ const shopSchema = new Schema(
     baskets: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        required: true,
         ref: "Basket",
       },
     ],
