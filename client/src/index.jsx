@@ -3,17 +3,18 @@ import ReactDOM from "react-dom";
 import AppWrapper from "./AppWrapper";
 import App from "./App";
 import { Routes, Route } from "react-router-dom";
-import { AddressProvider } from "./context/AddressContext";
+import { SearchProvider } from "./context/SearchContext";
+
 import { UserProvider } from "./context/UserContext";
 
 ReactDOM.render(
   <AppWrapper>
     <UserProvider>
-      <AddressProvider>
+      <SearchProvider>
         <Routes>
           <Route path="/*" element={<App />} />
         </Routes>
-      </AddressProvider>
+      </SearchProvider>
     </UserProvider>
   </AppWrapper>,
   document.getElementById("root")
