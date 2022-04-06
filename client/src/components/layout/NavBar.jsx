@@ -43,7 +43,7 @@ const NavBar = () => {
             Home
           </Link>
           <Link
-            to="#"
+            to="/createBasket"
             className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
             Store Owner?

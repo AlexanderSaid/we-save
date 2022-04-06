@@ -7,6 +7,7 @@ import Layout from "./components/layout/Layout";
 import Results from "./pages/Results/Results";
 import SignUp from "./components/SignUp";
 import ShopDetails from "./pages/ShopDetails/ShopDetails";
+import CreateBasket from "./pages/CreateBasket/CreateBasket";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="results" element={<Results />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="results/shop-details/:id" element={<ShopDetails />} />
+          <Route path="createBasket" element={<CreateBasket />} />
         </Route>
       </Routes>
     </>
