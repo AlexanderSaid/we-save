@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
+import UserContext from "../context/UserContext";
 
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
-// import useFetch from "../hooks/useFetch.js";
+import useFetch from "../hooks/useFetch.js";
 
 //- Declare regex validations
 const SHOP_NAME_REGEX = /^[a-zA-Z]{2,}$/;
@@ -38,6 +39,8 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
    * to determine visibility
    */
 
+  const { user } = useContext(UserContext);
+
   const [shopName, setShopName] = useState("");
   const [validShopName, setValidShopName] = useState(false);
   const [shopNameFocus, setShopNameFocus] = useState(false);
@@ -68,14 +71,14 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  // const { performFetch, cancelFetch, error } = useFetch("/users", () => {
-  //   setSuccess(true);
-  // });
+  const { performFetch, cancelFetch, error } = useFetch("/shops", () => {
+    setSuccess(true);
+  });
 
   // -
-  // useEffect(() => {
-  //   return cancelFetch;
-  // }, []);
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
 
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
@@ -112,31 +115,30 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
   //- Connect with backend
   // - Set error message from backend
-  // useEffect(() => {
-  //   error && setErrorMessage(error);
-  // }, [error]);
+  useEffect(() => {
+    error && setErrorMessage(error);
+  }, [error]);
 
   //- Send the form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // performFetch({
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: shopName,
-    //     address: {
-    //       street: streetName,
-    //       house: houseNumber,
-    //       postcode: postcode,
-    //     },
-    //     email: email,
-    //     phone: phone,
-    //     kvk: kvkNumber,
-    //   }),
-    // });
+    performFetch({
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({
+        name: shopName,
+        street: streetName,
+        house: houseNumber,
+        postcode: postcode,
+        email: email,
+        phone: phone,
+        kvk: kvkNumber,
+      }),
+    });
   };
 
   return (

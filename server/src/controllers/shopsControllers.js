@@ -38,34 +38,8 @@ const getSingleShop = asyncHandler(async (req, res) => {
 //@route POST /api/shops
 //@access Private
 const createShop = asyncHandler(async (req, res) => {
-  const {
-    name,
-    street,
-    house,
-    addition,
-    postcode,
-    city,
-    country,
-    phone,
-    email,
-    kvk,
-    iban,
-    image,
-    logo,
-    description,
-  } = req.body;
-  if (
-    !name ||
-    !street ||
-    !house ||
-    !postcode ||
-    !city ||
-    !country ||
-    !kvk ||
-    !iban ||
-    !image ||
-    !logo
-  ) {
+  const { name, street, house, postcode, phone, email, kvk } = req.body;
+  if (!name || !street || !house || !postcode || !kvk || !phone) {
     res.status(400).json({ msg: "Please fill all the fields" });
   }
   const { data } = await axios.get(
@@ -77,10 +51,7 @@ const createShop = asyncHandler(async (req, res) => {
   const address = {
     street,
     house,
-    addition: addition ? addition : "",
     postcode,
-    city,
-    country,
     lat: data.results[0].lat,
     lon: data.results[0].lon,
   };
@@ -91,18 +62,13 @@ const createShop = asyncHandler(async (req, res) => {
   const newShop = await Shop.create({
     name,
     address,
-    phone: phone ? phone : "",
+    phone: phone,
     email: email ? email : user.email,
     kvk,
-    iban,
-    image,
-    logo,
-    description,
     owner_id: req.user.id,
   });
   user.is_owner = true;
   await user.save();
-
   res.status(201).json({ success: true, result: newShop });
 });
 
