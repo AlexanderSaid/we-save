@@ -45,7 +45,7 @@ function CreateBasket() {
   const [validQuantity, setValidQuantity] = useState(false);
   const [quantityFocus, setQuantityFocus] = useState(false);
 
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState([]);
 
   const [pickup, setpickup] = useState({
     from: new Date(),
@@ -60,7 +60,7 @@ function CreateBasket() {
   const [errMessage, setErrorMessage] = useState("please include all fields");
   const [success, setSuccess] = useState(false);
 
-  const [setDisabled] = useState(true);
+  const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
   // const { performFetch, cancelFetch, error } = useFetch("/basket", () => {
@@ -97,6 +97,12 @@ function CreateBasket() {
   useEffect(() => {
     setErrorMessage("");
   }, [description, price, quantity]);
+
+  //-handle category function
+
+  const handleCategory = (e) => {
+    setCategory([...category, e.target.value]);
+  };
 
   //-Submit the form
   const handleSubmit = (e) => {
@@ -304,13 +310,12 @@ function CreateBasket() {
                 {categories.map((item, idx) => (
                   <div className="ml-4" key={idx}>
                     <input
-                      required
                       className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                      type="radio"
+                      type="checkbox"
                       name="categories"
                       id="category"
                       value={item}
-                      onChange={(e) => setCategory(e.target.value)}
+                      onChange={handleCategory}
                     />
                     <label className="form-check-label inline-block text-gray-800 ">
                       {item}
@@ -333,7 +338,7 @@ function CreateBasket() {
                   required
                   className={OTHER_INPUTSTYLE}
                   value={from}
-                  type="time"
+                  type="datetime-local"
                   id="pickup"
                   onChange={(e) =>
                     setpickup({
@@ -354,10 +359,11 @@ function CreateBasket() {
                   onChange={(e) =>
                     setpickup({
                       ...pickup,
+
                       to: e.target.value,
                     })
                   }
-                  type="time"
+                  type="datetime-local"
                   placeholder="quantity"
                   id="pickup"
                 />
@@ -395,7 +401,7 @@ function CreateBasket() {
 
             <button
               //- Disable SignUp button till all validation passed
-
+              disabled={isDisabled}
               className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
             >
               create basket
