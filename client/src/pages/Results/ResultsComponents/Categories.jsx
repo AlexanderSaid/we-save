@@ -7,43 +7,31 @@ const categoryList = [
   "Groceries",
   "Vegetarian",
   "Diary & Meat",
-  "All",
+  "Surprise basket",
 ];
 
-const Categories = ({ baskets, filteredBaskets }) => {
-  const handleClick = (e) => {
-    if (e.target.innerText === "All") {
-      filteredBaskets(null);
-    } else {
-      filteredBaskets(
-        baskets.filter((item) =>
-          item.baskets[0].categories.includes(e.target.innerText)
-        )
-      );
-    }
-  };
-
+const Categories = ({ selectedCategory, onClick }) => {
   return (
-    <section className="container flex flex-col flex-wrap justify-center px-6 mx-auto my-1 -m-4 md:flex-row">
-      {categoryList.map((title, index) => (
-        <div className="p-2 md:w-48" key={index}>
-          <a
-            href="#"
-            className="flex flex-col items-center p-1 bg-blue-200 shadow-xs cursor-pointer rounded-2xl hover:bg-blue-500 hover:text-gray-100"
-          >
-            {/* <MdBakeryDining size={30} /> */}
-            <div name={title} onClick={handleClick} className="w-full ">
-              <p className="font-medium text-center text-s w-[100%]">{title}</p>
-            </div>
-          </a>
-        </div>
+    <section className="container flex flex-col flex-wrap justify-center items-center gap-4 px-6 mx-auto my-4 -m-4 md:flex-row md:max-w-1440 md:justify-center md:py-8">
+      {categoryList.map((category) => (
+        <button
+          key={category}
+          value={category}
+          onClick={(e) => onClick(e)}
+          className={`px-6 py-2 w-full max-w-[50%] text-bodyRegular font-semibold rounded-3xl border  hover:border-accent hover:bg-accent hover:text-lightFont ease-in-out duration-300 md:w-fit ${
+            selectedCategory === category
+              ? "text-lightFont bg-accent border-accent"
+              : "text-darkFont bg-primary border-darkFont"
+          } `}
+        >
+          {category}
+        </button>
       ))}
     </section>
   );
 };
 Categories.propTypes = {
-  baskets: PropTypes.array,
-  filteredBaskets: PropTypes.func,
+  onClick: PropTypes.func,
+  selectedCategory: PropTypes.string,
 };
-
 export default Categories;
