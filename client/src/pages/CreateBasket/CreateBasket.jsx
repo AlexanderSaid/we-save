@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import CreateBasketSuccessMessage from "./CreateBasket component/CreateBasketSuccessMessage";
+//import useFetch from "../hooks/useFetch.js";
 const names = [
   "Breakfast basket",
   "Lunch basket",
@@ -46,8 +48,8 @@ function CreateBasket() {
   const [category, setCategory] = useState("");
 
   const [pickup, setpickup] = useState({
-    from: "",
-    to: "",
+    from: new Date(),
+    to: new Date(),
   });
   const { from, to } = pickup;
 
@@ -55,10 +57,22 @@ function CreateBasket() {
   const [validDescription, setValidDescription] = useState(false);
   const [descriptionFocus, setDescriptionFocus] = useState(false);
 
-  const [errMessage, setErrorMessage] = useState(false);
+  const [errMessage, setErrorMessage] = useState("please include all fields");
+  const [success, setSuccess] = useState(false);
 
-  const [isDisabled, setDisabled] = useState(true);
+  const [setDisabled] = useState(true);
 
+  //- Fetching data
+  // const { performFetch, cancelFetch, error } = useFetch("/basket", () => {
+  //   setSuccess(true);
+  // });
+
+  //-
+  // useEffect(() => {
+  //   return cancelFetch;
+  // }, []);
+
+  //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
     setValidDescription(DESCRIPTION_REGEX.test(description));
   }, [description]);
@@ -72,17 +86,19 @@ function CreateBasket() {
   useEffect(() => {
     setValidPrice(PRICE_REGEX.test(price.discount));
   }, [price]);
-
+  //- Determine button state
   useEffect(() => {
     !validDescription || !validPrice || !validQuantity
       ? setDisabled(true)
       : setDisabled(false);
   }, [validDescription, validPrice, validQuantity]);
 
+  //- Determine error message
   useEffect(() => {
     setErrorMessage("");
   }, [description, price, quantity]);
 
+  //-Submit the form
   const handleSubmit = (e) => {
     e.preventDefault();
     const newBasket = {
@@ -97,17 +113,48 @@ function CreateBasket() {
       !category ||
       !pickup ||
       !basketName ||
-      price.original <= price.discount ||
-      from >= to
+      !price ||
+      !description ||
+      !quantity
     ) {
-      setErrorMessage(true);
+      setErrorMessage("please include all fields");
+    } else if (price.discount >= price.original) {
+      setErrorMessage(
+        "the original price should be less than the discount price"
+      );
+    } else if (pickup.from >= pickup.to) {
+      setErrorMessage("pick up time not correct");
+    } else if (quantity <= 0) {
+      setErrorMessage("quantity should be 1 at least");
+    } else if (description.length <= 10) {
+      setErrorMessage("description field should have at least 10 characters");
     } else {
+      setSuccess(true);
       alert(newBasket);
+      // performFetch({
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     first: firstName,
+      //     last: lastName,
+      //     email: email,
+      //     postcode: postcode,
+      //     password: password,
+      //   }),
+      // });
     }
   };
 
   return (
     <>
+      {success && (
+        <>
+          <CreateBasketSuccessMessage setSuccess={setSuccess} />
+        </>
+      )}
       {errMessage && (
         <div className="flex items-center justify-center w-full">
           <h1
@@ -115,7 +162,7 @@ function CreateBasket() {
             ref={errRef}
             className="w-[50%] mb-4 text-xl text-center bg-black text-error border-2 border-error rounded"
           >
-            please include all fields
+            {errMessage}
           </h1>
         </div>
       )}
@@ -348,7 +395,7 @@ function CreateBasket() {
 
             <button
               //- Disable SignUp button till all validation passed
-              disabled={isDisabled}
+
               className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
             >
               create basket
