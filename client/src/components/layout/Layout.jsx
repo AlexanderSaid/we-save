@@ -9,10 +9,10 @@ const Layout = () => {
       <header className="w-full bg-darkBG fixed ">
         <NavBar />
       </header>
-      <main className="w-full">
+      <main className="w-full grow shrink-0 basis-full">
         <Outlet />
       </main>
-      <footer className="w-full text-gray-600 body-font bg-darkBg">
+      <footer className="w-full text-gray-600 body-font bg-darkBg shrink-0">
         <Footer />
       </footer>
     </>
