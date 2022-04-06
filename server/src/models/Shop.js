@@ -36,12 +36,23 @@ const shopSchema = new Schema(
       type: String,
       required: true,
     },
-    iban: String,
-    image: String,
-    logo: String,
-    description: String,
-    owner_id: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-    baskets: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Basket" }],
+    logo: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    owner_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    baskets: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Basket",
+      },
+    ],
   },
   { timestamps: true }
 );
