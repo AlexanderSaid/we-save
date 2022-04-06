@@ -41,7 +41,7 @@ const userSchema = new Schema(
       type: String,
     },
     favorites_shops: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Shop" }],
-    shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
+    // shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
   },
   { timestamps: true }
 );

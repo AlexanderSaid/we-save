@@ -27,7 +27,17 @@ const basketSchema = new Schema(
     },
     image: { type: String },
 
-    // shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
+    shop_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "Shop",
+    },
+
+    owner_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
