@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
+import { useAuthentication } from "../../hooks/useAuthentication";
+import UserContext from "../../context/UserContext";
 // import UserContext from "../../context/UserContext";
 import SignIn from "./SignIn";
 const NavBar = () => {
   const [hidden, setHidden] = useState(true);
   const [flex, setFlex] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  // const { logout } = useContext(UserContext);
+  const { loggedIn } = useAuthentication();
+  const { logout } = useContext(UserContext);
   const navbarCollapse = () => {
     setHidden(!hidden);
     setFlex(!flex);
@@ -74,18 +77,24 @@ const NavBar = () => {
           >
             FAQ
           </Link>
-          <Link
-            to="#"
+          <button
+            onClick={
+              loggedIn
+                ? logout
+                : () => {
+                    setIsOpen(true);
+                  }
+            }
             className="justify-center p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
-            <div
-              onClick={() => {
-                setIsOpen(true);
-              }}
-            >
-              <FiLogIn size={24} />
-            </div>
-          </Link>
+            {loggedIn ? (
+              <h1>Log out</h1>
+            ) : (
+              <div>
+                <FiLogIn size={24} />
+              </div>
+            )}
+          </button>
 
           <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
