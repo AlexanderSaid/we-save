@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
-// import SignIn from "./SignIn";
-import SignUp from "../SignUp";
 
+import SignIn from "./SignIn";
 const NavBar = () => {
   const [hidden, setHidden] = useState(true);
   const [flex, setFlex] = useState(false);
@@ -73,7 +72,7 @@ const NavBar = () => {
             </div>
           </Link>
 
-          <SignUp openSignUp={isOpen} setSignUp={setIsOpen} />
+          <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
       </div>
     </nav>

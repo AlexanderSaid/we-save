@@ -6,7 +6,7 @@ import Footer from "./Footer";
 const Layout = () => {
   return (
     <>
-      <header className="w-full bg-darkBG">
+      <header className="w-full bg-darkBG fixed ">
         <NavBar />
       </header>
       <main className="w-full">
