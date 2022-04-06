@@ -2,7 +2,7 @@ import React from "react";
 
 const CostumerGuid = () => {
   return (
-    <section className="bg-white">
+    <section className="bg-lightBg">
       <div className="max-w-5xl px-6 py-16 mx-auto ">
         <div className="items-center  lg:flex md:space-x-6 ">
           <div className="md:w-1/2 ">

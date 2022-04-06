@@ -15,14 +15,14 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="py-2 bg-darkBg md:py-4 ">
-      <div className="container px-4 mx-auto md:flex md:items-center ">
+    <nav className="bg-darkBg py-4 max-w-1440 w-screen px-8 sm:px-12">
+      <div className="w-full sm:flex sm:items-center sm:justify-between ">
         <div className="flex items-center justify-between">
           <div className="text-xl font-bold text-lightFont">
             <SiFoodpanda size={50} />
           </div>
           <button
-            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 md:hidden"
+            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 sm:hidden"
             id="navbar-toggle"
             onClick={navbarCollapse}
           >
@@ -32,13 +32,10 @@ const NavBar = () => {
         <div
           className={`${flex ? "flex" : ""} ${
             hidden ? "hidden" : ""
-          } md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0 `}
+          } sm:flex flex-col sm:flex-row mt-3 sm:mt-0 `}
           id="navbar-collapse"
         >
-          <Link
-            to="/"
-            className="p-2 rounded lg:px-4 md:mx-2 text-darkFont bg-primary"
-          >
+          <Link to="/" className="nav-link">
             Home
           </Link>
           {/* <button className="text-primary" onClick={logout}>
@@ -46,38 +43,26 @@ const NavBar = () => {
           </button>
           <Link
             to="/register"
-            className="p-2 rounded lg:px-4 md:mx-2 text-darkFont bg-primary"
+            className="nav-link"
           >
             Register shop
           </Link>
           <Link
             to="/login"
-            className="p-2 rounded lg:px-4 md:mx-2 text-darkFont bg-primary"
+            className="nav-link"
           >
             Login
           </Link> */}
-          <Link
-            to="#"
-            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
-          >
+          <Link to="#" className="nav-link">
             Store Owner?
           </Link>
-          <Link
-            to="#"
-            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
-          >
+          <Link to="#" className="nav-link">
             About Us
           </Link>
-          <Link
-            to="#"
-            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
-          >
+          <Link to="#" className="nav-link">
             FAQ
           </Link>
-          <Link
-            to="#"
-            className="justify-center p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
-          >
+          <Link to="#" className="justify-center nav-link">
             <div
               onClick={() => {
                 setIsOpen(true);

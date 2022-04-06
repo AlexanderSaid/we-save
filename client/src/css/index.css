@@ -1,5 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+/* latin-ext */
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@layer base {
+  html {
+    font-family: "Fira Sans", Roboto;
+  }
+}
+@layer components {
+  .footer-link {
+    @apply text-lightFont hover:text-primary hover:cursor-pointer;
+  }
+  .nav-link {
+    @apply p-2 font-medium transition-all duration-[400ms] ease-in-out rounded-md lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-darkFont;
+  }
+}

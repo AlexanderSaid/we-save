@@ -8,18 +8,13 @@ const IntroSearch = () => {
   // };
 
   return (
-    <section
-      className="flex items-center justify-center bg-darkBg block "
-      style={{ height: "500px" }}
-    >
-      <div className="text-center">
-        <h2 className="mt-20 lg:text-3xl font-title font-bold text-white  text-2xl">
-          TIME TO SAVE YOUR FOOD
-        </h2>
-
-        <div className="flex justify-center mt-8">
-          <SearchBar />
-        </div>
+    <section className="flex items-center justify-center bg-darkBg block w-full h-[450px]">
+      <div className="text-center flex flex-col w-full max-w-[500px] mx-4">
+        <h1 className="my-12 text-l sm:text-3xl font-title font-extrabold text-lightFont  text-2xl tracking-wider">
+          TIME TO SAVE <br className="sm:hidden" />
+          YOUR FOOD
+        </h1>
+        <SearchBar />
       </div>
     </section>
   );

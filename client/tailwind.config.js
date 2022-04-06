@@ -6,7 +6,7 @@ module.exports = {
         primary: "#E9FFC0",
         accent: "#2F998A",
         darkBg: "#033343",
-        lightBg: "#FEFFFB",
+        lightBg: "#F6FFE6",
         darkFont: "#092A35",
         lightFont: "#FAF9F6",
         error: "#940949",
@@ -14,6 +14,7 @@ module.exports = {
       fontFamily: {
         title: "Lato",
         title1: "Oswald",
+        Roboto: ["Roboto", "sans-serif"],
       },
       fontSize: {
         title: "64px",
