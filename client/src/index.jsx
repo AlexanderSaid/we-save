@@ -5,13 +5,17 @@ import App from "./App";
 import { Routes, Route } from "react-router-dom";
 import { SearchProvider } from "./context/SearchContext";
 
+import { UserProvider } from "./context/UserContext";
+
 ReactDOM.render(
   <AppWrapper>
-    <SearchProvider>
-      <Routes>
-        <Route path="/*" element={<App />} />
-      </Routes>
-    </SearchProvider>
+    <UserProvider>
+      <SearchProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </SearchProvider>
+    </UserProvider>
   </AppWrapper>,
   document.getElementById("root")
 );
