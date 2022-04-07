@@ -77,7 +77,7 @@ const loginUser = asyncHandler(async (req, res) => {
       },
     });
   } else {
-    res.status(401).json({ msg: "Invalid credentials" });
+    res.status(401).json({ msg: "Please check your email or password" });
   }
 });
 
