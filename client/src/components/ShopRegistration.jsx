@@ -29,7 +29,11 @@ const FORM_LABEL_CLASSES =
 const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 
-const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
+const ShopRegistration = ({
+  shopRegisterOpen,
+  setShopRegisterOpen,
+  setOwner,
+}) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -171,7 +175,10 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
             </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-              onClick={() => setShopRegisterOpen(false)}
+              onClick={() => {
+                setShopRegisterOpen(false);
+                setOwner(false);
+              }}
             >
               <AiOutlineArrowLeft />
             </button>
@@ -374,6 +381,7 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
               <button
                 //- Disable SignUp button till all validation passed
+                onClick={() => setOwner(false)}
                 disabled={isDisabled}
                 className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
               >
@@ -392,6 +400,7 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 ShopRegistration.propTypes = {
   shopRegisterOpen: PropTypes.bool,
   setShopRegisterOpen: PropTypes.func,
+  setOwner: PropTypes.func,
 };
 
 export default ShopRegistration;
