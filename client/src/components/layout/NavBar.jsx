@@ -4,12 +4,13 @@ import { FiLogIn, FiMenu } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
+import SignInContext from "../../context/SignInContext";
 // import UserContext from "../../context/UserContext";
 import SignIn from "./SignIn";
 const NavBar = () => {
   const [hidden, setHidden] = useState(true);
   const [flex, setFlex] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useContext(SignInContext);
   const { loggedIn } = useAuthentication();
   const { logout } = useContext(UserContext);
   const navbarCollapse = () => {
