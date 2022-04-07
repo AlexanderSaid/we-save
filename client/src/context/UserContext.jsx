@@ -15,7 +15,7 @@ export const UserProvider = ({ children }) => {
     (response) => {
       localStorage.setItem("user", JSON.stringify(response.result));
       setUser(response.result);
-    },
+    }
   );
 
   useEffect(() => {
