@@ -44,6 +44,7 @@ const ShopRegistration = ({
    */
 
   const { user } = useContext(UserContext);
+
   const [shopName, setShopName] = useState("");
   const [validShopName, setValidShopName] = useState(false);
   const [shopNameFocus, setShopNameFocus] = useState(false);
