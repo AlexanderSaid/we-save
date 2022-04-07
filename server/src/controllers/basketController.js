@@ -103,4 +103,21 @@ const deleteBasket = asyncHandler(async (req, res) => {
     .json({ success: true, result: "Your basket was successfully deleted" });
 });
 
-export { getShopBaskets, createShopBasket, deleteBasket };
+//@des decrease the quantity of baskets from a specific shop
+//@route PUT /api/shops/:shopId/baskets/:basketId
+//@access Private
+const decreaseQuantity = asyncHandler(async (req, res) => {
+  const { shopId, basketId } = req.params;
+  const shop = await Shop.findById(shopId);
+  const basket = await Basket.findById(basketId);
+  if (!basket) {
+    res.status(401).json({ msg: "This basket is not found" });
+  }
+  if (basket.shop_id.toString() !== shop._id.toString()) {
+    res.status(401).json({ msg: "This basket doesn't belong to this shop" });
+  }
+  await basket.decrease();
+  res.status(200).json({ success: true, result: basket });
+});
+
+export { getShopBaskets, createShopBasket, deleteBasket, decreaseQuantity };

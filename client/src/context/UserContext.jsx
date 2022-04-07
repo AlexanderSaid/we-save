@@ -7,7 +7,7 @@ const UserContext = createContext({});
 export const UserProvider = ({ children }) => {
   const stored = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(stored ? stored : null);
-  const API_URL = "http://localhost:5001/api/users/login";
+  const API_URL = "http://localhost:5000/api/users/login";
 
   //Login member
   const login = async (userData) => {
