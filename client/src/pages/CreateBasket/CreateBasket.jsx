@@ -20,8 +20,8 @@ const categories = [
 //- Declare regex validations
 const DESCRIPTION_REGEX = /^[a-zA-Z]{10,}$/;
 const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
-const PRICE_REGEX = /^[1-9][0-9]{1,}$/;
-
+const ORIGINAL_PRICE_REGEX = /^[0-100]{2,}$/;
+const DISCOUNT_PRICE_REGEX = /^[0-100]{2,}$/;
 //- Common classes
 const FORM_INPUT_CLASSES =
   "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
@@ -37,8 +37,10 @@ function CreateBasket() {
 
   const [basketName, setBasketName] = useState("");
 
-  const [price, setPrice] = useState({ original: 1, discount: 0 });
-  const [validPrice, setValidPrice] = useState(false);
+  const [originalPrice, setOriginalPrice] = useState(1);
+  const [validOriginalPrice, setValidOriginalPrice] = useState(false);
+  const [discountPrice, setDiscountPrice] = useState(0);
+  const [validDiscountPrice, setValidDiscountPrice] = useState(false);
   const [priceFocus, setLastPriceFocus] = useState(false);
 
   const [quantity, setQuantity] = useState(0);
@@ -60,7 +62,7 @@ function CreateBasket() {
   const [errMessage, setErrorMessage] = useState("please include all fields");
   const [success, setSuccess] = useState(false);
 
-  const [isDisabled, setDisabled] = useState(true);
+  //const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
   // const { performFetch, cancelFetch, error } = useFetch("/basket", () => {
@@ -81,27 +83,36 @@ function CreateBasket() {
   }, [quantity]);
 
   useEffect(() => {
-    setValidPrice(PRICE_REGEX.test(price.original));
-  }, [price]);
+    setValidOriginalPrice(ORIGINAL_PRICE_REGEX.test(originalPrice));
+  }, [originalPrice]);
   useEffect(() => {
-    setValidPrice(PRICE_REGEX.test(price.discount));
-  }, [price]);
+    setValidDiscountPrice(DISCOUNT_PRICE_REGEX.test(discountPrice));
+  }, [discountPrice]);
+
   //- Determine button state
-  useEffect(() => {
-    !validDescription || !validPrice || !validQuantity
-      ? setDisabled(true)
-      : setDisabled(false);
-  }, [validDescription, validPrice, validQuantity]);
+  // useEffect(() => {
+  //   !validDescription ||
+  //   !validOriginalPrice ||
+  //   validDiscountPrice ||
+  //   !validQuantity
+  //     ? setDisabled(true)
+  //     : setDisabled(false);
+  // }, [validDescription, validOriginalPrice, validDiscountPrice, validQuantity]);
 
   //- Determine error message
   useEffect(() => {
     setErrorMessage("");
-  }, [description, price, quantity]);
+  }, [description, originalPrice, discountPrice, quantity]);
 
   //-handle category function
 
   const handleCategory = (e) => {
-    setCategory([...category, e.target.value]);
+    const { value, checked } = e.target;
+    if (checked === true) {
+      setCategory([...category, value]);
+    } else {
+      setCategory(category.filter((e) => e !== value));
+    }
   };
 
   //-Submit the form
@@ -109,7 +120,8 @@ function CreateBasket() {
     e.preventDefault();
     const newBasket = {
       name: basketName,
-      price,
+      originalPrice,
+      discountPrice,
       quantity,
       category,
       pickup,
@@ -119,12 +131,13 @@ function CreateBasket() {
       !category ||
       !pickup ||
       !basketName ||
-      !price ||
+      !originalPrice ||
+      !discountPrice ||
       !description ||
       !quantity
     ) {
       setErrorMessage("please include all fields");
-    } else if (price.discount >= price.original) {
+    } else if (discountPrice >= originalPrice) {
       setErrorMessage(
         "the original price should be less than the discount price"
       );
@@ -136,6 +149,7 @@ function CreateBasket() {
       setErrorMessage("description field should have at least 10 characters");
     } else {
       setSuccess(true);
+
       alert(newBasket);
       // performFetch({
       //   method: "POST",
@@ -209,24 +223,24 @@ function CreateBasket() {
                   type="number"
                   id="price"
                   autoComplete="off"
-                  onChange={(e) =>
-                    setPrice({ ...price, original: e.target.value })
-                  }
+                  onChange={(e) => setOriginalPrice(e.target.value)}
                   required
-                  aria-invalid={validPrice ? "false" : "true"}
+                  aria-invalid={validOriginalPrice ? "false" : "true"}
                   aria-describedby="fn-note"
                   onFocus={() => setLastPriceFocus(true)}
                   onBlur={() => setLastPriceFocus(false)}
                   className={FORM_INPUT_CLASSES}
-                  placeholder="price"
+                  placeholder="original price"
                 />
-                <label htmlFor="price" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="original price" className={FORM_LABEL_CLASSES}>
                   Regular Price
                 </label>
                 <p
                   id="fn-note"
                   className={`${VALID_NOTE}  ${
-                    priceFocus && price && !validPrice ? "block" : "hidden"
+                    priceFocus && originalPrice && !validOriginalPrice
+                      ? "block"
+                      : "hidden"
                   }`}
                 >
                   Price cant be 0
@@ -237,24 +251,24 @@ function CreateBasket() {
                   type="number"
                   id="price"
                   autoComplete="off"
-                  onChange={(e) =>
-                    setPrice({ ...price, discount: e.target.value })
-                  }
+                  onChange={(e) => setDiscountPrice(e.target.value)}
                   required
-                  aria-invalid={validPrice ? "false" : "true"}
+                  aria-invalid={validDiscountPrice ? "false" : "true"}
                   aria-describedby="fn-note"
                   onFocus={() => setLastPriceFocus(true)}
                   onBlur={() => setLastPriceFocus(false)}
                   className={FORM_INPUT_CLASSES}
-                  placeholder="price"
+                  placeholder="discount price"
                 />
-                <label htmlFor="price" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="discount price" className={FORM_LABEL_CLASSES}>
                   Discount Price
                 </label>
                 <p
                   id="fn-note"
                   className={`${VALID_NOTE}  ${
-                    priceFocus && price && !validPrice ? "block" : "hidden"
+                    priceFocus && discountPrice && !validDiscountPrice
+                      ? "block"
+                      : "hidden"
                   }`}
                 >
                   Price cant be 0
@@ -264,7 +278,7 @@ function CreateBasket() {
                 <p
                   id="fn-note"
                   className={`${VALID_NOTE}  ${
-                    price.original <= price.discount ? "block" : "hidden"
+                    originalPrice <= discountPrice ? "block" : "hidden"
                   }`}
                 >
                   price cant be less than discount price
@@ -312,10 +326,10 @@ function CreateBasket() {
                     <input
                       className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                       type="checkbox"
-                      name="categories"
+                      name={item}
                       id="category"
                       value={item}
-                      onChange={handleCategory}
+                      onClick={handleCategory}
                     />
                     <label className="form-check-label inline-block text-gray-800 ">
                       {item}
@@ -401,7 +415,7 @@ function CreateBasket() {
 
             <button
               //- Disable SignUp button till all validation passed
-              disabled={isDisabled}
+
               className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
             >
               create basket
