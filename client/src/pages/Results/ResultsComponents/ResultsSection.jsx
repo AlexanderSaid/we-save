@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Basket from "../../../components/Basket";
 import SearchContext from "../../../context/SearchContext";
 import { Link } from "react-router-dom";
+// import * as
 
 const ResultsSection = ({ shops }) => {
   const {
@@ -30,7 +31,7 @@ const ResultsSection = ({ shops }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center px-4 w-full">
       {searchError ? (
         <p>
           Something went wrong <br /> Please try again later
@@ -48,25 +49,36 @@ const ResultsSection = ({ shops }) => {
         </p>
       ) : !searchError && !searchLoading && shops.length ? (
         <>
-          <ul className="w-[50%] min-w-[400px] max-w-[700px]">
-            {shops.slice(0, toShow).map((shop) => (
-              <li
-                key={shop._id}
-                className="py-3 sm:py-4 bg-lightBg my-4 p-3 border border-darkBg transition-all ease-in delay-200"
-              >
-                <Basket
-                  name={shop.name}
-                  category={shop.baskets[0].categories[0]}
-                  oldPrice={shop.baskets[0].price.original}
-                  newPrice={shop.baskets[0].price.discount}
-                  quantity={shop.baskets[0].quantity}
-                  shop_id={shop._id}
-                  distance={shop.distance}
-                />
-              </li>
-            ))}
+          <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-8">
+            {shops.slice(0, toShow).map((shop) =>
+              shop.baskets.map(
+                (basket) =>
+                  basket.quantity && (
+                    <li
+                      key={basket._id}
+                      className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
+                    >
+                      <Basket
+                        name={basket.name}
+                        category={basket.categories}
+                        oldPrice={basket.price.original}
+                        newPrice={basket.price.discount}
+                        quantity={basket.quantity}
+                        description={basket.description}
+                        shop={shop.name}
+                        distance={shop.distance}
+                        address={shop.address}
+                      />
+                    </li>
+                  )
+              )
+            )}
           </ul>
-          <button disabled={isDisabled} onClick={showMoreHandler}>
+          <button
+            className="btn-blank mb-8"
+            disabled={isDisabled}
+            onClick={showMoreHandler}
+          >
             {!isDisabled ? "Show More" : "No More"}
           </button>
         </>

@@ -17,7 +17,7 @@ const axios = require("axios");
 /**
  * @type {Cypress.PluginConfig}
  */
-const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5001";
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {

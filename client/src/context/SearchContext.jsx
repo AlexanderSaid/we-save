@@ -104,7 +104,9 @@ export const SearchProvider = ({ children }) => {
   useEffect(() => {
     if (!shopsByDistance) return;
     function orderByDistance() {
-      const ordered = shopsByDistance.sort((a, b) => a.distance - b.distance);
+      const ordered = shopsByDistance
+        .filter((shop) => shop.baskets.length)
+        .sort((a, b) => a.distance - b.distance);
       return setOrderedShops(ordered);
     }
 

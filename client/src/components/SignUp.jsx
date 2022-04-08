@@ -147,7 +147,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
         <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUpOpen} />
       </>
     ) : (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)] left-0 right-0 w-full  h-full  z-[1000]">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
           <div className="bg-lightFont px-6 py-8 rounded shadow-md max-w-[600px] w-[90%]  relative">
             {errMessage && (

@@ -10,23 +10,34 @@ const FORM_LABEL_CLASSES =
   " text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
 
 function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
-  const { login, user } = useContext(UserContext);
+  const { user, login, error, isLoading } = useContext(UserContext);
   const [signinForm, setSigninForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
+  const [errMessage, setErrorMessage] = useState("");
 
-  const { email, password } = signinForm;
+  useEffect(() => {
+    setErrorMessage("");
+  }, [email, password]);
+
+  useEffect(() => {
+    error && setErrorMessage(error);
+  }, [error]);
+
   const handleChange = (e) => {
     setSigninForm((prev) => ({
       ...prev,
       [e.target.id]: e.target.value,
     }));
   };
+
   useEffect(() => {
     if (user) {
       setOpenSignIn(false);
     }
   }, [user]);
+
+  const { email, password } = signinForm;
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = { email, password };
@@ -34,14 +45,18 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
     if (owner) {
       setShopIsOpen(true);
     }
+    setSigninForm({ email: "", password: "" });
   };
+
   const closeWindow = () => {
     setOpenSignIn(false);
   };
+
   const handleSignupPage = () => {
     setSignUpOpen(true);
     setOpenSignIn(false);
   };
+
   if (signUpOpen) {
     return (
       <SignUp
@@ -51,6 +66,17 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
       />
     );
   }
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <div className="text-center bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
+            <h1>Loading...</h1>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -58,6 +84,13 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
         <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
           <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
             <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
+              {errMessage && (
+                <div className="flex items-center justify-center w-full">
+                  <h1 className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded">
+                    {errMessage}
+                  </h1>
+                </div>
+              )}
               <h1 className="mb-8 text-3xl text-center text-accent">Sign In</h1>
               <button
                 className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
