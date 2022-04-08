@@ -47,13 +47,11 @@
   "homepage": "https://github.com/HackYourFuture/final-project-template#readme",
   "devDependencies": {
     "@types/jest": "^27.0.2",
-    "axios": "^0.24.0",
     "cypress": "^9.1.0",
     "husky": "^7.0.0"
   },
   "dependencies": {
     "concurrently": "^6.4.0",
-    "geolib": "^3.3.3",
     "react-icons": "^4.3.1"
   }
 }
