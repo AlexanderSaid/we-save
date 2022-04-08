@@ -14,6 +14,7 @@ import grocery from "../assets/grocery.jpg";
 import diary from "../assets/organic-foods-5.jpg";
 import { useState } from "react";
 import ReservePopUp from "./ReservePopUp";
+import SuccessReserve from "./SuccessReserve";
 
 const Basket = ({
   name,
@@ -28,6 +29,7 @@ const Basket = ({
 }) => {
   const { street, house, addition, postcode, city } = address;
   const [isReserved, setIsReserved] = useState(false);
+  const [confirmRsv, setConfirmRsv] = useState(false);
 
   const link = `${street}+${house}${addition},+${postcode.slice(
     0,
@@ -54,8 +56,16 @@ const Basket = ({
 
   return (
     <>
+      {confirmRsv && (
+        <SuccessReserve confirmRsv={confirmRsv} setConfirmRsv={setConfirmRsv} />
+      )}
       {isReserved && (
-        <ReservePopUp isReserved={isReserved} setIsReserved={setIsReserved} />
+        <ReservePopUp
+          isReserved={isReserved}
+          setIsReserved={setIsReserved}
+          confirmRsv={confirmRsv}
+          setConfirmRsv={setConfirmRsv}
+        />
       )}
       <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:h-[150px] ">
         <div className="image-container md:basis-36 md:h-[150px] md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
