@@ -51,13 +51,9 @@ const NavBar = () => {
           </Link>
 
           <Link
-
             to="/createBasket"
-
-         
             onClick={() => setHidden(true)}
             className="nav-link nav-link-sm"
-
           >
             Your Baskets
           </Link>
