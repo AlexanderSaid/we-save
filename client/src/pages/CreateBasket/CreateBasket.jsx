@@ -65,7 +65,7 @@ function CreateBasket() {
   //const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  // const { performFetch, cancelFetch, error } = useFetch("/basket", () => {
+  // const { performFetch, cancelFetch, error } = useFetch("/shop/:id/baskets", () => {
   //   setSuccess(true);
   // });
 
@@ -175,20 +175,10 @@ function CreateBasket() {
           <CreateBasketSuccessMessage setSuccess={setSuccess} />
         </>
       )}
-      {errMessage && (
-        <div className="flex items-center justify-center w-full">
-          <h1
-            aria-live="assertive"
-            ref={errRef}
-            className="w-[50%] mb-4 text-xl text-center bg-black text-error border-2 border-error rounded"
-          >
-            {errMessage}
-          </h1>
-        </div>
-      )}
+
       <form onSubmit={handleSubmit}>
-        <div className="flex items-center justify-center mt-20 mb-10 relative  ">
-          <div className="grid bg-white  shadow-xl  md:w-9/12 lg:w-[60%] ">
+        <div className="flex items-center justify-center bg-gray-100">
+          <div className="grid bg-white  shadow-xl  md:w-9/12 lg:w-[60%] mt-[100px] mb-20">
             <div className="flex justify-center">
               <div className="flex">
                 <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10">
@@ -196,7 +186,17 @@ function CreateBasket() {
                 </h1>
               </div>
             </div>
-
+            {errMessage && (
+              <div className="flex items-center justify-center w-full index-0">
+                <h1
+                  aria-live="assertive"
+                  ref={errRef}
+                  className="w-[50%] mb-4 text-xl text-center  text-error border-2 border-error rounded"
+                >
+                  {errMessage}
+                </h1>
+              </div>
+            )}
             <div className="grid grid-cols-1  mx-7 mt-8">
               <p className="uppercase text-gray-500 md:text-sm text-xs  text-light font-semibold">
                 Basket Name
@@ -329,7 +329,7 @@ function CreateBasket() {
                       name={item}
                       id="category"
                       value={item}
-                      onClick={handleCategory}
+                      onChange={handleCategory}
                     />
                     <label className="form-check-label inline-block text-gray-800 ">
                       {item}
