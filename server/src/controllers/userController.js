@@ -73,6 +73,7 @@ const loginUser = asyncHandler(async (req, res) => {
         postcode: user.postcode,
         is_admin: user.is_admin,
         is_owner: user.is_owner,
+        shop_id: user.shop_id,
         token: generateToken(user._id),
       },
     });

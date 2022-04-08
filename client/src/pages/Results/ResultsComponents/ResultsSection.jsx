@@ -5,7 +5,7 @@ import SearchContext from "../../../context/SearchContext";
 import { Link } from "react-router-dom";
 // import * as
 
-const ResultsSection = ({ shops }) => {
+const ResultsSection = ({ baskets }) => {
   const {
     toShow,
     setToShow,
@@ -19,12 +19,12 @@ const ResultsSection = ({ shops }) => {
 
   //- Show more button state
   const [isDisabled, setDisabled] = useState(
-    shops.length <= INCREMENT ? true : false
+    baskets.length <= INCREMENT ? true : false
   );
 
   useEffect(() => {
-    toShow >= shops.length ? setDisabled(true) : setDisabled(false);
-  }, [toShow, shops]);
+    toShow >= baskets.length ? setDisabled(true) : setDisabled(false);
+  }, [toShow, baskets]);
 
   const showMoreHandler = () => {
     setToShow((prev) => prev + INCREMENT);
@@ -47,28 +47,29 @@ const ResultsSection = ({ shops }) => {
           <br /> If you have any questions, do not hesitate reaching us throw
           <Link to="#">contact us</Link> page.
         </p>
-      ) : !searchError && !searchLoading && shops.length ? (
+      ) : !searchError && !searchLoading && baskets.length ? (
         <>
           <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-8">
-            {shops.slice(0, toShow).map((shop) =>
-              shop.baskets.map((basket) => (
-                <li
-                  key={basket._id}
-                  className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
-                >
-                  <Basket
-                    name={basket.name}
-                    category={basket.categories}
-                    oldPrice={basket.price.original}
-                    newPrice={basket.price.discount}
-                    quantity={basket.quantity}
-                    description={basket.description}
-                    shop={shop.name}
-                    distance={shop.distance}
-                    address={shop.address}
-                  />
-                </li>
-              ))
+            {baskets.slice(0, toShow).map(
+              (basket) =>
+                basket.quantity && (
+                  <li
+                    key={basket._id}
+                    className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
+                  >
+                    <Basket
+                      name={basket.name}
+                      category={basket.categories}
+                      oldPrice={basket.price.original}
+                      newPrice={basket.price.discount}
+                      quantity={basket.quantity}
+                      description={basket.description}
+                      shop={basket.shop_id.name}
+                      distance={basket.distance}
+                      address={basket.shop_id.address}
+                    />
+                  </li>
+                )
             )}
           </ul>
           <button
@@ -92,7 +93,7 @@ const ResultsSection = ({ shops }) => {
   );
 };
 ResultsSection.propTypes = {
-  shops: PropTypes.array,
+  baskets: PropTypes.array,
 };
 
 export default ResultsSection;
