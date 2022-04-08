@@ -1,13 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
 
-const ReservePopUp = ({
-  // isReserved,
-  setIsReserved,
-  setConfirmRsv,
-}) => {
+const ReservePopUp = ({ setIsReserved, setConfirmRsv }) => {
   return (
     <>
       <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 //- Import icons
 import { FaShoppingBasket } from "react-icons/fa";
@@ -12,9 +12,11 @@ import pizza from "../assets/pizza.jpg";
 import surprise from "../assets/surprise.jpg";
 import grocery from "../assets/grocery.jpg";
 import diary from "../assets/organic-foods-5.jpg";
-import { useState } from "react";
 import ReservePopUp from "./ReservePopUp";
 import SuccessReserve from "./SuccessReserve";
+import { useAuthentication } from "../hooks/useAuthentication";
+import SignIn from "./layout/SignIn";
+import SignInContext from "../context/SignInContext";
 
 const Basket = ({
   name,
@@ -30,6 +32,8 @@ const Basket = ({
   const { street, house, addition, postcode, city } = address;
   const [isReserved, setIsReserved] = useState(false);
   const [confirmRsv, setConfirmRsv] = useState(false);
+  const { loggedIn } = useAuthentication();
+  const { isOpen, setIsOpen } = useContext(SignInContext);
 
   const link = `${street}+${house}${addition},+${postcode.slice(
     0,
@@ -56,6 +60,7 @@ const Basket = ({
 
   return (
     <>
+      {<SignIn setOpenSignIn={setIsOpen} openSignIn={isOpen} />}
       {confirmRsv && (
         <SuccessReserve confirmRsv={confirmRsv} setConfirmRsv={setConfirmRsv} />
       )}
@@ -104,17 +109,27 @@ const Basket = ({
               <p className="description">{description}</p>
             </div>
 
-            {/* <Link> */}
-            <button
-              disabled={!quantity && true}
-              className="reserve "
-              onClick={() => {
-                setIsReserved(true);
-              }}
-            >
-              Reserve
-            </button>
-            {/* </Link> */}
+            {loggedIn ? (
+              <button
+                disabled={!quantity && true}
+                className="reserve "
+                onClick={() => {
+                  setIsReserved(true);
+                }}
+              >
+                Reserve
+              </button>
+            ) : (
+              <button
+                disabled={!quantity && true}
+                className="reserve "
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Log in to Reserve
+              </button>
+            )}
           </div>
         </div>
 
@@ -158,5 +173,7 @@ Basket.propTypes = {
   shop: PropTypes.string,
   address: PropTypes.object,
   description: PropTypes.string,
+  login: PropTypes.bool,
+  setLogin: PropTypes.func,
 };
 export default Basket;
