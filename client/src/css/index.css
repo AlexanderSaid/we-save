@@ -1,5 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+/* latin-ext */
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@layer base {
+  html {
+    font-family: "Fira Sans", Roboto;
+  }
+  h1 {
+    @apply text-title;
+  }
+  h2 {
+    @apply text-title2;
+  }
+  h3 {
+    @apply text-title3;
+  }
+  h4 {
+    @apply text-title4;
+  }
+  h5 {
+    @apply text-bodyLarge;
+  }
+}
+@layer components {
+  .footer-link {
+    @apply text-lightFont hover:text-primary hover:cursor-pointer;
+  }
+  .nav-links {
+    @apply absolute w-full bg-darkBg/95 top-[100px] h-screen flex flex-col items-start justify-start pl-[40%] gap-8 transition-all duration-[200ms] ease-linear;
+  }
+  .nav-links-sm {
+    @apply sm:static sm:flex-row sm:items-center sm:justify-end sm:pl-0 sm:h-full sm:gap-0;
+  }
+  .nav-link {
+    @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[200ms] ease-in-out hover:bg-lightBg;
+  }
+  .nav-link-sm {
+    @apply sm:w-fit sm:p-2 sm:text-bodyMd sm:ml-2 sm:text-lightFont sm:bg-darkBg sm:transition-colors sm:duration-[300ms] sm:rounded-md  sm:hover:bg-primary sm:hover:text-darkFont md:text-bodyRegular;
+  }
+  .btn-blank {
+    @apply border border-accent text-darkFont block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-accent hover:text-lightFont;
+  }
+  .reserve {
+    @apply w-[70%] max-w-[200px] self-center text-bodySmall font-bold text-lightBg bg-darkBg rounded-full p-2 hover:bg-accent hover:text-lightFont transition-all duration-[400ms] ease-in-out;
+  }
+  .basket-name {
+    @apply font-bold text-darkFont py-1;
+  }
+  .basket-category {
+    @apply text-button text-accent border border-accent rounded-full px-2 pt-1 bg-lightBg w-fit font-bold md:py-1;
+  }
+  .description {
+    @apply text-button  py-2 text-darkFont text-justify font-[Lato] font-bold xs:text-bodySmall md:px-2 md:font-bold md:text-bodyMd;
+  }
+  .baskets-left {
+    @apply text-bodySmall rounded-full text-error px-3 border border-error w-[60px] flex justify-between items-center font-bold md:text-bodyRegular;
+  }
+  .shop-name {
+    @apply font-bold text-darkFont pt-2 px-1 text-bodyRegular md:self-end md:pr-4;
+  }
+  .pickup {
+    @apply font-bold text-button text-shade px-1 border-b w-fit md:self-end md:pr-4;
+  }
+  .address,
+  .distance-container {
+    @apply text-accent text-bodySmall leading-4 font-bold;
+  }
+  .container {
+    @apply flex flex-col flex-wrap justify-center items-center gap-4 px-6 mx-auto my-4 -m-4 md:flex-row md:max-w-1440 md:justify-center md:py-8;
+  }
+  .category {
+    @apply text-bodyMd font-bold p-2 w-[135px] place-self-center rounded-xl border border-darkFont hover:border-accent hover:bg-accent hover:text-lightFont transition ease-in-out duration-300 sm:w-[150px] sm:text-bodyRegular;
+  }
+}

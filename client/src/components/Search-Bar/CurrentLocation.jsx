@@ -46,7 +46,7 @@ const CurrentLocation = () => {
   }, [currentCoordinates.latitude]);
 
   return (
-    <div className="p-4">
+    <div className="p-1 sm:p-4">
       <BiCurrentLocation
         size={30}
         onClick={handleCurrentLocation}
