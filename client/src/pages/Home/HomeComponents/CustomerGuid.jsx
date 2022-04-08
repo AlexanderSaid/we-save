@@ -16,9 +16,7 @@ const CostumerGuid = () => {
               anim id est laborum.
             </p>
             <a className="block mt-8 text-darkFont ">
-              <button className="border border-teal-500 text-darkFont block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-teal-500 hover:text-white">
-                Customer Page
-              </button>
+              <button className="btn-blank">Customer Page</button>
             </a>
           </div>
 

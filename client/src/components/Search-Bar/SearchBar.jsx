@@ -9,9 +9,9 @@ const SearchBar = () => {
   return (
     <>
       <div className="flex flex-col search-bar items-center justify-center w-full px-4">
-        <h3 className="block my-4 mb-4 tracking-wide text-lightFont sm:text-xl text-center">
+        <h5 className="block my-4 mb-4 text-bodyRegular tracking-wide text-lightFont sm:bodyLarge text-center">
           Find Shops Near You in Amsterdam
-        </h3>
+        </h5>
 
         <div className="flex rounded bg-lightFont w-full border border-darkBg mb-2 max-w-[500px]">
           <CurrentLocation />
@@ -20,7 +20,7 @@ const SearchBar = () => {
             name="location"
             aria-label="search, Enter your postcode."
             value={inputValue}
-            className="w-full px-4 py-1 sm:py-4 text-darkFont bg-transparent border-none outline-none focus:outline-none "
+            className="w-full px-4 py-1 sm:py-4 text-darkFont bg-transparent border-none outline-none focus:outline-none placeholder:text-center placeholder:text-bodyMd sm:placeholder:text-bodyRegular"
             placeholder={"Enter Your Post Code"}
             onChange={(e) => setInputValue(e.target.value)}
           />

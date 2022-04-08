@@ -31,10 +31,7 @@ const ShopGuid = () => {
               anim id est laborum.
             </p>
             <a className="block mt-8 text-indigo-700 ">
-              <button
-                onClick={() => setIsOpen(true)}
-                className="flex items-center block px-6 py-4 mr-2 font-bold border border-teal-500 rounded-sm text-darkFont hover:bg-teal-500 hover:text-white"
-              >
+              <button onClick={() => setIsOpen(true)} className="btn-blank">
                 Owner Page
               </button>
             </a>

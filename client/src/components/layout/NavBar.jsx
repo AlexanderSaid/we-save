@@ -1,74 +1,88 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiLogIn, FiMenu } from "react-icons/fi";
+import { FiLogIn, FiMenu, FiX } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
 // import UserContext from "../../context/UserContext";
 import SignIn from "./SignIn";
 const NavBar = () => {
+  //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
-  const [flex, setFlex] = useState(false);
+
+  //- Sing in pop-up state
   const [isOpen, setIsOpen] = useState(false);
+
   // const { logout } = useContext(UserContext);
-  const navbarCollapse = () => {
+  const sideBarState = () => {
     setHidden(!hidden);
-    setFlex(!flex);
   };
 
   return (
     <nav className="bg-darkBg py-4 max-w-1440 w-screen px-8 sm:px-12">
       <div className="w-full sm:flex sm:items-center sm:justify-between ">
-        <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-lightFont">
+        <div className="flex items-center justify-between relative">
+          <div className="text-xl font-bold text-lightFont ml-2">
             <SiFoodpanda size={50} />
           </div>
           <button
             className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 sm:hidden"
             id="navbar-toggle"
-            onClick={navbarCollapse}
+            onClick={sideBarState}
           >
-            <FiMenu />
+            {hidden ? <FiMenu /> : <FiX />}
           </button>
         </div>
+
         <div
-          className={`${flex ? "flex" : ""} ${
-            hidden ? "hidden" : ""
-          } sm:flex flex-col sm:flex-row mt-3 sm:mt-0 `}
-          id="navbar-collapse"
+          // className={`${flex ? "flex" : ""} ${
+          //   hidden ? "hidden" : ""
+          // } sm:flex flex-col sm:flex-row mt-3 sm:mt-0 `}
+          // id='navbar-collapse'
+          className={`${
+            hidden ? "right-[-100%]" : "right-0"
+          } nav-links nav-links-sm`}
         >
-          <Link to="/" className="nav-link">
+          <Link
+            to="/"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-sm"
+          >
             Home
           </Link>
-          {/* <button className="text-primary" onClick={logout}>
-            Logout
-          </button>
+
           <Link
-            to="/register"
-            className="nav-link"
+            to="#"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-sm"
           >
-            Register shop
+            Your Baskets
           </Link>
+
           <Link
-            to="/login"
-            className="nav-link"
+            to="about-us"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-sm"
           >
-            Login
-          </Link> */}
-          <Link to="#" className="nav-link">
-            Store Owner?
-          </Link>
-          <Link to="#" className="nav-link">
             About Us
           </Link>
-          <Link to="#" className="nav-link">
-            FAQ
+
+          <Link
+            to="contact"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-sm"
+          >
+            Contact
           </Link>
-          <Link to="#" className="justify-center nav-link">
+
+          <Link to="#" className="justify-center nav-link nav-link-sm">
             <div
+              className="sign-in"
               onClick={() => {
                 setIsOpen(true);
+                setHidden(true);
               }}
             >
-              <FiLogIn size={24} />
+              Sign In
+              <FiLogIn className="inline-block ml-2 font-semibold" size={20} />
             </div>
           </Link>
 
