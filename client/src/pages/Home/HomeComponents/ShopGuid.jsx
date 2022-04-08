@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContext } from "react/cjs/react.development";
+import ShopRegistration from "../../../components/ShopRegistration";
+import SignInContext from "../../../context/SignInContext";
+import { useAuthentication } from "../../../hooks/useAuthentication";
+import SignIn from "../../../components/layout/SignIn";
 
 const ShopGuid = () => {
+  const [shopIsOpen, setShopIsOpen] = useState(false);
+  const [owner, setOwner] = useState(false);
+  const { isOpen, setIsOpen } = useContext(SignInContext);
+  const { loggedIn } = useAuthentication();
+
   return (
     <section className="bg-white">
       <div className="max-w-5xl px-6 py-16 mx-auto">
@@ -28,12 +38,31 @@ const ShopGuid = () => {
               anim id est laborum.
             </p>
             <a className="block mt-8 text-indigo-700 ">
-              <button className="border border-teal-500 text-darkFont block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-teal-500 hover:text-white">
+              <button
+                // onClick={() => setShopIsOpen(true)}
+                onClick={() => {
+                  setOwner(true);
+                  loggedIn ? setShopIsOpen(true) : setIsOpen(true);
+                }}
+                className="flex items-center block px-6 py-4 mr-2 font-bold border border-teal-500 rounded-sm text-darkFont hover:bg-teal-500 hover:text-white"
+              >
                 Owner Page
               </button>
             </a>
           </div>
         </div>
+        <ShopRegistration
+          shopRegisterOpen={shopIsOpen}
+          setShopRegisterOpen={setShopIsOpen}
+          setOwner={setOwner}
+        />
+        <SignIn
+          openSignIn={isOpen}
+          setOpenSignIn={setIsOpen}
+          setShopIsOpen={setShopIsOpen}
+          setOwner={setOwner}
+          owner={owner}
+        />
       </div>
     </section>
   );

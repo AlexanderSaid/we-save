@@ -24,13 +24,13 @@ const Footer = () => {
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-white hover:text-primary">About Us</a>
+                <a className="footer-link">About Us</a>
               </li>
               <li>
-                <a className="text-white hover:text-primary">Customer</a>
+                <a className="footer-link">Customer</a>
               </li>
               <li>
-                <a className="text-white hover:text-primary">Shop Owner</a>
+                <a className="footer-link">Shop Owner</a>
               </li>
             </nav>
           </div>
@@ -40,7 +40,7 @@ const Footer = () => {
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-white hover:text-primary">FAQ</a>
+                <a className="footer-link">FAQ</a>
               </li>
             </nav>
           </div>
@@ -50,15 +50,13 @@ const Footer = () => {
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-white hover:text-primary">
-                  TERMS & CONDITIONS
-                </a>
+                <a className="footer-link">TERMS & CONDITIONS</a>
               </li>
               <li>
-                <a className="text-white hover:text-primary">PRIVACY POLICY</a>
+                <a className="footer-link">PRIVACY POLICY</a>
               </li>
               <li>
-                <a className="text-white hover:text-primary">COOKIE POLICY</a>
+                <a className="footer-link">COOKIE POLICY</a>
               </li>
             </nav>
           </div>
