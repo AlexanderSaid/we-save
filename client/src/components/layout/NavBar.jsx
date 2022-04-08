@@ -38,10 +38,6 @@ const NavBar = () => {
         </div>
 
         <div
-          // className={`${flex ? "flex" : ""} ${
-          //   hidden ? "hidden" : ""
-          // } sm:flex flex-col sm:flex-row mt-3 sm:mt-0 `}
-          // id='navbar-collapse'
           className={`${
             hidden ? "right-[-100%]" : "right-0"
           } nav-links nav-links-sm`}
@@ -77,7 +73,8 @@ const NavBar = () => {
           >
             Contact
           </Link>
-          <button
+          <Link
+            to="#"
             onClick={
               loggedIn
                 ? logout
@@ -105,7 +102,7 @@ const NavBar = () => {
                 />
               </div>
             )}
-          </button>
+          </Link>
 
           <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
