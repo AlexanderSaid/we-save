@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
+import UserContext from "../context/UserContext";
 
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
-// import useFetch from "../hooks/useFetch.js";
+import useFetch from "../hooks/useFetch.js";
 
 //- Declare regex validations
 const SHOP_NAME_REGEX = /^[a-zA-Z]{2,}$/;
@@ -28,7 +29,11 @@ const FORM_LABEL_CLASSES =
 const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 
-const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
+const ShopRegistration = ({
+  shopRegisterOpen,
+  setShopRegisterOpen,
+  setOwner,
+}) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -37,6 +42,8 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
    * For value, for validation and for focus
    * to determine visibility
    */
+
+  const { user } = useContext(UserContext);
 
   const [shopName, setShopName] = useState("");
   const [validShopName, setValidShopName] = useState(false);
@@ -68,14 +75,14 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  // const { performFetch, cancelFetch, error } = useFetch("/users", () => {
-  //   setSuccess(true);
-  // });
+  const { performFetch, cancelFetch, error } = useFetch("/shops", () => {
+    setSuccess(true);
+  });
 
   // -
-  // useEffect(() => {
-  //   return cancelFetch;
-  // }, []);
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
 
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
@@ -112,31 +119,30 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
   //- Connect with backend
   // - Set error message from backend
-  // useEffect(() => {
-  //   error && setErrorMessage(error);
-  // }, [error]);
+  useEffect(() => {
+    error && setErrorMessage(error);
+  }, [error]);
 
   //- Send the form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // performFetch({
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: shopName,
-    //     address: {
-    //       street: streetName,
-    //       house: houseNumber,
-    //       postcode: postcode,
-    //     },
-    //     email: email,
-    //     phone: phone,
-    //     kvk: kvkNumber,
-    //   }),
-    // });
+    performFetch({
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({
+        name: shopName,
+        street: streetName,
+        house: houseNumber,
+        postcode: postcode,
+        email: email,
+        phone: phone,
+        kvk: kvkNumber,
+      }),
+    });
   };
 
   return (
@@ -169,7 +175,10 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
             </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-              onClick={() => setShopRegisterOpen(false)}
+              onClick={() => {
+                setShopRegisterOpen(false);
+                setOwner(false);
+              }}
             >
               <AiOutlineArrowLeft />
             </button>
@@ -372,6 +381,7 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
               <button
                 //- Disable SignUp button till all validation passed
+                onClick={() => setOwner(false)}
                 disabled={isDisabled}
                 className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
               >
@@ -390,6 +400,7 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 ShopRegistration.propTypes = {
   shopRegisterOpen: PropTypes.bool,
   setShopRegisterOpen: PropTypes.func,
+  setOwner: PropTypes.func,
 };
 
 export default ShopRegistration;

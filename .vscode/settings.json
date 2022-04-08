@@ -2,6 +2,6 @@
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "cSpell.words": ["testid"],
-  "files.eol": "\r\n",
-  "prettier.endOfLine": "crlf"
+  "files.eol": "auto",
+  "prettier.endOfLine": "lf"
 }

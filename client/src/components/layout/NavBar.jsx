@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { FiLogIn, FiMenu, FiX } from "react-icons/fi";
+import { FiLogIn, FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
+import { useAuthentication } from "../../hooks/useAuthentication";
+import UserContext from "../../context/UserContext";
+import SignInContext from "../../context/SignInContext";
 // import UserContext from "../../context/UserContext";
 import SignIn from "./SignIn";
 const NavBar = () => {
@@ -9,12 +12,14 @@ const NavBar = () => {
   const [hidden, setHidden] = useState(true);
 
   //- Sing in pop-up state
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useContext(SignInContext);
 
-  // const { logout } = useContext(UserContext);
   const sideBarState = () => {
     setHidden(!hidden);
   };
+
+  const { loggedIn } = useAuthentication();
+  const { logout } = useContext(UserContext);
 
   return (
     <nav className="bg-darkBg py-4 max-w-1440 w-screen px-8 sm:px-12">
@@ -72,19 +77,35 @@ const NavBar = () => {
           >
             Contact
           </Link>
-
-          <Link to="#" className="justify-center nav-link nav-link-sm">
-            <div
-              className="sign-in"
-              onClick={() => {
-                setIsOpen(true);
-                setHidden(true);
-              }}
-            >
-              Sign In
-              <FiLogIn className="inline-block ml-2 font-semibold" size={20} />
-            </div>
-          </Link>
+          <button
+            onClick={
+              loggedIn
+                ? logout
+                : () => {
+                    setIsOpen(true);
+                    setHidden(true);
+                  }
+            }
+            className="justify-center nav-link nav-link-sm"
+          >
+            {loggedIn ? (
+              <div>
+                Log out
+                <FiLogOut
+                  className="inline-block ml-2 font-semibold"
+                  size={20}
+                />
+              </div>
+            ) : (
+              <div>
+                Sign In
+                <FiLogIn
+                  className="inline-block ml-2 font-semibold"
+                  size={20}
+                />
+              </div>
+            )}
+          </button>
 
           <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
