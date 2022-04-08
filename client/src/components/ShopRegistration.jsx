@@ -7,7 +7,7 @@ import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import useFetch from "../hooks/useFetch.js";
 
 //- Declare regex validations
-const SHOP_NAME_REGEX = /^[a-zA-Z]{2,}$/;
+const SHOP_NAME_REGEX = /^[a-zA-Z0-9\s]{2,}$/;
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
 // (123) 456-7890
@@ -19,7 +19,7 @@ const EMAIL_REGEX =
 // 075-63546725
 const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
 const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
-const KVK_REGEX = /^[0-9a-zA-Z]{8,8}/;
+const KVK_REGEX = /^[0-9a-zA-Z]{8}/;
 
 //- Common classes
 const FORM_INPUT_CLASSES =
