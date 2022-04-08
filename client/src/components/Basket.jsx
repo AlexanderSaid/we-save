@@ -86,7 +86,7 @@ const Basket = ({
           </div>
 
           {/* <Link> */}
-          <button disabled={!quantity && true} className="reserve ">
+          <button disabled={quantity === 0 && true} className="reserve ">
             Reserve
           </button>
           {/* </Link> */}
