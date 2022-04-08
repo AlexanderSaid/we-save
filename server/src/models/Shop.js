@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Basket from "./Basket.js";
 const { Schema } = mongoose;
 
 const shopSchema = new Schema(
@@ -56,5 +57,9 @@ const shopSchema = new Schema(
   },
   { timestamps: true }
 );
-
+shopSchema.post("remove", async function (shop) {
+  if (shop.baskets.length) {
+    await Basket.deleteMany({ _id: { $in: shop.baskets } });
+  }
+});
 export default mongoose.model("Shop", shopSchema);

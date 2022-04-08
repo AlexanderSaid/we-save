@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import CreateBasketSuccessMessage from "./CreateBasket component/CreateBasketSuccessMessage";
-//import UserContext from "../../context/UserContext";
-//import useFetch from "../hooks/useFetch.js";
+import UserContext from "../../context/UserContext";
+import useFetch from "../../hooks/useFetch";
 const names = [
   "Breakfast basket",
   "Lunch basket",
@@ -9,7 +9,13 @@ const names = [
   "Surprise basket",
   "Pastries basket",
 ];
-const categories = ["vegetarian", "Groceries", " Bread & Pastries", "Meals"];
+const categoriesArr = [
+  "Meals",
+  "Bread & Pastries",
+  "Groceries",
+  "Vegetarian",
+  "Diary & Meat",
+];
 
 //- Declare regex validations
 const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
@@ -29,7 +35,7 @@ const OTHER_INPUTSTYLE =
 function CreateBasket() {
   const errRef = useRef();
 
-  //const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [basketName, setBasketName] = useState("");
 
@@ -46,8 +52,8 @@ function CreateBasket() {
   const [category, setCategory] = useState([]);
 
   const [pickup, setpickup] = useState({
-    from: new Date(),
-    to: new Date(),
+    from: "",
+    to: "",
   });
   const { from, to } = pickup;
 
@@ -61,17 +67,21 @@ function CreateBasket() {
   //const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  // const { performFetch, cancelFetch, error } = useFetch(
-  //   "/shop/:id/baskets",
-  //   () => {
-  //     setSuccess(true);
-  //   }
-  // );
+  const { performFetch, cancelFetch, error } = useFetch(
+    `/shops/${user.shop_id}/baskets`,
+    () => {
+      setSuccess(true);
+    }
+  );
 
   //-
-  // useEffect(() => {
-  //   return cancelFetch;
-  // }, []);
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
+  useEffect(() => {
+    error && setErrorMessage(error);
+  }, [error]);
 
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
@@ -117,15 +127,7 @@ function CreateBasket() {
   //-Submit the form
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newBasket = {
-      name: basketName,
-      originalPrice,
-      discountPrice,
-      quantity,
-      categories: category,
-      pickup,
-      description,
-    };
+
     if (
       !category ||
       !pickup ||
@@ -146,24 +148,29 @@ function CreateBasket() {
       setErrorMessage("quantity should be 1 at least");
     } else if (description.length <= 10) {
       setErrorMessage("description field should have at least 10 characters");
+    } else if (error) {
+      setErrorMessage(error);
     } else {
       setSuccess(true);
 
-      alert(newBasket);
-      // performFetch({
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     first: firstName,
-      //     last: lastName,
-      //     email: email,
-      //     postcode: postcode,
-      //     password: password,
-      //   }),
-      // });
+      performFetch({
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          name: basketName,
+          original: originalPrice,
+          discount: discountPrice,
+          quantity,
+          categories: category,
+          from,
+          to,
+          description,
+        }),
+      });
     }
   };
 
@@ -320,7 +327,7 @@ function CreateBasket() {
               </label>
 
               <div className="flex lg:justify-evenly mt-4 flex-wrap  mb-12">
-                {categories.map((item, idx) => (
+                {categoriesArr.map((item, idx) => (
                   <div className="ml-4" key={idx}>
                     <input
                       className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
@@ -351,7 +358,7 @@ function CreateBasket() {
                   required
                   className={OTHER_INPUTSTYLE}
                   value={from}
-                  type="datetime-local"
+                  type="time"
                   id="pickup"
                   onChange={(e) =>
                     setpickup({
@@ -376,7 +383,7 @@ function CreateBasket() {
                       to: e.target.value,
                     })
                   }
-                  type="datetime-local"
+                  type="time"
                   placeholder="quantity"
                   id="pickup"
                 />

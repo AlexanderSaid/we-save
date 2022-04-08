@@ -40,6 +40,11 @@ const userSchema = new Schema(
     postcode: {
       type: String,
     },
+    shop_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Shop",
+    },
+
     favorites_shops: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Shop" }],
     // shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
   },

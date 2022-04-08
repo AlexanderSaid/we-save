@@ -68,6 +68,7 @@ const createShop = asyncHandler(async (req, res) => {
     owner_id: req.user.id,
   });
   user.is_owner = true;
+  user.shop_id = newShop._id;
   await user.save();
   res.status(201).json({ success: true, result: newShop });
 });

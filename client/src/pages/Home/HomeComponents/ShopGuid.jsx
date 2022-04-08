@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useContext } from "react/cjs/react.development";
+import React, { useState, useContext } from "react";
 import ShopRegistration from "../../../components/ShopRegistration";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
