@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import CreateBasketSuccessMessage from "./CreateBasket component/CreateBasketSuccessMessage";
+//import UserContext from "../../context/UserContext";
 //import useFetch from "../hooks/useFetch.js";
 const names = [
   "Breakfast basket",
@@ -8,20 +9,13 @@ const names = [
   "Surprise basket",
   "Pastries basket",
 ];
-const categories = [
-  " Magic box",
-  "vegetarian",
-  "Groceries",
-  " Bread & Pastries",
-  "Meals",
-  "Drinks",
-];
+const categories = ["vegetarian", "Groceries", " Bread & Pastries", "Meals"];
 
 //- Declare regex validations
-const DESCRIPTION_REGEX = /^[a-zA-Z]{10,}$/;
+const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
 const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
-const ORIGINAL_PRICE_REGEX = /^[0-100]{2,}$/;
-const DISCOUNT_PRICE_REGEX = /^[0-100]{2,}$/;
+const ORIGINAL_PRICE_REGEX = /^[1-9][0-9]$/;
+const DISCOUNT_PRICE_REGEX = /^[1-9][0-9]$/;
 //- Common classes
 const FORM_INPUT_CLASSES =
   "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
@@ -34,6 +28,8 @@ const OTHER_INPUTSTYLE =
 
 function CreateBasket() {
   const errRef = useRef();
+
+  //const { user } = useContext(UserContext);
 
   const [basketName, setBasketName] = useState("");
 
@@ -65,9 +61,12 @@ function CreateBasket() {
   //const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  // const { performFetch, cancelFetch, error } = useFetch("/shop/:id/baskets", () => {
-  //   setSuccess(true);
-  // });
+  // const { performFetch, cancelFetch, error } = useFetch(
+  //   "/shop/:id/baskets",
+  //   () => {
+  //     setSuccess(true);
+  //   }
+  // );
 
   //-
   // useEffect(() => {
@@ -123,7 +122,7 @@ function CreateBasket() {
       originalPrice,
       discountPrice,
       quantity,
-      category,
+      categories: category,
       pickup,
       description,
     };
@@ -223,7 +222,7 @@ function CreateBasket() {
                   type="number"
                   id="price"
                   autoComplete="off"
-                  onChange={(e) => setOriginalPrice(e.target.value)}
+                  onChange={(e) => setOriginalPrice(parseInt(e.target.value))}
                   required
                   aria-invalid={validOriginalPrice ? "false" : "true"}
                   aria-describedby="fn-note"
@@ -251,7 +250,7 @@ function CreateBasket() {
                   type="number"
                   id="price"
                   autoComplete="off"
-                  onChange={(e) => setDiscountPrice(e.target.value)}
+                  onChange={(e) => setDiscountPrice(parseInt(e.target.value))}
                   required
                   aria-invalid={validDiscountPrice ? "false" : "true"}
                   aria-describedby="fn-note"
