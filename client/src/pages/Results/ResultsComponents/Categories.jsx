@@ -7,7 +7,7 @@ const categoryList = [
   "Vegetarian",
   "Diary & Meat",
   "Bread & Pastries",
-  "Surprise basket",
+  "Other",
 ];
 
 const Categories = ({ selectedCategory, onClick }) => {
