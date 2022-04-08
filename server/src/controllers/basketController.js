@@ -3,6 +3,20 @@ import Basket from "../models/Basket.js";
 import User from "../models/User.js";
 import Shop from "../models/Shop.js";
 
+//@des Get all the Baskets
+//@route GET /api/shops/:shopId/baskets
+//@access Public
+const getBaskets = asyncHandler(async (req, res) => {
+  const baskets = await Basket.find({}).populate("shop_id", [
+    "name",
+    "address",
+  ]);
+  if (!baskets) {
+    res.status(400).json({ msg: "There is no baskets" });
+  }
+  res.status(200).json({ success: true, result: baskets });
+});
+
 //@des Get the Baskets of a specific shop
 //@route GET /api/shops/:shopId/baskets
 //@access Private
@@ -103,4 +117,4 @@ const deleteBasket = asyncHandler(async (req, res) => {
     .json({ success: true, result: "Your basket was successfully deleted" });
 });
 
-export { getShopBaskets, createShopBasket, deleteBasket };
+export { getShopBaskets, createShopBasket, deleteBasket, getBaskets };
