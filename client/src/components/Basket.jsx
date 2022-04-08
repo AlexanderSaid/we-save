@@ -50,7 +50,7 @@ const Basket = ({
   };
 
   return (
-    <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:h-[150px] ">
+    <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:gap-2 md:h-[150px] ">
       <div className="image-container md:basis-36 md:h-[150px] md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
         <img
           src={getImage()}
@@ -59,7 +59,7 @@ const Basket = ({
         />
       </div>
 
-      <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:flex-row md:h-[150px] md:grow md:px-0 transition-all duration-[400ms] ease-in-out">
+      <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
         <div className="w-full h-full flex flex-col justify-start md:justify-between md:basis-36 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
           <h5 className="basket-name">{name}</h5>
           {category.length &&
@@ -74,7 +74,7 @@ const Basket = ({
               <FaShoppingBasket className="inline" />
             </div>
 
-            <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular md:pr-4 transition-all duration-[400ms] ease-in-out">
+            <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
               <span className="old line-through text-shade">{`€ ${oldPrice}`}</span>
               <span className="new text-accent">{` / € ${newPrice}`}</span>
             </div>
@@ -93,7 +93,7 @@ const Basket = ({
         </div>
       </div>
 
-      <div className="shop-details flex flex-col py-2 justify-between items-center md:h-full md:basis-40 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
+      <div className="shop-details flex flex-col py-2 justify-between items-center md:h-full md:basis-44 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
         <h5 className="shop-name">{shop}</h5>
 
         <div className="location flex flex-col items-center justify-between gap-x-2 md:gap-y-2 md:items-end md:w-full md:pr-4">
