@@ -87,7 +87,7 @@ const NavBar = () => {
           >
             {loggedIn ? (
               <div>
-                Log out
+                Log Out
                 <FiLogOut
                   className="inline-block ml-2 font-semibold"
                   size={20}

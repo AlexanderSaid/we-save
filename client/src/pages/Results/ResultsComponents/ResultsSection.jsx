@@ -50,24 +50,29 @@ const ResultsSection = ({ shops }) => {
       ) : !searchError && !searchLoading && shops.length ? (
         <>
           <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-8">
-            {shops.slice(0, toShow).map((shop) => (
-              <li
-                key={shop._id}
-                className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
-              >
-                <Basket
-                  name={shop.baskets[0].name}
-                  category={shop.baskets[0].categories}
-                  oldPrice={shop.baskets[0].price.original}
-                  newPrice={shop.baskets[0].price.discount}
-                  quantity={shop.baskets[0].quantity}
-                  description={shop.baskets[0].description}
-                  shop={shop.name}
-                  distance={shop.distance}
-                  address={shop.address}
-                />
-              </li>
-            ))}
+            {shops.slice(0, toShow).map((shop) =>
+              shop.baskets.map(
+                (basket) =>
+                  basket.quantity && (
+                    <li
+                      key={basket._id}
+                      className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
+                    >
+                      <Basket
+                        name={basket.name}
+                        category={basket.categories}
+                        oldPrice={basket.price.original}
+                        newPrice={basket.price.discount}
+                        quantity={basket.quantity}
+                        description={basket.description}
+                        shop={shop.name}
+                        distance={shop.distance}
+                        address={shop.address}
+                      />
+                    </li>
+                  )
+              )
+            )}
           </ul>
           <button
             className="btn-blank mb-8"
