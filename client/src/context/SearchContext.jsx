@@ -1,7 +1,6 @@
 import React, { useEffect, useState, createContext } from "react";
 import PropTypes from "prop-types";
-import axios from "../apis/geoapify";
-import useAxios from "../hooks/UseAxios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { getDistance } from "geolib";
@@ -15,7 +14,7 @@ export const SearchProvider = ({ children }) => {
   const [inputValue, setInputValue] = useState("");
 
   //- The postcode to search
-  const [postcode, setPostcode] = useState("1006gc");
+  const [postcode, setPostcode] = useState("");
 
   //- The search coordinates
   const [searchCoordinates, setSearchCoordinates] = useState({
@@ -27,7 +26,8 @@ export const SearchProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   //- Set the postcode onClick search
-  const onSearch = () => {
+  const onSearch = (e) => {
+    e.preventDefault();
     if (!inputValue) return;
     navigate("/results");
     const query = inputValue.split(" ").join("").toLowerCase();
@@ -41,27 +41,45 @@ export const SearchProvider = ({ children }) => {
   //- Postcode existence
   const [isExist, setIsExist] = useState(true);
 
-  const [searchedPostcode, searchError, searchLoading] = useAxios({
-    axiosInstance: axios,
-    method: "GET",
-    url: `search?text=${postcode}&type=postcode&filter=countrycode:nl&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`,
-  });
+  /** Fetch searched postcode */
 
-  //- Set the search postcode coordinates
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState("");
+
   useEffect(() => {
-    !searchedPostcode.features?.length
-      ? setIsExist(false)
-      : (() => {
-          setIsExist(true);
-          const coordinates = searchedPostcode.features[0].properties;
-          setSearchCoordinates({
-            latitude: coordinates.lat,
-            longitude: coordinates.lon,
-          });
-          const city = searchedPostcode.features[0].properties.city;
-          setIsAmsterdam(city === "Amsterdam" ? true : false);
-        })();
-  }, [searchedPostcode.features]);
+    const controller = new AbortController();
+    if (!postcode) return;
+    const fetchData = async () => {
+      try {
+        setSearchLoading(true);
+        setIsExist(true);
+        setIsAmsterdam(true);
+        const res = await axios.get(
+          `https://api.geoapify.com/v1/geocode/search?text=${postcode}&type=postcode&filter=countrycode:nl&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
+        );
+        const searchedPostcode = await res.data;
+        !searchedPostcode.features?.length
+          ? setIsExist(false)
+          : searchedPostcode.features[0].properties.city !== "Amsterdam"
+          ? setIsAmsterdam(false)
+          : (() => {
+              const coordinates = searchedPostcode.features[0].properties;
+              setSearchCoordinates({
+                latitude: coordinates.lat,
+                longitude: coordinates.lon,
+              });
+            })();
+      } catch (error) {
+        setSearchError(error.message);
+      } finally {
+        setSearchLoading(false);
+      }
+    };
+    fetchData();
+
+    // useEffect cleanup
+    return () => controller.abort();
+  }, [postcode]);
 
   /** Fetch baskets */
 
@@ -135,6 +153,8 @@ export const SearchProvider = ({ children }) => {
     isExist,
     confirmRsv,
     setConfirmRsv,
+    setSearchError,
+    setSearchLoading,
   };
   return (
     <SearchContext.Provider value={value}>{children}</SearchContext.Provider>

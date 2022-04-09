@@ -2,11 +2,13 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import SkipLinks from "./SkipLinks";
 
 const Layout = () => {
   return (
     <>
       <header className="w-full h-[100px] bg-darkBg fixed top-0 flex items-center justify-center block z-10">
+        <SkipLinks />
         <NavBar />
       </header>
       <main className="w-full grow shrink-0 basis-full mt-[100px]">
