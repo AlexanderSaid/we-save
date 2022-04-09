@@ -66,6 +66,7 @@ const ResultsSection = ({ baskets }) => {
                       shop={basket.shop_id.name}
                       distance={basket.distance}
                       address={basket.shop_id.address}
+                      basket_id={basket._id}
                     />
                   </li>
                 )

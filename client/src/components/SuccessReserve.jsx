@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+// import { useNavigate } from "react-router-dom";
 
 const SuccessReserve = ({ setConfirmRsv }) => {
+  // const navigate = useNavigate();
+
   function createVerificationCode(length) {
     var result = "";
     var characters =
@@ -30,6 +33,7 @@ const SuccessReserve = ({ setConfirmRsv }) => {
             <button
               onClick={() => {
                 setConfirmRsv(false);
+                // navigate("/results");
               }}
               className="w-full py-2 my-1 text-center font-bold text-darkFont hover:text-accent focus:outline-none mt-4 transition duration-300 hover:ease-in-out"
             >

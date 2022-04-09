@@ -28,6 +28,7 @@ const Basket = ({
   shop,
   distance,
   address,
+  basket_id,
 }) => {
   const { street, house, addition, postcode, city } = address;
   const [isReserved, setIsReserved] = useState(false);
@@ -39,7 +40,6 @@ const Basket = ({
     0,
     4
   )}+${postcode.slice(4)}+${city}`;
-
   const getImage = () => {
     const img =
       name === "Breakfast basket"
@@ -70,6 +70,7 @@ const Basket = ({
           setIsReserved={setIsReserved}
           confirmRsv={confirmRsv}
           setConfirmRsv={setConfirmRsv}
+          basket_id={basket_id}
         />
       )}
       <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:h-[150px] ">
@@ -175,5 +176,6 @@ Basket.propTypes = {
   description: PropTypes.string,
   login: PropTypes.bool,
   setLogin: PropTypes.func,
+  basket_id: PropTypes.string,
 };
 export default Basket;

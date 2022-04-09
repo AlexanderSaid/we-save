@@ -35,7 +35,6 @@ const basketSchema = new Schema(
 
     owner_id: {
       type: mongoose.SchemaTypes.ObjectId,
-      required: true,
       ref: "User",
     },
   },
