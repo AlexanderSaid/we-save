@@ -1,7 +1,7 @@
 // import Basket from "../models/Basket.js";
 import nodemailer from "nodemailer";
 
-const confirmatioEmail = (req, res) => {
+const confirmationEmail = (req, res) => {
   const output = `
   <p>You have a new contact request</p>
   <h3>Contact Details</h3>
@@ -18,14 +18,14 @@ const confirmatioEmail = (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "save-food2022@outlook.com", // generated ethereal user
-      pass: "save-food", // generated ethereal password
+      user: "main-wesave@outlook.com", // generated ethereal user
+      pass: "wesave-12345", // generated ethereal password
     },
   });
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: "save-food2022@outlook.com", // sender address
+    from: "main-wesave@outlook.com", // sender address
     to: "george95.2621@gmail.com", // list of receivers
     subject: "WeSave Confirmation Message", // Subject line
     text: "Hello world?", // plain text body
@@ -43,4 +43,4 @@ const confirmatioEmail = (req, res) => {
   });
 };
 
-export { confirmatioEmail };
+export { confirmationEmail };
