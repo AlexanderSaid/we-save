@@ -1,21 +1,34 @@
 import React, { useState, createContext } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+import useFetch from "../hooks/useFetch";
+import { useEffect } from "react/cjs/react.development";
 
 const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const stored = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(stored ? stored : null);
-  const API_URL = "http://localhost:5000/api/users/login";
-
-  //Login member
-  const login = async (userData) => {
-    const { data } = await axios.post(API_URL, userData);
-    if (data.success) {
-      localStorage.setItem("user", JSON.stringify(data.result));
+  const { error, isLoading, performFetch, cancelFetch } = useFetch(
+    "/users/login",
+    (response) => {
+      localStorage.setItem("user", JSON.stringify(response.result));
+      setUser(response.result);
     }
-    setUser(data.result);
+  );
+
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
+  const login = (userData) => {
+    performFetch({
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
   };
 
   const logout = () => {
@@ -27,6 +40,8 @@ export const UserProvider = ({ children }) => {
     user,
     login,
     logout,
+    isLoading,
+    error,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

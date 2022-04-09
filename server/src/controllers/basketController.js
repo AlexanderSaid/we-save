@@ -3,6 +3,20 @@ import Basket from "../models/Basket.js";
 import User from "../models/User.js";
 import Shop from "../models/Shop.js";
 
+//@des Get all the Baskets
+//@route GET /api/baskets
+//@access Public
+const getBaskets = asyncHandler(async (req, res) => {
+  const baskets = await Basket.find({}).populate("shop_id", [
+    "name",
+    "address",
+  ]);
+  if (!baskets) {
+    res.status(400).json({ msg: "There is no baskets" });
+  }
+  res.status(200).json({ success: true, result: baskets });
+});
+
 //@des Get the Baskets of a specific shop
 //@route GET /api/shops/:shopId/baskets
 //@access Private
@@ -107,17 +121,19 @@ const deleteBasket = asyncHandler(async (req, res) => {
 //@route PUT /api/shops/:shopId/baskets/:basketId
 //@access Private
 const decreaseQuantity = asyncHandler(async (req, res) => {
-  const { shopId, basketId } = req.params;
-  const shop = await Shop.findById(shopId);
+  const { basketId } = req.params;
   const basket = await Basket.findById(basketId);
   if (!basket) {
     res.status(401).json({ msg: "This basket is not found" });
-  }
-  if (basket.shop_id.toString() !== shop._id.toString()) {
-    res.status(401).json({ msg: "This basket doesn't belong to this shop" });
   }
   await basket.decrease();
   res.status(200).json({ success: true, result: basket });
 });
 
-export { getShopBaskets, createShopBasket, deleteBasket, decreaseQuantity };
+export {
+  getShopBaskets,
+  createShopBasket,
+  deleteBasket,
+  decreaseQuantity,
+  getBaskets,
+};
