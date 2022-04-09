@@ -55,7 +55,7 @@ const ResultsSection = ({ baskets }) => {
                 basket.quantity && (
                   <li
                     key={basket._id}
-                    className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
+                    className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[1000px]"
                   >
                     <Basket
                       name={basket.name}

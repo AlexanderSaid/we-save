@@ -1,7 +1,6 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
-import { useEffect } from "react/cjs/react.development";
 
 const UserContext = createContext({});
 
