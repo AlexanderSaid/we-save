@@ -35,11 +35,14 @@ const basketSchema = new Schema(
 
     owner_id: {
       type: mongoose.SchemaTypes.ObjectId,
-      required: true,
       ref: "User",
     },
   },
   { timestamps: true }
 );
 
+basketSchema.methods.decrease = function () {
+  this.quantity = this.quantity > 0 ? this.quantity - 1 : (this.quantity = 0);
+  return this.save();
+};
 export default mongoose.model("Basket", basketSchema);

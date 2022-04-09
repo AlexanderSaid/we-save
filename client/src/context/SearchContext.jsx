@@ -86,6 +86,7 @@ export const SearchProvider = ({ children }) => {
   const [baskets, setBaskets] = useState([]);
   const [basketsByDistance, setBasketsByDistance] = useState([]);
   const [orderedBaskets, setOrderedBaskets] = useState([]);
+  const [confirmRsv, setConfirmRsv] = useState(false);
 
   const { performFetch: performGet, cancelFetch: cleanUpGet } = useFetch(
     "/baskets",
@@ -97,7 +98,7 @@ export const SearchProvider = ({ children }) => {
     performGet();
 
     return cleanUpGet;
-  }, []);
+  }, [confirmRsv]);
 
   useEffect(() => {
     if (!baskets || !searchCoordinates.latitude) return;
@@ -150,6 +151,8 @@ export const SearchProvider = ({ children }) => {
     setSelectedCategory,
     isAmsterdam,
     isExist,
+    confirmRsv,
+    setConfirmRsv,
     setSearchError,
     setSearchLoading,
   };
