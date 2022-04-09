@@ -111,10 +111,8 @@ export const SearchProvider = ({ children }) => {
     return orderByDistance();
   }, [shopsByDistance]);
 
-  //! ----------To Delete----------------
   // eslint-disable-next-line no-console
   console.log(orderedShops);
-  //! -----------------------------------
 
   //- Number or baskets to show {in context to reset on search click}
   const INCREMENT = 5;

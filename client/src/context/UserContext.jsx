@@ -8,7 +8,6 @@ const UserContext = createContext({});
 export const UserProvider = ({ children }) => {
   const stored = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(stored ? stored : null);
-  // const API_URL = "http://localhost:5001/api/users/login";
 
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     "/users/login",
@@ -32,15 +31,6 @@ export const UserProvider = ({ children }) => {
       body: JSON.stringify(userData),
     });
   };
-
-  //Login member
-  // const login = async (userData) => {
-  //   const { data } = await axios.post(API_URL, userData);
-  //   if (data.success) {
-  //     localStorage.setItem("user", JSON.stringify(data.result));
-  //   }
-  //   setUser(data.result);
-  // };
 
   const logout = () => {
     localStorage.removeItem("user");
