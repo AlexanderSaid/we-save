@@ -54,11 +54,6 @@ const createShopBasket = asyncHandler(async (req, res) => {
 
   const price = { original, discount };
   const pickup = { from, to };
-  // if (original <= discount) {
-  //   res
-  //     .status(401)
-  //     .json({ msg: 'Original price cant be less than the discount' })
-  // }
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401).json({ msg: "User not found" });
@@ -118,7 +113,7 @@ const deleteBasket = asyncHandler(async (req, res) => {
 });
 
 //@des decrease the quantity of baskets from a specific shop
-//@route PUT /api/shops/:shopId/baskets/:basketId
+//@route GET /api/baskets/:basketId/decrease
 //@access Private
 const decreaseQuantity = asyncHandler(async (req, res) => {
   const { basketId } = req.params;
