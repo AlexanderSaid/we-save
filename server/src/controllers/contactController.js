@@ -16,18 +16,18 @@ const contactEmail = (req, res) => {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "hotmail",
     auth: {
-      user: "Info.WeSave2022@gmail.com", // generated ethereal user
+      user: "main-wesave@outlook.com", // generated ethereal user
       pass: "wesave-12345", // generated ethereal password
     },
   });
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: "Info.WeSave2022@gmail.com", // sender address
-    to: "george95.2621@gmail.com", // list of receivers
-    subject: "My Resume Contact Request", // Subject line
+    from: "main-wesave@outlook.com", // sender address
+    to: "main-wesave@outlook.com", // list of receivers
+    subject: "Customer Message", // Subject line
     text: "Hello world?", // plain text body
     html: output, // html body
   };
