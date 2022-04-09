@@ -4,7 +4,8 @@ import SearchContext from "../../context/SearchContext";
 import axios from "axios";
 
 const CurrentLocation = () => {
-  const { setInputValue } = useContext(SearchContext);
+  const { setInputValue, setSearchLoading, setSearchError, searchLoading } =
+    useContext(SearchContext);
   const [currentCoordinates, setCurrentCoordinates] = useState({
     latitude: null,
     longitude: null,
@@ -27,7 +28,7 @@ const CurrentLocation = () => {
     if (currentCoordinates.latitude == null) return;
     const fetchData = async () => {
       try {
-        setInputValue("Loading ...");
+        setSearchLoading(true);
         const res = await axios.get(
           `https://api.geoapify.com/v1/geocode/reverse?lat=${currentCoordinates.latitude}&lon=${currentCoordinates.longitude}&type=postcode&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
         );
@@ -35,14 +36,15 @@ const CurrentLocation = () => {
 
         setInputValue(postcode);
       } catch (error) {
-        setInputValue("Something went wrong");
+        setSearchError(error.message);
+      } finally {
+        setSearchLoading(false);
       }
     };
     fetchData();
 
     // useEffect cleanup
     return () => controller.abort();
-    //eslint-disable-next-line
   }, [currentCoordinates.latitude]);
 
   return (
@@ -50,7 +52,9 @@ const CurrentLocation = () => {
       <BiCurrentLocation
         size={30}
         onClick={handleCurrentLocation}
-        className="cursor-pointer "
+        className={`${
+          searchLoading ? "cursor-wait opacity-75" : "cursor-pointer"
+        }`}
       />
     </div>
   );

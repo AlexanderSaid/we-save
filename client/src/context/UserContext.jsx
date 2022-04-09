@@ -30,15 +30,6 @@ export const UserProvider = ({ children }) => {
     });
   };
 
-  //Login member
-  // const login = async (userData) => {
-  //   const { data } = await axios.post(API_URL, userData);
-  //   if (data.success) {
-  //     localStorage.setItem("user", JSON.stringify(data.result));
-  //   }
-  //   setUser(data.result);
-  // };
-
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);

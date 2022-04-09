@@ -57,6 +57,7 @@ const shopSchema = new Schema(
   },
   { timestamps: true }
 );
+
 shopSchema.post("remove", async function (shop) {
   if (shop.baskets.length) {
     await Basket.deleteMany({ _id: { $in: shop.baskets } });

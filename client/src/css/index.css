@@ -10,6 +10,7 @@
 @layer base {
   html {
     font-family: "Fira Sans", Roboto;
+    @apply scroll-smooth;
   }
   h1 {
     @apply text-title;
@@ -28,6 +29,9 @@
   }
 }
 @layer components {
+  .skip {
+    @apply w-[220px] text-right text-bodySmall rounded-r-md bg-primary text-darkFont font-bold py-2 pr-[20px] absolute top-[100px] -left-[120%] focus:transition-all duration-[400ms] focus:left-0 z-[100];
+  }
   .footer-link {
     @apply text-lightFont hover:text-primary hover:cursor-pointer;
   }

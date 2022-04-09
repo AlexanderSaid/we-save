@@ -2,26 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import Basket from "../../../components/Basket";
 import SearchContext from "../../../context/SearchContext";
-import { Link } from "react-router-dom";
-// import * as
 
 const ResultsSection = ({ baskets }) => {
-  const {
-    toShow,
-    setToShow,
-    INCREMENT,
-    searchLoading,
-    searchError,
-    isAmsterdam,
-    isExist,
-    inputValue,
-  } = useContext(SearchContext);
+  const { toShow, setToShow, INCREMENT, isAmsterdam, inputValue } =
+    useContext(SearchContext);
 
   //- Show more button state
   const [isDisabled, setDisabled] = useState(
     baskets.length <= INCREMENT ? true : false
   );
-
   useEffect(() => {
     toShow >= baskets.length ? setDisabled(true) : setDisabled(false);
   }, [toShow, baskets]);
@@ -32,22 +21,17 @@ const ResultsSection = ({ baskets }) => {
 
   return (
     <div className="flex flex-col items-center justify-center px-4 w-full">
-      {searchError ? (
-        <p>
-          Something went wrong <br /> Please try again later
-        </p>
-      ) : !searchError && searchLoading ? (
-        <p>Loading ...</p>
-      ) : !searchError && !searchLoading && !isExist && inputValue ? (
-        <p>This postcode is not exist, please add an exist one.</p>
-      ) : !searchError && !searchLoading && isExist && !isAmsterdam ? (
-        <p>
+      {!isAmsterdam ? (
+        <p className="text-center mt-20 text-accent font-bold leading-8">
           We are only available in Amsterdam. <br />
           We are planing to expand to other cities soon.
-          <br /> If you have any questions, do not hesitate reaching us throw
-          <Link to="#">contact us</Link> page.
+          <br /> If you have any questions, do not hesitate reaching us from
+          <a href="/contact" className="text-darkFont">
+            &nbsp;contact us
+          </a>
+          &nbsp;page.
         </p>
-      ) : !searchError && !searchLoading && baskets.length ? (
+      ) : baskets.length ? (
         <>
           <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-8">
             {baskets.slice(0, toShow).map(
@@ -55,7 +39,7 @@ const ResultsSection = ({ baskets }) => {
                 basket.quantity && (
                   <li
                     key={basket._id}
-                    className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[850px]"
+                    className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[1000px]"
                   >
                     <Basket
                       name={basket.name}
@@ -67,6 +51,7 @@ const ResultsSection = ({ baskets }) => {
                       shop={basket.shop_id.name}
                       distance={basket.distance}
                       address={basket.shop_id.address}
+                      basket_id={basket._id}
                     />
                   </li>
                 )

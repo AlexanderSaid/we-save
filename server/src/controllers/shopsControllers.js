@@ -3,7 +3,6 @@ import Shop from "../models/Shop.js";
 import asyncHandler from "express-async-handler";
 import User from "../models/User.js";
 import axios from "axios";
-import Basket from "../models/Basket.js";
 
 //@des Get all Shop
 //@route GET /api/shops
@@ -90,11 +89,6 @@ const deleteShop = asyncHandler(async (req, res) => {
   }
   if (shop.owner_id.toString() !== req.user.id) {
     res.status(401).json("Not Authorized");
-  }
-  if (shop.baskets.length !== 0) {
-    shop.baskets.forEach(async (bas) => {
-      await Basket.findByIdAndDelete(bas);
-    });
   }
   await shop.remove();
   user.is_owner = false;
