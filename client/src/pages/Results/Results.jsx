@@ -22,11 +22,6 @@ const Results = () => {
       const filtered = orderedBaskets.filter((basket) =>
         basket.categories.includes(selectedCategory)
       );
-      //! ----------To Delete----------------
-      // eslint-disable-next-line no-console
-      console.log(filtered);
-      //! -----------------------------------
-
       setBasketsToPass(filtered);
     }
   }, [selectedCategory, orderedBaskets]);
