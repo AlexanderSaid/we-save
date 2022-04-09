@@ -17,6 +17,7 @@ import SuccessReserve from "./SuccessReserve";
 import { useAuthentication } from "../hooks/useAuthentication";
 import SignIn from "./layout/SignIn";
 import SignInContext from "../context/SignInContext";
+import SearchContext from "../context/SearchContext";
 
 const Basket = ({
   name,
@@ -32,9 +33,9 @@ const Basket = ({
 }) => {
   const { street, house, addition, postcode, city } = address;
   const [isReserved, setIsReserved] = useState(false);
-  const [confirmRsv, setConfirmRsv] = useState(false);
   const { loggedIn } = useAuthentication();
   const { isOpen, setIsOpen } = useContext(SignInContext);
+  const { confirmRsv, setConfirmRsv } = useContext(SearchContext);
 
   const link = `${street}+${house}${addition},+${postcode.slice(
     0,

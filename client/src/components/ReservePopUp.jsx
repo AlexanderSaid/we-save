@@ -12,6 +12,8 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
     `/baskets/${basket_id}/decrease`,
     () => {
       setConfirmRsv(true);
+      setIsReserved(false);
+      // window.location.reload(false);
     }
   );
 
@@ -53,7 +55,6 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
               <button
                 className="w-[50%] py-2 my-1 mt-4 font-bold text-center transition duration-300 text-darkFont hover:text-accent focus:outline-none hover:ease-in-out"
                 onClick={() => {
-                  setIsReserved(false);
                   handleConfirm();
                 }}
               >
