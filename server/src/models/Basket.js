@@ -42,4 +42,8 @@ const basketSchema = new Schema(
   { timestamps: true }
 );
 
+basketSchema.methods.decrease = function () {
+  this.quantity = this.quantity > 0 ? this.quantity - 1 : (this.quantity = 0);
+  return this.save();
+};
 export default mongoose.model("Basket", basketSchema);
