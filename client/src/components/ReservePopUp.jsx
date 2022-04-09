@@ -3,9 +3,14 @@ import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/UserContext";
 
-const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
+const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id, code }) => {
   const { user } = useContext(UserContext);
   const [errMessage, setErrorMessage] = useState("");
+
+  const {
+    performFetch: performConfirmation,
+    cancelFetch: cancelFetchConfirmation,
+  } = useFetch("/contact/confirm", () => {});
 
   //- Fetching data
   const { performFetch, cancelFetch, error } = useFetch(
@@ -13,7 +18,6 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
     () => {
       setConfirmRsv(true);
       setIsReserved(false);
-      // window.location.reload(false);
     }
   );
 
@@ -22,7 +26,7 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
   }, [error]);
 
   useEffect(() => {
-    return cancelFetch;
+    return { cancelFetch, cancelFetchConfirmation };
   }, []);
 
   const handleConfirm = () => {
@@ -33,6 +37,14 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
+    });
+    performConfirmation({
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ code }),
     });
   };
 
@@ -74,5 +86,6 @@ ReservePopUp.propTypes = {
   confirmRsv: PropTypes.bool,
   setConfirmRsv: PropTypes.func,
   basket_id: PropTypes.string,
+  code: PropTypes.string,
 };
 export default ReservePopUp;

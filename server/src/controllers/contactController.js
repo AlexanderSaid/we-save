@@ -45,18 +45,11 @@ const contactEmail = (req, res) => {
 
 const confirmationEmail = (req, res) => {
   const output = `
-  <p>You have a new contact request</p>
-  <h3>Contact Details</h3>
-  <ul>  
-    <li>Name: ${req.body.fullName}</li>
-    <li>Email: ${req.body.email}</li>
-    <li>Phone: ${req.body.phone}</li>
-  </ul>
-  <h3>Message</h3>
-  <p>${req.body.message}</p>
+  <h3>Your Code Is : ${req.body.code}</h3>
+
 `;
 
-  console.log(`user email : ${req.user}`);
+  // console.log(`user email : ${req.user}`);
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -70,7 +63,7 @@ const confirmationEmail = (req, res) => {
   // setup email data with unicode symbols
   let mailOptions = {
     from: "main-wesave@outlook.com", // sender address
-    to: "george95.2621@gmail.com", // list of receivers
+    to: req.user.email, // list of receivers
     subject: "WeSave Confirmation Message", // Subject line
     text: "Hello world?", // plain text body
     html: output, // html body

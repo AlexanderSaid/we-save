@@ -59,11 +59,27 @@ const Basket = ({
     return img;
   };
 
+  function createVerificationCode(length) {
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  const code = createVerificationCode(5);
   return (
     <>
       {<SignIn setOpenSignIn={setIsOpen} openSignIn={isOpen} />}
       {confirmRsv && (
-        <SuccessReserve confirmRsv={confirmRsv} setConfirmRsv={setConfirmRsv} />
+        <SuccessReserve
+          confirmRsv={confirmRsv}
+          setConfirmRsv={setConfirmRsv}
+          code={code}
+        />
       )}
       {isReserved && (
         <ReservePopUp
@@ -72,6 +88,7 @@ const Basket = ({
           confirmRsv={confirmRsv}
           setConfirmRsv={setConfirmRsv}
           basket_id={basket_id}
+          code={code}
         />
       )}
       <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:h-[150px] ">
@@ -101,13 +118,13 @@ const Basket = ({
               </div>
 
               <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular md:pr-4 transition-all duration-[400ms] ease-in-out">
-                <span className="old line-through text-shade">{`€ ${oldPrice}`}</span>
+                <span className="line-through old text-shade">{`€ ${oldPrice}`}</span>
                 <span className="new text-accent">{` / € ${newPrice}`}</span>
               </div>
             </div>
           </div>
-          <div className="w-full h-full flex flex-col justify-between md:grow">
-            <div className="w-full h-full flex items-center justify-center">
+          <div className="flex flex-col justify-between w-full h-full md:grow">
+            <div className="flex items-center justify-center w-full h-full">
               <p className="description">{description}</p>
             </div>
 
@@ -138,7 +155,7 @@ const Basket = ({
         <div className="shop-details flex flex-col py-2 justify-between items-center md:h-full md:basis-40 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
           <h5 className="shop-name">{shop}</h5>
 
-          <div className="location flex flex-col items-center justify-between gap-x-2 md:gap-y-2 md:items-end md:w-full md:pr-4">
+          <div className="flex flex-col items-center justify-between location gap-x-2 md:gap-y-2 md:items-end md:w-full md:pr-4">
             <div className="distance-container">
               <span className="distance">
                 {distance < 1000
