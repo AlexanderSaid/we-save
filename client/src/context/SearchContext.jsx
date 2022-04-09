@@ -63,16 +63,16 @@ export const SearchProvider = ({ children }) => {
         })();
   }, [searchedPostcode.features]);
 
-  /** Fetch shops */
+  /** Fetch baskets */
 
-  const [shops, setShops] = useState([]);
-  const [shopsByDistance, setShopsByDistance] = useState([]);
-  const [orderedShops, setOrderedShops] = useState([]);
+  const [baskets, setBaskets] = useState([]);
+  const [basketsByDistance, setBasketsByDistance] = useState([]);
+  const [orderedBaskets, setOrderedBaskets] = useState([]);
 
   const { performFetch: performGet, cancelFetch: cleanUpGet } = useFetch(
-    "/shops",
+    "/baskets",
     (response) => {
-      setShops(response.result);
+      setBaskets(response.result);
     }
   );
   useEffect(() => {
@@ -82,37 +82,39 @@ export const SearchProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!shops || !searchCoordinates.latitude) return;
+    if (!baskets || !searchCoordinates.latitude) return;
 
-    function getShopDistance() {
+    function getBasketsDistance() {
       const addDistance = [];
-      shops.map((shop) => {
+      baskets.map((basket) => {
         const distance = getDistance(searchCoordinates, {
-          latitude: shop.address.lat,
-          longitude: shop.address.lon,
+          latitude: basket.shop_id.address.lat,
+          longitude: basket.shop_id.address.lon,
         });
-        shop["distance"] = distance;
-        addDistance.push(shop);
+        basket["distance"] = distance;
+        addDistance.push(basket);
       });
 
-      setShopsByDistance(addDistance);
+      setBasketsByDistance(addDistance);
     }
 
-    return getShopDistance();
-  }, [shops, searchCoordinates]);
+    return getBasketsDistance();
+  }, [baskets, searchCoordinates]);
 
   useEffect(() => {
-    if (!shopsByDistance) return;
+    if (!basketsByDistance) return;
     function orderByDistance() {
-      const ordered = shopsByDistance.sort((a, b) => a.distance - b.distance);
-      return setOrderedShops(ordered);
+      const ordered = basketsByDistance
+        .filter((basket) => basket.quantity > 0)
+        .sort((a, b) => a.distance - b.distance);
+      return setOrderedBaskets(ordered);
     }
 
     return orderByDistance();
-  }, [shopsByDistance]);
+  }, [basketsByDistance]);
 
   // eslint-disable-next-line no-console
-  console.log(orderedShops);
+  console.log(orderedBaskets);
 
   //- Number or baskets to show {in context to reset on search click}
   const INCREMENT = 5;
@@ -122,7 +124,7 @@ export const SearchProvider = ({ children }) => {
     setInputValue,
     inputValue,
     onSearch,
-    orderedShops,
+    orderedBaskets,
     INCREMENT,
     toShow,
     setToShow,

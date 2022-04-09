@@ -5,9 +5,9 @@ import ResultsSection from "./ResultsComponents/ResultsSection";
 import Categories from "./ResultsComponents/Categories";
 
 const Results = () => {
-  const { orderedShops, inputValue, selectedCategory, setSelectedCategory } =
+  const { orderedBaskets, inputValue, selectedCategory, setSelectedCategory } =
     useContext(SearchContext);
-  const [shopsToPass, setShopsToPass] = useState([]);
+  const [basketsToPass, setBasketsToPass] = useState([]);
 
   const clickSelectedCategory = (e) => {
     e.target.value === selectedCategory
@@ -16,18 +16,18 @@ const Results = () => {
   };
 
   useEffect(() => {
-    if (!selectedCategory && !orderedShops.length) return;
-    if (!selectedCategory) setShopsToPass(orderedShops);
-    if (selectedCategory && orderedShops.length) {
-      const filtered = orderedShops.filter(
-        (shop) => shop.baskets[0].categories[0] === selectedCategory
+    if (!selectedCategory && !orderedBaskets.length) return;
+    if (!selectedCategory) setBasketsToPass(orderedBaskets);
+    if (selectedCategory && orderedBaskets.length) {
+      const filtered = orderedBaskets.filter((basket) =>
+        basket.categories.includes(selectedCategory)
       );
       // eslint-disable-next-line no-console
       console.log(filtered);
 
-      setShopsToPass(filtered);
+      setBasketsToPass(filtered);
     }
-  }, [selectedCategory, orderedShops]);
+  }, [selectedCategory, orderedBaskets]);
 
   return (
     <>
@@ -39,7 +39,7 @@ const Results = () => {
           selectedCategory={selectedCategory}
           onClick={clickSelectedCategory}
         />
-        <ResultsSection shops={shopsToPass} input={inputValue} />
+        <ResultsSection baskets={basketsToPass} input={inputValue} />
       </div>
     </>
   );

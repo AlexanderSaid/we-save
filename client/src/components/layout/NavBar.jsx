@@ -51,7 +51,7 @@ const NavBar = () => {
           </Link>
 
           <Link
-            to="#"
+            to="/createBasket"
             onClick={() => setHidden(true)}
             className="nav-link nav-link-sm"
           >
@@ -86,7 +86,7 @@ const NavBar = () => {
           >
             {loggedIn ? (
               <div>
-                Log out
+                Log Out
                 <FiLogOut
                   className="inline-block ml-2 font-semibold"
                   size={20}
