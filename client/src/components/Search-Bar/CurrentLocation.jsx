@@ -30,7 +30,7 @@ const CurrentLocation = () => {
       try {
         setSearchLoading(true);
         const res = await axios.get(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${currentCoordinates.latitude}&lon=${currentCoordinates.longitude}&type=postcode&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${currentCoordinates.latitude}&lon=${currentCoordinates.longitude}&type=postcode&apiKey=${process.env.GEO_API_KEY}`
         );
         const postcode = await res.data.features[0].properties.postcode;
 
