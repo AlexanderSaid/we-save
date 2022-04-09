@@ -11,7 +11,6 @@ const ResultsSection = ({ baskets }) => {
   const [isDisabled, setDisabled] = useState(
     baskets.length <= INCREMENT ? true : false
   );
-
   useEffect(() => {
     toShow >= baskets.length ? setDisabled(true) : setDisabled(false);
   }, [toShow, baskets]);

@@ -4,7 +4,7 @@ import User from "../models/User.js";
 import Shop from "../models/Shop.js";
 
 //@des Get all the Baskets
-//@route GET /api/shops/:shopId/baskets
+//@route GET /api/baskets
 //@access Public
 const getBaskets = asyncHandler(async (req, res) => {
   const baskets = await Basket.find({}).populate("shop_id", [
@@ -54,11 +54,6 @@ const createShopBasket = asyncHandler(async (req, res) => {
 
   const price = { original, discount };
   const pickup = { from, to };
-  // if (original <= discount) {
-  //   res
-  //     .status(401)
-  //     .json({ msg: 'Original price cant be less than the discount' })
-  // }
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401).json({ msg: "User not found" });
@@ -117,4 +112,23 @@ const deleteBasket = asyncHandler(async (req, res) => {
     .json({ success: true, result: "Your basket was successfully deleted" });
 });
 
-export { getShopBaskets, createShopBasket, deleteBasket, getBaskets };
+//@des decrease the quantity of baskets from a specific shop
+//@route GET /api/baskets/:basketId/decrease
+//@access Private
+const decreaseQuantity = asyncHandler(async (req, res) => {
+  const { basketId } = req.params;
+  const basket = await Basket.findById(basketId);
+  if (!basket) {
+    res.status(401).json({ msg: "This basket is not found" });
+  }
+  await basket.decrease();
+  res.status(200).json({ success: true, result: basket });
+});
+
+export {
+  getShopBaskets,
+  createShopBasket,
+  deleteBasket,
+  decreaseQuantity,
+  getBaskets,
+};

@@ -55,7 +55,7 @@ export const SearchProvider = ({ children }) => {
         setIsExist(true);
         setIsAmsterdam(true);
         const res = await axios.get(
-          `https://api.geoapify.com/v1/geocode/search?text=${postcode}&type=postcode&filter=countrycode:nl&apiKey=8df64a19e0e54e67ac4cd1f80cff96a0`
+          `https://api.geoapify.com/v1/geocode/search?text=${postcode}&type=postcode&filter=countrycode:nl&apiKey=${process.env.GEO_API_KEY}`
         );
         const searchedPostcode = await res.data;
         !searchedPostcode.features?.length
@@ -86,6 +86,7 @@ export const SearchProvider = ({ children }) => {
   const [baskets, setBaskets] = useState([]);
   const [basketsByDistance, setBasketsByDistance] = useState([]);
   const [orderedBaskets, setOrderedBaskets] = useState([]);
+  const [confirmRsv, setConfirmRsv] = useState(false);
 
   const { performFetch: performGet, cancelFetch: cleanUpGet } = useFetch(
     "/baskets",
@@ -97,7 +98,7 @@ export const SearchProvider = ({ children }) => {
     performGet();
 
     return cleanUpGet;
-  }, []);
+  }, [confirmRsv]);
 
   useEffect(() => {
     if (!baskets || !searchCoordinates.latitude) return;
@@ -150,6 +151,8 @@ export const SearchProvider = ({ children }) => {
     setSelectedCategory,
     isAmsterdam,
     isExist,
+    confirmRsv,
+    setConfirmRsv,
     setSearchError,
     setSearchLoading,
   };
