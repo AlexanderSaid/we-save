@@ -22,6 +22,7 @@ const Results = () => {
       const filtered = orderedBaskets.filter((basket) =>
         basket.categories.includes(selectedCategory)
       );
+
       // eslint-disable-next-line no-console
       console.log(filtered);
 
