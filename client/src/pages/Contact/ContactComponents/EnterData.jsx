@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import InputField from "./InputField";
 import useFetch from "../../../hooks/useFetch";
 import TextArea from "../ContactComponents/TextArea";
 import SuccessMessage from "./SuccessMessage";
+import UserContext from "../../../context/UserContext";
 
 const EnterData = () => {
   const [fullName, setFullName] = useState("");
@@ -10,6 +11,7 @@ const EnterData = () => {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const { user } = useContext(UserContext);
 
   const setStates = () => {
     setFullName("");
@@ -31,6 +33,7 @@ const EnterData = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify({ fullName, email, phone, message }),
     });
