@@ -5,28 +5,30 @@ import { FaShoppingBasket } from "react-icons/fa";
 import * as gi from "react-icons/gi";
 import * as io from "react-icons/io5";
 //- Import images
-import bread from "../assets/bread.png";
-import breakfast from "../assets/breakfast.jpg";
-import lunch from "../assets/lunch.jpg";
-import pizza from "../assets/pizza.jpg";
-import surprise from "../assets/surprise.jpg";
-import grocery from "../assets/grocery.jpg";
-import diary from "../assets/organic-foods-5.jpg";
+import bread from "../../../assets/bread.png";
+import breakfast from "../../../assets/breakfast.jpg";
+import lunch from "../../../assets/lunch.jpg";
+import pizza from "../../../assets/pizza.jpg";
+import surprise from "../../../assets/surprise.jpg";
+import grocery from "../../../assets/grocery.jpg";
+import diary from "../../../assets/organic-foods-5.jpg";
 
-const Basket = ({
-  name,
-  category,
-  oldPrice,
-  newPrice,
-  quantity,
-  description,
-  shop,
-  distance,
-  address,
-}) => {
-  const { street, house, addition, postcode, city } = address;
+const Basket = ({ basket }) => {
+  const {
+    name,
+    categories,
+    price,
+    quantity,
+    description,
+    shop_id,
+    distance,
+    pickup,
+  } = basket;
+  const { original, discount } = price;
+  const shop = shop_id.name;
+  const { street, house, addition, postcode, city } = shop_id.address;
 
-  const link = `${street}+${house}${addition},+${postcode.slice(
+  const link = `${street}+${house}${addition ? addition : ""},+${postcode.slice(
     0,
     4
   )}+${postcode.slice(4)}+${city}`;
@@ -39,11 +41,11 @@ const Basket = ({
         ? lunch
         : name === "Pastries basket"
         ? bread
-        : name === "Surprise basket" && category.length
+        : name === "Surprise basket" && categories.length
         ? surprise
-        : name === "Surprise basket" && category.contains("Vegetarian")
+        : name === "Surprise basket" && categories.contains("Vegetarian")
         ? grocery
-        : name === "Surprise basket" && category.contains("Diary & Meat")
+        : name === "Surprise basket" && categories.contains("Diary & Meat")
         ? diary
         : pizza;
     return img;
@@ -62,8 +64,8 @@ const Basket = ({
       <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
         <div className="w-full h-full flex flex-col justify-start md:justify-between md:basis-36 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
           <h5 className="basket-name">{name}</h5>
-          {category.length &&
-            category.map((cat) => (
+          {categories.length &&
+            categories.map((cat) => (
               <span key={cat} className="basket-category">
                 {cat}
               </span>
@@ -75,8 +77,8 @@ const Basket = ({
             </div>
 
             <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
-              <span className="old line-through text-shade">{`€ ${oldPrice}`}</span>
-              <span className="new text-accent">{` / € ${newPrice}`}</span>
+              <span className="old line-through text-shade">{`€ ${original}`}</span>
+              <span className="new text-accent">{` / € ${discount}`}</span>
             </div>
           </div>
         </div>
@@ -112,25 +114,16 @@ const Basket = ({
               rel="noopener noreferrer"
             >
               <io.IoLocationSharp className="inline-block" />
-              {`${street} ${house}${addition}`}
+              {`${street} ${house}${addition ? addition : ""}`}
             </a>
           </div>
         </div>
-        <p className="pickup">Pickup between --:-- & --:-- </p>
+        <p className="pickup">{`Pickup: ${pickup?.from} & ${pickup?.to}`}</p>
       </div>
     </div>
   );
 };
 Basket.propTypes = {
-  name: PropTypes.string,
-  category: PropTypes.array,
-  oldPrice: PropTypes.number,
-  newPrice: PropTypes.number,
-  quantity: PropTypes.number,
-  shop_id: PropTypes.string,
-  distance: PropTypes.number,
-  shop: PropTypes.string,
-  address: PropTypes.object,
-  description: PropTypes.string,
+  basket: PropTypes.object,
 };
 export default Basket;

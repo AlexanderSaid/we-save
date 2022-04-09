@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
-import UserContext from "../context/UserContext";
+import UserContext from "../../context/UserContext";
 
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
-import useFetch from "../hooks/useFetch.js";
+import useFetch from "../../hooks/useFetch.js";
 
 //- Declare regex validations
 const SHOP_NAME_REGEX = /^[a-zA-Z]{2,}$/;

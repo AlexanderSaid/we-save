@@ -1,8 +1,8 @@
 import React from "react";
-import carts from "../../../../public/assets/carts.png";
-import placeholder from "../../../../public/assets/placeholder.png";
-import shoppingBag from "../../../../public/assets/shopping-bag.png";
-// import { ImLocation2 } from "react-icons/im";
+import carts from "../../../assets/carts.png";
+import placeholder from "../../../assets/placeholder.png";
+import shoppingBag from "../../../assets/shopping-bag.png";
+
 function HowItWorks() {
   return (
     <div className="container max-w-5xl px-6 py-16 mx-auto">

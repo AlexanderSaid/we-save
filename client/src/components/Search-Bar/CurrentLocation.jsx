@@ -4,14 +4,26 @@ import SearchContext from "../../context/SearchContext";
 import axios from "axios";
 
 const CurrentLocation = () => {
-  const { setInputValue, setSearchLoading, setSearchError, searchLoading } =
-    useContext(SearchContext);
+  const {
+    setInputValue,
+    setSearchLoading,
+    setSearchError,
+    searchLoading,
+    setPostcode,
+    setToShow,
+    setSelectedCategory,
+    INCREMENT,
+  } = useContext(SearchContext);
   const [currentCoordinates, setCurrentCoordinates] = useState({
     latitude: null,
     longitude: null,
   });
 
   const handleCurrentLocation = () => {
+    setCurrentCoordinates({
+      latitude: null,
+      longitude: null,
+    });
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setCurrentCoordinates({
@@ -35,6 +47,9 @@ const CurrentLocation = () => {
         const postcode = await res.data.features[0].properties.postcode;
 
         setInputValue(postcode);
+        setPostcode(postcode);
+        setToShow(INCREMENT);
+        setSelectedCategory("");
       } catch (error) {
         setSearchError(error.message);
       } finally {

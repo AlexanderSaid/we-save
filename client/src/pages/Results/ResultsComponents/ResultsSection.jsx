@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import Basket from "../../../components/Basket";
+import Basket from "./Basket";
 import SearchContext from "../../../context/SearchContext";
 
 const ResultsSection = ({ baskets }) => {
@@ -42,17 +42,7 @@ const ResultsSection = ({ baskets }) => {
                     key={basket._id}
                     className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[1000px]"
                   >
-                    <Basket
-                      name={basket.name}
-                      category={basket.categories}
-                      oldPrice={basket.price.original}
-                      newPrice={basket.price.discount}
-                      quantity={basket.quantity}
-                      description={basket.description}
-                      shop={basket.shop_id.name}
-                      distance={basket.distance}
-                      address={basket.shop_id.address}
-                    />
+                    <Basket basket={basket} />
                   </li>
                 )
             )}
