@@ -5,7 +5,6 @@ import { SiFoodpanda } from "react-icons/si";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
 import SignInContext from "../../context/SignInContext";
-// import UserContext from "../../context/UserContext";
 import SignIn from "./SignIn";
 const NavBar = () => {
   //- Side nav bar visibility state
@@ -19,7 +18,7 @@ const NavBar = () => {
   };
 
   const { loggedIn } = useAuthentication();
-  const { logout } = useContext(UserContext);
+  const { logout, user } = useContext(UserContext);
 
   return (
     <nav className="bg-darkBg py-4 max-w-1440 w-screen px-8 sm:px-12">
@@ -50,13 +49,15 @@ const NavBar = () => {
             Home
           </Link>
 
-          <Link
-            to="/createBasket"
-            onClick={() => setHidden(true)}
-            className="nav-link nav-link-sm"
-          >
-            Your Baskets
-          </Link>
+          {user && user.is_owner ? (
+            <Link
+              to="/createBasket"
+              onClick={() => setHidden(true)}
+              className="nav-link nav-link-sm"
+            >
+              Create Your Baskets
+            </Link>
+          ) : null}
 
           <Link
             to="about-us"
