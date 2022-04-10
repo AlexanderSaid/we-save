@@ -1,18 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import UserContext from "../context/UserContext";
 
 const SuccessReserve = ({ setConfirmRsv }) => {
-  function createVerificationCode(length) {
-    var result = "";
-    var characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
+  const { user } = useContext(UserContext);
   return (
     <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
       <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
@@ -20,11 +11,12 @@ const SuccessReserve = ({ setConfirmRsv }) => {
           <h3 className="mb-9 text-3xl text-center text-accent font-bold">
             You have reserved the basket successfully!
           </h3>
-          <p className="mb-9 text-2xl text-center text-accent font-bold">
-            Your verification code is:{" "}
+          <p className="mb-9 text-xl text-center text-darkBg font-light">
+            There is an information email sent to your registered email address.
+            Please use this code ito pick up your order:
           </p>
           <p className="mb-9 text-4xl text-center text-darkBg font-bold">
-            {createVerificationCode(8).toUpperCase()}
+            {user._id.slice(0, 5)}
           </p>
           <div className="w-full re-direct flex flex-col justify-evenly items-center">
             <button
