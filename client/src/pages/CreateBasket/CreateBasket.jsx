@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import CreateBasketSuccessMessage from "./CreateBasket component/CreateBasketSuccessMessage";
-//import useFetch from "../hooks/useFetch.js";
+import UserContext from "../../context/UserContext";
+import useFetch from "../../hooks/useFetch";
 const names = [
   "Breakfast basket",
   "Lunch basket",
@@ -8,20 +9,19 @@ const names = [
   "Surprise basket",
   "Pastries basket",
 ];
-const categories = [
-  " Magic box",
-  "vegetarian",
-  "Groceries",
-  " Bread & Pastries",
+const categoriesArr = [
   "Meals",
-  "Drinks",
+  "Bread & Pastries",
+  "Groceries",
+  "Vegetarian",
+  "Diary & Meat",
 ];
 
 //- Declare regex validations
-const DESCRIPTION_REGEX = /^[a-zA-Z]{10,}$/;
+const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
 const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
-const ORIGINAL_PRICE_REGEX = /^[0-100]{2,}$/;
-const DISCOUNT_PRICE_REGEX = /^[0-100]{2,}$/;
+const ORIGINAL_PRICE_REGEX = /^[1-9][0-9]$/;
+const DISCOUNT_PRICE_REGEX = /^[1-9][0-9]$/;
 //- Common classes
 const FORM_INPUT_CLASSES =
   "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
@@ -34,6 +34,8 @@ const OTHER_INPUTSTYLE =
 
 function CreateBasket() {
   const errRef = useRef();
+
+  const { user } = useContext(UserContext);
 
   const [basketName, setBasketName] = useState("");
 
@@ -50,8 +52,8 @@ function CreateBasket() {
   const [category, setCategory] = useState([]);
 
   const [pickup, setpickup] = useState({
-    from: new Date(),
-    to: new Date(),
+    from: "",
+    to: "",
   });
   const { from, to } = pickup;
 
@@ -65,14 +67,21 @@ function CreateBasket() {
   //const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  // const { performFetch, cancelFetch, error } = useFetch("/shop/:id/baskets", () => {
-  //   setSuccess(true);
-  // });
+  const { performFetch, cancelFetch, error } = useFetch(
+    `/shops/${user.shop_id}/baskets`,
+    () => {
+      setSuccess(true);
+    }
+  );
 
   //-
-  // useEffect(() => {
-  //   return cancelFetch;
-  // }, []);
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
+  useEffect(() => {
+    error && setErrorMessage(error);
+  }, [error]);
 
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
@@ -118,15 +127,7 @@ function CreateBasket() {
   //-Submit the form
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newBasket = {
-      name: basketName,
-      originalPrice,
-      discountPrice,
-      quantity,
-      category,
-      pickup,
-      description,
-    };
+
     if (
       !category ||
       !pickup ||
@@ -147,283 +148,286 @@ function CreateBasket() {
       setErrorMessage("quantity should be 1 at least");
     } else if (description.length <= 10) {
       setErrorMessage("description field should have at least 10 characters");
+    } else if (category.length === 0) {
+      setErrorMessage("please include one category at least");
+    } else if (error) {
+      setErrorMessage(error);
     } else {
       setSuccess(true);
 
-      alert(newBasket);
-      // performFetch({
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     first: firstName,
-      //     last: lastName,
-      //     email: email,
-      //     postcode: postcode,
-      //     password: password,
-      //   }),
-      // });
+      performFetch({
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          name: basketName,
+          original: originalPrice,
+          discount: discountPrice,
+          quantity,
+          categories: category,
+          from,
+          to,
+          description,
+        }),
+      });
     }
   };
 
-  return (
+  return success ? (
     <>
-      {success && (
-        <>
-          <CreateBasketSuccessMessage setSuccess={setSuccess} />
-        </>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <div className="flex items-center justify-center bg-gray-100">
-          <div className="grid bg-white  shadow-xl  md:w-9/12 lg:w-[60%] mt-[100px] mb-20">
-            <div className="flex justify-center">
-              <div className="flex">
-                <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10">
-                  Create Basket
-                </h1>
-              </div>
+      <CreateBasketSuccessMessage setSuccess={setSuccess} />
+    </>
+  ) : (
+    <form onSubmit={handleSubmit}>
+      <div className="flex items-center justify-center bg-gray-100">
+        <div className="grid bg-white  shadow-xl  md:w-9/12 lg:w-[60%] mt-[100px] mb-20">
+          <div className="flex justify-center">
+            <div className="flex">
+              <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10">
+                Create Basket
+              </h1>
             </div>
-            {errMessage && (
-              <div className="flex items-center justify-center w-full index-0">
-                <h1
-                  aria-live="assertive"
-                  ref={errRef}
-                  className="w-[50%] mb-4 text-xl text-center  text-error border-2 border-error rounded"
-                >
-                  {errMessage}
-                </h1>
-              </div>
-            )}
-            <div className="grid grid-cols-1  mx-7 mt-8">
-              <p className="uppercase text-gray-500 md:text-sm text-xs  text-light font-semibold">
-                Basket Name
-              </p>
+          </div>
+          {errMessage && (
+            <div className="flex items-center justify-center w-full index-0">
+              <h1
+                aria-live="assertive"
+                ref={errRef}
+                className="w-[50%] mb-4 text-xl text-center  text-error border-2 border-error rounded"
+              >
+                {errMessage}
+              </h1>
+            </div>
+          )}
+          <div className="grid grid-cols-1  mx-7 mt-8">
+            <p className="uppercase text-gray-500 md:text-sm text-xs  text-light font-semibold">
+              Basket Name
+            </p>
 
-              {names.map((item, idx) => (
-                <div className="mt-4" key={idx}>
+            {names.map((item, idx) => (
+              <div className="mt-4" key={idx}>
+                <input
+                  type="radio"
+                  name="basketName"
+                  id="basketName"
+                  value={item}
+                  onChange={(e) => setBasketName(e.target.value)}
+                />
+                <label className="ml-2" htmlFor="name">
+                  {item}
+                </label>
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+            <div className={INPUT_CONTAINER}>
+              <input
+                type="number"
+                id="price"
+                autoComplete="off"
+                onChange={(e) => setOriginalPrice(parseInt(e.target.value))}
+                required
+                aria-invalid={validOriginalPrice ? "false" : "true"}
+                aria-describedby="fn-note"
+                onFocus={() => setLastPriceFocus(true)}
+                onBlur={() => setLastPriceFocus(false)}
+                className={FORM_INPUT_CLASSES}
+                placeholder="original price"
+              />
+              <label htmlFor="original price" className={FORM_LABEL_CLASSES}>
+                Regular Price
+              </label>
+              <p
+                id="fn-note"
+                className={`${VALID_NOTE}  ${
+                  priceFocus && originalPrice && !validOriginalPrice
+                    ? "block"
+                    : "hidden"
+                }`}
+              >
+                Price cant be 0
+              </p>
+            </div>
+            <div className={INPUT_CONTAINER}>
+              <input
+                type="number"
+                id="price"
+                autoComplete="off"
+                onChange={(e) => setDiscountPrice(parseInt(e.target.value))}
+                required
+                aria-invalid={validDiscountPrice ? "false" : "true"}
+                aria-describedby="fn-note"
+                onFocus={() => setLastPriceFocus(true)}
+                onBlur={() => setLastPriceFocus(false)}
+                className={FORM_INPUT_CLASSES}
+                placeholder="discount price"
+              />
+              <label htmlFor="discount price" className={FORM_LABEL_CLASSES}>
+                Discount Price
+              </label>
+              <p
+                id="fn-note"
+                className={`${VALID_NOTE}  ${
+                  priceFocus && discountPrice && !validDiscountPrice
+                    ? "block"
+                    : "hidden"
+                }`}
+              >
+                Price cant be 0
+              </p>
+            </div>
+            <div className="text-center flex-col items-center">
+              <p
+                id="fn-note"
+                className={`${VALID_NOTE}  ${
+                  originalPrice <= discountPrice ? "block" : "hidden"
+                }`}
+              >
+                price cant be less than discount price
+              </p>
+            </div>
+
+            <div className={INPUT_CONTAINER}>
+              <input
+                type="number"
+                id="quantity"
+                autoComplete="off"
+                onChange={(e) => setQuantity(e.target.value)}
+                required
+                aria-invalid={validQuantity ? "false" : "true"}
+                aria-describedby="fn-note"
+                onFocus={() => setQuantityFocus(true)}
+                onBlur={() => setQuantityFocus(false)}
+                className={FORM_INPUT_CLASSES}
+                placeholder="quantity"
+              />
+              <label htmlFor="quantity" className={FORM_LABEL_CLASSES}>
+                quantity
+              </label>
+              <p
+                id="fn-note"
+                className={`${VALID_NOTE}  ${
+                  quantityFocus && quantity && !validQuantity
+                    ? "block"
+                    : "hidden"
+                }`}
+              >
+                At least one Basket
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 mt-5 mx-7">
+            <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mt-12 mb-10">
+              Categories
+            </label>
+
+            <div className="flex lg:justify-evenly mt-4 flex-wrap  mb-12">
+              {categoriesArr.map((item, idx) => (
+                <div className="ml-4" key={idx}>
                   <input
-                    type="radio"
-                    name="basketName"
-                    id="basketName"
+                    className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    type="checkbox"
+                    name={item}
+                    id="category"
                     value={item}
-                    onChange={(e) => setBasketName(e.target.value)}
+                    onChange={handleCategory}
                   />
-                  <label className="ml-2" htmlFor="name">
+                  <label className="form-check-label inline-block text-gray-800 ">
                     {item}
                   </label>
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-              <div className={INPUT_CONTAINER}>
-                <input
-                  type="number"
-                  id="price"
-                  autoComplete="off"
-                  onChange={(e) => setOriginalPrice(e.target.value)}
-                  required
-                  aria-invalid={validOriginalPrice ? "false" : "true"}
-                  aria-describedby="fn-note"
-                  onFocus={() => setLastPriceFocus(true)}
-                  onBlur={() => setLastPriceFocus(false)}
-                  className={FORM_INPUT_CLASSES}
-                  placeholder="original price"
-                />
-                <label htmlFor="original price" className={FORM_LABEL_CLASSES}>
-                  Regular Price
-                </label>
-                <p
-                  id="fn-note"
-                  className={`${VALID_NOTE}  ${
-                    priceFocus && originalPrice && !validOriginalPrice
-                      ? "block"
-                      : "hidden"
-                  }`}
-                >
-                  Price cant be 0
-                </p>
-              </div>
-              <div className={INPUT_CONTAINER}>
-                <input
-                  type="number"
-                  id="price"
-                  autoComplete="off"
-                  onChange={(e) => setDiscountPrice(e.target.value)}
-                  required
-                  aria-invalid={validDiscountPrice ? "false" : "true"}
-                  aria-describedby="fn-note"
-                  onFocus={() => setLastPriceFocus(true)}
-                  onBlur={() => setLastPriceFocus(false)}
-                  className={FORM_INPUT_CLASSES}
-                  placeholder="discount price"
-                />
-                <label htmlFor="discount price" className={FORM_LABEL_CLASSES}>
-                  Discount Price
-                </label>
-                <p
-                  id="fn-note"
-                  className={`${VALID_NOTE}  ${
-                    priceFocus && discountPrice && !validDiscountPrice
-                      ? "block"
-                      : "hidden"
-                  }`}
-                >
-                  Price cant be 0
-                </p>
-              </div>
-              <div className="text-center flex-col items-center">
-                <p
-                  id="fn-note"
-                  className={`${VALID_NOTE}  ${
-                    originalPrice <= discountPrice ? "block" : "hidden"
-                  }`}
-                >
-                  price cant be less than discount price
-                </p>
-              </div>
-
-              <div className={INPUT_CONTAINER}>
-                <input
-                  type="number"
-                  id="quantity"
-                  autoComplete="off"
-                  onChange={(e) => setQuantity(e.target.value)}
-                  required
-                  aria-invalid={validQuantity ? "false" : "true"}
-                  aria-describedby="fn-note"
-                  onFocus={() => setQuantityFocus(true)}
-                  onBlur={() => setQuantityFocus(false)}
-                  className={FORM_INPUT_CLASSES}
-                  placeholder="quantity"
-                />
-                <label htmlFor="quantity" className={FORM_LABEL_CLASSES}>
-                  quantity
-                </label>
-                <p
-                  id="fn-note"
-                  className={`${VALID_NOTE}  ${
-                    quantityFocus && quantity && !validQuantity
-                      ? "block"
-                      : "hidden"
-                  }`}
-                >
-                  At least one Basket
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 mt-5 mx-7">
-              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mt-12 mb-10">
-                Categories
-              </label>
-
-              <div className="flex lg:justify-evenly mt-4 flex-wrap  mb-12">
-                {categories.map((item, idx) => (
-                  <div className="ml-4" key={idx}>
-                    <input
-                      className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                      type="checkbox"
-                      name={item}
-                      id="category"
-                      value={item}
-                      onChange={handleCategory}
-                    />
-                    <label className="form-check-label inline-block text-gray-800 ">
-                      {item}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <p className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mt-12 ml-7">
-              pickup Time
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-12 mb-12 mx-7 ">
-              <div className="grid grid-cols-1 mt-8">
-                <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold ">
-                  From
-                </label>
-
-                <input
-                  required
-                  className={OTHER_INPUTSTYLE}
-                  value={from}
-                  type="datetime-local"
-                  id="pickup"
-                  onChange={(e) =>
-                    setpickup({
-                      ...pickup,
-                      from: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="grid grid-cols-1 mt-8">
-                <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
-                  To
-                </label>
-                <input
-                  required
-                  className={OTHER_INPUTSTYLE}
-                  value={to}
-                  onChange={(e) =>
-                    setpickup({
-                      ...pickup,
-
-                      to: e.target.value,
-                    })
-                  }
-                  type="datetime-local"
-                  placeholder="quantity"
-                  id="pickup"
-                />
-              </div>
-            </div>
-
-            <div className={INPUT_CONTAINER}>
-              <input
-                type="text"
-                id="description"
-                autoComplete="off"
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                aria-invalid={validDescription ? "false" : "true"}
-                aria-describedby="fn-note"
-                onFocus={() => setDescriptionFocus(true)}
-                onBlur={() => setDescriptionFocus(false)}
-                className={FORM_INPUT_CLASSES}
-                placeholder="description"
-              />
-              <label htmlFor="description" className={FORM_LABEL_CLASSES}>
-                Description
-              </label>
-              <p
-                id="fn-note"
-                className={`${VALID_NOTE}  ${
-                  descriptionFocus && description && !validDescription
-                    ? "block"
-                    : "hidden"
-                }`}
-              >
-                Text is too short
-              </p>
-            </div>
-
-            <button
-              //- Disable SignUp button till all validation passed
-
-              className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
-            >
-              create basket
-            </button>
           </div>
+
+          <p className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mt-12 ml-7">
+            pickup Time
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-12 mb-12 mx-7 ">
+            <div className="grid grid-cols-1 mt-8">
+              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold ">
+                From
+              </label>
+
+              <input
+                required
+                className={OTHER_INPUTSTYLE}
+                value={from}
+                type="time"
+                id="pickup"
+                onChange={(e) =>
+                  setpickup({
+                    ...pickup,
+                    from: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="grid grid-cols-1 mt-8">
+              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
+                To
+              </label>
+              <input
+                required
+                className={OTHER_INPUTSTYLE}
+                value={to}
+                onChange={(e) =>
+                  setpickup({
+                    ...pickup,
+
+                    to: e.target.value,
+                  })
+                }
+                type="time"
+                placeholder="quantity"
+                id="pickup"
+              />
+            </div>
+          </div>
+
+          <div className={INPUT_CONTAINER}>
+            <input
+              type="text"
+              id="description"
+              autoComplete="off"
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              aria-invalid={validDescription ? "false" : "true"}
+              aria-describedby="fn-note"
+              onFocus={() => setDescriptionFocus(true)}
+              onBlur={() => setDescriptionFocus(false)}
+              className={FORM_INPUT_CLASSES}
+              placeholder="description"
+            />
+            <label htmlFor="description" className={FORM_LABEL_CLASSES}>
+              Description
+            </label>
+            <p
+              id="fn-note"
+              className={`${VALID_NOTE}  ${
+                descriptionFocus && description && !validDescription
+                  ? "block"
+                  : "hidden"
+              }`}
+            >
+              Text is too short
+            </p>
+          </div>
+
+          <button
+            //- Disable SignUp button till all validation passed
+
+            className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
+          >
+            create basket
+          </button>
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 }
 
