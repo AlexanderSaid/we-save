@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import SignUp from "../SignUp";
+import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
 
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";

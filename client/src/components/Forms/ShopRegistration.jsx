@@ -1,17 +1,25 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
+import SuccessShopRegister from "./SuccessShopRegister";
+import UserContext from "../../context/UserContext";
 
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
-import useFetch from "../hooks/useFetch.js";
-import SuccessSignUp from "./SuccessSignUp.jsx";
+import useFetch from "../../hooks/useFetch.js";
 
 //- Declare regex validations
-const NAME_REGEX = /^[a-zA-Z]{3,}$/;
+const SHOP_NAME_REGEX = /^[a-zA-Z]{2,}$/;
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+// (123) 456-7890
+// (123)456-7890
+// 123-456-7890
+// 123.456.7890
+// 1234567890
+// +31636363634
+// 075-63546725
+const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
 const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
+const KVK_REGEX = /^[0-9a-zA-Z]{8,8}/;
 
 //- Common classes
 const FORM_INPUT_CLASSES =
@@ -21,7 +29,11 @@ const FORM_LABEL_CLASSES =
 const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 
-const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
+const ShopRegistration = ({
+  shopRegisterOpen,
+  setShopRegisterOpen,
+  setOwner,
+}) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -31,29 +43,31 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
    * to determine visibility
    */
 
-  const [firstName, setFirstName] = useState("");
-  const [validFirstName, setValidFirstName] = useState(false);
-  const [firstNameFocus, setFirstNameFocus] = useState(false);
+  const { user, logout } = useContext(UserContext);
 
-  const [lastName, setLastName] = useState("");
-  const [validLastName, setValidLastName] = useState(false);
-  const [lastNameFocus, setLastNameFocus] = useState(false);
+  const [shopName, setShopName] = useState("");
+  const [validShopName, setValidShopName] = useState(false);
+  const [shopNameFocus, setShopNameFocus] = useState(false);
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const [password, setPassword] = useState("");
-  const [validPassword, setValidPassword] = useState(false);
-  const [passwordFocus, setPasswordFocus] = useState(false);
-
-  const [matchPassword, setMatchPassword] = useState("");
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [validPhone, setValidPhone] = useState(false);
+  const [phoneFocus, setPhoneFocus] = useState(false);
 
   const [postcode, setPostcode] = useState("");
   const [validPostcode, setValidPostcode] = useState(false);
   const [postcodeFocus, setPostcodeFocus] = useState(false);
+
+  const [streetName, setStreetName] = useState("");
+
+  const [houseNumber, setHouseNumber] = useState("");
+
+  const [kvkNumber, setKvkNumber] = useState("");
+  const [validKvkNumber, setValidKvkNumber] = useState(false);
+  const [kvkNumberFocus, setKvkNumberFocus] = useState(false);
 
   const [errMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -61,62 +75,50 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  const { performFetch, cancelFetch, error } = useFetch("/users", () => {
+  const { performFetch, cancelFetch, error } = useFetch("/shops", () => {
     setSuccess(true);
   });
 
-  //-
+  // -
   useEffect(() => {
     return cancelFetch;
   }, []);
 
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
-    setValidFirstName(NAME_REGEX.test(firstName));
-  }, [firstName]);
-
-  useEffect(() => {
-    setValidLastName(NAME_REGEX.test(lastName));
-  }, [lastName]);
+    setValidShopName(SHOP_NAME_REGEX.test(shopName));
+  }, [shopName]);
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
 
   useEffect(() => {
-    setValidPassword(PASSWORD_REGEX.test(password));
-    const match = password === matchPassword;
-    setValidMatch(match);
-  }, [password, matchPassword]);
+    setValidPhone(PHONE_REGEX.test(phone));
+  }, [phone]);
 
   useEffect(() => {
     setValidPostcode(POSTCODE_REGEX.test(postcode));
   }, [postcode]);
 
+  useEffect(() => {
+    setValidKvkNumber(KVK_REGEX.test(kvkNumber));
+  }, [kvkNumber]);
+
   //- Determine button state
   useEffect(() => {
-    !validFirstName ||
-    !validLastName ||
-    !validEmail ||
-    !validPassword ||
-    !validMatch
+    !validShopName || !validPostcode || !validKvkNumber || !validPhone
       ? setDisabled(true)
       : setDisabled(false);
-  }, [validFirstName, validLastName, validEmail, validPassword, validMatch]);
+  }, [validShopName, validPostcode, validKvkNumber, validPhone]);
 
   //- Clear error message when user start typing
   useEffect(() => {
     setErrorMessage("");
-  }, [firstName, lastName, email, password, matchPassword]);
-
-  //- switch to signin page
-  const handleSigninPage = () => {
-    setSignInOpen(true);
-    setSignUpOpen(false);
-  };
+  }, [shopName, postcode, phone, email, kvkNumber, streetName, houseNumber]);
 
   //- Connect with backend
-  //- Set error message from backend
+  // - Set error message from backend
   useEffect(() => {
     error && setErrorMessage(error);
   }, [error]);
@@ -129,25 +131,40 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify({
-        first: firstName,
-        last: lastName,
-        email: email,
+        name: shopName,
+        street: streetName,
+        house: houseNumber,
         postcode: postcode,
-        password: password,
+        email: email,
+        phone: phone,
+        kvk: kvkNumber,
       }),
     });
   };
 
+  const handleCreate = () => {
+    setOwner(false);
+  };
+  useEffect(() => {
+    if (success) {
+      logout();
+    }
+  }, [success]);
+
   return (
-    signUpOpen &&
+    shopRegisterOpen &&
     (success ? (
       <>
-        <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUpOpen} />
+        <SuccessShopRegister
+          setSuccess={setSuccess}
+          setShopRegister={setShopRegisterOpen}
+        />
       </>
     ) : (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)] left-0 right-0 w-full  h-full  z-[1000]">
+      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
           <div className="bg-lightFont px-6 py-8 rounded shadow-md max-w-[600px] w-[90%]  relative">
             {errMessage && (
@@ -163,11 +180,14 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
             )}
 
             <h1 className="mb-8 text-3xl text-center text-accent">
-              CREATE ACCOUNT
+              Register You Shop
             </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-              onClick={() => setSignUpOpen(false)}
+              onClick={() => {
+                setShopRegisterOpen(false);
+                setOwner(false);
+              }}
             >
               <AiOutlineArrowLeft />
             </button>
@@ -175,62 +195,29 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
               <div className={INPUT_CONTAINER}>
                 <AiOutlineClose
                   className={`${
-                    validFirstName || !firstName ? "hidden" : "visible"
+                    validShopName || !shopName ? "hidden" : "visible"
                   } absolute text-error top-4 right-1`}
                 />
                 <input
                   type="text"
-                  id="first-name"
+                  id="shop-name"
                   autoComplete="off"
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setShopName(e.target.value)}
                   required
-                  aria-invalid={validFirstName ? "false" : "true"}
-                  aria-describedby="fn-note"
-                  onFocus={() => setFirstNameFocus(true)}
-                  onBlur={() => setFirstNameFocus(false)}
+                  aria-invalid={validShopName ? "false" : "true"}
+                  aria-describedby="sn-note"
+                  onFocus={() => setShopNameFocus(true)}
+                  onBlur={() => setShopNameFocus(false)}
                   className={FORM_INPUT_CLASSES}
-                  placeholder="First Name *"
+                  placeholder="Shop Name *"
                 />
-                <label htmlFor="first-name" className={FORM_LABEL_CLASSES}>
-                  First Name *
+                <label htmlFor="shop-name" className={FORM_LABEL_CLASSES}>
+                  Shop Name *
                 </label>
                 <p
-                  id="fn-note"
+                  id="sn-note"
                   className={`${VALID_NOTE}  ${
-                    firstNameFocus && firstName && !validFirstName
-                      ? "block"
-                      : "hidden"
-                  }`}
-                >
-                  At least 3 letters / No numbers.
-                </p>
-              </div>
-              <div className={INPUT_CONTAINER}>
-                <AiOutlineClose
-                  className={`${
-                    validLastName || !lastName ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
-                <input
-                  type="text"
-                  id="last-name"
-                  autoComplete="off"
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                  aria-invalid={validLastName ? "false" : "true"}
-                  aria-describedby="ln-note"
-                  onFocus={() => setLastNameFocus(true)}
-                  onBlur={() => setLastNameFocus(false)}
-                  className={FORM_INPUT_CLASSES}
-                  placeholder="Last Name *"
-                />
-                <label htmlFor="last-name" className={FORM_LABEL_CLASSES}>
-                  Last Name *
-                </label>
-                <p
-                  id="ln-note"
-                  className={`${VALID_NOTE}  ${
-                    lastNameFocus && lastName && !validLastName
+                    shopNameFocus && shopName && !validShopName
                       ? "block"
                       : "hidden"
                   }`}
@@ -249,7 +236,6 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   id="email"
                   autoComplete="off"
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   aria-invalid={validEmail ? "false" : "true"}
                   aria-describedby="email-note"
                   onFocus={() => setEmailFocus(true)}
@@ -258,7 +244,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   placeholder="Email *"
                 />
                 <label htmlFor="email" className={FORM_LABEL_CLASSES}>
-                  Email *
+                  Email
                 </label>
                 <p
                   id="email-note"
@@ -272,80 +258,69 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
               <div className={INPUT_CONTAINER}>
                 <AiOutlineClose
                   className={`${
-                    validPassword || !password ? "hidden" : "visible"
+                    validPhone || !phone ? "hidden" : "visible"
                   } absolute text-error top-4 right-1`}
                 />
                 <input
-                  type="password"
-                  id="password"
+                  type="text"
+                  id="phone"
                   autoComplete="off"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
-                  aria-invalid={validPassword ? "false" : "true"}
-                  aria-describedby="pwd-note"
-                  onFocus={() => setPasswordFocus(true)}
-                  onBlur={() => setPasswordFocus(false)}
+                  aria-invalid={validPhone ? "false" : "true"}
+                  aria-describedby="ph-note"
+                  onFocus={() => setPhoneFocus(true)}
+                  onBlur={() => setPhoneFocus(false)}
                   className={FORM_INPUT_CLASSES}
-                  placeholder="Password *"
+                  placeholder="Phone *"
                 />
-                <label htmlFor="password" className={FORM_LABEL_CLASSES}>
-                  Password *
+                <label htmlFor="phone" className={FORM_LABEL_CLASSES}>
+                  Phone *
                 </label>
                 <p
-                  id="pwd-note"
+                  id="ph-note"
                   className={`${VALID_NOTE}  ${
-                    passwordFocus && password && !validPassword
-                      ? "block"
-                      : "hidden"
+                    phoneFocus && phone && !validPhone ? "block" : "hidden"
                   }`}
                 >
-                  8 to 24 characters contains at least:
-                  <br /> 1 uppercase letter, 1 lowercase letter
-                  <br /> 1 digit and 1 special character from:&nbsp;
-                  <span aria-label="exclamation mark">!</span>
-                  &nbsp;
-                  <span aria-label="at symbol">@</span>
-                  &nbsp;
-                  <span aria-label="hashtag">#</span>&nbsp;
-                  <span aria-label="dollar">$</span>&nbsp;
-                  <span aria-label="percent">%</span>
+                  Phone Number should contain at least 10 number
                 </p>
               </div>
               <div className={INPUT_CONTAINER}>
                 <AiOutlineClose
                   className={`${
-                    validMatch || !matchPassword ? "hidden" : "visible"
+                    validKvkNumber || !kvkNumber ? "hidden" : "visible"
                   } absolute text-error top-4 right-1`}
                 />
                 <input
-                  type="password"
-                  id="confirm-password"
+                  type="text"
+                  id="kvk-number"
                   autoComplete="off"
-                  onChange={(e) => setMatchPassword(e.target.value)}
+                  onChange={(e) => setKvkNumber(e.target.value)}
                   required
-                  aria-invalid={validMatch ? "false" : "true"}
-                  aria-describedby="confirm-note"
-                  onFocus={() => setMatchFocus(true)}
-                  onBlur={() => setMatchFocus(false)}
+                  aria-invalid={validKvkNumber ? "false" : "true"}
+                  aria-describedby="kvk-note"
+                  onFocus={() => setKvkNumberFocus(true)}
+                  onBlur={() => setKvkNumberFocus(false)}
                   className={FORM_INPUT_CLASSES}
-                  placeholder="confirm Password *"
+                  placeholder="KVK Number *"
                 />
-                <label
-                  htmlFor="confirm-password"
-                  className={FORM_LABEL_CLASSES}
-                >
-                  Confirm Password *
+                <label htmlFor="kvk-number" className={FORM_LABEL_CLASSES}>
+                  KVK Number *
                 </label>
                 <p
-                  id="confirm-note"
+                  id="kvk-note"
                   className={`${VALID_NOTE}  ${
-                    matchFocus && !validMatch ? "block" : "hidden"
+                    kvkNumberFocus && kvkNumber && !validKvkNumber
+                      ? "block"
+                      : "hidden"
                   }`}
                 >
-                  The confirmation does not match the password.
+                  Invalid KVK Number .
                 </p>
               </div>
-              <div className="relative input-container">
+
+              <div className={INPUT_CONTAINER}>
                 <AiOutlineClose
                   className={`${
                     validPostcode || !postcode ? "hidden" : "visible"
@@ -356,6 +331,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   id="postcode"
                   autoComplete="off"
                   onChange={(e) => setPostcode(e.target.value)}
+                  required
                   aria-invalid={validPostcode ? "false" : "true"}
                   aria-describedby="pc-note"
                   onFocus={() => setPostcodeFocus(true)}
@@ -364,7 +340,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   placeholder="Postcode *"
                 />
                 <label htmlFor="postcode" className={FORM_LABEL_CLASSES}>
-                  Postcode
+                  Postcode *
                 </label>
                 <p
                   id="pc-note"
@@ -378,22 +354,43 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 </p>
               </div>
 
-              <div className="pl-3 mt-6 text-darkFont text-bodySmall ">
-                <span className="text-gray-400 text-button lg:float-right ">
-                  Field with * is required
-                </span>
-                <br />
-                Already have an account?
-                <span
-                  className="text-accent px-2 cursor-pointer"
-                  onClick={handleSigninPage}
-                >
-                  Sign in
-                </span>
+              <div className="relative input-container">
+                <div className="flex justify-between ">
+                  <div className="flex">
+                    <input
+                      type="text"
+                      id="street-name"
+                      autoComplete="off"
+                      onChange={(e) => setStreetName(e.target.value)}
+                      className={FORM_INPUT_CLASSES}
+                      placeholder="Street Name *"
+                    />
+                    <label htmlFor="street-name" className={FORM_LABEL_CLASSES}>
+                      Street Name
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      id="house-num"
+                      autoComplete="off"
+                      onChange={(e) => setHouseNumber(e.target.value)}
+                      className={FORM_INPUT_CLASSES}
+                      placeholder="House Number *"
+                    />
+                    <label
+                      htmlFor="house-num"
+                      className="absolute text-gray-600 transition-all -top-1 text-button peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase"
+                    >
+                      House Number
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <button
                 //- Disable SignUp button till all validation passed
+                onClick={handleCreate}
                 disabled={isDisabled}
                 className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
               >
@@ -409,10 +406,10 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   );
 };
 
-SignUp.propTypes = {
-  signUpOpen: PropTypes.bool,
-  setSignUpOpen: PropTypes.func,
-  setSignInOpen: PropTypes.func,
+ShopRegistration.propTypes = {
+  shopRegisterOpen: PropTypes.bool,
+  setShopRegisterOpen: PropTypes.func,
+  setOwner: PropTypes.func,
 };
 
-export default SignUp;
+export default ShopRegistration;
