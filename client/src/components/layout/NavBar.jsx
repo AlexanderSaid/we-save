@@ -79,7 +79,7 @@ const NavBar = () => {
             Contact
           </Link>
           <Link
-            to="#"
+            to="/"
             onClick={
               loggedIn
                 ? logout
