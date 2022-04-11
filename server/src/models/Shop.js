@@ -63,5 +63,4 @@ shopSchema.post("remove", async function (shop) {
     await Basket.deleteMany({ _id: { $in: shop.baskets } });
   }
 });
-
 export default mongoose.model("Shop", shopSchema);

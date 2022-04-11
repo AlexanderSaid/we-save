@@ -6,7 +6,7 @@ import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
 import SignInContext from "../../context/SignInContext";
 // import UserContext from "../../context/UserContext";
-import SignIn from "./SignIn";
+import SignIn from "../Forms/SignIn";
 const NavBar = () => {
   //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
@@ -19,14 +19,17 @@ const NavBar = () => {
   };
 
   const { loggedIn } = useAuthentication();
-  const { logout } = useContext(UserContext);
+  const { logout, user } = useContext(UserContext);
 
   return (
     <nav className="w-screen px-8 py-4 bg-darkBg max-w-1440 sm:px-12">
       <div className="w-full sm:flex sm:items-center sm:justify-between ">
         <div className="relative flex items-center justify-between">
-          <div className="ml-2 text-xl font-bold text-lightFont">
-            <SiFoodpanda size={50} />
+          <div className="logo-container">
+            <SiFoodpanda size={40} />
+            <span className="font-[lato] tracking-wider text-bodyRegular md:text-bodyLarge lg:text-[26px]">
+              WeSave
+            </span>
           </div>
           <button
             className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 sm:hidden"
@@ -50,13 +53,15 @@ const NavBar = () => {
             Home
           </Link>
 
-          <Link
-            to="/createBasket"
-            onClick={() => setHidden(true)}
-            className="nav-link nav-link-sm"
-          >
-            Your Baskets
-          </Link>
+          {user && user.is_owner ? (
+            <Link
+              to="/createBasket"
+              onClick={() => setHidden(true)}
+              className="nav-link nav-link-sm"
+            >
+              Create Your Baskets
+            </Link>
+          ) : null}
 
           <Link
             to="about-us"
@@ -73,7 +78,7 @@ const NavBar = () => {
             Contact
           </Link>
           <Link
-            to="#"
+            to="/"
             onClick={
               loggedIn
                 ? logout

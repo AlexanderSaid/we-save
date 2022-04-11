@@ -5,44 +5,48 @@ import { FaShoppingBasket } from "react-icons/fa";
 import * as gi from "react-icons/gi";
 import * as io from "react-icons/io5";
 //- Import images
-import bread from "../assets/bread.png";
-import breakfast from "../assets/breakfast.jpg";
-import lunch from "../assets/lunch.jpg";
-import pizza from "../assets/pizza.jpg";
-import surprise from "../assets/surprise.jpg";
-import grocery from "../assets/grocery.jpg";
-import diary from "../assets/organic-foods-5.jpg";
-import ReservePopUp from "./ReservePopUp";
-import SuccessReserve from "./SuccessReserve";
-import { useAuthentication } from "../hooks/useAuthentication";
-import SignIn from "./layout/SignIn";
-import SignInContext from "../context/SignInContext";
-import SearchContext from "../context/SearchContext";
-import UserContext from "../context/UserContext";
 
-const Basket = ({
-  name,
-  category,
-  oldPrice,
-  newPrice,
-  quantity,
-  description,
-  shop,
-  distance,
-  address,
-  basket_id,
-}) => {
-  const { street, house, addition, postcode, city } = address;
+import bread from "../../../assets/bread.png";
+import breakfast from "../../../assets/breakfast.jpg";
+import lunch from "../../../assets/lunch.jpg";
+import pizza from "../../../assets/pizza.jpg";
+import surprise from "../../../assets/surprise.jpg";
+import grocery from "../../../assets/grocery.jpg";
+import diary from "../../../assets/organic-foods-5.jpg";
+import ReservePopUp from "../../../components/ReservePopUp";
+import SuccessReserve from "../../../components/SuccessReserve";
+import { useAuthentication } from "../../../hooks/useAuthentication";
+import SignIn from "../../../components/Forms/SignIn";
+import SignInContext from "../../../context/SignInContext";
+import SearchContext from "../../../context/SearchContext";
+import UserContext from "../../../context/UserContext";
+
+const Basket = ({ basket }) => {
+  const {
+    _id,
+    name,
+    categories,
+    price,
+    quantity,
+    description,
+    shop_id,
+    distance,
+    pickup,
+  } = basket;
+  const { original, discount } = price;
+  const shop = shop_id.name;
+  const { street, house, addition, postcode, city } = shop_id.address;
   const [isReserved, setIsReserved] = useState(false);
   const { loggedIn } = useAuthentication();
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { confirmRsv, setConfirmRsv } = useContext(SearchContext);
   const { user } = useContext(UserContext);
 
-  const link = `${street}+${house}${addition},+${postcode.slice(
+  const link = `${street}+${house}${addition ? addition : ""},+${postcode.slice(
     0,
     4
   )}+${postcode.slice(4)}+${city}`;
+
   const getImage = () => {
     const img =
       name === "Breakfast basket"
@@ -51,11 +55,11 @@ const Basket = ({
         ? lunch
         : name === "Pastries basket"
         ? bread
-        : name === "Surprise basket" && category.length
+        : name === "Surprise basket" && categories.length
         ? surprise
-        : name === "Surprise basket" && category.contains("Vegetarian")
+        : name === "Surprise basket" && categories.contains("Vegetarian")
         ? grocery
-        : name === "Surprise basket" && category.contains("Diary & Meat")
+        : name === "Surprise basket" && categories.contains("Diary & Meat")
         ? diary
         : pizza;
     return img;
@@ -83,11 +87,11 @@ const Basket = ({
           setIsReserved={setIsReserved}
           confirmRsv={confirmRsv}
           setConfirmRsv={setConfirmRsv}
-          basket_id={basket_id}
+          basket_id={_id}
           code={code}
         />
       )}
-      <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:h-[150px] ">
+      <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:gap-2 md:h-[150px] ">
         <div className="image-container md:basis-36 md:h-[150px] md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
           <img
             src={getImage()}
@@ -96,11 +100,11 @@ const Basket = ({
           />
         </div>
 
-        <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:flex-row md:h-[150px] md:grow md:px-0 transition-all duration-[400ms] ease-in-out">
+        <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
           <div className="w-full h-full flex flex-col justify-start md:justify-between md:basis-36 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
             <h5 className="basket-name">{name}</h5>
-            {category.length &&
-              category.map((cat) => (
+            {categories.length &&
+              categories.map((cat) => (
                 <span key={cat} className="basket-category">
                   {cat}
                 </span>
@@ -113,9 +117,9 @@ const Basket = ({
                 <FaShoppingBasket className="inline" />
               </div>
 
-              <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular md:pr-4 transition-all duration-[400ms] ease-in-out">
-                <span className="line-through old text-shade">{`€ ${oldPrice}`}</span>
-                <span className="new text-accent">{` / € ${newPrice}`}</span>
+              <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
+                <span className="line-through old text-shade">{`€ ${original}`}</span>
+                <span className="new text-accent">{` / € ${discount}`}</span>
               </div>
             </div>
           </div>
@@ -148,7 +152,7 @@ const Basket = ({
           </div>
         </div>
 
-        <div className="shop-details flex flex-col py-2 justify-between items-center md:h-full md:basis-40 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
+        <div className="shop-details flex flex-col py-2 justify-between items-center md:h-full md:basis-44 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
           <h5 className="shop-name">{shop}</h5>
 
           <div className="flex flex-col items-center justify-between location gap-x-2 md:gap-y-2 md:items-end md:w-full md:pr-4">
@@ -167,29 +171,17 @@ const Basket = ({
                 rel="noopener noreferrer"
               >
                 <io.IoLocationSharp className="inline-block" />
-                {`${street} ${house}${addition}`}
+                {`${street} ${house}${addition ? addition : ""}`}
               </a>
             </div>
           </div>
-          <p className="pickup">Pickup between --:-- & --:-- </p>
+          <p className="pickup">{`Pickup: ${pickup?.from} & ${pickup?.to}`}</p>
         </div>
       </div>
     </>
   );
 };
 Basket.propTypes = {
-  name: PropTypes.string,
-  category: PropTypes.array,
-  oldPrice: PropTypes.number,
-  newPrice: PropTypes.number,
-  quantity: PropTypes.number,
-  shop_id: PropTypes.string,
-  distance: PropTypes.number,
-  shop: PropTypes.string,
-  address: PropTypes.object,
-  description: PropTypes.string,
-  login: PropTypes.bool,
-  setLogin: PropTypes.func,
-  basket_id: PropTypes.string,
+  basket: PropTypes.object,
 };
 export default Basket;

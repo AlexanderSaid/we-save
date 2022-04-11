@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
-import UserContext from "../context/UserContext";
+import UserContext from "../../context/UserContext";
 
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
-import useFetch from "../hooks/useFetch.js";
+import useFetch from "../../hooks/useFetch.js";
 
 //- Declare regex validations
 const SHOP_NAME_REGEX = /^[a-zA-Z0-9\s]{2,}$/;
@@ -43,7 +43,7 @@ const ShopRegistration = ({
    * to determine visibility
    */
 
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   const [shopName, setShopName] = useState("");
   const [validShopName, setValidShopName] = useState(false);
@@ -144,6 +144,15 @@ const ShopRegistration = ({
       }),
     });
   };
+
+  const handleCreate = () => {
+    setOwner(false);
+  };
+  useEffect(() => {
+    if (success) {
+      logout();
+    }
+  }, [success]);
 
   return (
     shopRegisterOpen &&
@@ -381,7 +390,7 @@ const ShopRegistration = ({
 
               <button
                 //- Disable SignUp button till all validation passed
-                onClick={() => setOwner(false)}
+                onClick={handleCreate}
                 disabled={isDisabled}
                 className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
               >

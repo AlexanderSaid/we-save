@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
-import useFetch from "../hooks/useFetch.js";
+import useFetch from "../../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
 
 //- Declare regex validations

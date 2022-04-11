@@ -32,6 +32,9 @@
   .skip {
     @apply w-[220px] text-right text-bodySmall rounded-r-md bg-primary text-darkFont font-bold py-2 pr-[20px] absolute top-[100px] -left-[120%] focus:transition-all duration-[400ms] focus:left-0 z-[100];
   }
+  .logo-container {
+    @apply flex items-center justify-center gap-4 text-xl font-bold text-lightFont ml-2;
+  }
   .footer-link {
     @apply text-lightFont hover:text-primary hover:cursor-pointer;
   }

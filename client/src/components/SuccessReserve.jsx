@@ -9,8 +9,9 @@ const SuccessReserve = ({ setConfirmRsv, code }) => {
           <h3 className="text-3xl font-bold text-center mb-9 text-accent">
             You have reserved the basket successfully!
           </h3>
-          <p className="text-2xl font-bold text-center mb-9 text-accent">
-            Your verification code is:{" "}
+          <p className="text-xl font-light text-center mb-9 text-darkBg">
+            There is an information email sent to your registered email address.
+            Please use this code ito pick up your order:
           </p>
           <p className="text-4xl font-bold text-center mb-9 text-darkBg">
             {code}

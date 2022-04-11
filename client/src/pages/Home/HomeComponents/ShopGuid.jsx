@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import ShopRegistration from "../../../components/ShopRegistration";
+import ShopRegistration from "../../../components/Forms/ShopRegistration";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
-import SignIn from "../../../components/layout/SignIn";
+import SignIn from "../../../components/Forms/SignIn";
 
 const ShopGuid = () => {
   const [shopIsOpen, setShopIsOpen] = useState(false);

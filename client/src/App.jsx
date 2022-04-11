@@ -5,12 +5,11 @@ import "./css/index.css";
 // import Baskets from "./pages/Baskets/Baskets";
 import Layout from "./components/layout/Layout";
 import Results from "./pages/Results/Results";
-import SignUp from "./components/SignUp";
 import Contact from "./pages/Contact/Contact";
+import SignUp from "./components/Forms/SignUp";
 //import ShopDetails from "./pages/ShopDetails/ShopDetails";
 import CreateBasket from "./pages/CreateBasket/CreateBasket";
 
-// import SignIn from "./pages/BacharIn";
 // import PrivateRoute from "./components/PrivateRoute";
 // import RegisterShop from "./pages/RegisterShop";
 
