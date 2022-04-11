@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/UserContext";
 
-const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id, code }) => {
+const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id }) => {
   const { user } = useContext(UserContext);
   const [errMessage, setErrorMessage] = useState("");
 
@@ -45,7 +45,7 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id, code }) => {
         "content-type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ code: user._id.slice(17) }),
     });
   };
 
@@ -87,6 +87,5 @@ ReservePopUp.propTypes = {
   confirmRsv: PropTypes.bool,
   setConfirmRsv: PropTypes.func,
   basket_id: PropTypes.string,
-  code: PropTypes.string,
 };
 export default ReservePopUp;
