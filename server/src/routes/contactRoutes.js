@@ -7,6 +7,6 @@ import {
 } from "../controllers/contactController.js";
 
 router.route("/").post(contactEmail);
-router.route("/confirm").post(protect, confirmationEmail);
+router.route("/confirm/:id").post(protect, confirmationEmail);
 
 export default router;
