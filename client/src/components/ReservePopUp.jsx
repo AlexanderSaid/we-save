@@ -10,13 +10,14 @@ const ReservePopUp = ({ setIsReserved, setConfirmRsv, basket_id, code }) => {
   const {
     performFetch: performConfirmation,
     cancelFetch: cancelFetchConfirmation,
-  } = useFetch("/contact/confirm", () => {});
+  } = useFetch("/contact/confirm", () => {
+    setConfirmRsv(true);
+  });
 
   //- Fetching data
   const { performFetch, cancelFetch, error } = useFetch(
     `/baskets/${basket_id}/decrease`,
     () => {
-      setConfirmRsv(true);
       setIsReserved(false);
     }
   );

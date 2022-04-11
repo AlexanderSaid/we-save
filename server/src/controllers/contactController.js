@@ -45,7 +45,7 @@ const contactEmail = (req, res) => {
 
 const confirmationEmail = (req, res) => {
   const output = `
-  <h3>Your Code Is : ${req.body.code}</h3>
+  <h3>Your Code Is : <span> ${req.body.code} </span></h3>
 
 `;
 

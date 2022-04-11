@@ -18,6 +18,7 @@ import { useAuthentication } from "../hooks/useAuthentication";
 import SignIn from "./layout/SignIn";
 import SignInContext from "../context/SignInContext";
 import SearchContext from "../context/SearchContext";
+import UserContext from "../context/UserContext";
 
 const Basket = ({
   name,
@@ -36,6 +37,7 @@ const Basket = ({
   const { loggedIn } = useAuthentication();
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { confirmRsv, setConfirmRsv } = useContext(SearchContext);
+  const { user } = useContext(UserContext);
 
   const link = `${street}+${house}${addition},+${postcode.slice(
     0,
@@ -59,18 +61,12 @@ const Basket = ({
     return img;
   };
 
-  function createVerificationCode(length) {
-    let result = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+  const confirmationCode = () => {
+    const result = user._id.slice(17);
     return result;
-  }
+  };
+  const code = confirmationCode();
 
-  const code = createVerificationCode(5);
   return (
     <>
       {<SignIn setOpenSignIn={setIsOpen} openSignIn={isOpen} />}
