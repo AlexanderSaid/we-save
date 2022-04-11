@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
 const FORM_INPUT_CLASSES =
@@ -15,7 +16,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
   const [showPassword, setShowPassword] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [errMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     setErrorMessage("");
   }, [email, password]);
@@ -146,6 +147,15 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                     onClick={handleSignupPage}
                   >
                     Sign Up
+                  </span>
+                </div>
+                <div className="pl-3 mt-6 text-darkFont text-bodySmall">
+                  Forget Password?
+                  <span
+                    className="px-2 cursor-pointer text-accent"
+                    onClick={() => navigate("/forget-password")}
+                  >
+                    Send email
                   </span>
                 </div>
                 <button

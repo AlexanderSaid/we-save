@@ -44,9 +44,11 @@ const userSchema = new Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Shop",
     },
-
     favorites_shops: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Shop" }],
-    // shop_id: { type: mongoose.SchemaTypes.ObjectId, ref: "Shop" },
+    resetLink: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
