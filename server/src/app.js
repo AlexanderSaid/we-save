@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
-
 import shopRouter from "./routes/shopsRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import contactRouter from "./routes/contactRoutes.js";
 import basketsRouter from "./routes/basketsRoutes.js";
+
 // Create an express server
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors());
  */
 app.use("/api/shops", shopRouter);
 app.use("/api/users", userRouter);
+app.use("/api/contact", contactRouter);
 app.use("/api/baskets", basketsRouter);
 
 export default app;

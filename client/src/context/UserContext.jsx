@@ -7,6 +7,7 @@ const UserContext = createContext({});
 export const UserProvider = ({ children }) => {
   const stored = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(stored ? stored : null);
+
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     "/users/login",
     (response) => {

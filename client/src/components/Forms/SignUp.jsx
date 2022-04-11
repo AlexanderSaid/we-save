@@ -117,6 +117,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
 
   //- Connect with backend
   //- Set error message from backend
+
   useEffect(() => {
     error && setErrorMessage(error);
   }, [error]);
@@ -385,7 +386,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 <br />
                 Already have an account?
                 <span
-                  className="text-accent px-2 cursor-pointer"
+                  className="px-2 cursor-pointer text-accent"
                   onClick={handleSigninPage}
                 >
                   Sign in

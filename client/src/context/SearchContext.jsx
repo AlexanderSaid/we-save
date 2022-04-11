@@ -132,6 +132,8 @@ export const SearchProvider = ({ children }) => {
     return orderByDistance();
   }, [basketsByDistance]);
 
+  // console.log(orderedBaskets);
+
   //- Number or baskets to show {in context to reset on search click}
   const INCREMENT = 5;
   const [toShow, setToShow] = useState(INCREMENT);

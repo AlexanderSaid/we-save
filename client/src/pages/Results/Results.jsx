@@ -22,6 +22,10 @@ const Results = () => {
       const filtered = orderedBaskets.filter((basket) =>
         basket.categories.includes(selectedCategory)
       );
+
+      // eslint-disable-next-line no-console
+      console.log(filtered);
+
       setBasketsToPass(filtered);
     }
   }, [selectedCategory, orderedBaskets]);
@@ -29,7 +33,7 @@ const Results = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full">
-        <div className="w-full bg-darkBg flex justify-center items-center py-8">
+        <div className="flex items-center justify-center w-full py-8 bg-darkBg">
           <SearchBar />
         </div>
         <Categories

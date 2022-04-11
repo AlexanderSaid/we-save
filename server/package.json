@@ -45,6 +45,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^8.0.3",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "nodemailer": "^6.7.3"
   }
 }

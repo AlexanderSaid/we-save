@@ -22,9 +22,9 @@ const NavBar = () => {
   const { logout, user } = useContext(UserContext);
 
   return (
-    <nav className="bg-darkBg py-4 max-w-1440 w-screen px-8 sm:px-12">
+    <nav className="w-screen px-8 py-4 bg-darkBg max-w-1440 sm:px-12">
       <div className="w-full sm:flex sm:items-center sm:justify-between ">
-        <div className="flex items-center justify-between relative">
+        <div className="relative flex items-center justify-between">
           <div className="logo-container">
             <SiFoodpanda size={40} />
             <span className="font-[lato] tracking-wider text-bodyRegular md:text-bodyLarge lg:text-[26px]">
@@ -72,9 +72,8 @@ const NavBar = () => {
           </Link>
 
           <Link
-            to="contact"
-            onClick={() => setHidden(true)}
-            className="nav-link nav-link-sm"
+            to="/contact"
+            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
             Contact
           </Link>

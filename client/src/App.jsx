@@ -5,6 +5,7 @@ import "./css/index.css";
 // import Baskets from "./pages/Baskets/Baskets";
 import Layout from "./components/layout/Layout";
 import Results from "./pages/Results/Results";
+import Contact from "./pages/Contact/Contact";
 import SignUp from "./components/Forms/SignUp";
 //import ShopDetails from "./pages/ShopDetails/ShopDetails";
 import CreateBasket from "./pages/CreateBasket/CreateBasket";
@@ -16,14 +17,11 @@ const App = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="login" element={<SignIn />} />
-        <Route path="/register" element={<PrivateRoute />}>
-          <Route path="/register" element={<RegisterShop />} />
-        </Route> */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="results" element={<Results />} />
           <Route path="sign-up" element={<SignUp />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="createBasket" element={<CreateBasket />} />
           {/* <Route path="results/shop-details/:id" element={<ShopDetails />} /> */}
         </Route>

@@ -5,6 +5,7 @@ import { FaShoppingBasket } from "react-icons/fa";
 import * as gi from "react-icons/gi";
 import * as io from "react-icons/io5";
 //- Import images
+
 import bread from "../../../assets/bread.png";
 import breakfast from "../../../assets/breakfast.jpg";
 import lunch from "../../../assets/lunch.jpg";
@@ -18,6 +19,7 @@ import { useAuthentication } from "../../../hooks/useAuthentication";
 import SignIn from "../../../components/Forms/SignIn";
 import SignInContext from "../../../context/SignInContext";
 import SearchContext from "../../../context/SearchContext";
+import UserContext from "../../../context/UserContext";
 
 const Basket = ({ basket }) => {
   const {
@@ -34,11 +36,11 @@ const Basket = ({ basket }) => {
   const { original, discount } = price;
   const shop = shop_id.name;
   const { street, house, addition, postcode, city } = shop_id.address;
-
   const [isReserved, setIsReserved] = useState(false);
   const { loggedIn } = useAuthentication();
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { confirmRsv, setConfirmRsv } = useContext(SearchContext);
+  const { user } = useContext(UserContext);
 
   const link = `${street}+${house}${addition ? addition : ""},+${postcode.slice(
     0,
@@ -63,11 +65,21 @@ const Basket = ({ basket }) => {
     return img;
   };
 
+  const confirmationCode = () => {
+    const result = user._id.slice(17);
+    return result;
+  };
+  const code = confirmationCode();
+
   return (
     <>
       {<SignIn setOpenSignIn={setIsOpen} openSignIn={isOpen} />}
       {confirmRsv && (
-        <SuccessReserve confirmRsv={confirmRsv} setConfirmRsv={setConfirmRsv} />
+        <SuccessReserve
+          confirmRsv={confirmRsv}
+          setConfirmRsv={setConfirmRsv}
+          code={code}
+        />
       )}
       {isReserved && (
         <ReservePopUp
@@ -76,6 +88,7 @@ const Basket = ({ basket }) => {
           confirmRsv={confirmRsv}
           setConfirmRsv={setConfirmRsv}
           basket_id={_id}
+          code={code}
         />
       )}
       <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:gap-2 md:h-[150px] ">
@@ -105,13 +118,13 @@ const Basket = ({ basket }) => {
               </div>
 
               <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
-                <span className="old line-through text-shade">{`€ ${original}`}</span>
+                <span className="line-through old text-shade">{`€ ${original}`}</span>
                 <span className="new text-accent">{` / € ${discount}`}</span>
               </div>
             </div>
           </div>
-          <div className="w-full h-full flex flex-col justify-between md:grow">
-            <div className="w-full h-full flex items-center justify-center">
+          <div className="flex flex-col justify-between w-full h-full md:grow">
+            <div className="flex items-center justify-center w-full h-full">
               <p className="description">{description}</p>
             </div>
 
@@ -142,7 +155,7 @@ const Basket = ({ basket }) => {
         <div className="shop-details flex flex-col py-2 justify-between items-center md:h-full md:basis-44 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
           <h5 className="shop-name">{shop}</h5>
 
-          <div className="location flex flex-col items-center justify-between gap-x-2 md:gap-y-2 md:items-end md:w-full md:pr-4">
+          <div className="flex flex-col items-center justify-between location gap-x-2 md:gap-y-2 md:items-end md:w-full md:pr-4">
             <div className="distance-container">
               <span className="distance">
                 {distance < 1000

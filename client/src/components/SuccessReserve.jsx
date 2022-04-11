@@ -1,29 +1,27 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import UserContext from "../context/UserContext";
 
-const SuccessReserve = ({ setConfirmRsv }) => {
-  const { user } = useContext(UserContext);
+const SuccessReserve = ({ setConfirmRsv, code }) => {
   return (
     <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
       <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
         <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-          <h3 className="mb-9 text-3xl text-center text-accent font-bold">
+          <h3 className="text-3xl font-bold text-center mb-9 text-accent">
             You have reserved the basket successfully!
           </h3>
-          <p className="mb-9 text-xl text-center text-darkBg font-light">
+          <p className="text-xl font-light text-center mb-9 text-darkBg">
             There is an information email sent to your registered email address.
             Please use this code ito pick up your order:
           </p>
-          <p className="mb-9 text-4xl text-center text-darkBg font-bold">
-            {user._id.slice(0, 5)}
+          <p className="text-4xl font-bold text-center mb-9 text-darkBg">
+            {code}
           </p>
-          <div className="w-full re-direct flex flex-col justify-evenly items-center">
+          <div className="flex flex-col items-center w-full re-direct justify-evenly">
             <button
               onClick={() => {
                 setConfirmRsv(false);
               }}
-              className="w-full py-2 my-1 text-center font-bold text-darkFont hover:text-accent focus:outline-none mt-4 transition duration-300 hover:ease-in-out"
+              className="w-full py-2 my-1 mt-4 font-bold text-center transition duration-300 text-darkFont hover:text-accent focus:outline-none hover:ease-in-out"
             >
               Close
             </button>
@@ -37,5 +35,6 @@ const SuccessReserve = ({ setConfirmRsv }) => {
 SuccessReserve.propTypes = {
   confirmRsv: PropTypes.bool,
   setConfirmRsv: PropTypes.func,
+  code: PropTypes.string,
 };
 export default SuccessReserve;
