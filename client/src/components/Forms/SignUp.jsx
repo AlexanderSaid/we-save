@@ -1,7 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import useFetch from "../hooks/useFetch.js";
+
+import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
+import useFetch from "../../hooks/useFetch.js";
+import SuccessSignUp from "./SuccessSignUp.jsx";
+
 //- Declare regex validations
 const NAME_REGEX = /^[a-zA-Z]{3,}$/;
 const EMAIL_REGEX =
@@ -10,15 +13,15 @@ const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
 
+//- Common classes
 const FORM_INPUT_CLASSES =
   "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
 const FORM_LABEL_CLASSES =
   "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
 const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
-const SignUp = ({ openSignUp, setSignUp }) => {
-  //- Reference to FirstName input to focus on first load
-  const firstNameRef = useRef();
+
+const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -55,10 +58,17 @@ const SignUp = ({ openSignUp, setSignUp }) => {
   const [errMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
-  //- FirstName input focus
-  // useEffect(() => {
-  //   firstNameRef.current.focus();
-  // }, []);
+  const [isDisabled, setDisabled] = useState(true);
+
+  //- Fetching data
+  const { performFetch, cancelFetch, error } = useFetch("/users", () => {
+    setSuccess(true);
+  });
+
+  //-
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
 
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
@@ -83,42 +93,36 @@ const SignUp = ({ openSignUp, setSignUp }) => {
     setValidPostcode(POSTCODE_REGEX.test(postcode));
   }, [postcode]);
 
+  //- Determine button state
+  useEffect(() => {
+    !validFirstName ||
+    !validLastName ||
+    !validEmail ||
+    !validPassword ||
+    !validMatch
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [validFirstName, validLastName, validEmail, validPassword, validMatch]);
+
   //- Clear error message when user start typing
   useEffect(() => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
 
-  // const { performFetch, cancelFetch, error } = useFetch("/users");
-
-  // useEffect(() => {
-  //   performFetch({
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       first: firstName,
-  //       last: lastName,
-  //       email: email,
-  //       postcode: postcode,
-  //       password: password,
-  //     }),
-  //   });
-  //   console.log("data sended");
-
-  //   return cancelFetch;
-  // }, []);
-
-  const { performFetch, cancelFetch, error } = useFetch("/users", () => {
-    setSuccess(true);
-  });
-
-  useEffect(() => {
-    return cancelFetch;
-  }, []);
+  //- switch to signin page
+  const handleSigninPage = () => {
+    setSignInOpen(true);
+    setSignUpOpen(false);
+  };
 
   //- Connect with backend
+  //- Set error message from backend
+
+  useEffect(() => {
+    error && setErrorMessage(error);
+  }, [error]);
+
+  //- Send the form
   const handleSubmit = async (e) => {
     e.preventDefault();
     performFetch({
@@ -137,65 +141,47 @@ const SignUp = ({ openSignUp, setSignUp }) => {
     });
   };
 
-  if (success) {
-    return (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
-        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
-          <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-            <h3 className="mb-8 text-3xl text-center text-accent">
-              You are signed up successfully!
-            </h3>
-            <p>
-              <a href="#">Sign In</a>
-              <a href="#">Home Page</a>
-            </p>
-            <button
-              onClick={() => {
-                setSuccess(false);
-                setSignUp(false);
-              }}
-              className="w-full py-3 my-1 text-center rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none mt-9"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    openSignUp && (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+    signUpOpen &&
+    (success ? (
+      <>
+        <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUpOpen} />
+      </>
+    ) : (
+      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)] left-0 right-0 w-full  h-full  z-[1000]">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
-          <p
-            ref={errRef}
-            className={`h-10 w-60 text-error ${
-              errMessage ? "block" : "hidden"
-            }`}
-            aria-live="assertive"
-          >
-            {errMessage}
-          </p>
-          <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-            {error && (
-              <h1 className="mb-4 text-xl text-center text-red">{error}</h1>
+          <div className="bg-lightFont px-6 py-8 rounded shadow-md max-w-[600px] w-[90%]  relative">
+            {errMessage && (
+              <div className="flex items-center justify-center w-full">
+                <h1
+                  aria-live="assertive"
+                  ref={errRef}
+                  className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded"
+                >
+                  {errMessage}
+                </h1>
+              </div>
             )}
+
             <h1 className="mb-8 text-3xl text-center text-accent">
               CREATE ACCOUNT
             </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
-              onClick={() => setSignUp(false)}
+              onClick={() => setSignUpOpen(false)}
             >
               <AiOutlineArrowLeft />
             </button>
             <form onSubmit={handleSubmit}>
               <div className={INPUT_CONTAINER}>
+                <AiOutlineClose
+                  className={`${
+                    validFirstName || !firstName ? "hidden" : "visible"
+                  } absolute text-error top-4 right-1`}
+                />
                 <input
                   type="text"
                   id="first-name"
-                  ref={firstNameRef}
                   autoComplete="off"
                   onChange={(e) => setFirstName(e.target.value)}
                   required
@@ -221,6 +207,11 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </p>
               </div>
               <div className={INPUT_CONTAINER}>
+                <AiOutlineClose
+                  className={`${
+                    validLastName || !lastName ? "hidden" : "visible"
+                  } absolute text-error top-4 right-1`}
+                />
                 <input
                   type="text"
                   id="last-name"
@@ -249,6 +240,11 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </p>
               </div>
               <div className={INPUT_CONTAINER}>
+                <AiOutlineClose
+                  className={`${
+                    validEmail || !email ? "hidden" : "visible"
+                  } absolute text-error top-4 right-1`}
+                />
                 <input
                   type="email"
                   id="email"
@@ -275,6 +271,11 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </p>
               </div>
               <div className={INPUT_CONTAINER}>
+                <AiOutlineClose
+                  className={`${
+                    validPassword || !password ? "hidden" : "visible"
+                  } absolute text-error top-4 right-1`}
+                />
                 <input
                   type="password"
                   id="password"
@@ -312,6 +313,11 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </p>
               </div>
               <div className={INPUT_CONTAINER}>
+                <AiOutlineClose
+                  className={`${
+                    validMatch || !matchPassword ? "hidden" : "visible"
+                  } absolute text-error top-4 right-1`}
+                />
                 <input
                   type="password"
                   id="confirm-password"
@@ -341,6 +347,11 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </p>
               </div>
               <div className="relative input-container">
+                <AiOutlineClose
+                  className={`${
+                    validPostcode || !postcode ? "hidden" : "visible"
+                  } absolute text-error top-4 right-1`}
+                />
                 <input
                   type="text"
                   id="postcode"
@@ -374,32 +385,35 @@ const SignUp = ({ openSignUp, setSignUp }) => {
                 </span>
                 <br />
                 Already have an account?
-                <span className="px-2 text-accent">Sign in</span>
+                <span
+                  className="px-2 cursor-pointer text-accent"
+                  onClick={handleSigninPage}
+                >
+                  Sign in
+                </span>
               </div>
+
               <button
                 //- Disable SignUp button till all validation passed
-                disabled={
-                  !validFirstName ||
-                  !validLastName ||
-                  !validEmail ||
-                  !validPassword ||
-                  !validMatch
-                    ? true
-                    : false
-                }
-                className="w-full py-3 my-1 text-center rounded bg-primary text-darkFont hover:bg-green-dark focus:outline-none mt-9"
+                disabled={isDisabled}
+                className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
               >
-                Create Account
+                {isDisabled
+                  ? "Please fill required fields correctly"
+                  : "Create Account"}
               </button>
             </form>
           </div>
         </div>
       </section>
-    )
+    ))
   );
 };
+
 SignUp.propTypes = {
-  openSignUp: PropTypes.bool,
-  setSignUp: PropTypes.func,
+  signUpOpen: PropTypes.bool,
+  setSignUpOpen: PropTypes.func,
+  setSignInOpen: PropTypes.func,
 };
+
 export default SignUp;

@@ -1,12 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-// import Baskets from "./pages/Baskets/Baskets";
 import "./css/index.css";
 import Layout from "./components/layout/Layout";
 import Results from "./pages/Results/Results";
-import SignUp from "./components/SignUp";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import Contact from "./pages/Contact/Contact";
+import SignUp from "./components/Forms/SignUp";
+import CreateBasket from "./pages/CreateBasket/CreateBasket";
 
 const App = () => {
   return (
@@ -17,6 +18,8 @@ const App = () => {
           <Route path="results" element={<Results />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="about-us" element={<AboutUs />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="createBasket" element={<CreateBasket />} />
         </Route>
       </Routes>
     </>

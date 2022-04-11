@@ -1,37 +1,66 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import BasketCard from "../../../components/BasketCard";
-import AddressContext from "../../../context/AddressContext";
+import Basket from "./Basket";
+import SearchContext from "../../../context/SearchContext";
 
 const ResultsSection = ({ baskets }) => {
-  const { coordinates } = useContext(AddressContext);
+  const { toShow, setToShow, INCREMENT, isAmsterdam, inputValue } =
+    useContext(SearchContext);
+
+  //- Show more button state
+  const [isDisabled, setDisabled] = useState(
+    baskets.length <= INCREMENT ? true : false
+  );
+  useEffect(() => {
+    toShow >= baskets.length ? setDisabled(true) : setDisabled(false);
+  }, [toShow, baskets]);
+
+  const showMoreHandler = () => {
+    setToShow((prev) => prev + INCREMENT);
+  };
 
   return (
-    <div className="flex flex-col items-center">
-      {baskets.length ? (
-        <ul className="w-[50%] min-w-[400px] max-w-[700px]">
-          {baskets.splice(0, 5).map((shop) => (
-            <li
-              key={shop._id}
-              className="py-3 sm:py-4 bg-lightBg my-4 p-3 border border-darkBg "
-            >
-              <BasketCard
-                name={shop.name}
-                category={shop.baskets[0].categories[0]}
-                oldPrice={shop.baskets[0].price.original}
-                newPrice={shop.baskets[0].price.discount}
-                lat={shop.address.lat}
-                lon={shop.address.lon}
-                coordinates={coordinates}
-                amount={shop.baskets.length}
-              />
-            </li>
-          ))}
-        </ul>
+    <div className="flex flex-col items-center justify-center px-4 w-full">
+      {!isAmsterdam ? (
+        <p className="text-center mt-20 text-accent font-bold leading-8">
+          We are only available in Amsterdam. <br />
+          We are planing to expand to other cities soon.
+          <br /> If you have any questions, do not hesitate reaching us from
+          <a href="/contact" className="text-darkFont">
+            &nbsp;contact us
+          </a>
+          &nbsp;page.
+        </p>
+      ) : baskets.length ? (
+        <>
+          <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-8">
+            {baskets.slice(0, toShow).map(
+              (basket) =>
+                basket.quantity && (
+                  <li
+                    key={basket._id}
+                    className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[1000px]"
+                  >
+                    <Basket basket={basket} />
+                  </li>
+                )
+            )}
+          </ul>
+          <button
+            className="btn-blank mb-8"
+            disabled={isDisabled}
+            onClick={showMoreHandler}
+          >
+            {!isDisabled ? "Show More" : "No More"}
+          </button>
+        </>
+      ) : inputValue ? (
+        <p className=" text-center mt-10 text-error">
+          There are no baskets available
+        </p>
       ) : (
         <p className=" text-center mt-10 text-error">
-          {" "}
-          There are no baskets available{" "}
+          Please enter your postcode to see nearby baskets.
         </p>
       )}
     </div>

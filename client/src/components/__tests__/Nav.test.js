@@ -16,7 +16,7 @@ beforeEach(() => {
   fetch.resetMocks();
 });
 
-describe("Navigation", () => {
+describe.skip("Navigation", () => {
   it("Clicking on the Home link should go to Home page ", async () => {
     fetch.mockResponseOnce(getUsersSuccessMock());
 

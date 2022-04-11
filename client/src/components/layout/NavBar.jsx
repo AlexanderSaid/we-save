@@ -1,79 +1,114 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { FiLogIn, FiMenu } from "react-icons/fi";
+import { FiLogIn, FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
-// import SignIn from "./SignIn";
-import SignUp from "../SignUp";
-
+import { useAuthentication } from "../../hooks/useAuthentication";
+import UserContext from "../../context/UserContext";
+import SignInContext from "../../context/SignInContext";
+// import UserContext from "../../context/UserContext";
+import SignIn from "../Forms/SignIn";
 const NavBar = () => {
+  //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
-  const [flex, setFlex] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const navbarCollapse = () => {
+  //- Sing in pop-up state
+  const { isOpen, setIsOpen } = useContext(SignInContext);
+
+  const sideBarState = () => {
     setHidden(!hidden);
-    setFlex(!flex);
   };
 
+  const { loggedIn } = useAuthentication();
+  const { logout, user } = useContext(UserContext);
+
   return (
-    <nav className="py-2 bg-darkBg md:py-4 ">
-      <div className="container px-4 mx-auto md:flex md:items-center ">
-        <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-lightFont">
-            <SiFoodpanda size={50} />
+    <nav className="w-screen px-8 py-4 bg-darkBg max-w-1440 sm:px-12">
+      <div className="w-full sm:flex sm:items-center sm:justify-between ">
+        <div className="relative flex items-center justify-between">
+          <div className="logo-container">
+            <SiFoodpanda size={40} />
+            <span className="font-[lato] tracking-wider text-bodyRegular md:text-bodyLarge lg:text-[26px]">
+              WeSave
+            </span>
           </div>
           <button
-            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 md:hidden"
+            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 sm:hidden"
             id="navbar-toggle"
-            onClick={navbarCollapse}
+            onClick={sideBarState}
           >
-            <FiMenu />
+            {hidden ? <FiMenu /> : <FiX />}
           </button>
         </div>
+
         <div
-          className={`${flex ? "flex" : ""} ${
-            hidden ? "hidden" : ""
-          } md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0 `}
-          id="navbar-collapse"
+          className={`${
+            hidden ? "right-[-100%]" : "right-0"
+          } nav-links nav-links-sm`}
         >
           <Link
             to="/"
-            className="p-2 rounded lg:px-4 md:mx-2 text-darkFont bg-primary"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-sm"
           >
             Home
           </Link>
-          <Link
-            to="#"
-            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
-          >
-            Store Owner?
-          </Link>
+
+          {user && user.is_owner ? (
+            <Link
+              to="/createBasket"
+              onClick={() => setHidden(true)}
+              className="nav-link nav-link-sm"
+            >
+              Create Your Baskets
+            </Link>
+          ) : null}
+
           <Link
             to="about-us"
-            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-sm"
           >
             About Us
           </Link>
+
           <Link
-            to="#"
+            to="/contact"
             className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
           >
-            FAQ
+            Contact
           </Link>
           <Link
-            to="#"
-            className="justify-center p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
+            to="/"
+            onClick={
+              loggedIn
+                ? logout
+                : () => {
+                    setIsOpen(true);
+                    setHidden(true);
+                  }
+            }
+            className="justify-center nav-link nav-link-sm"
           >
-            <div
-              onClick={() => {
-                setIsOpen(true);
-              }}
-            >
-              <FiLogIn size={24} />
-            </div>
+            {loggedIn ? (
+              <div>
+                Log Out
+                <FiLogOut
+                  className="inline-block ml-2 font-semibold"
+                  size={20}
+                />
+              </div>
+            ) : (
+              <div>
+                Sign In
+                <FiLogIn
+                  className="inline-block ml-2 font-semibold"
+                  size={20}
+                />
+              </div>
+            )}
           </Link>
 
-          <SignUp openSignUp={isOpen} setSignUp={setIsOpen} />
+          <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
       </div>
     </nav>

@@ -1,10 +1,9 @@
 import express from "express";
 import cors from "cors";
-import errorHandler from "./middleware/errorMiddleware.js";
-
 import shopRouter from "./routes/shopsRoutes.js";
-import basketRouter from "./routes/basketRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import contactRouter from "./routes/contactRoutes.js";
+import basketsRouter from "./routes/basketsRoutes.js";
 
 // Create an express server
 const app = express();
@@ -21,9 +20,8 @@ app.use(cors());
  * As we also host our client code on heroku we want to separate the API endpoints.
  */
 app.use("/api/shops", shopRouter);
-app.use("/api/baskets", basketRouter);
 app.use("/api/users", userRouter);
-
-app.use(errorHandler);
+app.use("/api/contact", contactRouter);
+app.use("/api/baskets", basketsRouter);
 
 export default app;

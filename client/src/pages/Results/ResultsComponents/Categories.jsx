@@ -3,47 +3,35 @@ import PropTypes from "prop-types";
 
 const categoryList = [
   "Meals",
-  "Bread & Pastries",
   "Groceries",
   "Vegetarian",
   "Diary & Meat",
-  "All",
+  "Bread & Pastries",
+  "Other",
 ];
 
-const Categories = ({ baskets, filteredBaskets }) => {
-  const handleClick = (e) => {
-    if (e.target.innerText === "All") {
-      filteredBaskets(null);
-    } else {
-      filteredBaskets(
-        baskets.filter((item) =>
-          item.baskets[0].categories.includes(e.target.innerText)
-        )
-      );
-    }
-  };
-
+const Categories = ({ selectedCategory, onClick }) => {
   return (
-    <section className="container flex flex-col flex-wrap justify-center px-6 mx-auto my-1 -m-4 md:flex-row">
-      {categoryList.map((title, index) => (
-        <div className="p-2 md:w-48" key={index}>
-          <a
-            href="#"
-            className="flex flex-col items-center p-1 bg-blue-200 shadow-xs cursor-pointer rounded-2xl hover:bg-blue-500 hover:text-gray-100"
-          >
-            {/* <MdBakeryDining size={30} /> */}
-            <div name={title} onClick={handleClick} className="w-full ">
-              <p className="font-medium text-center text-s w-[100%]">{title}</p>
-            </div>
-          </a>
-        </div>
+    <section className="w-full px-4 py-8 grid grid-cols-2 gap-y-4 xs:grid-cols-3 xs:gap-x-2 md:flex md:flex-wrap md:items-center md:justify-center md:max-w-[770px] lg:max-w-1440">
+      {categoryList.map((category) => (
+        <button
+          key={category}
+          value={category}
+          onClick={(e) => onClick(e)}
+          className={`category ${
+            selectedCategory === category
+              ? "text-lightFont bg-accent border-accent"
+              : "text-darkFont bg-primary border-darkFont"
+          } `}
+        >
+          {category}
+        </button>
       ))}
     </section>
   );
 };
 Categories.propTypes = {
-  baskets: PropTypes.array,
-  filteredBaskets: PropTypes.func,
+  onClick: PropTypes.func,
+  selectedCategory: PropTypes.string,
 };
-
 export default Categories;

@@ -1,30 +1,150 @@
 import asyncHandler from "express-async-handler";
 import Basket from "../models/Basket.js";
+import User from "../models/User.js";
+import Shop from "../models/Shop.js";
 
-const getAllBasket = asyncHandler(async (req, res) => {
-  const allBaskets = await Basket.find({});
-  if (!allBaskets) {
-    res.status(401);
-    throw new Error("there are no baskets");
+//@des Get all the Baskets
+//@route GET /api/baskets
+//@access Public
+const getBaskets = asyncHandler(async (req, res) => {
+  const baskets = await Basket.find({}).populate("shop_id", [
+    "name",
+    "address",
+  ]);
+  if (!baskets) {
+    res.status(400).json({ msg: "There is no baskets" });
   }
-  res.status(201).json(allBaskets);
+  res.status(200).json({ success: true, result: baskets });
 });
-const getByCategoryBasket = asyncHandler(async (req, res) => {
-  const { category } = req.params;
-  const allBaskets = await Basket.find({});
-  if (!allBaskets) {
-    res.status(401);
-    throw new Error("there are no baskets");
+
+//@des Get a specific Basket
+//@route GET /api/baskets/:basketId
+//@access Public
+const getOneBasket = asyncHandler(async (req, res) => {
+  const { basketId } = req.params;
+  const basket = await Basket.findById(basketId).populate("shop_id", [
+    "name",
+    "address",
+  ]);
+  if (!basket) {
+    res.status(400).json({ msg: "Basket not found" });
   }
-  const basketCategory = allBaskets.filter((basket) =>
-    basket.categories.includes(category)
+  res.status(200).json({ success: true, result: basket });
+});
+
+//@des Get the Baskets of a specific shop
+//@route GET /api/shops/:shopId/baskets
+//@access Private
+const getShopBaskets = asyncHandler(async (req, res) => {
+  const { shopId } = req.params;
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401).json({ msg: "User not Found" });
+  }
+
+  const shop = await Shop.findById(shopId);
+  if (shop.owner_id.toString() !== req.user.id) {
+    res.status(401).json({ msg: "User not Authorized" });
+  }
+  const baskets = await Basket.find({ shop_id: shopId });
+  res.status(200).json({ success: true, result: baskets });
+});
+
+//@des Create a basket for a specific shop
+//@route POST /api/shops/:shopId/baskets
+//@access Private
+const createShopBasket = asyncHandler(async (req, res) => {
+  const { shopId } = req.params;
+  const {
+    name,
+    original,
+    discount,
+    categories,
+    quantity,
+    description,
+    from,
+    to,
+    image,
+  } = req.body;
+
+  const price = { original, discount };
+  const pickup = { from, to };
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401).json({ msg: "User not found" });
+  }
+  const shop = await Shop.findById(shopId);
+  if (shop.owner_id.toString() !== req.user.id) {
+    res.status(401).json("User not Authorized");
+  }
+  const newBasket = await Basket.create({
+    name,
+    price,
+    categories,
+    quantity,
+    description,
+    pickup,
+    image,
+    owner_id: req.user.id,
+    shop_id: shopId,
+  });
+  if (!newBasket) {
+    res.status(401).json({ msg: "Something Went Wrong" });
+  }
+  shop.baskets.push(newBasket._id.toString());
+  await shop.save();
+  res.status(201).json({ success: true, result: newBasket });
+});
+
+//@des Delete a basket from a specific shop
+//@route DELETE /api/shops/:shopId/baskets/:basketId
+//@access Private
+const deleteBasket = asyncHandler(async (req, res) => {
+  const { shopId, basketId } = req.params;
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401).json({ msg: "User not found" });
+  }
+  const shop = await Shop.findById(shopId);
+  if (shop.owner_id.toString() !== req.user.id) {
+    res.status(401).json("User not Authorized");
+  }
+  const basket = await Basket.findById(basketId);
+  if (
+    basket.shop_id.toString() !== shop._id.toString() &&
+    basket.owner_id.toString() !== req.user.id
+  ) {
+    res.status(401).json({ msg: "This basket doesn't belong to this shop" });
+  }
+  const newBaskets = shop.baskets.filter(
+    (bas) => bas._id.toString() !== basket._id.toString()
   );
-  if (!basketCategory || basketCategory.length === 0) {
-    res.status(401);
-    throw new Error(
-      "there is no basket available this moment with this category"
-    );
-  }
-  res.status(201).json(basketCategory);
+  shop.baskets = newBaskets;
+  await shop.save();
+  await basket.remove();
+  res
+    .status(200)
+    .json({ success: true, result: "Your basket was successfully deleted" });
 });
-export { getAllBasket, getByCategoryBasket };
+
+//@des decrease the quantity of baskets from a specific shop
+//@route GET /api/baskets/:basketId/decrease
+//@access Private
+const decreaseQuantity = asyncHandler(async (req, res) => {
+  const { basketId } = req.params;
+  const basket = await Basket.findById(basketId);
+  if (!basket) {
+    res.status(401).json({ msg: "This basket is not found" });
+  }
+  await basket.decrease();
+  res.status(200).json({ success: true, result: basket });
+});
+
+export {
+  getShopBaskets,
+  createShopBasket,
+  deleteBasket,
+  decreaseQuantity,
+  getBaskets,
+  getOneBasket,
+};

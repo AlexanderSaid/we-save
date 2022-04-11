@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Basket from "./Basket.js";
 const { Schema } = mongoose;
 
 const shopSchema = new Schema(
@@ -17,39 +18,22 @@ const shopSchema = new Schema(
         type: Number,
         required: true,
       },
-      addition: {
-        type: String,
-      },
+      addition: String,
       postcode: {
         type: String,
         required: true,
       },
-      city: {
-        type: String,
-        required: true,
-      },
-      country: {
-        type: String,
-        required: true,
-      },
+      city: String,
+      country: String,
       lat: Number,
       lon: Number,
     },
     phone: {
       type: String,
+      required: true,
     },
-    email: {
-      type: String,
-    },
+    email: String,
     kvk: {
-      type: String,
-      required: true,
-    },
-    iban: {
-      type: String,
-      required: true,
-    },
-    image: {
       type: String,
       required: true,
     },
@@ -59,10 +43,24 @@ const shopSchema = new Schema(
     description: {
       type: String,
     },
-    owner_id: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-    baskets: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Basket" }],
+    owner_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    baskets: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Basket",
+      },
+    ],
   },
   { timestamps: true }
 );
 
+shopSchema.post("remove", async function (shop) {
+  if (shop.baskets.length) {
+    await Basket.deleteMany({ _id: { $in: shop.baskets } });
+  }
+});
 export default mongoose.model("Shop", shopSchema);

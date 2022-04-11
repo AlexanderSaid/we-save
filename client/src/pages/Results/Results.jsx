@@ -1,92 +1,48 @@
-import React, { useState, useEffect, useContext } from "react";
-import { getDistance } from "geolib";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import Categories from "./ResultsComponents/Categories";
+import React, { useContext, useEffect, useState } from "react";
+import SearchBar from "../../components/Search-Bar/SearchBar";
+import SearchContext from "../../context/SearchContext";
 import ResultsSection from "./ResultsComponents/ResultsSection";
-import AddressContext from "../../context/AddressContext";
-import useFetch from "../../hooks/useFetch";
+import Categories from "./ResultsComponents/Categories";
 
 const Results = () => {
-  const { coordinates, currentCoordinates } = useContext(AddressContext);
-  // All shops in the database
-  const [shops, setShops] = useState(null);
-  const [filteredCategories, setFilteredCategories] = useState();
+  const { orderedBaskets, inputValue, selectedCategory, setSelectedCategory } =
+    useContext(SearchContext);
+  const [basketsToPass, setBasketsToPass] = useState([]);
 
-  const filteredBaskets = (arr) => {
-    setFilteredCategories(arr);
+  const clickSelectedCategory = (e) => {
+    e.target.value === selectedCategory
+      ? setSelectedCategory("")
+      : setSelectedCategory(e.target.value);
   };
-  let nearLocation = [];
-
-  //Get Method
-  const { performFetch: performGet, cancelFetch: cleanUpGet } = useFetch(
-    "/shops",
-    (response) => {
-      setShops(response.result);
-    }
-  );
 
   useEffect(() => {
-    performGet();
+    if (!selectedCategory && !orderedBaskets.length) return;
+    if (!selectedCategory) setBasketsToPass(orderedBaskets);
+    if (selectedCategory && orderedBaskets.length) {
+      const filtered = orderedBaskets.filter((basket) =>
+        basket.categories.includes(selectedCategory)
+      );
 
-    return cleanUpGet;
-  }, []);
+      // eslint-disable-next-line no-console
+      console.log(filtered);
 
-  //Post Method
-  // const { performFetch: performPost, cancelFetch: cleanPost } = useFetch(
-  //   "/users",
-  //   (response) => {
-  //     setShops(response.result);
-  //   }
-  // );
-
-  // useEffect(() => {
-  //   performPost({
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       first: "Roy",
-  //       last: "Roumieh",
-  //       email: "roy.2621@gmail.com",
-  //       postcode: "7523dh",
-  //       password: "123456",
-  //     }),
-  //   });
-  //   return cleanPost;
-  // }, []);
-  // console.log(error);
-
-  const coord = currentCoordinates.latitude ? currentCoordinates : coordinates;
-
-  if (shops && coord.latitude) {
-    for (let i = 0; i < shops.length; i++) {
-      const distance = getDistance(coord, {
-        latitude: shops[i].address.lat,
-        longitude: shops[i].address.lon,
-      });
-      if (distance < 3000) {
-        nearLocation.push(shops[i]);
-      }
+      setBasketsToPass(filtered);
     }
-  }
+  }, [selectedCategory, orderedBaskets]);
 
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center ">
-        <SearchBar />
+    <>
+      <div className="flex flex-col items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full py-8 bg-darkBg">
+          <SearchBar />
+        </div>
+        <Categories
+          selectedCategory={selectedCategory}
+          onClick={clickSelectedCategory}
+        />
+        <ResultsSection baskets={basketsToPass} input={inputValue} />
       </div>
-      <Categories baskets={nearLocation} filteredBaskets={filteredBaskets} />
-      <div className="h-[100vh]">
-        {filteredCategories ? (
-          <ResultsSection baskets={filteredCategories} />
-        ) : (
-          <ResultsSection baskets={nearLocation} />
-        )}
-      </div>
-    </div>
+    </>
   );
 };
-
 export default Results;
