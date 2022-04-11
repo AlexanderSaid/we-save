@@ -17,6 +17,21 @@ const getBaskets = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, result: baskets });
 });
 
+//@des Get a specific Basket
+//@route GET /api/baskets/:basketId
+//@access Public
+const getOneBasket = asyncHandler(async (req, res) => {
+  const { basketId } = req.params;
+  const basket = await Basket.findById(basketId).populate("shop_id", [
+    "name",
+    "address",
+  ]);
+  if (!basket) {
+    res.status(400).json({ msg: "Basket not found" });
+  }
+  res.status(200).json({ success: true, result: basket });
+});
+
 //@des Get the Baskets of a specific shop
 //@route GET /api/shops/:shopId/baskets
 //@access Private
@@ -131,4 +146,5 @@ export {
   deleteBasket,
   decreaseQuantity,
   getBaskets,
+  getOneBasket,
 };
