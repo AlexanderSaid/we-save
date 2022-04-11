@@ -5,14 +5,18 @@ import { FaShoppingBasket } from "react-icons/fa";
 import * as gi from "react-icons/gi";
 import * as io from "react-icons/io5";
 //- Import images
-
-import bread from "../../../assets/bread.png";
-import breakfast from "../../../assets/breakfast.jpg";
-import lunch from "../../../assets/lunch.jpg";
-import pizza from "../../../assets/pizza.jpg";
-import surprise from "../../../assets/surprise.jpg";
-import grocery from "../../../assets/grocery.jpg";
-import diary from "../../../assets/organic-foods-5.jpg";
+import breakfast1 from "../../../assets/breakfast1.jpeg";
+import dairy from "../../../assets/dairy.png";
+import lunchbox from "../../../assets/lunchbox.jpeg";
+import dinnerbox from "../../../assets/dinnerbox.jpeg";
+import grocery2 from "../../../assets/grocery2.jpg";
+import pestries from "../../../assets/pestries.jpeg";
+//import bread from "../../../assets/bread.png";
+//import lunch from "../../../assets/lunch.jpg";
+//import pizza from "../../../assets/pizza.jpg";
+//import surprise from "../../../assets/surprise.jpg";
+//import grocery from "../../../assets/grocery.jpg";
+//import diary from "../../../assets/organic-foods-5.jpg";
 import ReservePopUp from "../../../components/ReservePopUp";
 import SuccessReserve from "../../../components/SuccessReserve";
 import { useAuthentication } from "../../../hooks/useAuthentication";
@@ -49,19 +53,21 @@ const Basket = ({ basket }) => {
 
   const getImage = () => {
     const img =
-      name === "Breakfast basket"
-        ? breakfast
+      name === "Breakfast basket" && categories.includes("Bread & Pastries")
+        ? pestries
+        : name === "Breakfast basket"
+        ? breakfast1
         : name === "Lunch basket"
-        ? lunch
+        ? lunchbox
         : name === "Pastries basket"
-        ? bread
-        : name === "Surprise basket" && categories.length
-        ? surprise
+        ? pestries
+        : name === "Surprise basket"
+        ? grocery2
         : name === "Surprise basket" && categories.contains("Vegetarian")
-        ? grocery
+        ? dairy
         : name === "Surprise basket" && categories.contains("Diary & Meat")
-        ? diary
-        : pizza;
+        ? dairy
+        : dinnerbox;
     return img;
   };
 
