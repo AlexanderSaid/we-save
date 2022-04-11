@@ -20,7 +20,7 @@ const contactEmail = (req, res) => {
     service: "hotmail",
     auth: {
       user: "main-wesave@outlook.com", // generated ethereal user
-      pass: "wesave-12345", // generated ethereal password
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
@@ -56,7 +56,7 @@ const confirmationEmail = asyncHandler(async (req, res) => {
   }
 
   const output = `
-  <h1>Basket Name:</h1><p>${basket.name}</p>
+  <h1>Basket Name: ${basket.name}</h1>
   <h3>Shop Address: ${basket.shop_id.address.street} ${basket.shop_id.address.house}</h3>
   <h3>Pick Up Time: From:${basket.pickup.from}, to:${basket.pickup.to}</h3>
   <h3>Your Code Is : ${req.body.code} </h3>
@@ -69,7 +69,7 @@ const confirmationEmail = asyncHandler(async (req, res) => {
     service: "hotmail",
     auth: {
       user: "main-wesave@outlook.com", // generated ethereal user
-      pass: "wesave-12345", // generated ethereal password
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
