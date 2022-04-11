@@ -19,7 +19,6 @@ import { useAuthentication } from "../../../hooks/useAuthentication";
 import SignIn from "../../../components/Forms/SignIn";
 import SignInContext from "../../../context/SignInContext";
 import SearchContext from "../../../context/SearchContext";
-import UserContext from "../../../context/UserContext";
 
 const Basket = ({ basket }) => {
   const {
@@ -40,7 +39,6 @@ const Basket = ({ basket }) => {
   const { loggedIn } = useAuthentication();
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { confirmRsv, setConfirmRsv } = useContext(SearchContext);
-  const { user } = useContext(UserContext);
 
   const link = `${street}+${house}${addition ? addition : ""},+${postcode.slice(
     0,
@@ -65,21 +63,11 @@ const Basket = ({ basket }) => {
     return img;
   };
 
-  const confirmationCode = () => {
-    const result = user._id.slice(17);
-    return result;
-  };
-  const code = confirmationCode();
-
   return (
     <>
       {<SignIn setOpenSignIn={setIsOpen} openSignIn={isOpen} />}
       {confirmRsv && (
-        <SuccessReserve
-          confirmRsv={confirmRsv}
-          setConfirmRsv={setConfirmRsv}
-          code={code}
-        />
+        <SuccessReserve confirmRsv={confirmRsv} setConfirmRsv={setConfirmRsv} />
       )}
       {isReserved && (
         <ReservePopUp
@@ -88,7 +76,6 @@ const Basket = ({ basket }) => {
           confirmRsv={confirmRsv}
           setConfirmRsv={setConfirmRsv}
           basket_id={_id}
-          code={code}
         />
       )}
       <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:gap-2 md:h-[150px] ">
