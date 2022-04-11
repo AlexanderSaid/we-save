@@ -50,6 +50,10 @@
   .nav-link-sm {
     @apply sm:w-fit sm:p-2 sm:text-bodyMd sm:ml-2 sm:text-lightFont sm:bg-darkBg sm:transition-colors sm:duration-[300ms] sm:rounded-md  sm:hover:bg-primary sm:hover:text-darkFont md:text-bodyRegular;
   }
+  .nav-link-sm.login,
+  .nav-link.login {
+    @apply sm:text-darkBg sm:bg-lightFont sm:hover:bg-primary;
+  }
   .btn-blank {
     @apply border border-accent text-darkFont block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-accent hover:text-lightFont;
   }
@@ -83,5 +87,8 @@
   }
   .category {
     @apply text-bodyMd font-bold p-2 w-[135px] place-self-center rounded-xl border border-darkFont hover:border-accent hover:bg-accent hover:text-lightFont transition ease-in-out duration-300 sm:w-[150px] sm:text-bodyRegular;
+  }
+  .staff-contact-icon {
+    @apply text-accent;
   }
 }

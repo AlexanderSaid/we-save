@@ -5,12 +5,10 @@ import { SiFoodpanda } from "react-icons/si";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
 import SignInContext from "../../context/SignInContext";
-// import UserContext from "../../context/UserContext";
 import SignIn from "../Forms/SignIn";
 const NavBar = () => {
   //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
-
   //- Sing in pop-up state
   const { isOpen, setIsOpen } = useContext(SignInContext);
 
@@ -20,7 +18,6 @@ const NavBar = () => {
 
   const { loggedIn } = useAuthentication();
   const { logout, user } = useContext(UserContext);
-
   return (
     <nav className="w-screen px-8 py-4 bg-darkBg max-w-1440 sm:px-12">
       <div className="w-full sm:flex sm:items-center sm:justify-between ">
@@ -71,10 +68,7 @@ const NavBar = () => {
             About Us
           </Link>
 
-          <Link
-            to="/contact"
-            className="p-2 transition-colors duration-300 rounded lg:px-4 md:mx-2 text-lightFont hover:bg-primary hover:text-gray-700"
-          >
+          <Link to="/contact" className="nav-link nav-link-sm">
             Contact
           </Link>
           <Link
@@ -87,25 +81,22 @@ const NavBar = () => {
                     setHidden(true);
                   }
             }
-            className="justify-center nav-link nav-link-sm"
+            className="justify-center nav-link nav-link-sm login"
           >
-            {loggedIn ? (
-              <div>
-                Log Out
+            <div>
+              {loggedIn ? user?.name?.first : "SignIn"}
+              {loggedIn ? (
                 <FiLogOut
                   className="inline-block ml-2 font-semibold"
                   size={20}
                 />
-              </div>
-            ) : (
-              <div>
-                Sign In
+              ) : (
                 <FiLogIn
                   className="inline-block ml-2 font-semibold"
                   size={20}
                 />
-              </div>
-            )}
+              )}
+            </div>
           </Link>
 
           <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />

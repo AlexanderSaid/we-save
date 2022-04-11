@@ -1,19 +1,38 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const StaffCard = () => {
+import * as Si from "react-icons/si";
+
+const StaffCard = ({ member }) => {
+  const { photo, name, github, linkedIn } = member;
   return (
-    <div className="staff-card-container w-36 flex items-center justify-center p-2.5 h-52 rounded border border-darkFont">
-      <div className="staff-card h-full w-full flex flex-col items-center justify-center border border-darkFont">
-        <div className="staff-image w-full h-[50%] border border-darkFont"></div>
-        <div className="staff-name w-full h-[20%] border border-darkFont text-center flex items-center justify-center">
-          <p>Full Name</p>
+    <div className="staff-card-container w-32 flex items-center justify-center py-2  h-44 rounded border border-darkBg/80 border-8 shadow-xl bg-lightBg">
+      <div className="staff-card h-full w-full flex flex-col items-center justify-center">
+        <div className="staff-image flex items-center justify-center w-[90%] h-[60%] overflow-hidden">
+          <img
+            src={photo}
+            alt={name}
+            className="object-cover h-[100px] w-[100px] rounded"
+          />
         </div>
-        <div className="staff-contact w-full h-[30%] border border-darkFont flex items-center justify-center">
-          Contact links
+        <div className="staff-name w-full h-[30%] text-center flex items-center justify-center ">
+          <p className="w-fit text-bodySmall font-extrabold text-darkFont border-b-2 border-accent">
+            {name}
+          </p>
+        </div>
+        <div className="staff-contact w-full h-[10%] flex items-center justify-center gap-4">
+          <a href={github} target="_blank" rel="noopener noreferrer">
+            <Si.SiGithub className="staff-contact-icon" />
+          </a>
+          <a href={linkedIn} target="_blank" rel="noopener noreferrer">
+            <Si.SiLinkedin className="staff-contact-icon" />
+          </a>
         </div>
       </div>
     </div>
   );
 };
-
+StaffCard.propTypes = {
+  member: PropTypes.object,
+};
 export default StaffCard;

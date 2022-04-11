@@ -24,6 +24,7 @@ module.exports = {
         title: "Lato",
         title1: "Oswald",
         Roboto: ["Roboto", "sans-serif"],
+        Fira: "Fira Sans",
       },
       fontSize: {
         title: "64px",
@@ -36,9 +37,6 @@ module.exports = {
         bodyMd: "14px",
         bodySmall: "12px",
         button: "10px",
-      },
-      maxWidth: {
-        1440: "1440px",
       },
       maxWidth: {
         1440: "1440px",
