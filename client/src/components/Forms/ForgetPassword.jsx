@@ -46,17 +46,22 @@ function ForgetPassword({ setForgetPassword }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    performFetch({
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    });
+    if (!email) {
+      setErrorMessage("email is not correct");
+    } else {
+      setForgetPassword(false);
+      setErrorMessage("");
+      performFetch({
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+    }
   };
 
   return (

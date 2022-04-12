@@ -8,6 +8,7 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Contact from "./pages/Contact/Contact";
 import SignUp from "./components/Forms/SignUp";
 import CreateBasket from "./pages/CreateBasket/CreateBasket";
+
 import ResetPassword from "./pages/resetpassword/ResetPassword";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="createBasket" element={<CreateBasket />} />
+
           <Route path="resetpassword" element={<ResetPassword />} />
         </Route>
       </Routes>

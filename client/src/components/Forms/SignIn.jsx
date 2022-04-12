@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
+
 import ForgetPassword from "./ForgetPassword";
 
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
@@ -163,6 +164,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                     </span>
                   </div>
                 </div>
+
                 <button
                   type="submit"
                   className="w-full px-2 py-3 my-1 mt-4 text-center text-white rounded lg:float-right bg-accent cursor-pointe hover:bg-green-dark focus:outline-none"

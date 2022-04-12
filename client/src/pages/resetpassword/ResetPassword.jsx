@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch.js";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 import { AiOutlineClose } from "react-icons/ai";
 const FORM_INPUT_CLASSES =
@@ -15,6 +15,8 @@ const PASSWORD_REGEX =
 function ResetPassword() {
   const errRef = useRef();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
 
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
@@ -27,7 +29,7 @@ function ResetPassword() {
 
   //- Fetching data
   const { performFetch, cancelFetch, error } = useFetch(
-    "/users/reset-password",
+    `/users/reset-password?token=${token}`,
     () => {
       navigate("/");
     }
@@ -57,9 +59,9 @@ function ResetPassword() {
       setErrorMessage("password doesn't match");
     } else {
       setErrorMessage("");
-      alert("hello");
+
       performFetch({
-        method: "POST",
+        method: "PUT",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
