@@ -44,7 +44,6 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.2.0",
     "express-jwt": "^6.1.1",
-    "express-validator": "^6.14.0",
     "geolib": "^3.3.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^8.0.3",
