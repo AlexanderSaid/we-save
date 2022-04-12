@@ -40,21 +40,18 @@ const Thanks = () => {
               className="transition duration-300 ease-in-out hover:scale-110 trans"
             >
               <a href={mentor.linkedIn} className="text-center">
-                <h5 className="text-bodyRegular text-darkFont/80 font-bold pb-2 md:text-bodyLarge ">
+                <h5 className="text-bodyRegular text-darkFont/80 font-bold pb-2 md:text-bodyLarge underline underline-offset-4">
                   {mentor.name}
                 </h5>
                 <p className="text-bodySmall text-error font-bold md:text-bodyMd">
-                  Role:&nbsp;
-                  <span className="text-bodySmall text-accent font-bold md:text-bodyMd">
-                    {mentor.role}
-                  </span>
+                  {mentor.role}
                 </p>
               </a>
             </li>
           ))}
         </ul>
         <div className="my-12">
-          <h3 className="text-subtitle text-darkFont/80 font-bold text-center mb-4 md:text-title4">
+          <h3 className="text-subtitle text-accent font-bold text-center mb-4 md:text-title4">
             Huge gratitude
           </h3>
           <p className="text-center text-[Lato] text-darkFont text-bodyRegular text-bold font-bold mb-2">
@@ -71,7 +68,7 @@ const Thanks = () => {
             and class-34 mentor
           </p>
           <a href="https://www.linkedin.com/in/robvk/">
-            <span className="text-bodyRegular font-bold text-accent md:text-bodyLarge">
+            <span className="text-bodyRegular font-bold text-error md:text-bodyLarge">
               Rob van Kruijsdijk
             </span>
           </a>

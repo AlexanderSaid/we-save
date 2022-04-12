@@ -1,12 +1,15 @@
 import React from "react";
 import StaffCard from "./StaffCard";
+//- Import the staff photos
+import Abd from "../../../assets/staff-photos/Abd.jpg";
 import Alex from "../../../assets/staff-photos/Alex.jpg";
-import George from "../../../assets/staff-photos/George.jpg";
 import Bachar from "../../../assets/staff-photos/Bachar.jpg";
+import George from "../../../assets/staff-photos/George.jpg";
+import Said from "../../../assets/staff-photos/Said.jpg";
 const WhoAreWe = () => {
   const staff = [
     {
-      photo: "Abdul",
+      photo: Abd,
       name: "Abdulrahman Sadek",
       github: "https://github.com/Abdulrahmansadek",
       linkedIn: "https://www.linkedin.com/in/abdulrahman-sadek-b814951a0",
@@ -29,7 +32,12 @@ const WhoAreWe = () => {
       github: "https://github.com/george2621",
       linkedIn: "https://www.linkedin.com/in/george-roumieh-6606901bb/",
     },
-    { photo: "Said", name: "Said Yeginoglu", github: "link", linkedIn: "link" },
+    {
+      photo: Said,
+      name: "Said Yeginoglu",
+      github: "https://github.com/SaidYein",
+      linkedIn: "https://www.linkedin.com/in/said-yein-263207b0/",
+    },
   ];
   return (
     <section className="flex items-center justify-center bg-lightFont block w-full">
