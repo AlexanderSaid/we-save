@@ -34,12 +34,10 @@ const contactEmail = (req, res) => {
   };
 
   // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(401).json({ msg: "Not Work" });
     }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     res.status(201).json({ success: true, result: "success" });
   });
 };
@@ -83,12 +81,10 @@ const confirmationEmail = asyncHandler(async (req, res) => {
   };
 
   // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(401).json({ msg: "Not Work" });
     }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     res.status(201).json({ success: true, result: "success" });
   });
 });
