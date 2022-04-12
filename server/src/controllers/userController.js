@@ -111,7 +111,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   });
   const output = `
   <h2>Please Click On Given link to Reset Your Password</h2>
-  <a href="http://localhost:8080/reset-password?token=${token}">Click to reset Password</a>
+  <a href="http://localhost:8080/resetpassword?token=${token}">Click to reset Password</a>
 `;
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -131,12 +131,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
   user.resetLink = token;
   await user.save();
   // send mail with link of reset password
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(401).json({ msg: "Not Work" });
     }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     res.status(201).json({ success: true, result: user });
   });
 });
@@ -161,6 +159,30 @@ const reSettingPassword = asyncHandler(async (req, res) => {
   } else {
     res.status(401).json({ msg: "Not authorized" });
   }
+  const output = `
+  <h1>Your Password is Successfully Updated</h1>
+`;
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "main-wesave@outlook.com", // generated ethereal user
+      pass: "wesave-12345", // generated ethereal password
+    },
+  });
+  const mailOptions = {
+    from: "main-wesave@outlook.com", // sender address
+    to: user.email, // list of receivers
+    subject: "Reset Password", // Subject line
+    text: "Hello world?", // plain text body
+    html: output, // html body
+  };
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      res.status(401).json({ msg: "Not Work" });
+    }
+    res.status(201).json({ success: true, result: user });
+  });
 });
 export {
   registerUser,
