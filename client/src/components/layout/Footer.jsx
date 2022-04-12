@@ -3,85 +3,88 @@ import {
   SiFoodpanda,
   SiLinkedin,
   SiFacebook,
-  SiInstagram,
+  SiTwitter,
   SiYoutube,
 } from "react-icons/si";
 
 const Footer = () => {
   return (
-    <div className="mb-0 flex-col r">
-      <div className="lg:ml-40 px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-        <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-          <a className="flex lg:ml-[150px] title-font font-medium items-center md:justify-start justify-center text-gray-900">
-            <SiFoodpanda size={70} color="white" />
-          </a>
-          <p className="lg:ml-[150px] mt-2 text-sm text-white">Food Saver</p>
-        </div>
-        <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-          <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-bold text-white tracking-widest text-md mb-3">
-              SITEMAP
-            </h2>
-            <nav className="list-none mb-10">
-              <li>
-                <a className="footer-link">About Us</a>
-              </li>
-              <li>
-                <a className="footer-link">Customer</a>
-              </li>
-              <li>
-                <a className="footer-link">Shop Owner</a>
-              </li>
-            </nav>
+    <div className="bg-darkBg max-w-1440 w-full px-4 flex items-center justify-evenly flex-wrap gap-x-12 sm:px-8 md:gap-x-12 md2:gap-x-4">
+      <div className="order-3 md2:order-1 mb-8 md2:mb-0">
+        <p className="text-center text-bodyRegular md2:pt-7 md2:mt-8 font-semibold tracking-wide">
+          © 2022 Coffee & Chocolate Team
+          <br />
+          <span className="text-bodyMd">
+            Class-34
+            <a
+              href="https://hackyourfuture.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 hover:text-primary hover:underline"
+            >
+              HackYourFuture
+            </a>
+          </span>
+        </p>
+      </div>
+      <div className="mt-16 mb-12 order-1 md2:order2">
+        <a
+          href="#top"
+          className="flex flex-col items-center justify-center gap-4"
+        >
+          <SiFoodpanda size={60} />
+          <span className="font-[lato] tracking-wider font-bold text-bodyRegular md:text-[26px] mb-4">
+            WeSave
+          </span>
+        </a>
+        <div className="flex items-center justify-center gap-6 mt-4">
+          <div className="hover:scale-[120%]">
+            <a
+              href="https://www.facebook.com/hackyourfuturenow"
+              className="hover:text-primary "
+            >
+              <SiFacebook size={20} />
+            </a>
           </div>
-          <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-bold text-white tracking-widest text-md mb-3">
-              OTHER
-            </h2>
-            <nav className="list-none mb-10">
-              <li>
-                <a className="footer-link">FAQ</a>
-              </li>
-            </nav>
+          <div className="hover:scale-[120%]">
+            <a
+              href="https://twitter.com/hackyourfutures"
+              className="hover:text-primary "
+            >
+              <SiTwitter size={20} />
+            </a>
           </div>
-          <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-bold text-white tracking-widest text-md mb-3">
-              LEGAL
-            </h2>
-            <nav className="list-none mb-10">
-              <li>
-                <a className="footer-link">TERMS & CONDITIONS</a>
-              </li>
-              <li>
-                <a className="footer-link">PRIVACY POLICY</a>
-              </li>
-              <li>
-                <a className="footer-link">COOKIE POLICY</a>
-              </li>
-            </nav>
+          <div className="hover:scale-[120%]">
+            <a
+              href="https://www.linkedin.com/school/hackyourfuture/"
+              className="hover:text-primary "
+            >
+              <SiLinkedin size={20} />
+            </a>
+          </div>
+          <div className="hover:scale-[120%]">
+            <a
+              href="https://www.youtube.com/channel/UCkK246iKcOAvsL0SI_6n3eA"
+              className="hover:text-primary "
+            >
+              <SiYoutube size={20} />
+            </a>
           </div>
         </div>
       </div>
-      <div className="bg-gray-900">
-        <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-          <p className="text-white text-sm text-center sm:text-left">
-            © 2022 Dev — @food save
-          </p>
-          <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
-            <a className="text-gray-200">
-              <SiLinkedin />
-            </a>
-            <a className="ml-3 text-gray-200">
-              <SiInstagram />
-            </a>
-            <a className="ml-3 text-gray-200">
-              <SiYoutube />
-            </a>
-            <a className="ml-3 text-gray-200">
-              <SiFacebook />
-            </a>
-          </span>
-        </div>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 font-semibold tracking-wide order-2 md2:order-3 text-bodyRegular">
+        <a href="/" className="hover:text-primary">
+          Home
+        </a>
+        <a href="/results#search-results" className="hover:text-primary">
+          Search
+        </a>
+        <a href="/about-us" className="hover:text-primary">
+          About Us
+        </a>
+        <a href="/contact" className="hover:text-primary">
+          Contact
+        </a>
       </div>
     </div>
   );

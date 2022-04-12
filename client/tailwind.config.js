@@ -3,8 +3,9 @@ module.exports = {
   theme: {
     screens: {
       xs: "475px",
-      sm: "700px",
+      sm: "640px",
       md: "768px",
+      md2: "850px",
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
@@ -16,7 +17,7 @@ module.exports = {
         darkBg: "#033343",
         lightBg: "#F6FFE6",
         darkFont: "#092A35",
-        lightFont: "#FAF9F6",
+        lightFont: "#FCFFFC",
         error: "#940949",
         shade: "#03334380",
       },
@@ -24,6 +25,7 @@ module.exports = {
         title: "Lato",
         title1: "Oswald",
         Roboto: ["Roboto", "sans-serif"],
+        Fira: "Fira Sans",
       },
       fontSize: {
         title: "64px",
