@@ -18,17 +18,17 @@ const GetInTouch = () => {
           <div>
             <FiPhoneCall className="text-white" />
           </div>
-          <p className="pl-4 text-base text-white">+1 (308) 321 321</p>
+          <p className="pl-4 text-base text-white">+31 6 98765432</p>
         </div>
-        <div className="flex items-center">
+        <a href="mailto:main-wesave@outlook.com" className="flex items-center">
           <div>
             <AiOutlineMail className="text-white" />
           </div>
-          <p className="pl-4 text-base text-white">Info@alphas.com</p>
-        </div>
+          <p className="pl-4 text-base text-white">main-wesave@outlook.com</p>
+        </a>
         <p className="pt-10 text-lg tracking-wide text-white">
-          Fazanstraat 9, 7523DL <br />
-          George Roumieh
+          Overhoeksplein 2<br />
+          1031 KS, Amsterdam
         </p>
       </div>
     </div>

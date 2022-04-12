@@ -8,6 +8,7 @@ const Layout = () => {
   const { pathname } = useLocation();
   return (
     <>
+      <a id="top"></a>
       <header className="w-full h-[100px] bg-darkBg fixed top-0 flex items-center justify-center block z-10">
         {pathname === "/" && <SkipLinks />}
         <NavBar />
@@ -15,7 +16,7 @@ const Layout = () => {
       <main className="w-full grow shrink-0 basis-full mt-[100px]">
         <Outlet />
       </main>
-      <footer className="w-full text-lightFont body-font bg-darkBg shrink-0">
+      <footer className="w-full text-lightFont body-font bg-darkBg shrink-0 flex items-center justify-center">
         <Footer />
       </footer>
     </>
