@@ -9,16 +9,14 @@ function CreateBasket() {
   const { user } = useContext(UserContext);
   const [baskets, setBaskets] = useState();
 
-  const {
-    performFetch: getBaskets,
-    cancelFetch: cancelGet,
-    isLoading,
-    error: basketsError,
-  } = useFetch(`/shops/${user.shop_id}/baskets`, (response) => {
-    setBaskets(response.result);
-  });
+  const { performFetch, cancelFetch, isLoading, error } = useFetch(
+    `/shops/${user.shop_id}/baskets`,
+    (response) => {
+      setBaskets(response.result);
+    }
+  );
   useEffect(() => {
-    getBaskets({
+    performFetch({
       method: "GET",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -26,13 +24,17 @@ function CreateBasket() {
         "Content-Type": "application/json",
       },
     });
-    return cancelGet;
+    return cancelFetch;
   }, []);
-  if (basketsError) {
-    return <h2>{basketsError}</h2>;
+  if (error) {
+    return <h2>{error}</h2>;
   }
   if (isLoading) {
-    return <h2 className="w-full text-center">Loading...</h2>;
+    return (
+      <section className="max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md flex justify-center">
+        <h4 className="w-full text-center">Loading...</h4>
+      </section>
+    );
   }
   if (!baskets) {
     return null;
@@ -40,7 +42,10 @@ function CreateBasket() {
   return (
     <>
       <section className="max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md">
-        <div className="flex ">
+        <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10 text-center">
+          YOUR BASKETS
+        </h1>
+        <div className="max-w-4xl p-6 flex overflow-x-auto ">
           {baskets.map((basket, index) => {
             return <BasketSummary basket={basket} key={index} />;
           })}
