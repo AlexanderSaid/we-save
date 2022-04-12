@@ -1,5 +1,6 @@
-// import Basket from "../models/Basket.js";
+import Basket from "../models/Basket.js";
 import nodemailer from "nodemailer";
+import asyncHandler from "express-async-handler";
 
 const contactEmail = (req, res) => {
   const output = `
@@ -19,7 +20,7 @@ const contactEmail = (req, res) => {
     service: "hotmail",
     auth: {
       user: "main-wesave@outlook.com", // generated ethereal user
-      pass: "wesave-12345", // generated ethereal password
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
@@ -33,20 +34,30 @@ const contactEmail = (req, res) => {
   };
 
   // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(401).json({ msg: "Not Work" });
     }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     res.status(201).json({ success: true, result: "success" });
   });
 };
 
-const confirmationEmail = (req, res) => {
-  const output = `
-  <h3>Your Code Is : <span> ${req.body.code} </span></h3>
+const confirmationEmail = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const basket = await Basket.findById(id).populate("shop_id", [
+    "name",
+    "address",
+  ]);
 
+  if (!basket) {
+    res.status(400).json({ msg: "Basket not found" });
+  }
+
+  const output = `
+  <h1>Basket Name: ${basket.name}</h1>
+  <h3>Shop Address: ${basket.shop_id.address.street} ${basket.shop_id.address.house}</h3>
+  <h3>Pick Up Time: From:${basket.pickup.from}, to:${basket.pickup.to}</h3>
+  <h3>Your Code Is : ${req.body.code} </h3>
 `;
 
   // console.log(`user email : ${req.user}`);
@@ -56,7 +67,7 @@ const confirmationEmail = (req, res) => {
     service: "hotmail",
     auth: {
       user: "main-wesave@outlook.com", // generated ethereal user
-      pass: "wesave-12345", // generated ethereal password
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
@@ -70,14 +81,12 @@ const confirmationEmail = (req, res) => {
   };
 
   // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(401).json({ msg: "Not Work" });
     }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     res.status(201).json({ success: true, result: "success" });
   });
-};
+});
 
 export { contactEmail, confirmationEmail };

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./css/input-autofill.css";
+import "./css/scrollbar.css";
 import AppWrapper from "./AppWrapper";
 import App from "./App";
 import { Routes, Route } from "react-router-dom";

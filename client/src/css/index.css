@@ -45,10 +45,14 @@
     @apply sm:static sm:flex-row sm:items-center sm:justify-end sm:pl-0 sm:h-full sm:gap-0;
   }
   .nav-link {
-    @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[200ms] ease-in-out hover:bg-lightBg;
+    @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[300ms] ease-in-out hover:bg-lightBg;
   }
   .nav-link-sm {
-    @apply sm:w-fit sm:p-2 sm:text-bodyMd sm:ml-2 sm:text-lightFont sm:bg-darkBg sm:transition-colors sm:duration-[300ms] sm:rounded-md  sm:hover:bg-primary sm:hover:text-darkFont md:text-bodyRegular;
+    @apply sm:w-fit sm:p-2 sm:text-bodyMd sm:ml-2 sm:text-lightFont sm:bg-darkBg sm:transition-colors sm:rounded-md  sm:hover:bg-primary sm:hover:text-darkFont md:text-bodyRegular;
+  }
+  .nav-link-sm.login,
+  .nav-link.login {
+    @apply border border-lightBg bg-darkBg sm:rounded-md text-lightBg hover:bg-lightBg hover:text-darkFont;
   }
   .btn-blank {
     @apply border border-accent text-darkFont block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-accent hover:text-lightFont;
@@ -83,5 +87,8 @@
   }
   .category {
     @apply text-bodyMd font-bold p-2 w-[135px] place-self-center rounded-xl border border-darkFont hover:border-accent hover:bg-accent hover:text-lightFont transition ease-in-out duration-300 sm:w-[150px] sm:text-bodyRegular;
+  }
+  .staff-contact-icon {
+    @apply text-accent;
   }
 }

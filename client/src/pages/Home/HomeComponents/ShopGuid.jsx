@@ -3,6 +3,7 @@ import ShopRegistration from "../../../components/Forms/ShopRegistration";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 import SignIn from "../../../components/Forms/SignIn";
+import introPicture from "../../../assets/3.jpg";
 
 const ShopGuid = () => {
   const [shopIsOpen, setShopIsOpen] = useState(false);
@@ -18,8 +19,8 @@ const ShopGuid = () => {
             <div className="flex items-center justify-center">
               <div className="max-w-md">
                 <img
-                  className="object-cover object-center w-full rounded-md shadow"
-                  src="https://www.expatica.com/app/uploads/sites/3/2014/05/dutch-supermarket-1920x1080.jpg"
+                  className=" w-full rounded-md shadow"
+                  src={introPicture}
                   alt="grocery"
                 />
               </div>
@@ -28,13 +29,12 @@ const ShopGuid = () => {
 
           <div className="mt-8 md:mt-0 md:w-1/2">
             <h3 className="text-2xl font-semibold text-gray-800">
-              Lorem ipsum dolor sit amet, consectetur
+              Want to be our partner for fighting food waste?
             </h3>
             <p className="max-w-md mt-4 text-gray-600">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum.
+              We love to welcome new partners in the fight against food waste.
+              We will help you cut costs and reduce your carbon footprint,
+              whatever you are selling. Its 100% better for you and the planet.
             </p>
             <a className="block mt-8 text-indigo-700 ">
               <button
