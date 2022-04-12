@@ -44,7 +44,7 @@ const WhoAreWe = () => {
       <div className="flex justify-center max-w-1440 px-4">
         <div className="w-full flex flex-col justify-evenly">
           <h3 className="my-12 text-center text-bodyLarge font-extrabold text-accent self-center md:text-title3">
-            How Are We ?
+            Who Are We ?
           </h3>
           <div className="staff-container flex items-center justify-evenly flex-wrap gap-4 mb-12">
             {staff.map((member) => (
