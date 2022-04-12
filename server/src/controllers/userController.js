@@ -2,11 +2,12 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 //@des Register a new user
 //@route POST /api/users
 //@access Public
-
 const registerUser = asyncHandler(async (req, res) => {
   const { first, last, email, password, postcode } = req.body;
   // validation of fields
@@ -97,4 +98,96 @@ const getProfile = asyncHandler(async (req, res) => {
     res.status(400).json({ msg: "Not authorized" });
   }
 });
-export { registerUser, loginUser, getProfile };
+
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  // check whether the user email exist.
+  if (!user) {
+    res.status(401).json({ msg: "This email does not exist." });
+  }
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_RESET, {
+    expiresIn: "20m",
+  });
+  const output = `
+  <h2>Please Click On Given link to Reset Your Password</h2>
+  <a href="http://localhost:8080/resetpassword?token=${token}">Click to reset Password</a>
+`;
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "main-wesave@outlook.com", // generated ethereal user
+      pass: "wesave-12345", // generated ethereal password
+    },
+  });
+  const mailOptions = {
+    from: "main-wesave@outlook.com", // sender address
+    to: email, // list of receivers
+    subject: "Forgot your Password", // Subject line
+    text: "Hello world?", // plain text body
+    html: output, // html body
+  };
+  user.resetLink = token;
+  await user.save();
+  // send mail with link of reset password
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      res.status(401).json({ msg: "Not Work" });
+    }
+    res.status(201).json({ success: true, result: user });
+  });
+});
+
+const reSettingPassword = asyncHandler(async (req, res) => {
+  const { token } = req.query;
+  const { password } = req.body;
+
+  // hash the password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  //Verify token
+  const decoded = jwt.verify(token, process.env.JWT_RESET);
+
+  //Get User from token
+  const user = await User.findById(decoded._id);
+  if (user && user.resetLink.toString() === token) {
+    user.password = hashedPassword;
+    await user.save();
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ msg: "Not authorized" });
+  }
+  const output = `
+  <h1>Your Password is Successfully Updated</h1>
+`;
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "main-wesave@outlook.com", // generated ethereal user
+      pass: "wesave-12345", // generated ethereal password
+    },
+  });
+  const mailOptions = {
+    from: "main-wesave@outlook.com", // sender address
+    to: user.email, // list of receivers
+    subject: "Reset Password", // Subject line
+    text: "Hello world?", // plain text body
+    html: output, // html body
+  };
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      res.status(401).json({ msg: "Not Work" });
+    }
+    res.status(201).json({ success: true, result: user });
+  });
+});
+export {
+  registerUser,
+  loginUser,
+  getProfile,
+  forgotPassword,
+  reSettingPassword,
+};
