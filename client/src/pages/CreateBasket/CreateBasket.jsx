@@ -63,8 +63,27 @@ function CreateBasket() {
 
   const [errMessage, setErrorMessage] = useState("please include all fields");
   const [success, setSuccess] = useState(false);
+  const [baskets, setBaskets] = useState();
 
   //const [isDisabled, setDisabled] = useState(true);
+
+  const { performFetch: getBaskets, cancelFetch: cancelGet } = useFetch(
+    `/shops/${user.shop_id}/baskets`,
+    (res) => {
+      setBaskets(res.result);
+    }
+  );
+
+  useEffect(() => {
+    getBaskets({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+  }, []);
 
   //- Fetching data
   const { performFetch, cancelFetch, error } = useFetch(
@@ -73,10 +92,11 @@ function CreateBasket() {
       setSuccess(true);
     }
   );
+  // console.log(baskets);
 
   //-
   useEffect(() => {
-    return cancelFetch;
+    return { cancelFetch, cancelGet };
   }, []);
 
   useEffect(() => {
