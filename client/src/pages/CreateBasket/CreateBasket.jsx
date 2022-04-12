@@ -92,7 +92,7 @@ function CreateBasket() {
       setSuccess(true);
     }
   );
-  // console.log(baskets);
+  console.log(baskets);
 
   //-
   useEffect(() => {
