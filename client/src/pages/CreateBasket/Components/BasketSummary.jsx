@@ -5,7 +5,7 @@ import { FaShoppingBasket } from "react-icons/fa";
 import PropTypes from "prop-types";
 import DeleteSuccessMessage from "./DeleteSuccessMessage";
 
-const BasketSummary = ({ basket }) => {
+const BasketSummary = ({ basket, getBasket }) => {
   const { user } = useContext(UserContext);
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -67,7 +67,10 @@ const BasketSummary = ({ basket }) => {
           </p>
         </div>
         <div className="flex justify-between">
-          <button className="bg-transparent h-[36px] w-[100px] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-auto border border-blue-500 hover:border-transparent rounded">
+          <button
+            onClick={() => getBasket(basket)}
+            className="bg-transparent h-[36px] w-[100px] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-auto border border-blue-500 hover:border-transparent rounded"
+          >
             Edit
           </button>
           <button
@@ -84,5 +87,6 @@ const BasketSummary = ({ basket }) => {
 };
 BasketSummary.propTypes = {
   basket: PropTypes.object,
+  getBasket: PropTypes.func,
 };
 export default BasketSummary;

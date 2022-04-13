@@ -8,6 +8,10 @@ import BasketSummary from "./Components/BasketSummary";
 function CreateBasket() {
   const { user } = useContext(UserContext);
   const [baskets, setBaskets] = useState();
+  const [basket, setBasket] = useState(null);
+  const getBasket = (obj) => {
+    setBasket(obj);
+  };
 
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     `/shops/${user.shop_id}/baskets`,
@@ -47,10 +51,16 @@ function CreateBasket() {
         </h1>
         <div className="max-w-4xl p-6 flex overflow-x-auto ">
           {baskets.map((basket, index) => {
-            return <BasketSummary basket={basket} key={index} />;
+            return (
+              <BasketSummary
+                getBasket={getBasket}
+                basket={basket}
+                key={index}
+              />
+            );
           })}
         </div>
-        <CreateBasketForm />
+        <CreateBasketForm basket={basket} />
       </section>
     </>
   );

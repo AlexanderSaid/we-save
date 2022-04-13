@@ -43,7 +43,7 @@ const getShopBaskets = asyncHandler(async (req, res) => {
   }
 
   const shop = await Shop.findById(shopId);
-  if (shop.owner_id !== req.user.id) {
+  if (shop.owner_id.toString() !== req.user.id) {
     res.status(401).json({ msg: "User not Authorized" });
   }
   const baskets = await Basket.find({ shop_id: shopId });

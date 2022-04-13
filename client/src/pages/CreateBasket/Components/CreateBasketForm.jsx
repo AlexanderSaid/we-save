@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import useFetch from "../../../hooks/useFetch";
 import CreateBasketSuccessMessage from "./CreateBasketSuccessMessage";
 import UserContext from "../../../context/UserContext";
+import PropTypes from "prop-types";
 //- Declare regex validations
 const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
 // const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
@@ -13,7 +14,7 @@ const INPUT_CONTAINER = "input-container relative mt-4 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 const OTHER_INPUTSTYLE =
   " block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
-const CreateBasketForm = () => {
+const CreateBasketForm = ({ basket }) => {
   const { user } = useContext(UserContext);
   const names = [
     "Breakfast basket",
@@ -29,6 +30,7 @@ const CreateBasketForm = () => {
     "Vegetarian",
     "Diary & Meat",
   ];
+
   const [basketName, setBasketName] = useState("");
   const [originalPrice, setOriginalPrice] = useState(1);
   const [validOriginalPrice, setValidOriginalPrice] = useState(false);
@@ -287,6 +289,7 @@ const CreateBasketForm = () => {
               onChange={(e) => setQuantity(e.target.value)}
               required
               className={FORM_INPUT_CLASSES}
+              value={basket ? basket.quantity : quantity}
             />
           </div>
 
@@ -407,4 +410,7 @@ const CreateBasketForm = () => {
   );
 };
 
+CreateBasketForm.propTypes = {
+  basket: PropTypes.object,
+};
 export default CreateBasketForm;
