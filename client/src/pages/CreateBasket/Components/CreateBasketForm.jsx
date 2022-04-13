@@ -181,7 +181,7 @@ const CreateBasketForm = ({ basket }) => {
       <div className="flex flex-col items-center">
         <div className="flex">
           <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10">
-            CREATE A BASKET
+            {basket ? "EDIT YOUR BASKET" : "CREATE A BASKET"}
           </h1>
         </div>
       </div>
