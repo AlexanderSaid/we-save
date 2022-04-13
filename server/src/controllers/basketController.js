@@ -169,8 +169,8 @@ const updateBasket = asyncHandler(async (req, res) => {
     res.status(401).json({ msg: "This basket doesn't belong to this shop" });
   }
   basketToUpdate.name = name ? name : basketToUpdate.name;
-  basketToUpdate.original = original ? original : basketToUpdate.original;
-  basketToUpdate.discount = discount ? discount : basketToUpdate.discount;
+  basketToUpdate.price.original = original ? original : basketToUpdate.original;
+  basketToUpdate.price.discount = discount ? discount : basketToUpdate.discount;
   basketToUpdate.categories = categories
     ? categories
     : basketToUpdate.categories;
@@ -178,8 +178,8 @@ const updateBasket = asyncHandler(async (req, res) => {
   basketToUpdate.description = description
     ? description
     : basketToUpdate.description;
-  basketToUpdate.from = from ? from : basketToUpdate.from;
-  basketToUpdate.to = to ? to : basketToUpdate.from;
+  basketToUpdate.pickup.from = from ? from : basketToUpdate.from;
+  basketToUpdate.pickup.to = to ? to : basketToUpdate.to;
   basketToUpdate.image = image ? image : basketToUpdate.image;
 
   const UpdatedBasket = await basketToUpdate.save();

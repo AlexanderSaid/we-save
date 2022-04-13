@@ -35,7 +35,7 @@ function CreateBasket() {
   }
   if (isLoading) {
     return (
-      <section className="max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md flex justify-center">
+      <section className="flex justify-center max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md">
         <h4 className="w-full text-center">Loading...</h4>
       </section>
     );
@@ -46,10 +46,10 @@ function CreateBasket() {
   return (
     <>
       <section className="max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md">
-        <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10 text-center">
+        <h1 className="mt-10 text-xl font-bold text-center text-gray-600 md:text-2xl">
           YOUR BASKETS
         </h1>
-        <div className="max-w-4xl p-6 flex overflow-x-auto ">
+        <div className="flex max-w-4xl p-6 overflow-x-auto ">
           {baskets.map((basket, index) => {
             return (
               <BasketSummary
@@ -60,7 +60,7 @@ function CreateBasket() {
             );
           })}
         </div>
-        <CreateBasketForm basket={basket} />
+        <CreateBasketForm basket={basket} setBasket={setBasket} />
       </section>
     </>
   );

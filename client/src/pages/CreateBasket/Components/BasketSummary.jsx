@@ -36,34 +36,29 @@ const BasketSummary = ({ basket, getBasket }) => {
     <>
       {isDeleted && <DeleteSuccessMessage setIsDeleted={setIsDeleted} />}
       <div className="w-[260px] bg-white p-4 basket-info flex flex-col justify-between mx-4">
-        <h5 className="basket-name text-center w-full">Shop Name</h5>
-        <div className="w-full flex justify-between">
-          <h5 className="shop-name my-auto">{basket.name}</h5>
+        <h5 className="w-full text-center basket-name">Shop Name</h5>
+        <div className="flex justify-between w-full">
+          <h5 className="my-auto shop-name">{basket.name}</h5>
           <div className="my-auto price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
             <span className="line-through old text-shade">
               {" "}
-              € {"4.99" || basket.price.original}
+              € {basket.price.original}
             </span>
-            <span className="new text-accent">
-              / € {"1.99" || basket.price.discount}
-            </span>
+            <span className="new text-accent">/ € {basket.price.discount}</span>
           </div>
         </div>
         <div className="quantity-price flex items-center justify-between pt-3 pr-1 transition-all duration-[400ms] ease-in-out">
           <div className="baskets-left w-fit">
-            <span className="quantity">{"2" || basket.quantity}</span>
+            <span className="quantity">{basket.quantity}</span>
             <FaShoppingBasket className="inline" />
           </div>
-          <span className="basket-category my-auto">Pastries</span>
+          <span className="my-auto basket-category">Pastries</span>
         </div>
-        <p className="description text-center">
-          {"Some Description" || basket.description}
-        </p>
-        <div className="shop-details flex py-2 justify-between">
+        <p className="text-center description">{basket.description}</p>
+        <div className="flex justify-between py-2 shop-details">
           <span className="my-auto">Torenvalk 74</span>
           <p className="pickup">
-            Pickup: {"17:00" || basket.pickup.from} -{" "}
-            {"19:00" || basket.pickup.to}
+            Pickup: {basket.pickup.from} - {basket.pickup.to}
           </p>
         </div>
         <div className="flex justify-between">
