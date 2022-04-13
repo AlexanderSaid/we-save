@@ -24,6 +24,7 @@ function CreateBasketSuccessMessage({ setSuccess }) {
             <button
               onClick={() => {
                 setSuccess(false);
+                location.reload();
               }}
               className="w-[50%] py-2 my-1 text-center font-bold text-darkFont hover:text-accent focus:outline-none mt-4 transition duration-300 hover:ease-in-out"
             >
