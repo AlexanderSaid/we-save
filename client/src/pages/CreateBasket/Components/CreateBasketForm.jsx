@@ -2,17 +2,22 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import useFetch from "../../../hooks/useFetch";
 import CreateBasketSuccessMessage from "./CreateBasketSuccessMessage";
 import UserContext from "../../../context/UserContext";
+
 //- Declare regex validations
 const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
 // const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
 const ORIGINAL_PRICE_REGEX = /^[1-9][0-9]$/;
 const DISCOUNT_PRICE_REGEX = /^[1-9][0-9]$/;
 const FORM_INPUT_CLASSES =
-  "block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
-const INPUT_CONTAINER = "input-container relative mt-4 ";
+  "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
+const FORM_LABEL_CLASSES =
+  "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
+const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
-const OTHER_INPUTSTYLE =
-  " block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
+
+const DESCRIPTION_INPUT_CLASSES =
+  "block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
+
 const CreateBasketForm = () => {
   const { user } = useContext(UserContext);
   const names = [
@@ -35,7 +40,7 @@ const CreateBasketForm = () => {
   const [discountPrice, setDiscountPrice] = useState(0);
   const [validDiscountPrice, setValidDiscountPrice] = useState(false);
   const [priceFocus, setLastPriceFocus] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState([]);
   const [pickup, setpickup] = useState({
     from: "",
@@ -137,6 +142,7 @@ const CreateBasketForm = () => {
       });
     }
   };
+
   if (success) {
     return <CreateBasketSuccessMessage setSuccess={setSuccess} />;
   }
@@ -144,7 +150,7 @@ const CreateBasketForm = () => {
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col items-center">
         <div className="flex">
-          <h1 className="text-gray-600 font-bold md:text-2xl text-xl mt-10">
+          <h1 className="mb-8 text-3xl text-center text-accent">
             CREATE A BASKET
           </h1>
         </div>
@@ -161,8 +167,8 @@ const CreateBasketForm = () => {
         </div>
       )}
       <section>
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          <div>
+        <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
+          <div className="bg-gray-50 py-6 px-4 rounded">
             <label className="text-black " htmlFor="basketname">
               Basket Name
             </label>
@@ -184,10 +190,11 @@ const CreateBasketForm = () => {
             </div>
           </div>
 
-          <div>
+          <div className="bg-gray-50 py-6 px-4 rounded">
             <label className="text-black " htmlFor="emailAddress">
               Choose Category
             </label>
+
             <div className="grid grid-cols-2">
               {categoriesArr.map((item, idx) => (
                 <div className="mt-4 text-sm " key={idx}>
@@ -204,11 +211,8 @@ const CreateBasketForm = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-4 ">
             <div className={INPUT_CONTAINER}>
-              <label className="text-black " htmlFor="orgprice">
-                Original Price
-              </label>
               <input
                 type="number"
                 min="0"
@@ -222,6 +226,9 @@ const CreateBasketForm = () => {
                 onBlur={() => setLastPriceFocus(false)}
                 className={FORM_INPUT_CLASSES}
               />
+              <label className={FORM_LABEL_CLASSES} htmlFor="orgprice">
+                Original Price
+              </label>
               <p
                 id="fn-note"
                 className={`${VALID_NOTE}  ${
@@ -235,9 +242,6 @@ const CreateBasketForm = () => {
             </div>
 
             <div className={INPUT_CONTAINER}>
-              <label className="text-black " htmlFor="disprice">
-                Discounted Price
-              </label>
               <input
                 type="number"
                 min="0"
@@ -251,6 +255,9 @@ const CreateBasketForm = () => {
                 onBlur={() => setLastPriceFocus(false)}
                 className={FORM_INPUT_CLASSES}
               />
+              <label className={FORM_LABEL_CLASSES} htmlFor="disprice">
+                Discounted Price
+              </label>
               <p
                 id="fn-note"
                 className={`${VALID_NOTE}  ${
@@ -274,29 +281,32 @@ const CreateBasketForm = () => {
             </div>
           </div>
 
-          <div className={INPUT_CONTAINER}>
-            <label className="text-black " htmlFor="quantity">
-              Quantity of the basket
-            </label>
-            <input
-              type="number"
-              id="quantity"
-              min="1"
-              defaultValue="1"
-              autoComplete="off"
-              onChange={(e) => setQuantity(e.target.value)}
-              required
-              className={FORM_INPUT_CLASSES}
-            />
+          <div className="grid grid-cols-1 gap-1   ">
+            <div className={INPUT_CONTAINER}>
+              <input
+                type="number"
+                id="quantity"
+                min="1"
+                defaultValue="1"
+                autoComplete="off"
+                onChange={(e) => setQuantity(e.target.value)}
+                required
+                className={FORM_INPUT_CLASSES}
+              />
+              <label className={FORM_LABEL_CLASSES} htmlFor="quantity">
+                Quantity of the basket
+              </label>
+            </div>
           </div>
 
           <div>
             <label className="text-black " htmlFor="pickupfrom">
               Pick up from:
             </label>
+
             <input
               required
-              className={OTHER_INPUTSTYLE}
+              className={FORM_INPUT_CLASSES}
               value={from}
               type="time"
               id="pickup"
@@ -314,7 +324,7 @@ const CreateBasketForm = () => {
             </label>
             <input
               required
-              className={OTHER_INPUTSTYLE}
+              className={FORM_INPUT_CLASSES}
               value={to}
               onChange={(e) =>
                 setpickup({
@@ -343,7 +353,7 @@ const CreateBasketForm = () => {
               aria-describedby="fn-note"
               onFocus={() => setDescriptionFocus(true)}
               onBlur={() => setDescriptionFocus(false)}
-              className={FORM_INPUT_CLASSES}
+              className={DESCRIPTION_INPUT_CLASSES}
               // placeholder="description"
             />
 
@@ -386,6 +396,7 @@ const CreateBasketForm = () => {
                       id="file-upload"
                       name="file-upload"
                       type="file"
+                      accept=".jpg,.png,.jpeg"
                       className="sr-only"
                     />
                   </label>
@@ -398,7 +409,7 @@ const CreateBasketForm = () => {
         </div>
 
         <div className="flex justify-center mt-6">
-          <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-darkBg rounded-md hover:bg-darkBgHover focus:outline-none focus:bg-lightBg">
+          <button className="w-full px-2 py-3 my-1 mt-4 text-center text-white rounded lg:float-right bg-accent cursor-pointe hover:bg-green-dark focus:outline-none">
             Save
           </button>
         </div>

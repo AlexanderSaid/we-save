@@ -9,7 +9,7 @@ import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
 const FORM_INPUT_CLASSES =
   "peer  relative  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
 const FORM_LABEL_CLASSES =
-  " text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
+  " absolute text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
 
 function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
   const { user, login, error, isLoading } = useContext(UserContext);
@@ -112,10 +112,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                     placeholder="Email"
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="email"
-                    className={`${FORM_LABEL_CLASSES} absolute`}
-                  >
+                  <label htmlFor="email" className={FORM_LABEL_CLASSES}>
                     Email
                   </label>
                 </div>
@@ -134,10 +131,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                       onClick={() => setShowPassword((prev) => !prev)}
                     />
                   </div>
-                  <label
-                    htmlFor="password"
-                    className={`${FORM_LABEL_CLASSES} absolute`}
-                  >
+                  <label htmlFor="password" className={FORM_LABEL_CLASSES}>
                     Password
                   </label>
                 </div>
