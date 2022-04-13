@@ -58,7 +58,7 @@ const NavBar = () => {
               onClick={() => setHidden(true)}
               className="nav-link nav-link-sm"
             >
-              Create Your Baskets
+              MyShop
             </Link>
           ) : null}
 
