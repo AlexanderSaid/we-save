@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import useFetch from "../../../hooks/useFetch";
 import CreateBasketSuccessMessage from "./CreateBasketSuccessMessage";
 import UserContext from "../../../context/UserContext";
+import axios from "axios";
 import PropTypes from "prop-types";
 //- Declare regex validations
 const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
@@ -57,6 +58,7 @@ const CreateBasketForm = ({ basket }) => {
       setSuccess(true);
     }
   );
+
   //-
   useEffect(() => {
     return { cancelFetch };
@@ -68,9 +70,19 @@ const CreateBasketForm = ({ basket }) => {
   useEffect(() => {
     setValidDescription(DESCRIPTION_REGEX.test(description));
   }, [description]);
-  // useEffect(() => {
-  //   setValidQuantity(QUANTITY_REGEX.test(quantity));
-  // }, [quantity]);
+  useEffect(() => {
+    if (basket) {
+      setOriginalPrice(basket.price.original);
+      setDiscountPrice(basket.price.discount);
+      setDescription(basket.description);
+      setQuantity(basket.quantity);
+      setpickup({
+        from: basket.pickup.from,
+        to: basket.pickup.to,
+      });
+      setBasketName(basket.name);
+    }
+  }, [basket]);
   useEffect(() => {
     setValidOriginalPrice(ORIGINAL_PRICE_REGEX.test(originalPrice));
   }, [originalPrice]);
@@ -90,8 +102,9 @@ const CreateBasketForm = ({ basket }) => {
       setCategory(category.filter((e) => e !== value));
     }
   };
+
   //-Submit the form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !category ||
@@ -117,6 +130,27 @@ const CreateBasketForm = ({ basket }) => {
       setErrorMessage("please include one category at least");
     } else if (error) {
       setErrorMessage(error);
+    } else if (basket) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      await axios.put(
+        `http://localhost:5000/api/shops/${user.shop_id}/baskets/${basket._id}`,
+        {
+          name: basketName,
+          original: originalPrice,
+          discount: discountPrice,
+          quantity,
+          categories: category,
+          from,
+          to,
+          description,
+        },
+        config
+      );
+      location.reload();
     } else {
       setSuccess(true);
       performFetch({
@@ -223,6 +257,7 @@ const CreateBasketForm = ({ basket }) => {
                 onFocus={() => setLastPriceFocus(true)}
                 onBlur={() => setLastPriceFocus(false)}
                 className={FORM_INPUT_CLASSES}
+                value={originalPrice}
               />
               <p
                 id="fn-note"
@@ -251,6 +286,7 @@ const CreateBasketForm = ({ basket }) => {
                 aria-describedby="fn-note"
                 onFocus={() => setLastPriceFocus(true)}
                 onBlur={() => setLastPriceFocus(false)}
+                value={discountPrice}
                 className={FORM_INPUT_CLASSES}
               />
               <p
@@ -289,7 +325,7 @@ const CreateBasketForm = ({ basket }) => {
               onChange={(e) => setQuantity(e.target.value)}
               required
               className={FORM_INPUT_CLASSES}
-              value={basket ? basket.quantity : quantity}
+              value={quantity}
             />
           </div>
 
@@ -300,7 +336,7 @@ const CreateBasketForm = ({ basket }) => {
             <input
               required
               className={OTHER_INPUTSTYLE}
-              value={from}
+              value={pickup.from}
               type="time"
               id="pickup"
               onChange={(e) =>
@@ -318,11 +354,10 @@ const CreateBasketForm = ({ basket }) => {
             <input
               required
               className={OTHER_INPUTSTYLE}
-              value={to}
+              value={pickup.to}
               onChange={(e) =>
                 setpickup({
                   ...pickup,
-
                   to: e.target.value,
                 })
               }
@@ -348,6 +383,7 @@ const CreateBasketForm = ({ basket }) => {
               onBlur={() => setDescriptionFocus(false)}
               className={FORM_INPUT_CLASSES}
               // placeholder="description"
+              value={description}
             />
 
             <p
@@ -401,7 +437,10 @@ const CreateBasketForm = ({ basket }) => {
         </div>
 
         <div className="flex justify-center mt-6">
-          <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-darkBg rounded-md hover:bg-darkBgHover focus:outline-none focus:bg-lightBg">
+          <button
+            type="submit"
+            className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-darkBg rounded-md hover:bg-darkBgHover focus:outline-none focus:bg-lightBg"
+          >
             Save
           </button>
         </div>
@@ -409,8 +448,8 @@ const CreateBasketForm = ({ basket }) => {
     </form>
   );
 };
-
 CreateBasketForm.propTypes = {
   basket: PropTypes.object,
 };
+
 export default CreateBasketForm;
