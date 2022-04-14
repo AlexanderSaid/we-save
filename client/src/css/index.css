@@ -98,7 +98,7 @@
     @apply text-accent;
   }
   .guid-link {
-    @apply font-bold text-error cursor-pointer;
+    @apply font-bold text-error cursor-pointer text-bodyLarge hover:underline;
   }
   .shop-guid {
     @apply border border-accent/60 w-[65%] rounded-xl bg-lightBg py-2 px-4 shadow-xl shadow-darkBg/40;
