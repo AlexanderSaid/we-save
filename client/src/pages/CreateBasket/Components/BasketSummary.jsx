@@ -4,11 +4,16 @@ import useFetch from "../../../hooks/useFetch";
 import { FaShoppingBasket } from "react-icons/fa";
 import PropTypes from "prop-types";
 import DeleteSuccessMessage from "./DeleteSuccessMessage";
+import breakfast1 from "../../../assets/breakfast1.jpeg";
+import dairy from "../../../assets/dairy.png";
+import lunchbox from "../../../assets/lunchbox.jpeg";
+import dinnerbox from "../../../assets/dinnerbox.jpeg";
+import grocery2 from "../../../assets/grocery2.jpg";
+import pestries from "../../../assets/pestries.jpeg";
 
-const BasketSummary = ({ basket }) => {
+const BasketSummary = ({ basket, getBasket }) => {
   const { user } = useContext(UserContext);
   const [isDeleted, setIsDeleted] = useState(false);
-
   // /api/shops/:shopId/baskets/:basketId
   const { performFetch, cancelFetch } = useFetch(
     `/shops/${user.shop_id}/baskets/${basket._id}`,
@@ -32,50 +37,78 @@ const BasketSummary = ({ basket }) => {
     return cancelFetch;
   }, []);
 
+  const getImage = () => {
+    const img =
+      basket.name === "Breakfast basket" &&
+      basket.categories.includes("Bread & Pastries")
+        ? pestries
+        : basket.name === "Breakfast basket"
+        ? breakfast1
+        : basket.name === "Lunch basket"
+        ? lunchbox
+        : basket.name === "Pastries basket"
+        ? pestries
+        : basket.name === "Surprise basket"
+        ? grocery2
+        : basket.name === "Surprise basket" &&
+          basket.categories.contains("Vegetarian")
+        ? dairy
+        : basket.name === "Surprise basket" &&
+          basket.categories.contains("Diary & Meat")
+        ? dairy
+        : dinnerbox;
+    return img;
+  };
+
   return (
     <>
       {isDeleted && <DeleteSuccessMessage setIsDeleted={setIsDeleted} />}
-      <div className="w-[260px] bg-white p-4 basket-info flex flex-col justify-between mx-4">
-        <h5 className="basket-name text-center w-full">Shop Name</h5>
-        <div className="w-full flex justify-between">
-          <h5 className="shop-name my-auto">{basket.name}</h5>
-          <div className="my-auto price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
-            <span className="line-through old text-shade">
-              {" "}
-              € {"4.99" || basket.price.original}
-            </span>
-            <span className="new text-accent">
-              / € {"1.99" || basket.price.discount}
-            </span>
+
+      <div className="  min-w-[300px] rounded border border-primary bg-primary m-4">
+        <img
+          className="w-full rounded-t h-[180px] object-cover"
+          src={getImage()}
+        />
+        <div className="px-4 py-4">
+          <div className="text-xl font-bold ">{basket.name}</div>
+          <div className="flex flex-row ">
+            {basket.categories.map((category, idx) => (
+              <div
+                className="mx-1 my-auto mt-2 mb-3 text-button basket-category"
+                key={idx}
+              >
+                {category}
+              </div>
+            ))}
+            <div className="mt-2 mb-3 baskets-left w-fit text-button">
+              <span className="quantity">{basket.quantity}</span>
+              <FaShoppingBasket className="inline" />
+            </div>
           </div>
-        </div>
-        <div className="quantity-price flex items-center justify-between pt-3 pr-1 transition-all duration-[400ms] ease-in-out">
-          <div className="baskets-left w-fit">
-            <span className="quantity">{"2" || basket.quantity}</span>
-            <FaShoppingBasket className="inline" />
-          </div>
-          <span className="basket-category my-auto">Pastries</span>
-        </div>
-        <p className="description text-center">
-          {"Some Description" || basket.description}
-        </p>
-        <div className="shop-details flex py-2 justify-between">
-          <span className="my-auto">Torenvalk 74</span>
-          <p className="pickup">
-            Pickup: {"17:00" || basket.pickup.from} -{" "}
-            {"19:00" || basket.pickup.to}
+
+          <p className="text-base text-left text-gray-700 text-button">
+            {basket.description}
           </p>
+          <div className="flex justify-between py-2 my-6 shop-details">
+            <p className="pickup">
+              Pickup: {basket.pickup.from} - {basket.pickup.to}
+            </p>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <button className="bg-transparent h-[36px] w-[100px] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-auto border border-blue-500 hover:border-transparent rounded">
-            Edit
-          </button>
+
+        <div className="mx-4 mt-1 mb-4">
           <button
-            className="bg-transparent h-[36px] w-[100px] hover:bg-red-500 text-red-700 font-semibold hover:text-white p-auto border border-blue-500 hover:border-transparent rounded"
             value={basket._id}
             onClick={handleDelete}
+            className="inline-block p-2 mr-2 text-red-700 uppercase bg-red-100 rounded text-bodyMd hover:bg-red-500 hover:text-white"
           >
             Delete
+          </button>
+          <button
+            onClick={() => getBasket(basket)}
+            className="inline-block p-2 text-yellow-500 uppercase bg-yellow-100 rounded text-bodyMd hover:bg-yellow-500 hover:text-white"
+          >
+            Edit
           </button>
         </div>
       </div>
@@ -84,5 +117,6 @@ const BasketSummary = ({ basket }) => {
 };
 BasketSummary.propTypes = {
   basket: PropTypes.object,
+  getBasket: PropTypes.func,
 };
 export default BasketSummary;

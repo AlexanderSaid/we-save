@@ -99,7 +99,7 @@ const Basket = ({ basket }) => {
             {categories.length && (
               <div>
                 {categories.map((cat) => (
-                  <span key={cat} className="basket-category inline-block">
+                  <span key={cat} className="basket-category">
                     {cat}
                   </span>
                 ))}

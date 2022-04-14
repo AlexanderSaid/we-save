@@ -66,7 +66,17 @@ const createShopBasket = asyncHandler(async (req, res) => {
     to,
     image,
   } = req.body;
-
+  if (
+    !name ||
+    !original ||
+    !discount ||
+    !categories ||
+    !quantity ||
+    !from ||
+    !to
+  ) {
+    res.status(400).json({ msg: "Please fill all the fields" });
+  }
   const price = { original, discount };
   const pickup = { from, to };
   const user = await User.findById(req.user.id);
@@ -127,6 +137,55 @@ const deleteBasket = asyncHandler(async (req, res) => {
     .json({ success: true, result: "Your basket was successfully deleted" });
 });
 
+//@des Edit a basket from a specific shop
+//@route PUT /api/shops/:shopId/baskets/:basketId
+//@access Private
+const updateBasket = asyncHandler(async (req, res) => {
+  const { shopId, basketId } = req.params;
+  const user = await User.findById(req.user.id);
+  const {
+    name,
+    original,
+    discount,
+    categories,
+    quantity,
+    description,
+    from,
+    to,
+    image,
+  } = req.body;
+  if (!user) {
+    res.status(401).json({ msg: "User not found" });
+  }
+  const shop = await Shop.findById(shopId);
+  if (shop.owner_id.toString() !== req.user.id) {
+    res.status(401).json("User not Authorized");
+  }
+  const basketToUpdate = await Basket.findById(basketId);
+  if (
+    basketToUpdate.shop_id.toString() !== shop._id.toString() &&
+    basketToUpdate.owner_id.toString() !== req.user.id
+  ) {
+    res.status(401).json({ msg: "This basket doesn't belong to this shop" });
+  }
+  basketToUpdate.name = name ? name : basketToUpdate.name;
+  basketToUpdate.price.original = original ? original : basketToUpdate.original;
+  basketToUpdate.price.discount = discount ? discount : basketToUpdate.discount;
+  basketToUpdate.categories = categories
+    ? categories
+    : basketToUpdate.categories;
+  basketToUpdate.quantity = quantity ? quantity : basketToUpdate.quantity;
+  basketToUpdate.description = description
+    ? description
+    : basketToUpdate.description;
+  basketToUpdate.pickup.from = from ? from : basketToUpdate.from;
+  basketToUpdate.pickup.to = to ? to : basketToUpdate.to;
+  basketToUpdate.image = image ? image : basketToUpdate.image;
+
+  const UpdatedBasket = await basketToUpdate.save();
+  res.status(200).json({ success: true, result: UpdatedBasket });
+});
+
 //@des decrease the quantity of baskets from a specific shop
 //@route GET /api/baskets/:basketId/decrease
 //@access Private
@@ -147,4 +206,5 @@ export {
   decreaseQuantity,
   getBaskets,
   getOneBasket,
+  updateBasket,
 };

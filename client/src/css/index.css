@@ -67,7 +67,7 @@
     @apply w-[70%] max-w-[200px] self-center text-bodySmall font-bold text-lightBg bg-darkBg rounded-full p-2 hover:bg-accent hover:text-lightFont transition-all duration-[400ms] ease-in-out;
   }
   .basket-name {
-    @apply font-bold text-darkFont py-1;
+    @apply text-bodyRegular font-bold text-darkFont py-1 text-clip;
   }
   .basket-category {
     @apply text-button text-accent border border-accent rounded-full px-2 pt-1 bg-lightBg w-fit font-bold md:py-1;
