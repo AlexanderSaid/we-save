@@ -8,8 +8,6 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Contact from "./pages/Contact/Contact";
 import SignUp from "./components/Forms/SignUp";
 import CreateBasket from "./pages/CreateBasket/CreateBasket";
-import Test from "./pages/Test";
-import Test1 from "./pages/Test1";
 
 const App = () => {
   return (
@@ -22,9 +20,6 @@ const App = () => {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="createBasket" element={<CreateBasket />} />
-          {/* <Route path="results/shop-details/:id" element={<ShopDetails />} /> */}
-          <Route path="reset-password" element={<Test />} />
-          <Route path="forget-password" element={<Test1 />} />
         </Route>
       </Routes>
     </>

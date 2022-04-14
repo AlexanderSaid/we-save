@@ -96,12 +96,15 @@ const Basket = ({ basket }) => {
         <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
           <div className="w-full h-full flex flex-col justify-start md:justify-between md:basis-36 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
             <h5 className="basket-name">{name}</h5>
-            {categories.length &&
-              categories.map((cat) => (
-                <span key={cat} className="basket-category">
-                  {cat}
-                </span>
-              ))}
+            {categories.length && (
+              <div>
+                {categories.map((cat) => (
+                  <span key={cat} className="basket-category inline-block">
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="quantity-price flex items-center justify-between pt-3 pr-1 transition-all duration-[400ms] ease-in-out">
               <div className="baskets-left">
                 <span className="quantity">

@@ -3,51 +3,111 @@ import ShopRegistration from "../../../components/Forms/ShopRegistration";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 import SignIn from "../../../components/Forms/SignIn";
-import introPicture from "../../../assets/3.jpg";
+import shop from "../../../assets/shop-bg.png";
 
-const ShopGuid = () => {
+const CostumerGuid = () => {
   const [shopIsOpen, setShopIsOpen] = useState(false);
   const [owner, setOwner] = useState(false);
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { loggedIn } = useAuthentication();
 
   return (
-    <section id="shop-owners" className="bg-white">
-      <div className="max-w-5xl px-6 py-16 mx-auto">
-        <div className="items-center md:flex md:space-x-6">
-          <div className="md:w-1/2">
-            <div className="flex items-center justify-center">
-              <div className="max-w-md">
-                <img
-                  className=" w-full rounded-md shadow"
-                  src={introPicture}
-                  alt="grocery"
-                />
-              </div>
+    <section
+      id="customer"
+      className="flex flex-col items-center justify-center w-full"
+    >
+      {/* Intro section */}
+      <div className="flex  items-center justify-center w-full">
+        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60">
+          <img
+            src={shop}
+            alt="Grocery bag with piggy bank"
+            className="absolute object-cover w-full h-full"
+          />
+          <div className="w-full h-full z-10 flex items-center py-4 justify-end">
+            <div className="sm:w-[70%] md:w-[60%] lg:w-[40%] max-h-full flex flex-col justify-between gap-4 mr-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4 ">
+              <h3 className="text-title4 font-bold">
+                Want to be our partner for fighting food waste?
+              </h3>
+              <p className="text-bodyRegular font-bold w-[90%] text-justify text-darkFont/80">
+                We love to welcome new partners in the fight against food waste.
+                We will help you cut costs and reduce your carbon footprint,
+                whatever you are selling. Its 100% better for you and the
+                planet.
+              </p>
+              <p className='text-center rounded-md font-semibold tracking-wide p-2 bg-darkBg text-lightFont opacity-90 font-["Roboto"]'>
+                Join us following below instructions
+              </p>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="mt-8 md:mt-0 md:w-1/2">
-            <h3 className="text-2xl font-semibold text-gray-800">
-              Want to be our partner for fighting food waste?
-            </h3>
-            <p className="max-w-md mt-4 text-gray-600">
-              We love to welcome new partners in the fight against food waste.
-              We will help you cut costs and reduce your carbon footprint,
-              whatever you are selling. Its 100% better for you and the planet.
+      {/* Guid section */}
+      <div className="flex flex-col items-center justify-center w-full">
+        <div className="flex flex-col gap-4 max-w-1440 w-full py-12 px-12 text-center bg-lightFont">
+          <div className="shop-guid self-start ml-12 ">
+            <h4 className="text-accent text-bodyLarge font-bold pb-2">
+              1. Create Account & Sign In
+            </h4>
+            <p className="text-darkFont/80 text-bodyRegular font-bold">
+              You can easily create an account from&nbsp;
+              <a href="#" className="guid-link">
+                here
+              </a>
+              .<br /> If you already did you can&nbsp;
+              <a href="#" className="guid-link">
+                Sign in
+              </a>
+              .
             </p>
-            <a className="block mt-8 text-indigo-700 ">
-              <button
-                // onClick={() => setShopIsOpen(true)}
+          </div>
+          <div className="shop-guid self-end mr-12">
+            <h4 className="text-accent text-bodyLarge font-bold pb-2">
+              2. Register Your Shop
+            </h4>
+            <p className="text-darkFont/80 text-bodyRegular font-bold">
+              Add your shop by filling this registration&nbsp;
+              <a
+                className="guid-link"
                 onClick={() => {
                   setOwner(true);
                   loggedIn ? setShopIsOpen(true) : setIsOpen(true);
                 }}
-                className="flex items-center block px-6 py-4 mr-2 font-bold border border-teal-500 rounded-sm text-darkFont hover:bg-teal-500 hover:text-white"
               >
-                Owner Page
-              </button>
-            </a>
+                form
+              </a>
+              .
+            </p>
+          </div>
+          <div className="shop-guid self-start ml-12">
+            <h4 className="text-accent text-bodyLarge font-bold pb-2">
+              3. Your Shop Page
+            </h4>
+            <p className="text-darkFont/80 text-bodyRegular font-bold">
+              Now you have access to your private page from navbar or&nbsp;
+              <a href="createBasket" className="guid-link">
+                here
+              </a>
+              .
+            </p>
+          </div>
+          <div className="shop-guid self-end mr-12">
+            <h4 className="text-accent text-bodyLarge font-bold pb-2">
+              4. Your Baskets
+            </h4>
+            <p className="text-darkFont/80 text-bodyRegular font-bold">
+              Easily add, edit or even delete you baskets.
+            </p>
+          </div>
+          <div className="shop-guid self-start ml-12">
+            <h4 className="text-accent text-bodyLarge font-bold pb-2">
+              5. Reservations
+            </h4>
+            <p className="text-darkFont/80 text-bodyRegular font-bold">
+              When a customer reserve a basket you receive an email with deliver
+              code.
+            </p>
           </div>
         </div>
         <ShopRegistration
@@ -67,4 +127,4 @@ const ShopGuid = () => {
   );
 };
 
-export default ShopGuid;
+export default CostumerGuid;

@@ -42,6 +42,9 @@ module.exports = {
       maxWidth: {
         1440: "1440px",
       },
+      width: {
+        screen: "calc(100vw - 10px)",
+      },
     },
   },
   plugins: [],
