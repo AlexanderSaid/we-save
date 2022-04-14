@@ -9,6 +9,10 @@ import CoverShop from "./Components/CoverShop";
 function CreateBasket() {
   const { user } = useContext(UserContext);
   const [baskets, setBaskets] = useState();
+  const [basket, setBasket] = useState(null);
+  const getBasket = (obj) => {
+    setBasket(obj);
+  };
 
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     `/shops/${user.shop_id}/baskets`,
@@ -32,7 +36,7 @@ function CreateBasket() {
   }
   if (isLoading) {
     return (
-      <section className="max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md flex justify-center">
+      <section className="flex justify-center max-w-4xl p-6 mx-auto my-10 bg-gray-100 rounded-md shadow-md">
         <h4 className="w-full text-center">Loading...</h4>
       </section>
     );
@@ -48,18 +52,24 @@ function CreateBasket() {
         <h1 className="mb-8 text-3xl text-center text-accent">Your Baskets</h1>
 
         {baskets.length === 0 ? (
-          <p className="mb-8  text-center text-black-400">
+          <p className="mb-8 text-center text-black-400">
             You dont have any baskets right now!
           </p>
         ) : (
-          <div className="grid grid-flow-col place-content-start auto-cols-max md:auto-cols-min gap-4  overflow-x-auto px-4 bg-gray-50 mb-20 rounded">
+          <div className="grid grid-flow-col gap-4 px-4 mb-20 overflow-x-auto rounded place-content-start auto-cols-max md:auto-cols-min bg-gray-50">
             {baskets.map((basket, index) => {
-              return <BasketSummary basket={basket} key={index} />;
+              return (
+                <BasketSummary
+                  getBasket={getBasket}
+                  basket={basket}
+                  key={index}
+                />
+              );
             })}
           </div>
         )}
 
-        <CreateBasketForm baskets={baskets} />
+        <CreateBasketForm basket={basket} setBasket={setBasket} />
       </section>
     </>
   );

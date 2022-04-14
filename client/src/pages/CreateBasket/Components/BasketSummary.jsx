@@ -11,7 +11,7 @@ import dinnerbox from "../../../assets/dinnerbox.jpeg";
 import grocery2 from "../../../assets/grocery2.jpg";
 import pestries from "../../../assets/pestries.jpeg";
 
-const BasketSummary = ({ basket }) => {
+const BasketSummary = ({ basket, getBasket }) => {
   const { user } = useContext(UserContext);
   const [isDeleted, setIsDeleted] = useState(false);
   // /api/shops/:shopId/baskets/:basketId
@@ -70,41 +70,44 @@ const BasketSummary = ({ basket }) => {
           src={getImage()}
         />
         <div className="px-4 py-4">
-          <div className="font-bold text-xl ">{basket.name}</div>
-          <div className=" flex flex-row ">
+          <div className="text-xl font-bold ">{basket.name}</div>
+          <div className="flex flex-row ">
             {basket.categories.map((category, idx) => (
               <div
-                className=" text-button mb-3 basket-category my-auto mx-1 mt-2"
+                className="mx-1 my-auto mt-2 mb-3 text-button basket-category"
                 key={idx}
               >
                 {category}
               </div>
             ))}
-            <div className="baskets-left w-fit text-button mb-3 mt-2">
+            <div className="mt-2 mb-3 baskets-left w-fit text-button">
               <span className="quantity">{basket.quantity}</span>
               <FaShoppingBasket className="inline" />
             </div>
           </div>
 
-          <p className="text-gray-700 text-base text-button text-left">
+          <p className="text-base text-left text-gray-700 text-button">
             {basket.description}
           </p>
-          <div className=" my-6 shop-details flex py-2 justify-between">
+          <div className="flex justify-between py-2 my-6 shop-details">
             <p className="pickup">
               Pickup: {basket.pickup.from} - {basket.pickup.to}
             </p>
           </div>
         </div>
 
-        <div className="mx-4 mb-4 mt-1">
+        <div className="mx-4 mt-1 mb-4">
           <button
             value={basket._id}
             onClick={handleDelete}
-            className=" text-bodyMd bg-red-100 uppercase  hover:bg-red-500 text-red-700 hover:text-white rounded p-2 inline-block mr-2"
+            className="inline-block p-2 mr-2 text-red-700 uppercase bg-red-100 rounded text-bodyMd hover:bg-red-500 hover:text-white"
           >
             Delete
           </button>
-          <button className="text-bodyMd bg-yellow-100 uppercase  hover:bg-yellow-500 text-yellow-500 hover:text-white rounded p-2 inline-block">
+          <button
+            onClick={() => getBasket(basket)}
+            className="inline-block p-2 text-yellow-500 uppercase bg-yellow-100 rounded text-bodyMd hover:bg-yellow-500 hover:text-white"
+          >
             Edit
           </button>
         </div>
@@ -114,5 +117,6 @@ const BasketSummary = ({ basket }) => {
 };
 BasketSummary.propTypes = {
   basket: PropTypes.object,
+  getBasket: PropTypes.func,
 };
 export default BasketSummary;
