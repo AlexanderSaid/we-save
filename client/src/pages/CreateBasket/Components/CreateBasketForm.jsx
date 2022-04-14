@@ -265,9 +265,7 @@ const CreateBasketForm = () => {
                     ? "block"
                     : "hidden"
                 }`}
-              >
-                Price cant be 0
-              </p>
+              ></p>
               <div>
                 <p
                   id="fn-note"

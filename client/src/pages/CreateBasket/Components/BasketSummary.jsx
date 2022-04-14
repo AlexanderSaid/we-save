@@ -65,7 +65,10 @@ const BasketSummary = ({ basket }) => {
       {isDeleted && <DeleteSuccessMessage setIsDeleted={setIsDeleted} />}
 
       <div className="  min-w-[300px] rounded border border-primary bg-primary m-4">
-        <img className="w-full rounded-t h-[180px]" src={getImage()} />
+        <img
+          className="w-full rounded-t h-[180px] object-cover"
+          src={getImage()}
+        />
         <div className="px-4 py-4">
           <div className="font-bold text-xl ">{basket.name}</div>
           <div className=" flex flex-row ">
