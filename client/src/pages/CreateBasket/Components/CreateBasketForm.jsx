@@ -32,7 +32,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     "Diary & Meat",
   ];
 
-  const [basketName, setBasketName] = useState("");
+  const [basketName, setBasketName] = useState(null);
   const [originalPrice, setOriginalPrice] = useState(1);
   const [validOriginalPrice, setValidOriginalPrice] = useState(false);
   const [discountPrice, setDiscountPrice] = useState(0);
@@ -63,7 +63,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   //-updateing data
   const {
     performFetch: performUpdatingBasket,
-    cancelFetch: canselFetchBasket,
+    cancelFetch: cancelFetchBasket,
   } = useFetch(
     `/shops/${user.shop_id}/baskets/${basket ? basket._id : ""}`,
     () => {
@@ -73,7 +73,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
   //-
   useEffect(() => {
-    return { cancelFetch, canselFetchBasket };
+    return { cancelFetch, cancelFetchBasket };
   }, []);
   useEffect(() => {
     error && setErrorMessage(error);
@@ -222,14 +222,14 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                   <input
                     type="radio"
                     name="basketName"
-                    id="basketName"
+                    id={item}
                     value={item}
-                    onClick={(e) => {
+                    onChange={(e) => {
                       setBasketName(e.target.value);
                     }}
-                    checked={basket && basket.name === item}
+                    checked={basketName === item}
                   />
-                  <label className="ml-2 text-gray-500" htmlFor="name">
+                  <label className="ml-2 text-gray-500" htmlFor={item}>
                     {item}
                   </label>
                 </div>
@@ -250,7 +250,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                     id="category"
                     value={item}
                     onChange={handleCategory}
-                    checked={basket && basket.categories.includes(item)}
+                    checked={category.includes(item)}
                   />
                   <label className="ml-2 text-gray-500 ">{item}</label>
                 </div>
