@@ -224,7 +224,9 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                     name="basketName"
                     id="basketName"
                     value={item}
-                    onChange={(e) => setBasketName(e.target.value)}
+                    onClick={(e) => {
+                      setBasketName(e.target.value);
+                    }}
                     checked={basket && basket.name === item}
                   />
                   <label className="ml-2 text-gray-500" htmlFor="name">
@@ -462,7 +464,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           {basket && (
             <button
               onClick={() => setBasket(null)}
-              className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform rounded-md bg-darkBg hover:bg-darkBgHover focus:outline-none focus:bg-lightBg"
+              className="px-6 py-2 mx-2 leading-5 text-white transition-colors duration-200 transform rounded-md bg-darkBg hover:bg-darkBgHover focus:outline-none focus:bg-lightBg"
             >
               {"Cancel"}
             </button>
