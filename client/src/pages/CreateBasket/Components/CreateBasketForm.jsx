@@ -4,17 +4,20 @@ import CreateBasketSuccessMessage from "./CreateBasketSuccessMessage";
 import UserContext from "../../../context/UserContext";
 import UpdateBasketSuccessMessage from "./UpdateBasketSuccessMessage";
 import PropTypes from "prop-types";
+
 //- Declare regex validations
 const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
 // const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
 const ORIGINAL_PRICE_REGEX = /^[1-9][0-9]$/;
 const DISCOUNT_PRICE_REGEX = /^[1-9][0-9]$/;
 const FORM_INPUT_CLASSES =
-  "block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
-const INPUT_CONTAINER = "input-container relative mt-4 ";
+  "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
+const FORM_LABEL_CLASSES =
+  "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
+const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
-const OTHER_INPUTSTYLE =
-  " block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
+const DESCRIPTION_INPUT_CLASSES =
+  "block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
 const CreateBasketForm = ({ basket, setBasket }) => {
   const { user } = useContext(UserContext);
   const names = [
@@ -38,7 +41,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   const [discountPrice, setDiscountPrice] = useState(0);
   const [validDiscountPrice, setValidDiscountPrice] = useState(false);
   const [priceFocus, setLastPriceFocus] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState([]);
   const [pickup, setpickup] = useState({
     from: "",
@@ -184,6 +187,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
       });
     }
   };
+
   if (success) {
     return <CreateBasketSuccessMessage setSuccess={setSuccess} />;
   }
@@ -211,8 +215,8 @@ const CreateBasketForm = ({ basket, setBasket }) => {
         </div>
       )}
       <section>
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          <div>
+        <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
+          <div className="px-4 py-6 rounded bg-gray-50">
             <label className="text-black " htmlFor="basketname">
               Basket Name
             </label>
@@ -237,10 +241,11 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </div>
           </div>
 
-          <div>
+          <div className="px-4 py-6 rounded bg-gray-50">
             <label className="text-black " htmlFor="emailAddress">
               Choose Category
             </label>
+
             <div className="grid grid-cols-2">
               {categoriesArr.map((item, idx) => (
                 <div className="mt-4 text-sm " key={idx}>
@@ -258,11 +263,8 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-4 ">
             <div className={INPUT_CONTAINER}>
-              <label className="text-black " htmlFor="orgprice">
-                Original Price
-              </label>
               <input
                 type="number"
                 min="0"
@@ -277,6 +279,9 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                 className={FORM_INPUT_CLASSES}
                 value={originalPrice}
               />
+              <label className={FORM_LABEL_CLASSES} htmlFor="orgprice">
+                Original Price
+              </label>
               <p
                 id="fn-note"
                 className={`${VALID_NOTE}  ${
@@ -290,9 +295,6 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </div>
 
             <div className={INPUT_CONTAINER}>
-              <label className="text-black " htmlFor="disprice">
-                Discounted Price
-              </label>
               <input
                 type="number"
                 min="0"
@@ -307,6 +309,9 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                 value={discountPrice}
                 className={FORM_INPUT_CLASSES}
               />
+              <label className={FORM_LABEL_CLASSES} htmlFor="disprice">
+                Discounted Price
+              </label>
               <p
                 id="fn-note"
                 className={`${VALID_NOTE}  ${
@@ -314,9 +319,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                     ? "block"
                     : "hidden"
                 }`}
-              >
-                Price cant be 0
-              </p>
+              ></p>
               <div>
                 <p
                   id="fn-note"
@@ -330,31 +333,33 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </div>
           </div>
 
-          <div className={INPUT_CONTAINER}>
-            <label className="text-black " htmlFor="quantity">
-              Quantity of the basket
-            </label>
-            <input
-              type="number"
-              id="quantity"
-              min="1"
-              defaultValue="1"
-              autoComplete="off"
-              onChange={(e) => setQuantity(e.target.value)}
-              required
-              className={FORM_INPUT_CLASSES}
-              value={quantity}
-            />
+          <div className="grid grid-cols-1 gap-1 ">
+            <div className={INPUT_CONTAINER}>
+              <input
+                type="number"
+                id="quantity"
+                min="1"
+                defaultValue="1"
+                autoComplete="off"
+                onChange={(e) => setQuantity(e.target.value)}
+                required
+                className={FORM_INPUT_CLASSES}
+              />
+              <label className={FORM_LABEL_CLASSES} htmlFor="quantity">
+                Quantity of the basket
+              </label>
+            </div>
           </div>
 
           <div>
             <label className="text-black " htmlFor="pickupfrom">
               Pick up from:
             </label>
+
             <input
               required
-              className={OTHER_INPUTSTYLE}
-              value={pickup.from}
+              className={FORM_INPUT_CLASSES}
+              value={from}
               type="time"
               id="pickup"
               onChange={(e) =>
@@ -371,8 +376,8 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </label>
             <input
               required
-              className={OTHER_INPUTSTYLE}
-              value={pickup.to}
+              className={FORM_INPUT_CLASSES}
+              value={to}
               onChange={(e) =>
                 setpickup({
                   ...pickup,
@@ -399,7 +404,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
               aria-describedby="fn-note"
               onFocus={() => setDescriptionFocus(true)}
               onBlur={() => setDescriptionFocus(false)}
-              className={FORM_INPUT_CLASSES}
+              className={DESCRIPTION_INPUT_CLASSES}
               // placeholder="description"
               value={description}
             />
@@ -443,6 +448,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                       id="file-upload"
                       name="file-upload"
                       type="file"
+                      accept=".jpg,.png,.jpeg"
                       className="sr-only"
                     />
                   </label>
