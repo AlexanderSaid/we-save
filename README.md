@@ -1,16 +1,14 @@
 <div id="top"></div>
 
-<div>
-  
-![screenshot](https://user-images.githubusercontent.com/76748316/163634183-671b5aeb-334b-4832-a8ef-21e68e92ff75.png)
-  
-</div>
-<div>
+<p align="center">
+  <img width="70%"  src="https://user-images.githubusercontent.com/76748316/163634183-671b5aeb-334b-4832-a8ef-21e68e92ff75.png">
+</p>
 
-![screenshot-m-1](https://user-images.githubusercontent.com/76748316/163634200-c795132c-65cb-471e-af57-409e9c986b70.png)
-![screenshot-m-2](https://user-images.githubusercontent.com/76748316/163634205-fdd85c74-331c-413c-bc59-3f32c6fee293.png)
+<p align="center">
+  <img width="30%"  src="https://user-images.githubusercontent.com/76748316/163634200-c795132c-65cb-471e-af57-409e9c986b70.png">
+  <img width="30%"  src="https://user-images.githubusercontent.com/76748316/163634205-fdd85c74-331c-413c-bc59-3f32c6fee293.png">
+</p>
 
-</div>
 
 
 <details>
