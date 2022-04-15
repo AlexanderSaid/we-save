@@ -1,7 +1,7 @@
 <div id="top"></div>
 
-[![Laptop-HomePage][product-screenshot]]
-[![Mobile-HomePage][product-screenshot-m-1]][![Mobile-ResultsPage][product-screenshot-m-2]]
+<img src="./images/screenshot.png" />
+
 <details>
   <summary>TABLE OF CONTENTS</summary>
   <ol>
