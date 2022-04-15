@@ -26,11 +26,11 @@ const CostumerGuid = () => {
   return (
     <section
       id="customer"
-      className="flex flex-col items-center justify-center w-full "
+      className="flex flex-col items-center justify-center w-full h-90v"
     >
       {/* Intro section */}
       <div className="flex items-center justify-center w-[90%] sm:w-full ">
-        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl mt-12">
+        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl">
           <img
             src={customer}
             alt="Grocery bag with piggy bank"
