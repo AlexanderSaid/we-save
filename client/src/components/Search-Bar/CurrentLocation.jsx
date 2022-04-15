@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
 import SearchContext from "../../context/SearchContext";
 import axios from "axios";
-
+import { motion } from "framer-motion";
+import { fade } from "../../animation";
 const CurrentLocation = () => {
   const {
     setInputValue,
@@ -63,7 +64,7 @@ const CurrentLocation = () => {
   }, [currentCoordinates.latitude]);
 
   return (
-    <div className="p-1 sm:p-4">
+    <motion.div variants={fade} className="p-1 sm:p-4">
       <BiCurrentLocation
         size={30}
         onClick={handleCurrentLocation}
@@ -71,7 +72,7 @@ const CurrentLocation = () => {
           searchLoading ? "cursor-wait opacity-75" : "cursor-pointer"
         }`}
       />
-    </div>
+    </motion.div>
   );
 };
 export default CurrentLocation;

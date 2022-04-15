@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-
 import SearchContext from "../../context/SearchContext";
 import CurrentLocation from "./CurrentLocation";
+import { motion } from "framer-motion";
+import { inputAnim, fade, titleAnim } from "../../animation";
 
 const SearchBar = () => {
   const {
@@ -15,21 +16,28 @@ const SearchBar = () => {
 
   return (
     <>
-      <div
+      <motion.div
+        variants={fade}
         className={`${
           searchLoading && "cursor-wait"
         } flex flex-col search-bar items-center justify-center w-full px-4 `}
       >
-        <h5 className="my-6 text-bodyRegular tracking-wide text-lightFont sm:bodyLarge text-center">
-          Find Shops Near You in Amsterdam
-        </h5>
-
-        <form
+        <div className="overflow-hidden">
+          <motion.h5
+            variants={titleAnim}
+            className="my-6 text-bodyRegular tracking-wide text-lightFont sm:bodyLarge text-center"
+          >
+            Find Shops Near You in Amsterdam
+          </motion.h5>
+        </div>
+        <motion.form
+          variants={inputAnim}
           className="flex rounded bg-lightFont w-[80%] xs:w-full border border-darkBg mb-2 max-w-[500px]"
           onSubmit={(e) => onSearch(e)}
         >
           <CurrentLocation />
-          <input
+          <motion.input
+            variants={inputAnim}
             id="search-bar-input"
             type="text"
             name="location"
@@ -39,15 +47,16 @@ const SearchBar = () => {
             placeholder={"Enter Your Post Code"}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button
+          <motion.button
+            variants={fade}
             type="submit"
             value={"Search"}
             disabled={searchLoading ? true : false}
             className='className="h-full px-4 py-1 sm:py-4 text-center rounded text-bodySmall text-darkFont bg-primary font-semibold cursor-pointer disabled:opacity-75 disabled:cursor-wait'
           >
             Search
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
         <p className="search-message mb-4 text-primary text-bodySmall sm:text-bodyRegular h-5">
           {searchError ? (
             <span>
@@ -65,7 +74,7 @@ const SearchBar = () => {
             ""
           )}
         </p>
-      </div>
+      </motion.div>
     </>
   );
 };
