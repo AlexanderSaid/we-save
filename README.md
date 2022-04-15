@@ -5,9 +5,12 @@
 </p>
 
 <p align="center">
-  <img width="20%" src="https://user-images.githubusercontent.com/76748316/163634200-c795132c-65cb-471e-af57-409e9c986b70.png">
-  <p width="20%"></p>
-  <img width="20%"  src="https://user-images.githubusercontent.com/76748316/163634205-fdd85c74-331c-413c-bc59-3f32c6fee293.png">
+  <p align="center" width="30%">
+  <img width="80%" src="https://user-images.githubusercontent.com/76748316/163634200-c795132c-65cb-471e-af57-409e9c986b70.png">
+    </p>
+    <p align="center" width="30%">
+  <img width="80%"  src="https://user-images.githubusercontent.com/76748316/163634205-fdd85c74-331c-413c-bc59-3f32c6fee293.png">
+  </p>
 </p>
 
 
