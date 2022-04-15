@@ -91,7 +91,7 @@ const NavBar = () => {
           {loggedIn ? (
             <div
               onClick={() => setMenu(!menu)}
-              className="justify-center nav-link nav-link-md login relative "
+              className="justify-center nav-link nav-link-md login relative min-w-[120px]"
             >
               <div className="">
                 <span>{user?.name?.first}</span>
@@ -115,7 +115,7 @@ const NavBar = () => {
                 ) : (
                   <a href="#">Register shop</a>
                 )}
-                <a onClick={logout}>
+                <a href="/" onClick={logout}>
                   Log Out <FiLogOut className="inline-block ml-1" size={17} />
                 </a>
               </div>

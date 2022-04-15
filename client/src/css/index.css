@@ -48,7 +48,7 @@
     @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[300ms] ease-in-out hover:bg-lightBg;
   }
   .nav-link-md {
-    @apply md:w-fit md:p-2 md:text-bodyMd md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md  md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
+    @apply md:text-center md:w-fit md:p-2 md:text-bodyMd md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md  md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
   }
   .nav-link-md.login,
   .nav-link.login {
