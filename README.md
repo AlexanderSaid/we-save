@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-<img src="./images/screenshot.png" />
+<img src="images/screenshot.png" />
 
 <details>
   <summary>TABLE OF CONTENTS</summary>
