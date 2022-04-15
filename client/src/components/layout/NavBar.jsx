@@ -11,13 +11,22 @@ const NavBar = () => {
   const [hidden, setHidden] = useState(true);
   //- Sing in pop-up state
   const { isOpen, setIsOpen } = useContext(SignInContext);
+  const { loggedIn } = useAuthentication();
+  const { logout, user } = useContext(UserContext);
 
   const sideBarState = () => {
     setHidden(!hidden);
   };
 
-  const { loggedIn } = useAuthentication();
-  const { logout, user } = useContext(UserContext);
+  const handleLoginLogout = () => {
+    if (loggedIn) {
+      logout();
+    } else {
+      setIsOpen(true);
+      setHidden(true);
+    }
+  };
+
   return (
     <nav className="w-full px-8 py-4 max-w-1440 md:px-12">
       <div className="w-full md:flex md:items-center md:justify-between ">
@@ -75,14 +84,7 @@ const NavBar = () => {
           </Link>
           <Link
             to="/"
-            onClick={
-              loggedIn
-                ? logout
-                : () => {
-                    setIsOpen(true);
-                    setHidden(true);
-                  }
-            }
+            onClick={handleLoginLogout}
             className="justify-center nav-link nav-link-md login"
           >
             <div>
