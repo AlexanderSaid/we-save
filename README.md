@@ -55,6 +55,7 @@ To run the app in dev mode you can run the following command in the main directo
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="code-structure"></div>
+
 ## 2. Code structure
 
 ```
@@ -105,6 +106,7 @@ server
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="client"></div>
+
 ### 2.1 Client structure
 
 - `public` || public facing client code
@@ -129,6 +131,7 @@ server
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="server"></div>
+
 ### 2.3 Server structure
 
 - `__tests__` || any `jest` tests for the api endpoints as that is our testing strategy for the backend
@@ -143,11 +146,13 @@ server
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="stac"></div>
+
 ## 3. Stack / external libraries
 
 The base stack of the app is a MERN stack (Mongoose, Express, React, Node). Next to that we make use of the following extras:
 
 <div id="configLib"></div>
+
 ### 3.1 Configuration libraries
 
 - `dotenv` || To load the .env variables into the process environment. See [docs](https://www.npmjs.com/package/dotenv)
@@ -162,6 +167,7 @@ For more information on how these work together including the automatic deployme
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="clientLib"></div>
+
 ### 3.2 Client-side libraries
 
 - `@testing-library/*` || We use React Testing Library to write all of our tests. See [docs](https://testing-library.com/docs/react-testing-library/intro/)
@@ -172,6 +178,7 @@ For more information on how these work together including the automatic deployme
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="serverLib"></div>
+
 ### 3.3 Server-side libraries
 
 - `nodemon` || To automatically restart the server when in development mode. See [docs](https://nodemon.io/)
@@ -184,6 +191,7 @@ For more information on how these work together including the automatic deployme
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="contributing"></div>
+
 ## 4. Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -200,6 +208,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="license"></div>
+
 ## 5. License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -208,6 +217,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <div id="contact"></div>
+
 ## 6. Contact
 
 WeSave Email - main-wesave@outlook.com
