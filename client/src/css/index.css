@@ -52,7 +52,7 @@
   }
   .nav-link-md.login,
   .nav-link.login {
-    @apply border border-lightBg bg-darkFont md:rounded-md text-lightBg hover:bg-lightBg hover:text-darkFont;
+    @apply border border-lightBg bg-darkFont md:rounded-md text-lightBg cursor-pointer;
   }
   .btn {
     @apply block rounded-md font-bold py-4 px-6 flex items-center  transition-all duration-[400ms] ease-in-out opacity-90 hover:opacity-100;
@@ -111,5 +111,11 @@
   }
   .valid-note {
     @apply text-error text-button px-3 pt-2;
+  }
+  .dropdown {
+    @apply flex flex-col gap-4 absolute right-0 top-[50px] p-[80px] w-[90%] bg-lightBg text-darkFont text-bodyMd font-semibold py-4 pl-[15%] rounded-l-md md:w-full md:px-2 md:rounded-md;
+  }
+  .dropdown a {
+    @apply w-fit border-b-2 border-lightBg hover:border-darkFont md:border-b-2 md:w-[90%];
   }
 }

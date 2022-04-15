@@ -1,6 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { FiLogIn, FiMenu, FiX, FiLogOut } from "react-icons/fi";
+import {
+  FiLogIn,
+  FiMenu,
+  FiX,
+  FiLogOut,
+  FiChevronDown,
+  FiChevronUp,
+} from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
@@ -9,6 +16,9 @@ import SignIn from "../Forms/SignIn";
 const NavBar = () => {
   //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
+  //- Dropdown menu visibility state
+  const [menu, setMenu] = useState(false);
+
   //- Sing in pop-up state
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { loggedIn } = useAuthentication();
@@ -18,15 +28,10 @@ const NavBar = () => {
     setHidden(!hidden);
   };
 
-  const handleLoginLogout = () => {
-    if (loggedIn) {
-      logout();
-    } else {
-      setIsOpen(true);
-      setHidden(true);
-    }
+  const handleLogin = () => {
+    setIsOpen(true);
+    setHidden(true);
   };
-
   return (
     <nav className="w-full px-8 py-4 max-w-1440 md:px-12">
       <div className="w-full md:flex md:items-center md:justify-between ">
@@ -82,26 +87,48 @@ const NavBar = () => {
           <Link to="/contact" className="nav-link nav-link-md">
             Contact
           </Link>
-          <Link
-            to="/"
-            onClick={handleLoginLogout}
-            className="justify-center nav-link nav-link-md login"
-          >
-            <div>
-              {loggedIn ? user?.name?.first : "Sign In"}
-              {loggedIn ? (
-                <FiLogOut
-                  className="inline-block ml-2 font-semibold"
-                  size={20}
-                />
-              ) : (
-                <FiLogIn
-                  className="inline-block ml-2 font-semibold"
-                  size={20}
-                />
-              )}
+
+          {loggedIn ? (
+            <div
+              onClick={() => setMenu(!menu)}
+              className="justify-center nav-link nav-link-md login relative "
+            >
+              <div className="">
+                <span>{user?.name?.first}</span>
+                {menu ? (
+                  <FiChevronUp
+                    className="inline-block ml-2 font-semibold"
+                    size={20}
+                  />
+                ) : (
+                  <FiChevronDown
+                    className="inline-block ml-2 font-semibold"
+                    size={20}
+                  />
+                )}
+              </div>
+              <div className={`${menu ? "" : "hidden -right-[100%]"} dropdown`}>
+                {user && user.is_owner && user.shop_id ? (
+                  <a href="/createBasket" onClick={() => setHidden(true)}>
+                    MyShop
+                  </a>
+                ) : (
+                  <a href="#">Register shop</a>
+                )}
+                <a onClick={logout}>
+                  Log Out <FiLogOut className="inline-block ml-1" size={17} />
+                </a>
+              </div>
             </div>
-          </Link>
+          ) : (
+            <div
+              onClick={() => handleLogin()}
+              className="justify-center nav-link nav-link-md login"
+            >
+              <span>Sign In</span>
+              <FiLogIn className="inline-block ml-2 font-semibold" size={20} />
+            </div>
+          )}
 
           <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
