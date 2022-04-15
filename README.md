@@ -1,7 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Issues][issues-shield]][issues-url]
-
+[![Product Name Screen Shot][product-screenshot]]
 
 # Class 34 final project
 
@@ -121,12 +118,6 @@ For more information on how these work together including the automatic deployme
 - `mongoose` || To add schemas to our database. See [docs](https://mongoosejs.com/)
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]:https://github.com/HackYourFuture/class34-project-candc/pulse
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/HackYourFuture/class34-project-candc/network/members
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/HackYourFuture/class34-project-candc/issues
 [product-screenshot]: images/screenshot.png
 [mobile-screenshot-1]: images/screenshot-m-1.png
 [mobile-screenshot-2]: images/screenshot-m-2.png
