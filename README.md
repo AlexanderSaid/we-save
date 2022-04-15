@@ -25,6 +25,7 @@
 </details>
 
 <div id="about"></div>
+
 # Class 34 final project
 
 This is the final project for the HackYourFuture curriculum we did as a class using the MERN stack by following the agile methodology with our team and a group of mentors. A quick guide to what we built:
@@ -35,6 +36,7 @@ This app is created to help shops to be able to sell their almost-expired food f
 `[Click here for the Demo version](https://hyf-c34-candc-stage.herokuapp.com)`
 
 <div id="setup"></div>
+
 ## 1. Setup
 First, to setup all the directories run the following in the main directory:
 
