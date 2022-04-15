@@ -1,7 +1,6 @@
-[![Contributors][contributors-url]
-[![Forks][forks-url]
-[![Issues][issues-url]
-
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Issues][issues-shield]][issues-url]
 
 
 # Class 34 final project
