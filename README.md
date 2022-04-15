@@ -220,9 +220,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## 6. Contact
 
-WeSave Email - main-wesave@outlook.com
+Email - main-wesave@outlook.com
 
-Project Link: [WeSave Contact Form](https://hyf-c34-candc-stage.herokuapp.com/contact)
+WeSave contact: [WeSave Contact Form](https://hyf-c34-candc-stage.herokuapp.com/contact)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
