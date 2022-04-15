@@ -1,6 +1,10 @@
-`TODO: Add a nice screenshot of the app!`
+[![Contributors][contributors-shield]][https://github.com/HackYourFuture/class34-project-candc/pulse]
+[![Forks][forks-shield]][https://github.com/HackYourFuture/class34-project-candc/network/members]
+[![Issues][issues-shield]][https://github.com/HackYourFuture/class34-project-candc/issues]
 
-# Class XX final project
+
+
+# Class 34 final project
 
 This is the final project for the HackYourFuture curriculum we did as a class using the MERN stack by following the agile methodology with our team and a group of mentors. A quick guide to what we built:
 
