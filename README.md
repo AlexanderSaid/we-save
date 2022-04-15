@@ -1,4 +1,4 @@
-[Product Name Screen Shot][product-screenshot]
+[![Product Name Screen Shot][product-screenshot]]
 
 # Class 34 final project
 
