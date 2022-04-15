@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
   const stored = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(stored ? stored : null);
 
-  const { error, isLoading, performFetch, cancelFetch } = useFetch(
+  const { error, isLoading, performFetch, cancelFetch, setError } = useFetch(
     "/users/login",
     (response) => {
       localStorage.setItem("user", JSON.stringify(response.result));
@@ -43,6 +43,7 @@ export const UserProvider = ({ children }) => {
     logout,
     isLoading,
     error,
+    setError,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

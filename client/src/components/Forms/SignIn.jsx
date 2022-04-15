@@ -2,25 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
-
 import ForgetPassword from "./ForgetPassword";
-
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
-function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
-  const { user, login, error, isLoading } = useContext(UserContext);
+function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
+  const { user, login, error, isLoading, setError } = useContext(UserContext);
   const [signinForm, setSigninForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
-  const [errMessage, setErrorMessage] = useState("");
   const [forgetPassword, setForgetPassword] = useState(false);
-
-  useEffect(() => {
-    setErrorMessage("");
-  }, [email, password]);
-
-  useEffect(() => {
-    error && setErrorMessage(error);
-  }, [error]);
+  const { email, password } = signinForm;
 
   const handleChange = (e) => {
     setSigninForm((prev) => ({
@@ -35,7 +25,6 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
     }
   }, [user]);
 
-  const { email, password } = signinForm;
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = { email, password };
@@ -43,11 +32,14 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
     if (owner) {
       setShopIsOpen(true);
     }
+
     setSigninForm({ email: "", password: "" });
   };
 
   const closeWindow = () => {
     setOpenSignIn(false);
+    setError("");
+    setOwner(false);
   };
 
   const handleSignupPage = () => {
@@ -82,10 +74,10 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
         <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
           <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
             <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-              {errMessage && (
+              {error && (
                 <div className="flex items-center justify-center w-full">
                   <h1 className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded">
-                    {errMessage}
+                    {error}
                   </h1>
                 </div>
               )}
@@ -131,7 +123,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                   </label>
                 </div>
 
-                <div className="flex lg:flex-row lg:justify-between flex-col ">
+                <div className="flex flex-col lg:flex-row lg:justify-between ">
                   <div className="pl-3 mt-6 text-darkFont text-bodySmall">
                     Create new Account?
                     <span
@@ -142,7 +134,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                     </span>
                   </div>
                   <div
-                    className="mt-6 pr-3  text-bodySmall"
+                    className="pr-3 mt-6 text-bodySmall"
                     onClick={() => {
                       setOpenSignIn(false);
                       setForgetPassword(true);
@@ -179,6 +171,9 @@ SignIn.propTypes = {
   openSignIn: PropTypes.bool,
   setShopIsOpen: PropTypes.func,
   owner: PropTypes.bool,
+  setOwner: PropTypes.func,
+  setHasShop: PropTypes.func,
+  hasShop: PropTypes.bool,
 };
 
 export default SignIn;

@@ -339,7 +339,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                 type="number"
                 id="quantity"
                 min="1"
-                defaultValue="1"
+                value={quantity}
                 autoComplete="off"
                 onChange={(e) => setQuantity(e.target.value)}
                 required

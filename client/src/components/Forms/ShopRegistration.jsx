@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
 import UserContext from "../../context/UserContext";
-
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import useFetch from "../../hooks/useFetch.js";
 
@@ -56,6 +55,7 @@ const ShopRegistration = ({
   const [streetName, setStreetName] = useState("");
 
   const [houseNumber, setHouseNumber] = useState("");
+  const [addition, setAddition] = useState("");
 
   const [kvkNumber, setKvkNumber] = useState("");
   const [validKvkNumber, setValidKvkNumber] = useState(false);
@@ -107,7 +107,16 @@ const ShopRegistration = ({
   //- Clear error message when user start typing
   useEffect(() => {
     setErrorMessage("");
-  }, [shopName, postcode, phone, email, kvkNumber, streetName, houseNumber]);
+  }, [
+    shopName,
+    postcode,
+    phone,
+    email,
+    kvkNumber,
+    streetName,
+    houseNumber,
+    addition,
+  ]);
 
   //- Connect with backend
   // - Set error message from backend
@@ -129,6 +138,7 @@ const ShopRegistration = ({
         name: shopName,
         street: streetName,
         house: houseNumber,
+        addition: addition,
         postcode: postcode,
         email: email,
         phone: phone,
@@ -317,12 +327,13 @@ const ShopRegistration = ({
                   type="text"
                   id="street-name"
                   autoComplete="off"
+                  required
                   onChange={(e) => setStreetName(e.target.value)}
                   className="form-input peer"
                   placeholder="Street Name *"
                 />
                 <label htmlFor="street-name" className="form-label">
-                  Street Name
+                  Street Name *
                 </label>
               </div>
 
@@ -360,17 +371,31 @@ const ShopRegistration = ({
                     Invalid postcode.
                   </p>
                 </div>
-                <div className="input-container">
+                <div className="mx-2 input-container">
                   <input
                     type="text"
                     id="house-num"
                     autoComplete="off"
+                    required
                     onChange={(e) => setHouseNumber(e.target.value)}
                     className="form-input peer"
                     placeholder="House Number *"
                   />
                   <label htmlFor="house-num" className="form-label">
-                    House Number
+                    House Number *
+                  </label>
+                </div>
+                <div className="input-container">
+                  <input
+                    type="text"
+                    id="addition"
+                    autoComplete="off"
+                    onChange={(e) => setAddition(e.target.value)}
+                    className="form-input peer"
+                    placeholder="Addition "
+                  />
+                  <label htmlFor="addition" className="form-label">
+                    Addition
                   </label>
                 </div>
               </div>

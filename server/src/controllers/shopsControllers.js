@@ -37,7 +37,8 @@ const getSingleShop = asyncHandler(async (req, res) => {
 //@route POST /api/shops
 //@access Private
 const createShop = asyncHandler(async (req, res) => {
-  const { name, street, house, postcode, phone, email, kvk } = req.body;
+  const { name, street, house, postcode, phone, email, kvk, addition } =
+    req.body;
   if (!name || !street || !house || !postcode || !kvk || !phone) {
     res.status(400).json({ msg: "Please fill all the fields" });
   }
@@ -51,6 +52,7 @@ const createShop = asyncHandler(async (req, res) => {
     street,
     house,
     postcode,
+    addition,
     lat: data.results[0].lat,
     lon: data.results[0].lon,
   };
