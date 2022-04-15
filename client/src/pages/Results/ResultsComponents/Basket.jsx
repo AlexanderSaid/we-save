@@ -47,7 +47,7 @@ const Basket = ({ basket }) => {
   const link = `${street}+${house}${addition ? addition : ""},+${postcode.slice(
     0,
     4
-  )}+${postcode.slice(4)}+${city}`;
+  )}+${postcode.slice(4)}+${city ? city : ""}`;
 
   const getImage = () => {
     const img =
@@ -113,7 +113,7 @@ const Basket = ({ basket }) => {
                 <FaShoppingBasket className="inline" />
               </div>
 
-              <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
+              <div className="price inline-block text-bodySmall font-bold xs:text-bodyRegular transition-all duration-[400ms] ease-in-out">
                 <span className="line-through old text-shade">{`€ ${original}`}</span>
                 <span className="new text-accent">{` / € ${discount}`}</span>
               </div>

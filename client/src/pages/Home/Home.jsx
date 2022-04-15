@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div
       data-testid={TEST_ID.container}
-      className="bg-gradient-to-bl from-accent/70 to-lightBg"
+      className="bg-gradient-to-bl from-lightFont to-lightBg"
     >
       <IntroSearch />
       <CustomerGuid />

@@ -9,7 +9,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="bg-darkBg max-w-1440 w-full px-4 flex items-center justify-evenly flex-wrap gap-x-12 sm:px-8 md:gap-x-12 md2:gap-x-4">
+    <div className="max-w-1440 w-full px-4 flex items-center justify-evenly flex-wrap gap-x-12 sm:px-8 md:gap-x-12 md2:gap-x-4">
       <div className="order-3 md2:order-1 mb-8 md2:mb-0">
         <p className="text-center text-bodyRegular md2:pt-7 md2:mt-8 font-semibold tracking-wide">
           © 2022 Coffee & Chocolate Team

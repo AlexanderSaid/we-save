@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const GuidCard = ({ props }) => {
+const CustomerGuidCard = ({ props }) => {
   const { logo, title, text } = props;
   return (
-    <div className="w-52 flex items-center justify-center p-2 h-[90%] rounded border border-darkBg/60 shadow-2xl shadow-darkBg/60 bg-lightBg">
-      <div className="h-full w-full flex flex-col items-center justify-center gap-2">
+    <div className="w-52 flex items-center justify-center p-2 rounded border border-darkBg/60 shadow-2xl shadow-darkBg/60 bg-lightFont">
+      <div className="h-full w-full flex flex-col items-center justify-start gap-2">
         <div className="flex items-center justify-center w-[90%] h-[40%] overflow-hidden">
           <img
             src={logo}
-            alt="{name}"
+            alt=""
             className="object-cover h-[60px] w-[60px] rounded"
           />
         </div>
@@ -25,10 +25,10 @@ const GuidCard = ({ props }) => {
     </div>
   );
 };
-GuidCard.propTypes = {
+CustomerGuidCard.propTypes = {
   props: PropTypes.object,
   logo: PropTypes.string,
   title: PropTypes.string,
   text: PropTypes.string,
 };
-export default GuidCard;
+export default CustomerGuidCard;

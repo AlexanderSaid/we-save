@@ -20,12 +20,12 @@ const SearchBar = () => {
           searchLoading && "cursor-wait"
         } flex flex-col search-bar items-center justify-center w-full px-4 `}
       >
-        <h5 className="block my-6 text-bodyRegular tracking-wide text-lightFont sm:bodyLarge text-center">
+        <h5 className="my-6 text-bodyRegular tracking-wide text-lightFont sm:bodyLarge text-center">
           Find Shops Near You in Amsterdam
         </h5>
 
         <form
-          className="flex rounded bg-lightFont w-full border border-darkBg mb-2 max-w-[500px]"
+          className="flex rounded bg-lightFont w-[80%] xs:w-full border border-darkBg mb-2 max-w-[500px]"
           onSubmit={(e) => onSearch(e)}
         >
           <CurrentLocation />

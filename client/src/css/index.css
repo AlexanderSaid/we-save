@@ -39,20 +39,20 @@
     @apply text-lightFont hover:text-primary hover:cursor-pointer;
   }
   .nav-links {
-    @apply absolute w-full bg-darkBg/95 top-[100px] h-screen flex flex-col items-start justify-start pl-[40%] gap-8 transition-all duration-[200ms] ease-linear;
+    @apply absolute w-full bg-darkFont/95 top-[100px] h-screen flex flex-col items-start justify-start pl-[40%] gap-8 transition-all duration-[200ms] ease-linear;
   }
-  .nav-links-sm {
-    @apply sm:static sm:flex-row sm:items-center sm:justify-end sm:pl-0 sm:h-full sm:gap-0;
+  .nav-links-md {
+    @apply md:static md:flex-row md:items-center md:justify-end md:pl-0 md:h-full md:gap-0 md:bg-darkFont;
   }
   .nav-link {
     @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[300ms] ease-in-out hover:bg-lightBg;
   }
-  .nav-link-sm {
-    @apply sm:w-fit sm:p-2 sm:text-bodyMd sm:ml-2 sm:text-lightFont sm:bg-darkBg sm:transition-colors sm:rounded-md  sm:hover:bg-primary sm:hover:text-darkFont md:text-bodyRegular;
+  .nav-link-md {
+    @apply md:w-fit md:p-2 md:text-bodyMd md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md  md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
   }
-  .nav-link-sm.login,
+  .nav-link-md.login,
   .nav-link.login {
-    @apply border border-lightBg bg-darkBg sm:rounded-md text-lightBg hover:bg-lightBg hover:text-darkFont;
+    @apply border border-lightBg bg-darkFont md:rounded-md text-lightBg hover:bg-lightBg hover:text-darkFont;
   }
   .btn {
     @apply block rounded-md font-bold py-4 px-6 flex items-center  transition-all duration-[400ms] ease-in-out opacity-90 hover:opacity-100;
@@ -64,19 +64,19 @@
     @apply bg-darkBg text-lightFont hover:bg-accent hover:text-lightFont;
   }
   .reserve {
-    @apply w-[70%] max-w-[200px] self-center text-bodySmall font-bold text-lightBg bg-darkBg rounded-full p-2 hover:bg-accent hover:text-lightFont transition-all duration-[400ms] ease-in-out;
+    @apply w-[80%] max-w-[200px] self-center text-bodySmall font-bold text-lightBg bg-darkBg rounded-full p-2 hover:bg-accent hover:text-lightFont transition-all duration-[400ms] ease-in-out;
   }
   .basket-name {
     @apply text-bodyRegular font-bold text-darkFont py-1 text-clip;
   }
   .basket-category {
-    @apply text-button text-accent border border-accent rounded-full px-2 pt-1 bg-lightBg w-fit font-bold md:py-1;
+    @apply text-button text-accent border border-accent rounded-full px-2 pt-1 bg-lightBg w-fit font-bold md:py-1 mr-1;
   }
   .description {
-    @apply text-button  py-2 text-darkFont text-justify font-[Lato] font-bold xs:text-bodySmall md:px-2 md:font-bold md:text-bodyMd;
+    @apply text-button  py-2 text-darkFont text-center font-['Roboto'] font-bold text-bodySmall md:p-0 lg:px-2 md:text-bodyMd;
   }
   .baskets-left {
-    @apply text-bodySmall rounded-full text-error px-3 border border-error w-[60px] flex justify-between items-center font-bold md:text-bodyRegular;
+    @apply text-bodySmall rounded-full text-error px-2.5 border border-error w-[60px] flex justify-center items-center gap-1 font-bold xs:text-bodyRegular;
   }
   .shop-name {
     @apply font-bold text-darkFont pt-2 px-1 text-bodyRegular md:self-end md:pr-4;
@@ -88,9 +88,6 @@
   .distance-container {
     @apply text-accent text-bodySmall leading-4 font-bold;
   }
-  /* .container {
-    @apply flex flex-col flex-wrap justify-center items-center gap-4 px-6 mx-auto my-4 -m-4 md:flex-row md:max-w-1440 md:justify-center md:py-8;
-  } */
   .category {
     @apply text-bodyMd font-bold p-2 w-[135px] place-self-center rounded-xl border border-darkFont hover:border-accent hover:bg-accent hover:text-lightFont transition ease-in-out duration-300 sm:w-[150px] sm:text-bodyRegular;
   }
@@ -98,9 +95,21 @@
     @apply text-accent;
   }
   .guid-link {
-    @apply font-bold text-error cursor-pointer text-bodyLarge hover:underline;
+    @apply font-bold text-error cursor-pointer text-bodyRegular hover:underline;
   }
   .shop-guid {
-    @apply border border-accent/60 w-[65%] rounded-xl bg-lightBg py-2 px-4 shadow-xl shadow-darkBg/40;
+    @apply border border-accent/60 w-[65%] rounded-xl bg-lightFont py-2 px-4 shadow-xl shadow-darkBg/40;
+  }
+  .form-input {
+    @apply text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-darkBg/20 w-full h-10 p-3 bg-transparent;
+  }
+  .form-label {
+    @apply absolute left-3 -top-1 text-darkFont/90  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-darkFont/90 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase;
+  }
+  .input-container {
+    @apply relative my-7;
+  }
+  .valid-note {
+    @apply text-error text-button px-3 pt-2;
   }
 }

@@ -9,9 +9,9 @@ const SuccessSignUp = ({ setShopRegister, setSuccess }) => {
         <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
           <h3 className="text-3xl font-bold text-center mb-9 text-accent">
             You Store Has Been Register
-            <h4 className="text-red-400">
+            <p className="text-red-400">
               Please Sign in to start creating your baskets
-            </h4>
+            </p>
           </h3>
           <div className="flex flex-col items-center w-full re-direct justify-evenly">
             <Link to="/" className="w-[50%]">

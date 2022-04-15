@@ -6,11 +6,6 @@ import UserContext from "../../context/UserContext";
 import ForgetPassword from "./ForgetPassword";
 
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
-const FORM_INPUT_CLASSES =
-  "peer  relative  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
-const FORM_LABEL_CLASSES =
-  " absolute text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
-
 function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
   const { user, login, error, isLoading } = useContext(UserContext);
   const [signinForm, setSigninForm] = useState({ email: "", password: "" });
@@ -108,11 +103,11 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                     id="email"
                     autoComplete="off"
                     required
-                    className={FORM_INPUT_CLASSES}
+                    className="form-input peer"
                     placeholder="Email"
                     onChange={handleChange}
                   />
-                  <label htmlFor="email" className={FORM_LABEL_CLASSES}>
+                  <label htmlFor="email" className="form-label">
                     Email
                   </label>
                 </div>
@@ -122,7 +117,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                     id="password"
                     autoComplete="off"
                     required
-                    className={FORM_INPUT_CLASSES}
+                    className="form-input peer"
                     placeholder="password"
                     onChange={handleChange}
                   />
@@ -131,7 +126,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner }) {
                       onClick={() => setShowPassword((prev) => !prev)}
                     />
                   </div>
-                  <label htmlFor="password" className={FORM_LABEL_CLASSES}>
+                  <label htmlFor="password" className="form-label">
                     Password
                   </label>
                 </div>
