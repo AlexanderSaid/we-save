@@ -1,6 +1,6 @@
 <div id="top"></div>
 <details>
-  <summary>Table of Contents</summary>
+  <summary>TABLE OF CONTENTS</summary>
   <ol>
     <li><a href="#about">About The Project</a></li>
     <li><a href="#setup">Setup</a></li>
@@ -34,8 +34,8 @@ This app is created to help shops to be able to sell their almost-expired food f
 
 `[Click here for the Demo version](https://hyf-c34-candc-stage.herokuapp.com)`
 
-## 1. Setup
 <div id="setup"></div>
+## 1. Setup
 First, to setup all the directories run the following in the main directory:
 
 `npm install`
@@ -52,8 +52,9 @@ To run the app in dev mode you can run the following command in the main directo
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## 2. Code structure
 <div id="code-structure"></div>
+## 2. Code structure
+
 ```
 client
 ├── public
@@ -100,8 +101,10 @@ server
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-### 2.1 Client structure
+
 <div id="client"></div>
+### 2.1 Client structure
+
 - `public` || public facing client code
 - `__tests__` || any `jest` tests for specific components will be in a `__tests__` folder on the same level
 - `__testUtils__` || any code that is only being used in the tests is put in the `__testUtils__` folder to separate that away from the rest of the code
@@ -123,8 +126,9 @@ server
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### 2.3 Server structure
 <div id="server"></div>
+### 2.3 Server structure
+
 - `__tests__` || any `jest` tests for the api endpoints as that is our testing strategy for the backend
 - `__testUtils__` || any code that is only being used in the tests is put in the `__testUtils__` folder to separate that away from the rest of the code
 - `controllers` || all of our controller functions that interact with the database
@@ -136,12 +140,14 @@ server
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## 3. Stack / external libraries
 <div id="stac"></div>
+## 3. Stack / external libraries
+
 The base stack of the app is a MERN stack (Mongoose, Express, React, Node). Next to that we make use of the following extras:
 
-### 3.1 Configuration libraries
 <div id="configLib"></div>
+### 3.1 Configuration libraries
+
 - `dotenv` || To load the .env variables into the process environment. See [docs](https://www.npmjs.com/package/dotenv)
 - `webpack` / `html-webpack-plugin` || To bundle our React app and create a static app to host. See [docs](https://webpack.js.org/)
 - `husky` || To run our tests and linter before committing. See [docs](https://typicode.github.io/husky/#/)
@@ -153,8 +159,9 @@ For more information on how these work together including the automatic deployme
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### 3.2 Client-side libraries
 <div id="clientLib"></div>
+### 3.2 Client-side libraries
+
 - `@testing-library/*` || We use React Testing Library to write all of our tests. See [docs](https://testing-library.com/docs/react-testing-library/intro/)
 - `jest` || To run our tests and coverage. See [docs](https://jestjs.io/)
 - `jest-fetch-mock` || To mock out the backend for our testing purposes. See [docs](https://github.com/jefflau/jest-fetch-mock#readme)
@@ -162,8 +169,9 @@ For more information on how these work together including the automatic deployme
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### 3.3 Server-side libraries
 <div id="serverLib"></div>
+### 3.3 Server-side libraries
+
 - `nodemon` || To automatically restart the server when in development mode. See [docs](https://nodemon.io/)
 - `jest` || To run our tests and coverage. See [docs](https://jestjs.io/)
 - `supertest` || To more easily test our endpoints. See [docs](https://github.com/visionmedia/supertest#readme)
@@ -173,8 +181,9 @@ For more information on how these work together including the automatic deployme
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## 4. Contributing
 <div id="contributing"></div>
+## 4. Contributing
+
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
@@ -188,16 +197,17 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## 5. License
 <div id="license"></div>
+## 5. License
+
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-## 6. Contact
 <div id="contact"></div>
+## 6. Contact
+
 WeSave Email - main-wesave@outlook.com
 
 Project Link: [WeSave Contact Form](https://hyf-c34-candc-stage.herokuapp.com/contact)
