@@ -1,6 +1,6 @@
-[![Contributors][contributors-shield]][https://github.com/HackYourFuture/class34-project-candc/pulse]
-[![Forks][forks-shield]][https://github.com/HackYourFuture/class34-project-candc/network/members]
-[![Issues][issues-shield]][https://github.com/HackYourFuture/class34-project-candc/issues]
+[![Contributors][contributors-url]
+[![Forks][forks-url]
+[![Issues][issues-url]
 
 
 
@@ -120,3 +120,13 @@ For more information on how these work together including the automatic deployme
 - `mongodb-memory-server` || To mock out our database in our backend tests. See [docs](https://github.com/nodkz/mongodb-memory-server)
 - `cors` || To open up our API. See [docs](https://github.com/expressjs/cors#readme)
 - `mongoose` || To add schemas to our database. See [docs](https://mongoosejs.com/)
+
+
+
+[contributors-url]:https://github.com/HackYourFuture/class34-project-candc/pulse
+[forks-url]: https://github.com/HackYourFuture/class34-project-candc/network/members
+[issues-url]: https://github.com/HackYourFuture/class34-project-candc/issues
+[product-screenshot]: images/screenshot.png
+[mobile-screenshot-1]: images/screenshot-m-1.png
+[mobile-screenshot-2]: images/screenshot-m-2.png
+
