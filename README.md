@@ -6,10 +6,16 @@
   
 </div>
 <div style="width:80%; display:flex; justifyContent:spaceAround;">
+<div style="width:30%;">
       
 ![screenshot-m-1](https://user-images.githubusercontent.com/76748316/163634200-c795132c-65cb-471e-af57-409e9c986b70.png)
+
+</div>
+<div style="width:30%;">
+      
 ![screenshot-m-2](https://user-images.githubusercontent.com/76748316/163634205-fdd85c74-331c-413c-bc59-3f32c6fee293.png)
 
+</div>
 </div>
 
 
