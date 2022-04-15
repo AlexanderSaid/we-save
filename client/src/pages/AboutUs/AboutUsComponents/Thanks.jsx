@@ -30,8 +30,9 @@ const Thanks = () => {
   return (
     <section className="flex flexitems-center justify-center bg-lightBg/80 block w-full min-h-[250px] py-4">
       <div className="flex flex-col items-center justify-center max-w-1440 mx-4 px-4 rounded-xl">
-        <p className="w-[80%] text-center text-Fira text-bodyRegular font-bold text-accent my-12 md:w-[50%] md:text-subtitle">
-          We are grateful to our mentors for their kindness and guidance.
+        <p className="w-[80%] text-center text-Fira text-bodyRegular font-bold text-accent my-12 md:w-[60%] md:text-subtitle">
+          We are grateful to our mentors for their kindness and encouraging
+          guidance.
         </p>
         <ul className="w-[80%] flex flex-wrap items-center justify-center gap-x-4 gap-y-8 md:w-full md:gap-8">
           {mentors.map((mentor) => (
@@ -50,7 +51,7 @@ const Thanks = () => {
             </li>
           ))}
         </ul>
-        <div className="my-12">
+        <div className="flex flex-col justify-center items-center my-12">
           <h3 className="text-subtitle text-accent font-bold text-center mb-4 md:text-title4">
             Huge gratitude
           </h3>

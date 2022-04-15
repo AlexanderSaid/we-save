@@ -13,14 +13,6 @@ const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
 
-//- Common classes
-const FORM_INPUT_CLASSES =
-  "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
-const FORM_LABEL_CLASSES =
-  "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
-const INPUT_CONTAINER = "input-container relative my-7 ";
-const VALID_NOTE = "text-error text-button px-3 pt-2";
-
 const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
@@ -173,7 +165,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
               <AiOutlineArrowLeft />
             </button>
             <form onSubmit={handleSubmit}>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validFirstName || !firstName ? "hidden" : "visible"
@@ -189,15 +181,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   aria-describedby="fn-note"
                   onFocus={() => setFirstNameFocus(true)}
                   onBlur={() => setFirstNameFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="First Name *"
                 />
-                <label htmlFor="first-name" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="first-name" className="form-label">
                   First Name *
                 </label>
                 <p
                   id="fn-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     firstNameFocus && firstName && !validFirstName
                       ? "block"
                       : "hidden"
@@ -206,7 +198,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   At least 3 letters / No numbers.
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validLastName || !lastName ? "hidden" : "visible"
@@ -222,15 +214,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   aria-describedby="ln-note"
                   onFocus={() => setLastNameFocus(true)}
                   onBlur={() => setLastNameFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Last Name *"
                 />
-                <label htmlFor="last-name" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="last-name" className="form-label">
                   Last Name *
                 </label>
                 <p
                   id="ln-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     lastNameFocus && lastName && !validLastName
                       ? "block"
                       : "hidden"
@@ -239,7 +231,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   At least 3 letters / No numbers.
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validEmail || !email ? "hidden" : "visible"
@@ -255,22 +247,22 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   aria-describedby="email-note"
                   onFocus={() => setEmailFocus(true)}
                   onBlur={() => setEmailFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Email *"
                 />
-                <label htmlFor="email" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="email" className="form-label">
                   Email *
                 </label>
                 <p
                   id="email-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     emailFocus && email && !validEmail ? "block" : "hidden"
                   }`}
                 >
                   Invalid email address.
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validPassword || !password ? "hidden" : "visible"
@@ -286,15 +278,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   aria-describedby="pwd-note"
                   onFocus={() => setPasswordFocus(true)}
                   onBlur={() => setPasswordFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Password *"
                 />
-                <label htmlFor="password" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="password" className="form-label">
                   Password *
                 </label>
                 <p
                   id="pwd-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     passwordFocus && password && !validPassword
                       ? "block"
                       : "hidden"
@@ -312,7 +304,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   <span aria-label="percent">%</span>
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validMatch || !matchPassword ? "hidden" : "visible"
@@ -328,18 +320,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   aria-describedby="confirm-note"
                   onFocus={() => setMatchFocus(true)}
                   onBlur={() => setMatchFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="confirm Password *"
                 />
-                <label
-                  htmlFor="confirm-password"
-                  className={FORM_LABEL_CLASSES}
-                >
+                <label htmlFor="confirm-password" className="form-label">
                   Confirm Password *
                 </label>
                 <p
                   id="confirm-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     matchFocus && !validMatch ? "block" : "hidden"
                   }`}
                 >
@@ -361,15 +350,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   aria-describedby="pc-note"
                   onFocus={() => setPostcodeFocus(true)}
                   onBlur={() => setPostcodeFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Postcode *"
                 />
-                <label htmlFor="postcode" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="postcode" className="form-label">
                   Postcode
                 </label>
                 <p
                   id="pc-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     postcodeFocus && postcode && !validPostcode
                       ? "block"
                       : "hidden"
@@ -380,17 +369,18 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
               </div>
 
               <div className="pl-3 mt-6 text-darkFont text-bodySmall ">
-                <span className="text-gray-400 text-button lg:float-right ">
+                <p className="text-darkFont/80 text-button mb-2 lg:mb-0 lg:float-right ">
                   Field with * is required
-                </span>
-                <br />
-                Already have an account?
-                <span
-                  className="px-2 cursor-pointer text-accent"
-                  onClick={handleSigninPage}
-                >
-                  Sign in
-                </span>
+                </p>
+                <p>
+                  Already have an account?
+                  <span
+                    className="px-2 cursor-pointer text-accent"
+                    onClick={handleSigninPage}
+                  >
+                    Sign in
+                  </span>
+                </p>
               </div>
 
               <button

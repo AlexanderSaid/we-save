@@ -19,8 +19,8 @@ const NavBar = () => {
   const { loggedIn } = useAuthentication();
   const { logout, user } = useContext(UserContext);
   return (
-    <nav className="w-full px-8 py-4 bg-darkBg max-w-1440 sm:px-12">
-      <div className="w-full sm:flex sm:items-center sm:justify-between ">
+    <nav className="w-full px-8 py-4 max-w-1440 md:px-12">
+      <div className="w-full md:flex md:items-center md:justify-between ">
         <div className="relative flex items-center justify-between">
           <Link to="/">
             <div className="logo-container">
@@ -31,7 +31,7 @@ const NavBar = () => {
             </div>
           </Link>
           <button
-            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 sm:hidden"
+            className="px-3 py-1 border border-solid rounded opacity-50 border-primary text-lightBg hover:opacity-75 md:hidden"
             id="navbar-toggle"
             onClick={sideBarState}
           >
@@ -42,12 +42,12 @@ const NavBar = () => {
         <div
           className={`${
             hidden ? "right-[-100%]" : "right-0"
-          } nav-links nav-links-sm`}
+          } nav-links nav-links-md`}
         >
           <Link
             to="/"
             onClick={() => setHidden(true)}
-            className="nav-link nav-link-sm"
+            className="nav-link nav-link-md"
           >
             Home
           </Link>
@@ -56,7 +56,7 @@ const NavBar = () => {
             <Link
               to="/createBasket"
               onClick={() => setHidden(true)}
-              className="nav-link nav-link-sm"
+              className="nav-link nav-link-md"
             >
               MyShop
             </Link>
@@ -65,12 +65,12 @@ const NavBar = () => {
           <Link
             to="about-us"
             onClick={() => setHidden(true)}
-            className="nav-link nav-link-sm"
+            className="nav-link nav-link-md"
           >
             About Us
           </Link>
 
-          <Link to="/contact" className="nav-link nav-link-sm">
+          <Link to="/contact" className="nav-link nav-link-md">
             Contact
           </Link>
           <Link
@@ -83,7 +83,7 @@ const NavBar = () => {
                     setHidden(true);
                   }
             }
-            className="justify-center nav-link nav-link-sm login"
+            className="justify-center nav-link nav-link-md login"
           >
             <div>
               {loggedIn ? user?.name?.first : "Sign In"}

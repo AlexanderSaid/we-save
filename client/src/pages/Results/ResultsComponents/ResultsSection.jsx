@@ -33,7 +33,7 @@ const ResultsSection = ({ baskets }) => {
         </p>
       ) : baskets.length ? (
         <>
-          <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-8">
+          <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-12">
             {baskets.slice(0, toShow).map(
               (basket) =>
                 basket.quantity && (
@@ -46,20 +46,24 @@ const ResultsSection = ({ baskets }) => {
                 )
             )}
           </ul>
-          <button
-            className="btn-blank mb-8"
-            disabled={isDisabled}
-            onClick={showMoreHandler}
-          >
-            {!isDisabled ? "Show More" : "No More"}
-          </button>
+          {!isDisabled ? (
+            <button className="btn btn-dark mb-8" onClick={showMoreHandler}>
+              Show More
+            </button>
+          ) : (
+            <p className=" text-center text-accent font-bold text-bodyLarge px-4 py-8">
+              No more baskets to show.
+              <br />
+              Come tomorrow to discover more.
+            </p>
+          )}
         </>
       ) : inputValue ? (
-        <p className=" text-center mt-10 text-error">
+        <p className=" text-center mt-10 text-accent font-bold text-bodyLarge">
           There are no baskets available
         </p>
       ) : (
-        <p className=" text-center mt-10 text-error">
+        <p className=" text-center mt-10 text-accent font-bold text-bodyLarge">
           Please enter your postcode to see nearby baskets.
         </p>
       )}

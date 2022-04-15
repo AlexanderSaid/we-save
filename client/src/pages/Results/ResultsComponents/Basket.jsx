@@ -47,7 +47,7 @@ const Basket = ({ basket }) => {
   const link = `${street}+${house}${addition ? addition : ""},+${postcode.slice(
     0,
     4
-  )}+${postcode.slice(4)}+${city}`;
+  )}+${postcode.slice(4)}+${city ? city : ""}`;
 
   const getImage = () => {
     const img =
@@ -95,14 +95,16 @@ const Basket = ({ basket }) => {
 
         <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
           <div className="w-full h-full flex flex-col justify-start md:justify-between md:basis-36 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
-            <h5 className="basket-name text-[16px]">{name}</h5>
-
-            {categories.length &&
-              categories.map((cat) => (
-                <span key={cat} className="basket-category">
-                  {cat}
-                </span>
-              ))}
+            <h5 className="basket-name">{name}</h5>
+            {categories.length && (
+              <div>
+                {categories.map((cat) => (
+                  <span key={cat} className="basket-category">
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="quantity-price flex items-center justify-between pt-3 pr-1 transition-all duration-[400ms] ease-in-out">
               <div className="baskets-left">
                 <span className="quantity">
@@ -111,7 +113,7 @@ const Basket = ({ basket }) => {
                 <FaShoppingBasket className="inline" />
               </div>
 
-              <div className="price inline-block text-bodySmall font-bold md:text-bodyRegular transition-all duration-[400ms] ease-in-out">
+              <div className="price inline-block text-bodySmall font-bold xs:text-bodyRegular transition-all duration-[400ms] ease-in-out">
                 <span className="line-through old text-shade">{`€ ${original}`}</span>
                 <span className="new text-accent">{` / € ${discount}`}</span>
               </div>

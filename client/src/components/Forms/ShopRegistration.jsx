@@ -21,14 +21,6 @@ const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
 const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
 const KVK_REGEX = /^[0-9a-zA-Z]{8}/;
 
-//- Common classes
-const FORM_INPUT_CLASSES =
-  "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
-const FORM_LABEL_CLASSES =
-  "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
-const INPUT_CONTAINER = "input-container relative my-7 ";
-const VALID_NOTE = "text-error text-button px-3 pt-2";
-
 const ShopRegistration = ({
   shopRegisterOpen,
   setShopRegisterOpen,
@@ -192,7 +184,7 @@ const ShopRegistration = ({
               <AiOutlineArrowLeft />
             </button>
             <form onSubmit={handleSubmit}>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validShopName || !shopName ? "hidden" : "visible"
@@ -208,15 +200,15 @@ const ShopRegistration = ({
                   aria-describedby="sn-note"
                   onFocus={() => setShopNameFocus(true)}
                   onBlur={() => setShopNameFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Shop Name *"
                 />
-                <label htmlFor="shop-name" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="shop-name" className="form-label">
                   Shop Name *
                 </label>
                 <p
                   id="sn-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     shopNameFocus && shopName && !validShopName
                       ? "block"
                       : "hidden"
@@ -225,7 +217,7 @@ const ShopRegistration = ({
                   At least 3 letters / No numbers.
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validEmail || !email ? "hidden" : "visible"
@@ -240,22 +232,22 @@ const ShopRegistration = ({
                   aria-describedby="email-note"
                   onFocus={() => setEmailFocus(true)}
                   onBlur={() => setEmailFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Email *"
                 />
-                <label htmlFor="email" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="email" className="form-label">
                   Email
                 </label>
                 <p
                   id="email-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     emailFocus && email && !validEmail ? "block" : "hidden"
                   }`}
                 >
                   Invalid email address.
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validPhone || !phone ? "hidden" : "visible"
@@ -271,22 +263,22 @@ const ShopRegistration = ({
                   aria-describedby="ph-note"
                   onFocus={() => setPhoneFocus(true)}
                   onBlur={() => setPhoneFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="Phone *"
                 />
-                <label htmlFor="phone" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="phone" className="form-label">
                   Phone *
                 </label>
                 <p
                   id="ph-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     phoneFocus && phone && !validPhone ? "block" : "hidden"
                   }`}
                 >
                   Phone Number should contain at least 10 number
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
+              <div className="input-container">
                 <AiOutlineClose
                   className={`${
                     validKvkNumber || !kvkNumber ? "hidden" : "visible"
@@ -302,15 +294,15 @@ const ShopRegistration = ({
                   aria-describedby="kvk-note"
                   onFocus={() => setKvkNumberFocus(true)}
                   onBlur={() => setKvkNumberFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input peer"
                   placeholder="KVK Number *"
                 />
-                <label htmlFor="kvk-number" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="kvk-number" className="form-label">
                   KVK Number *
                 </label>
                 <p
                   id="kvk-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     kvkNumberFocus && kvkNumber && !validKvkNumber
                       ? "block"
                       : "hidden"
@@ -320,71 +312,66 @@ const ShopRegistration = ({
                 </p>
               </div>
 
-              <div className={INPUT_CONTAINER}>
-                <AiOutlineClose
-                  className={`${
-                    validPostcode || !postcode ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+              <div className="input-container">
                 <input
                   type="text"
-                  id="postcode"
+                  id="street-name"
                   autoComplete="off"
-                  onChange={(e) => setPostcode(e.target.value)}
-                  required
-                  aria-invalid={validPostcode ? "false" : "true"}
-                  aria-describedby="pc-note"
-                  onFocus={() => setPostcodeFocus(true)}
-                  onBlur={() => setPostcodeFocus(false)}
-                  className={FORM_INPUT_CLASSES}
-                  placeholder="Postcode *"
+                  onChange={(e) => setStreetName(e.target.value)}
+                  className="form-input peer"
+                  placeholder="Street Name *"
                 />
-                <label htmlFor="postcode" className={FORM_LABEL_CLASSES}>
-                  Postcode *
+                <label htmlFor="street-name" className="form-label">
+                  Street Name
                 </label>
-                <p
-                  id="pc-note"
-                  className={`${VALID_NOTE}  ${
-                    postcodeFocus && postcode && !validPostcode
-                      ? "block"
-                      : "hidden"
-                  }`}
-                >
-                  Invalid postcode.
-                </p>
               </div>
 
-              <div className="relative input-container">
-                <div className="flex justify-between ">
-                  <div className="flex">
-                    <input
-                      type="text"
-                      id="street-name"
-                      autoComplete="off"
-                      onChange={(e) => setStreetName(e.target.value)}
-                      className={FORM_INPUT_CLASSES}
-                      placeholder="Street Name *"
-                    />
-                    <label htmlFor="street-name" className={FORM_LABEL_CLASSES}>
-                      Street Name
-                    </label>
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      id="house-num"
-                      autoComplete="off"
-                      onChange={(e) => setHouseNumber(e.target.value)}
-                      className={FORM_INPUT_CLASSES}
-                      placeholder="House Number *"
-                    />
-                    <label
-                      htmlFor="house-num"
-                      className="absolute text-gray-600 transition-all -top-1 text-button peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase"
-                    >
-                      House Number
-                    </label>
-                  </div>
+              <div className="flex justify-between -my-7">
+                <div className="input-container">
+                  <AiOutlineClose
+                    className={`${
+                      validPostcode || !postcode ? "hidden" : "visible"
+                    } absolute text-error top-4 right-1`}
+                  />
+                  <input
+                    type="text"
+                    id="postcode"
+                    autoComplete="off"
+                    onChange={(e) => setPostcode(e.target.value)}
+                    required
+                    aria-invalid={validPostcode ? "false" : "true"}
+                    aria-describedby="pc-note"
+                    onFocus={() => setPostcodeFocus(true)}
+                    onBlur={() => setPostcodeFocus(false)}
+                    className="form-input peer"
+                    placeholder="Postcode *"
+                  />
+                  <label htmlFor="postcode" className="form-label">
+                    Postcode *
+                  </label>
+                  <p
+                    id="pc-note"
+                    className={`valid-note  ${
+                      postcodeFocus && postcode && !validPostcode
+                        ? "block"
+                        : "hidden"
+                    }`}
+                  >
+                    Invalid postcode.
+                  </p>
+                </div>
+                <div className="input-container">
+                  <input
+                    type="text"
+                    id="house-num"
+                    autoComplete="off"
+                    onChange={(e) => setHouseNumber(e.target.value)}
+                    className="form-input peer"
+                    placeholder="House Number *"
+                  />
+                  <label htmlFor="house-num" className="form-label">
+                    House Number
+                  </label>
                 </div>
               </div>
 
@@ -396,7 +383,7 @@ const ShopRegistration = ({
               >
                 {isDisabled
                   ? "Please fill required fields correctly"
-                  : "Create Account"}
+                  : "Submit"}
               </button>
             </form>
           </div>

@@ -12,3 +12,9 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #f6ffe6 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* #customer {
+  background-image: url('../assets/customer-bg.png');
+  background-repeat: no-repeat;
+
+} */
