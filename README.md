@@ -1,4 +1,7 @@
 <div id="top"></div>
+
+[![Laptop-HomePage][product-screenshot]]
+[![Mobile-HomePage][product-screenshot-m-1]][![Mobile-ResultsPage][product-screenshot-m-2]]
 <details>
   <summary>TABLE OF CONTENTS</summary>
   <ol>
@@ -226,3 +229,6 @@ WeSave contact: [WeSave Contact Form](https://hyf-c34-candc-stage.herokuapp.com/
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+[product-screenshot]: images/screenshot.png
+[product-screenshot-m-1]: images/screenshot-m-1.png
+[product-screenshot-m-2]: images/screenshot-m-2.png
