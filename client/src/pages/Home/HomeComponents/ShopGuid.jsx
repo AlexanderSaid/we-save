@@ -7,7 +7,9 @@ import OwnerHasShop from "../../../components/Forms/OwnerHasShop";
 import shop from "../../../assets/shop-bg.png";
 import ShopGuidCard from "./ShopGuidCard";
 import UserContext from "../../../context/UserContext";
-
+import { motion } from "framer-motion";
+import { useScroll } from "../../../hooks/useScrolls";
+import { scrollRight, scrollLeft, scrollRevealToBig } from "../../../animation";
 import one from "../../../assets/1.png";
 import two from "../../../assets/2.png";
 import three from "../../../assets/3.png";
@@ -18,6 +20,8 @@ const CostumerGuid = () => {
   const { isOpen, setIsOpen } = useContext(SignInContext);
   const { loggedIn } = useAuthentication();
   const { user } = useContext(UserContext);
+  const [element, controls] = useScroll(0.2);
+  const [element1, controls1] = useScroll(0.5);
 
   const checkUser = () => {
     setOwner(true);
@@ -78,19 +82,30 @@ const CostumerGuid = () => {
   ];
 
   return (
-    <section
+    <motion.section
+      ref={element}
       id="shop-owners"
       className="flex flex-col items-center justify-center w-full"
     >
       {/* Intro section */}
       <div className="flex items-center justify-center w-[90%] sm:w-full ">
-        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl">
-          <img
+        <motion.div
+          variants={scrollRight}
+          initial="hidden"
+          animate={controls}
+          className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl"
+        >
+          <motion.img
             src={shop}
             alt="Grocery bag with piggy bank"
             className="absolute object-cover w-full h-full"
           />
-          <div className="z-10 flex items-center justify-center w-full h-full py-4 md:justify-end">
+          <motion.div
+            variants={scrollLeft}
+            initial="hidden"
+            animate={controls}
+            className="z-10 flex items-center justify-center w-full h-full py-4 md:justify-end"
+          >
             <div className="w-[70%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:mr-[5%] lg:mr-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4 ">
               <h3 className="font-bold text-center text-title4 md:text-left">
                 Want to be our partner for fighting food waste?
@@ -105,12 +120,18 @@ const CostumerGuid = () => {
                 Join us following below instructions
               </p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Guid section */}
-      <div className="flex items-center justify-center w-full ">
+      <motion.div
+        variants={scrollRevealToBig}
+        initial="hidden"
+        animate={controls1}
+        ref={element1}
+        className="flex items-center justify-center w-full "
+      >
         <div className="flex flex-wrap items-stretch w-full gap-4 px-12 py-12 text-center justify-evenly max-w-1440">
           {shopGuid.map((guid, i) => (
             <ShopGuidCard key={i} props={guid} />
@@ -136,8 +157,8 @@ const CostumerGuid = () => {
           setOwner={setOwner}
           hasShop={hasShop}
         />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 

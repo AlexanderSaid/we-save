@@ -4,15 +4,23 @@ import CustomerGuidCard from "./CustomerGuidCard";
 import placeholder from "../../../assets/placeholder.png";
 import carts from "../../../assets/carts.png";
 import shoppingBag from "../../../assets/shopping-bag.png";
+import { useScroll } from "../../../hooks/useScrolls";
 import { motion } from "framer-motion";
+// //Test
+// import { useInView } from 'react-intersection-observer'
+// import { useAnimation} from 'framer-motion'
+//Test
 import {
   titleAnim,
   fade,
   photoAnimate,
   customAnimation,
+  scrollReveal,
+  pageAnimation,
 } from "../../../animation";
 
 const CostumerGuid = () => {
+  const [element, controls] = useScroll(0.5);
   const customerGuid = [
     {
       logo: placeholder,
@@ -31,16 +39,17 @@ const CostumerGuid = () => {
     },
   ];
   return (
-    <section
+    <motion.section
+      variants={pageAnimation}
       id="customer"
-      className="flex flex-col items-center justify-center w-full h-90v"
+      className="flex flex-col items-center justify-center w-full"
     >
       {/* Intro section */}
       <motion.div
         variants={fade}
-        className="flex items-center justify-center w-[90%] sm:w-full "
+        className="flex items-center justify-center w-[90%] sm:w-[95%] "
       >
-        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl">
+        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl mt-12">
           <motion.img
             variants={photoAnimate}
             src={customer}
@@ -88,14 +97,20 @@ const CostumerGuid = () => {
       </motion.div>
 
       {/* Guid section */}
-      <div className="flex items-center justify-center w-full ">
+      <motion.div
+        variants={scrollReveal}
+        ref={element}
+        initial="hidden"
+        animate={controls}
+        className="flex items-center justify-center w-full "
+      >
         <div className="flex items-stretch justify-evenly flex-wrap gap-4 max-w-1440 w-full py-12 px-4">
           {customerGuid.map((step, index) => (
             <CustomerGuidCard key={index} props={step} />
           ))}
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 

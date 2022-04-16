@@ -3,8 +3,9 @@ import SearchContext from "../../context/SearchContext";
 import CurrentLocation from "./CurrentLocation";
 import { motion } from "framer-motion";
 import { inputAnim, fade, titleAnim } from "../../animation";
-
+import { useLocation } from "react-router-dom";
 const SearchBar = () => {
+  const { pathname } = useLocation();
   const {
     inputValue,
     setInputValue,
@@ -17,27 +18,27 @@ const SearchBar = () => {
   return (
     <>
       <motion.div
-        variants={fade}
+        variants={pathname === "/" ? fade : null}
         className={`${
           searchLoading && "cursor-wait"
         } flex flex-col search-bar items-center justify-center w-full px-4 `}
       >
         <div className="overflow-hidden">
           <motion.h5
-            variants={titleAnim}
+            variants={pathname === "/" ? titleAnim : null}
             className="my-6 text-bodyRegular tracking-wide text-lightFont sm:bodyLarge text-center"
           >
             Find Shops Near You in Amsterdam
           </motion.h5>
         </div>
         <motion.form
-          variants={inputAnim}
+          variants={pathname === "/" ? inputAnim : null}
           className="flex rounded bg-lightFont w-[80%] xs:w-full border border-darkBg mb-2 max-w-[500px]"
           onSubmit={(e) => onSearch(e)}
         >
           <CurrentLocation />
           <motion.input
-            variants={inputAnim}
+            variants={pathname === "/" ? inputAnim : null}
             id="search-bar-input"
             type="text"
             name="location"
@@ -48,7 +49,7 @@ const SearchBar = () => {
             onChange={(e) => setInputValue(e.target.value)}
           />
           <motion.button
-            variants={fade}
+            variants={pathname === "/" ? fade : null}
             type="submit"
             value={"Search"}
             disabled={searchLoading ? true : false}
