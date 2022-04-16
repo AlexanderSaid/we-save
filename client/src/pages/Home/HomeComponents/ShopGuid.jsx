@@ -1,79 +1,31 @@
-import React, { useState, useContext } from "react";
-import ShopRegistration from "../../../components/Forms/ShopRegistration";
-import SignInContext from "../../../context/SignInContext";
-import { useAuthentication } from "../../../hooks/useAuthentication";
-import SignIn from "../../../components/Forms/SignIn";
-import OwnerHasShop from "../../../components/Forms/OwnerHasShop";
-import shop from "../../../assets/shop-bg.png";
+import React from "react";
 import ShopGuidCard from "./ShopGuidCard";
-import UserContext from "../../../context/UserContext";
+import shopCover from "../../../assets/shop-bg.png";
+//- Steps Logos
+// import one from "../../../assets/1.png";
+// import two from "../../../assets/2.png";
+// import three from "../../../assets/3.png";
+import user from "../../../assets/guid/user.png";
+import shop from "../../../assets/guid/shop.png";
+import basket from "../../../assets/guid/basket.png";
 
-import one from "../../../assets/1.png";
-import two from "../../../assets/2.png";
-import three from "../../../assets/3.png";
 const CostumerGuid = () => {
-  const [shopIsOpen, setShopIsOpen] = useState(false);
-  const [owner, setOwner] = useState(false);
-  const [hasShop, setHasShop] = useState(false);
-  const { isOpen, setIsOpen } = useContext(SignInContext);
-  const { loggedIn } = useAuthentication();
-  const { user } = useContext(UserContext);
-
-  const checkUser = () => {
-    setOwner(true);
-    if (loggedIn) {
-      if (user.shop_id) {
-        setHasShop(true);
-      } else {
-        setShopIsOpen(true);
-      }
-    } else {
-      setIsOpen(true);
-    }
-  };
-
   const shopGuid = [
     {
-      logo: one,
+      logo: user,
       title: "Create Account & Sign In",
-      contents: [
-        {
-          text: "You can easily create an account from ",
-          onClick: "1",
-          linkText: "here",
-        },
-        {
-          text: "If you already did you can ",
-          onClick: "1",
-          linkText: "Sign-In",
-        },
-      ],
+      text: "You can easily create an account, then sign in.  ",
     },
     {
-      logo: two,
+      logo: shop,
       title: "Shop Registration & Page",
-      contents: [
-        {
-          text: " Add your shop by filling this registration ",
-          onClick: checkUser,
-          linkText: "form",
-        },
-        {
-          text: " Now you have access to your private page from navbar or ",
-          link: "createBasket",
-          linkText: "here",
-        },
-      ],
+      text: "Create your shop by filling the registration form and discover you shop page.",
     },
     {
-      logo: three,
+      logo: basket,
       title: "Baskets & Reservations",
-      contents: [
-        { text: "Easily add, edit or even delete you baskets." },
-        {
-          text: "When a customer reserve a basket you receive an email with deliver code.",
-        },
-      ],
+
+      text: "Easily add, edit or even delete you baskets. Now you get reservations emails with deliver code.",
     },
   ];
 
@@ -86,7 +38,7 @@ const CostumerGuid = () => {
       <div className="flex items-center justify-center w-[90%] sm:w-[95%] ">
         <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl">
           <img
-            src={shop}
+            src={shopCover}
             alt="Grocery bag with piggy bank"
             className="absolute object-cover w-full h-full"
           />
@@ -116,26 +68,6 @@ const CostumerGuid = () => {
             <ShopGuidCard key={i} props={guid} />
           ))}
         </div>
-        <ShopRegistration
-          shopRegisterOpen={shopIsOpen}
-          setShopRegisterOpen={setShopIsOpen}
-          setOwner={setOwner}
-        />
-        <SignIn
-          openSignIn={isOpen}
-          setOpenSignIn={setIsOpen}
-          setShopIsOpen={setShopIsOpen}
-          owner={owner}
-          setOwner={setOwner}
-          hasShop={hasShop}
-          setHasShop={setHasShop}
-        />
-
-        <OwnerHasShop
-          setHasShop={setHasShop}
-          setOwner={setOwner}
-          hasShop={hasShop}
-        />
       </div>
     </section>
   );
