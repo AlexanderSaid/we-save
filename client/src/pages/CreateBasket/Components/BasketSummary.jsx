@@ -10,6 +10,7 @@ import lunchbox from "../../../assets/lunchbox.jpeg";
 import dinnerbox from "../../../assets/dinnerbox.jpeg";
 import grocery2 from "../../../assets/grocery2.jpg";
 import pestries from "../../../assets/pestries.jpeg";
+import { Image } from "cloudinary-react";
 
 const BasketSummary = ({ basket, getBasket }) => {
   const { user } = useContext(UserContext);
@@ -65,10 +66,19 @@ const BasketSummary = ({ basket, getBasket }) => {
       {isDeleted && <DeleteSuccessMessage setIsDeleted={setIsDeleted} />}
 
       <div className="  min-w-[300px] rounded border border-primary bg-primary m-4">
-        <img
-          className="w-full rounded-t h-[180px] object-cover"
-          src={getImage()}
-        />
+        {basket.image ? (
+          <Image
+            src={basket.image}
+            cloudName={name}
+            className="w-full max-h-[150px] object-cover xs:max-h-[120px]  md:max-w-[150px] md:min-h-[150px] md:m-0"
+          ></Image>
+        ) : (
+          <img
+            className="w-full rounded-t h-[180px] object-cover"
+            src={getImage()}
+          />
+        )}
+
         <div className="px-4 py-4">
           <div className="text-xl font-bold ">{basket.name}</div>
           <div className="flex flex-row ">

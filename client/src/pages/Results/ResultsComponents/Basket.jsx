@@ -23,6 +23,7 @@ import { useAuthentication } from "../../../hooks/useAuthentication";
 import SignIn from "../../../components/Forms/SignIn";
 import SignInContext from "../../../context/SignInContext";
 import SearchContext from "../../../context/SearchContext";
+import { Image } from "cloudinary-react";
 
 const Basket = ({ basket }) => {
   const {
@@ -35,6 +36,7 @@ const Basket = ({ basket }) => {
     shop_id,
     distance,
     pickup,
+    image,
   } = basket;
   const { original, discount } = price;
   const shop = shop_id.name;
@@ -86,11 +88,19 @@ const Basket = ({ basket }) => {
       )}
       <div className="basket-card grid grid-cols-2 grid-rows-2 transition-all duration-[400ms] ease-in-out md:flex md:items-center md:justify-between md:gap-2 md:h-[150px] ">
         <div className="image-container md:basis-36 md:h-[150px] md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
-          <img
-            src={getImage()}
-            alt={name}
-            className="w-full max-h-[150px] object-cover xs:max-h-[120px]  md:max-w-[150px] md:min-h-[150px] md:m-0"
-          />
+          {image ? (
+            <Image
+              src={image}
+              cloudName={name}
+              className="w-full max-h-[150px] object-cover xs:max-h-[120px]  md:max-w-[150px] md:min-h-[150px] md:m-0"
+            ></Image>
+          ) : (
+            <img
+              src={getImage()}
+              alt={name}
+              className="w-full max-h-[150px] object-cover xs:max-h-[120px]  md:max-w-[150px] md:min-h-[150px] md:m-0"
+            />
+          )}
         </div>
 
         <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
