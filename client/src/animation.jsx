@@ -154,7 +154,7 @@ export const scrollRight = {
 export const scrollLeft = {
   hidden: {
     opacity: 0,
-    x: 3600,
+    x: 600,
     transition: { duration: 0.5 },
   },
   show: {
@@ -162,6 +162,19 @@ export const scrollLeft = {
     x: 0,
     transition: {
       duration: 0.5,
+    },
+  },
+};
+
+export const basketMotion = {
+  hidden: {
+    opacity: 0,
+  },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      delay: 0.1,
     },
   },
 };

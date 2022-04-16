@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import Basket from "./Basket";
 import SearchContext from "../../../context/SearchContext";
+import { motion } from "framer-motion";
 
 const ResultsSection = ({ baskets }) => {
   const { toShow, setToShow, INCREMENT, isAmsterdam, inputValue } =
@@ -35,14 +36,25 @@ const ResultsSection = ({ baskets }) => {
         <>
           <ul className="min-w-[350px] w-full flex flex-col items-center justify-center mb-12">
             {baskets.slice(0, toShow).map(
-              (basket) =>
+              (basket, index) =>
                 basket.quantity && (
-                  <li
+                  <motion.li
                     key={basket._id}
+                    initial={{
+                      opacity: 0,
+                      // translateX: -50,
+                      translateY: 20,
+                    }}
+                    animate={{ opacity: 1, translateX: 0, translateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.3,
+                      ease: "easeOut",
+                    }}
                     className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[1000px]"
                   >
                     <Basket basket={basket} />
-                  </li>
+                  </motion.li>
                 )
             )}
           </ul>

@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <div>
       <a id="top"></a>
-      <header className="w-full h-[100px] bg-darkFont fixed top-0 flex items-center justify-center block z-50">
+      <header className="w-full h-[100px] bg-darkFont fixed top-0 flex items-center justify-center z-50">
         {pathname === "/" && <SkipLinks />}
         <NavBar />
       </header>
@@ -21,7 +21,7 @@ const Layout = () => {
         initial="hidden"
         animate="show"
         exit="exit"
-        className=" grow shrink-0 basis-full mt-[100px] flex items-center justify-start flex-col"
+        className=" grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip"
       >
         <Outlet />
       </motion.main>
