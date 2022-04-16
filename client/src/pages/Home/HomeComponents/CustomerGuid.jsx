@@ -29,15 +29,15 @@ const CostumerGuid = () => {
       className="flex flex-col items-center justify-center w-full "
     >
       {/* Intro section */}
-      <div className="flex items-center justify-center w-[90%] sm:w-full ">
-        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl mt-12">
+      <div className="flex items-center justify-center w-[90%] sm:w-[95%] ">
+        <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl mt-12">
           <img
             src={customer}
             alt="Grocery bag with piggy bank"
             className="absolute object-cover w-full h-full"
           />
           <div className="w-full h-full z-10 flex items-center justify-center md:justify-start py-4">
-            <div className="w-[70%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:ml-[5%] lg:ml-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4">
+            <div className="w-[80%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:ml-[5%] lg:ml-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4">
               <h3 className="text-title4 font-bold text-center md:text-left">
                 Fresh food for you, more food for others.
               </h3>
@@ -56,7 +56,7 @@ const CostumerGuid = () => {
       </div>
 
       {/* Guid section */}
-      <div className="flex items-center justify-center w-full ">
+      <div className="flex items-stretch justify-center w-full min-h-[350px]">
         <div className="flex items-stretch justify-evenly flex-wrap gap-4 max-w-1440 w-full py-12 px-4">
           {customerGuid.map((step, index) => (
             <CustomerGuidCard key={index} props={step} />

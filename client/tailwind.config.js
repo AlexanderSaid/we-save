@@ -22,8 +22,8 @@ module.exports = {
         shade: "#03334380",
       },
       fontFamily: {
-        title: "Lato",
-        title1: "Oswald",
+        Lato: "Lato",
+        Oswald: "Oswald",
         Roboto: ["Roboto", "sans-serif"],
         Fira: "Fira Sans",
       },
@@ -41,9 +41,6 @@ module.exports = {
       },
       maxWidth: {
         1440: "1440px",
-      },
-      width: {
-        screen: "calc(100vw - 10px)",
       },
     },
   },

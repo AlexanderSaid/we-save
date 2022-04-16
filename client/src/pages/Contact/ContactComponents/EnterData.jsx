@@ -44,48 +44,46 @@ const EnterData = () => {
   }
 
   return (
-    <div className="h-full pt-5 pb-5 bg-gray-200 rounded-tr rounded-br xl:w-3/5 lg:w-3/5 xl:pr-5 xl:pl-0">
+    <div className="py-12 px-4 xs:p-12 bg-lightFont text-darkFont w-full min-w-[50%]">
+      <h1 className="pb-12 text-2xl font-extrabold text-center font-[Fira]">
+        Send Us Message
+      </h1>
+      {error && (
+        <span className="mb-4 text-xl text-center text-red">{error}</span>
+      )}
       <form
         id="contact"
-        className="px-8 py-4 bg-white rounded-tr rounded-br"
+        className="flex flex-col items-center justify-between block w-full mb-6 "
         onSubmit={handleSubmit}
       >
-        <h1 className="mb-6 text-4xl font-extrabold text-center text-gray-800">
-          Enter Details
-        </h1>
-        {error && (
-          <span className="mb-4 text-xl text-center text-red">{error}</span>
-        )}
-        <div className="flex-wrap justify-between block w-full mb-6 xl:flex">
-          <InputField
-            onChange={(e) => setFullName(e.target.value)}
-            name={"fullName"}
-            label={"Full Name"}
-            value={fullName}
-            className="w-2/4 max-w-xs mb-6 xl:mb-0"
-            placeholder={"Full Name"}
-          />
+        <InputField
+          onChange={(e) => setFullName(e.target.value)}
+          name={"fullName"}
+          label={"Full Name"}
+          value={fullName}
+          placeholder={"Full Name"}
+        />
 
-          <InputField
-            onChange={(e) => setEmail(e.target.value)}
-            name={"email"}
-            label={"Email"}
-            value={email}
-            className="w-2/4 max-w-xs xl:flex xl:justify-end"
-            placeholder={"Email"}
-          />
-        </div>
-        <div className="flex flex-wrap w-full">
-          <InputField
-            onChange={(e) => setPhone(e.target.value)}
-            name={"phone"}
-            label={"Phone"}
-            value={phone}
-            className="w-2/4 max-w-xs"
-            placeholder={"Phone"}
-          />
-        </div>
+        <InputField
+          onChange={(e) => setEmail(e.target.value)}
+          name={"email"}
+          label={"Email"}
+          value={email}
+          placeholder={"Email"}
+        />
+
+        <InputField
+          onChange={(e) => setPhone(e.target.value)}
+          name={"phone"}
+          label={"Phone"}
+          value={phone}
+          placeholder={"Phone"}
+        />
         <TextArea setMessage={setMessage} value={message} />
+
+        <button type="submit" className="btn btn-dark">
+          Submit
+        </button>
       </form>
     </div>
   );

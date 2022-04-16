@@ -101,15 +101,15 @@
     @apply border border-accent/60 w-[65%] rounded-xl bg-lightFont py-2 px-4 shadow-xl shadow-darkBg/40;
   }
   .form-input {
-    @apply text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-darkBg/20 w-full h-10 p-3 bg-transparent;
+    @apply text-darkFont  text-bodyRegular placeholder-transparent focus:outline-none block border-b-2 border-darkBg/20 w-full h-10 p-3 bg-transparent;
   }
   .form-label {
-    @apply absolute left-3 -top-1 text-darkFont/90  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-darkFont/90 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase;
+    @apply absolute left-3 -top-2 text-darkFont/90  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-darkFont/90 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase;
   }
   .input-container {
     @apply relative my-7;
   }
   .valid-note {
-    @apply text-error text-button px-3 pt-2;
+    @apply text-accent text-button px-3 pt-2;
   }
 }
