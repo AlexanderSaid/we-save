@@ -43,7 +43,7 @@ const ResultsSection = ({ baskets }) => {
                     initial={{
                       opacity: 0,
                       // translateX: -50,
-                      translateY: 20,
+                      translateY: -20,
                     }}
                     animate={{ opacity: 1, translateX: 0, translateY: 0 }}
                     transition={{

@@ -178,3 +178,8 @@ export const basketMotion = {
     },
   },
 };
+
+export const SliderContainer = {
+  hidden: { opacity: 1 },
+  show: { opacity: 1, transition: { staggerChildren: 0.25, ease: "easeOut" } },
+};

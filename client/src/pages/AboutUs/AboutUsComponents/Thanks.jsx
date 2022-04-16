@@ -1,5 +1,18 @@
 import React from "react";
+import { motion } from "framer-motion";
+
+import { fade, SliderContainer } from "../../../animation";
+import { useInView } from "react-intersection-observer";
+import { useAnimation } from "framer-motion";
+
 const Thanks = () => {
+  const [element, view] = useInView({ threshold: 0.3 });
+  const controls = useAnimation();
+  if (view) {
+    controls.start("show");
+  } else {
+    controls.start("hidden");
+  }
   const mentors = [
     {
       name: "Kim Kruger",
@@ -28,15 +41,41 @@ const Thanks = () => {
     },
   ];
   return (
-    <section className="flex flexitems-center justify-center bg-lightBg/80 block w-full min-h-[250px] py-4">
-      <div className="flex flex-col items-center justify-center max-w-1440 mx-4 px-4 rounded-xl">
-        <p className="w-[80%] text-center text-Fira text-bodyRegular font-bold text-accent my-12 md:w-[60%] md:text-subtitle">
+    <motion.section
+      ref={element}
+      variants={SliderContainer}
+      initial="hidden"
+      animate={controls}
+      className="flex flexitems-center justify-center bg-lightBg/80 w-full min-h-[250px] py-4"
+    >
+      <motion.div
+        variants={fade}
+        initial="hidden"
+        animate={controls}
+        className="flex flex-col items-center justify-center max-w-1440 mx-4 px-4 rounded-xl"
+      >
+        <motion.p className="w-[80%] text-center text-Fira text-bodyRegular font-bold text-accent my-12 md:w-[60%] md:text-subtitle">
           We are grateful to our mentors for their kindness and encouraging
           guidance.
-        </p>
+        </motion.p>
         <ul className="w-[80%] flex flex-wrap items-center justify-center gap-x-4 gap-y-8 md:w-full md:gap-8">
-          {mentors.map((mentor) => (
-            <li
+          {mentors.map((mentor, index) => (
+            <motion.li
+              variants={{
+                hidden: {
+                  opacity: 0,
+                },
+                show: {
+                  opacity: 1,
+                  transition: {
+                    duration: 0.3,
+                    delay: index * 0.3,
+                    ease: "easeOut",
+                  },
+                },
+              }}
+              initial="hidden"
+              animate={controls}
               key={mentor.name}
               className="transition duration-300 ease-in-out hover:scale-110 trans"
             >
@@ -48,10 +87,25 @@ const Thanks = () => {
                   {mentor.role}
                 </p>
               </a>
-            </li>
+            </motion.li>
           ))}
         </ul>
-        <div className="flex flex-col justify-center items-center my-12">
+        <motion.div
+          className="flex flex-col justify-center items-center my-12"
+          variants={{
+            hidden: {
+              opacity: 0,
+            },
+            show: {
+              opacity: 1,
+              transition: {
+                duration: 0.4,
+                delay: 2,
+                ease: "easeOut",
+              },
+            },
+          }}
+        >
           <h3 className="text-subtitle text-accent font-bold text-center mb-4 md:text-title4">
             Huge gratitude
           </h3>
@@ -73,9 +127,9 @@ const Thanks = () => {
               Rob van Kruijsdijk
             </span>
           </a>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 };
 export default Thanks;

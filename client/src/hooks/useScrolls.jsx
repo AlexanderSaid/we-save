@@ -9,5 +9,5 @@ export const useScroll = (viewer) => {
   } else {
     controls.start("hidden");
   }
-  return [element, controls];
+  return [element, controls, view];
 };

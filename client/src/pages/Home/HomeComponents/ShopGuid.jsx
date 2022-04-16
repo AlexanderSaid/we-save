@@ -43,7 +43,7 @@ const CostumerGuid = () => {
           animate={controls}
           className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl"
         >
-          <motion.img
+          <img
             src={shopCover}
             alt="Grocery bag with piggy bank"
             className="absolute object-cover w-full h-full"
