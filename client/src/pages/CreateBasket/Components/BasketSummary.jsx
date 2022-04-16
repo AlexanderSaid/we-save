@@ -70,7 +70,7 @@ const BasketSummary = ({ basket, getBasket }) => {
           <Image
             src={basket.image}
             cloudName={name}
-            className="w-full max-h-[150px] object-cover xs:max-h-[120px]  md:max-w-[150px] md:min-h-[150px] md:m-0"
+            className="w-full rounded-t h-[180px] object-cover"
           ></Image>
         ) : (
           <img
