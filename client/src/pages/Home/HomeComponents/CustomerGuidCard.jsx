@@ -10,7 +10,7 @@ const CustomerGuidCard = ({ props }) => {
           <img
             src={logo}
             alt=""
-            className="object-cover h-[60px] w-[60px] rounded"
+            className="object-cover h-[50px] w-[50px] md:h-[60px] md:w-[60px] rounded"
           />
         </div>
         <div className="w-full h-[25%] text-center flex items-center justify-center ">
