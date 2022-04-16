@@ -80,6 +80,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     reader.onloadend = () => {
       setPreviewSource(reader.result);
     };
+    setFileInputState("");
   };
 
   //-updating data
