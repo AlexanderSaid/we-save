@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineArrowLeft,
+  AiOutlineClose,
+  AiOutlineCheck,
+} from "react-icons/ai";
 import useFetch from "../../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
 
@@ -166,11 +170,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
             </button>
             <form onSubmit={handleSubmit}>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validFirstName || !firstName ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {firstName && !firstNameFocus ? (
+                  validFirstName ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   id="first-name"
@@ -199,11 +207,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validLastName || !lastName ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {lastName && !lastNameFocus ? (
+                  validLastName ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   id="last-name"
@@ -232,11 +244,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validEmail || !email ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {email && !emailFocus ? (
+                  validEmail ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="email"
                   id="email"
@@ -263,11 +279,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validPassword || !password ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {password && !passwordFocus ? (
+                  validPassword ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="password"
                   id="password"
@@ -305,11 +325,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validMatch || !matchPassword ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {matchPassword && !matchFocus ? (
+                  validMatch ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="password"
                   id="confirm-password"
@@ -336,11 +360,15 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 </p>
               </div>
               <div className="relative input-container">
-                <AiOutlineClose
-                  className={`${
-                    validPostcode || !postcode ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {postcode && !postcodeFocus ? (
+                  validPostcode ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   id="postcode"

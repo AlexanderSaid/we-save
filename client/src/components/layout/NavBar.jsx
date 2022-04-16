@@ -84,7 +84,11 @@ const NavBar = () => {
             About Us
           </Link>
 
-          <Link to="/contact" className="nav-link nav-link-md">
+          <Link
+            to="/contact"
+            onClick={() => setHidden(true)}
+            className="nav-link nav-link-md"
+          >
             Contact
           </Link>
 

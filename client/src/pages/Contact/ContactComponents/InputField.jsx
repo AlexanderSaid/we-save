@@ -3,25 +3,23 @@ import PropTypes from "prop-types";
 
 const InputField = ({ label, name, onChange, placeholder, value }) => {
   return (
-    <div>
-      <div className="flex flex-col">
-        <label
-          htmlFor="full_name"
-          className="mb-2 text-sm font-semibold leading-tight tracking-normal text-gray-800"
-        >
-          {label}
-        </label>
-        <input
-          required
-          id="full_name"
-          name={name}
-          type="text"
-          value={value}
-          onChange={onChange}
-          className="flex items-center w-64 h-10 pl-3 text-sm font-normal border border-gray-300 rounded focus:outline-none focus:border focus:border-indigo-700"
-          placeholder={placeholder}
-        />
-      </div>
+    <div className="flex flex-col mb-4 w-full">
+      <label
+        htmlFor={name}
+        className="mb-2 text-sm font-semibold text-darkBg/70"
+      >
+        {label}
+      </label>
+      <input
+        required
+        id={name}
+        name={name}
+        type="text"
+        value={value}
+        onChange={onChange}
+        className="w-full h-10 px-3 text-bodyRegular font-semibold border border-darkFont/20 rounded-md focus:outline-none focus:border focus:border-accent"
+        placeholder={placeholder}
+      />
     </div>
   );
 };
