@@ -4,32 +4,38 @@ import { AiOutlineMail } from "react-icons/ai";
 
 const GetInTouch = () => {
   return (
-    <div className="py-16 rounded-tl rounded-tr bg-darkBg xl:w-2/5 lg:w-2/5 xl:rounded-bl xl:rounded-tr-none">
-      <div className="px-8 mx-auto xl:w-5/6 xl:px-0">
-        <h1 className="pb-4 text-3xl font-bold text-white xl:text-4xl">
-          Get in touch
-        </h1>
-        <p className="pb-8 text-xl font-normal leading-relaxed text-white lg:pr-4">
+    <div className="py-16 bg-darkBg text-lightFont">
+      <div className="px-8 mx-auto lg:py-16">
+        <h1 className="pb-4 text-title3 font-bold ">Get in touch</h1>
+        <p className="pb-8 text-xl font-normal leading-relaxed">
           Got a question about us? Are you interested in partnering with us?
           Have some suggestions or just want to say Hi? Just contact us. We are
-          here to asset you.
+          here to assist you.
         </p>
         <div className="flex items-center pb-4">
           <div>
-            <FiPhoneCall className="text-white" />
+            <FiPhoneCall className="" />
           </div>
-          <p className="pl-4 text-base text-white">+31 6 98765432</p>
+          <p className="pl-4 text-base ">+31 6 98765432</p>
         </div>
-        <a href="mailto:main-wesave@outlook.com" className="flex items-center">
+        <a
+          href="mailto:main-wesave@outlook.com"
+          className="flex items-center hover:text-primary"
+        >
           <div>
-            <AiOutlineMail className="text-white" />
+            <AiOutlineMail className="" />
           </div>
-          <p className="pl-4 text-base text-white">main-wesave@outlook.com</p>
+          <p className="pl-4 text-base ">main-wesave@outlook.com</p>
         </a>
-        <p className="pt-10 text-lg tracking-wide text-white">
+        <a
+          href="https://www.google.com/maps/place/Overhoeksplein+2,+1031+KS+Amsterdam"
+          target="_blank"
+          className="block mt-8 text-lg tracking-wide hover:text-primary"
+          rel="noreferrer"
+        >
           Overhoeksplein 2<br />
           1031 KS, Amsterdam
-        </p>
+        </a>
       </div>
     </div>
   );

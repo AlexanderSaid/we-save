@@ -20,11 +20,7 @@ const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
 const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
 const KVK_REGEX = /^[0-9a-zA-Z]{8}/;
 
-const ShopRegistration = ({
-  shopRegisterOpen,
-  setShopRegisterOpen,
-  setOwner,
-}) => {
+const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
 
@@ -147,9 +143,6 @@ const ShopRegistration = ({
     });
   };
 
-  const handleCreate = () => {
-    setOwner(false);
-  };
   useEffect(() => {
     if (success) {
       logout();
@@ -188,7 +181,6 @@ const ShopRegistration = ({
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
               onClick={() => {
                 setShopRegisterOpen(false);
-                setOwner(false);
               }}
             >
               <AiOutlineArrowLeft />
@@ -402,7 +394,7 @@ const ShopRegistration = ({
 
               <button
                 //- Disable SignUp button till all validation passed
-                onClick={handleCreate}
+
                 disabled={isDisabled}
                 className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
               >
@@ -421,7 +413,6 @@ const ShopRegistration = ({
 ShopRegistration.propTypes = {
   shopRegisterOpen: PropTypes.bool,
   setShopRegisterOpen: PropTypes.func,
-  setOwner: PropTypes.func,
 };
 
 export default ShopRegistration;

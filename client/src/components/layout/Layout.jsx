@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <div>
       <a id="top"></a>
-      <header className="w-screen h-[100px] bg-darkFont fixed top-0 flex items-center justify-center block z-50">
+      <header className="w-full h-[100px] bg-darkFont fixed top-0 flex items-center justify-center block z-50">
         {pathname === "/" && <SkipLinks />}
         <NavBar />
       </header>
@@ -29,7 +29,7 @@ const Layout = () => {
         variants={footerAnimation}
         initial="hidden"
         animate="show"
-        className="w-screen text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center"
+        className="w-full text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center"
       >
         <Footer />
       </motion.footer>

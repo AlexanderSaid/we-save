@@ -4,7 +4,7 @@ import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
 import ForgetPassword from "./ForgetPassword";
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
-function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
+function SignIn({ openSignIn, setOpenSignIn }) {
   const { user, login, error, isLoading, setError } = useContext(UserContext);
   const [signinForm, setSigninForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -29,17 +29,12 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
     e.preventDefault();
     const userData = { email, password };
     login(userData);
-    if (owner) {
-      setShopIsOpen(true);
-    }
-
     setSigninForm({ email: "", password: "" });
   };
 
   const closeWindow = () => {
     setOpenSignIn(false);
     setError("");
-    setOwner(false);
   };
 
   const handleSignupPage = () => {
@@ -169,11 +164,6 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
 SignIn.propTypes = {
   setOpenSignIn: PropTypes.func,
   openSignIn: PropTypes.bool,
-  setShopIsOpen: PropTypes.func,
-  owner: PropTypes.bool,
-  setOwner: PropTypes.func,
-  setHasShop: PropTypes.func,
-  hasShop: PropTypes.bool,
 };
 
 export default SignIn;

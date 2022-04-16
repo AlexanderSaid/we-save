@@ -1,15 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import customer from "../../../assets/customer-bg.png";
 import CustomerGuidCard from "./CustomerGuidCard";
-import placeholder from "../../../assets/placeholder.png";
-import carts from "../../../assets/carts.png";
-import shoppingBag from "../../../assets/shopping-bag.png";
 import { useScroll } from "../../../hooks/useScrolls";
 import { motion } from "framer-motion";
-// //Test
-// import { useInView } from 'react-intersection-observer'
-// import { useAnimation} from 'framer-motion'
-//Test
 import {
   titleAnim,
   fade,
@@ -18,22 +11,29 @@ import {
   scrollReveal,
   pageAnimation,
 } from "../../../animation";
-
+import location from "../../../assets/guid/location.png";
+import cart from "../../../assets/guid/cart.png";
+import bag from "../../../assets/guid/bag.png";
+import SignInContext from "../../../context/SignInContext";
+import { useAuthentication } from "../../../hooks/useAuthentication";
 const CostumerGuid = () => {
   const [element, controls] = useScroll(0.5);
+  const { setIsOpen } = useContext(SignInContext);
+  const { loggedIn } = useAuthentication();
+
   const customerGuid = [
     {
-      logo: placeholder,
+      logo: location,
       title: "Pass Your Postcode",
       text: "Enter your postcode, or let us determine your location.",
     },
     {
-      logo: carts,
+      logo: cart,
       title: "Discover Baskets",
       text: "See all baskets nearby, and filter them by category.",
     },
     {
-      logo: shoppingBag,
+      logo: bag,
       title: "Reserve & Pickup",
       text: "Reserve your basket, pickup during givin time, and pay in the shop.",
     },
@@ -87,8 +87,13 @@ const CostumerGuid = () => {
                 </motion.p>
               </div>
               <a className="self-center md:self-end md:mr-4">
-                <motion.button variants={fade} className="btn btn-dark">
-                  Sign In
+                <motion.button
+                  variants={fade}
+                  className="btn btn-dark"
+                  disabled={loggedIn ? true : false}
+                  onClick={setIsOpen}
+                >
+                  {loggedIn ? "Welcome Back" : "Sign In"}
                 </motion.button>
               </a>
             </motion.div>
@@ -102,7 +107,7 @@ const CostumerGuid = () => {
         ref={element}
         initial="hidden"
         animate={controls}
-        className="flex items-center justify-center w-full "
+        className="flex items-center justify-center w-full min-h-[350px]"
       >
         <div className="flex items-stretch justify-evenly flex-wrap gap-4 max-w-1440 w-full py-12 px-4">
           {customerGuid.map((step, index) => (
