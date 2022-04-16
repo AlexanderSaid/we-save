@@ -13,6 +13,7 @@ import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
 import SignInContext from "../../context/SignInContext";
 import SignIn from "../Forms/SignIn";
+import ShopRegistration from "../Forms/ShopRegistration";
 const NavBar = () => {
   //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
@@ -20,7 +21,8 @@ const NavBar = () => {
   const [menu, setMenu] = useState(false);
 
   //- Sing in pop-up state
-  const { isOpen, setIsOpen } = useContext(SignInContext);
+  const { isOpen, setIsOpen, setShopIsOpen, shopIsOpen } =
+    useContext(SignInContext);
   const { loggedIn } = useAuthentication();
   const { logout, user } = useContext(UserContext);
 
@@ -117,7 +119,7 @@ const NavBar = () => {
                     MyShop
                   </a>
                 ) : (
-                  <a href="#">Register shop</a>
+                  <a onClick={() => setShopIsOpen(true)}>Register shop</a>
                 )}
                 <a href="/" onClick={logout}>
                   Log Out <FiLogOut className="inline-block ml-1" size={17} />
@@ -133,7 +135,10 @@ const NavBar = () => {
               <FiLogIn className="inline-block ml-2 font-semibold" size={20} />
             </div>
           )}
-
+          <ShopRegistration
+            shopRegisterOpen={shopIsOpen}
+            setShopRegisterOpen={setShopIsOpen}
+          />
           <SignIn openSignIn={isOpen} setOpenSignIn={setIsOpen} />
         </div>
       </div>

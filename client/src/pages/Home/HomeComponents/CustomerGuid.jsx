@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import customer from "../../../assets/customer-bg.png";
 import CustomerGuidCard from "./CustomerGuidCard";
-import placeholder from "../../../assets/placeholder.png";
-import carts from "../../../assets/carts.png";
-import shoppingBag from "../../../assets/shopping-bag.png";
-
+import location from "../../../assets/guid/location.png";
+import cart from "../../../assets/guid/cart.png";
+import bag from "../../../assets/guid/bag.png";
+import SignInContext from "../../../context/SignInContext";
+import { useAuthentication } from "../../../hooks/useAuthentication";
 const CostumerGuid = () => {
+  const { setIsOpen } = useContext(SignInContext);
+  const { loggedIn } = useAuthentication();
   const customerGuid = [
     {
-      logo: placeholder,
+      logo: location,
       title: "Pass Your Postcode",
       text: "Enter your postcode, or let us determine your location.",
     },
     {
-      logo: carts,
+      logo: cart,
       title: "Discover Baskets",
       text: "See all baskets nearby, and filter them by category.",
     },
     {
-      logo: shoppingBag,
+      logo: bag,
       title: "Reserve & Pickup",
       text: "Reserve your basket, pickup during givin time, and pay in the shop.",
     },
@@ -48,7 +51,13 @@ const CostumerGuid = () => {
                 Start today!
               </p>
               <a className="self-center md:self-end md:mr-4">
-                <button className="btn btn-dark">Sign In</button>
+                <button
+                  className="btn btn-dark"
+                  disabled={loggedIn ? true : false}
+                  onClick={setIsOpen}
+                >
+                  {loggedIn ? "Welcome Back" : "Sign In"}
+                </button>
               </a>
             </div>
           </div>
