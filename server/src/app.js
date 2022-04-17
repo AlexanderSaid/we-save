@@ -9,8 +9,8 @@ import basketsRouter from "./routes/basketsRoutes.js";
 const app = express();
 
 // Tell express to use the json middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "50mb" }));
 // Allow everyone to access our API. In a real application, we would need to restrict this!
 app.use(cors());
 

@@ -55,9 +55,8 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   const [success, setSuccess] = useState(false);
   const [successUpdate, setSuccessUpdate] = useState(false);
   //states for uploading image
-  const [previewSource, setPreviewSource] = useState();
+  const [previewSource, setPreviewSource] = useState(null);
   const [fileInputState, setFileInputState] = useState("");
-  // const [selectedFile, setSelectedFile] = useState("");
 
   const errRef = useRef();
   //- Fetching data
@@ -209,7 +208,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     }
 
     // saving string to database
-    if (!previewSource) return;
+    // if (!previewSource) return;
   };
 
   if (success) {
