@@ -48,14 +48,14 @@
     @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[300ms] ease-in-out hover:bg-lightBg;
   }
   .nav-link-md {
-    @apply md:text-center md:w-fit md:p-2 md:text-bodyMd md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md  md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
+    @apply md:text-center md:w-fit md:p-2 md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md  md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
   }
   .nav-link-md.login,
   .nav-link.login {
     @apply border border-lightBg bg-darkFont md:rounded-md text-lightBg cursor-pointer;
   }
   .btn {
-    @apply block rounded-md font-bold py-4 px-6 flex items-center  transition-all duration-[400ms] ease-in-out opacity-90 hover:opacity-100;
+    @apply rounded-md font-bold py-4 px-6 flex items-center  transition-all duration-[400ms] ease-in-out opacity-90 hover:opacity-100;
   }
   .btn-blank {
     @apply bg-primary border-2 border-accent text-darkFont hover:bg-accent hover:text-lightFont;
@@ -73,7 +73,7 @@
     @apply text-button text-accent border border-accent rounded-full px-2 pt-1 bg-lightBg w-fit font-bold md:py-1 mr-1;
   }
   .description {
-    @apply text-button  py-2 text-darkFont text-center font-['Roboto'] font-bold text-bodySmall md:p-0 lg:px-2 md:text-bodyMd;
+    @apply text-button  py-2 text-darkFont text-center font-['Roboto'] font-bold xs:text-bodySmall md:p-0 lg:px-2 md:text-bodyMd;
   }
   .baskets-left {
     @apply text-bodySmall rounded-full text-error px-2.5 border border-error w-[60px] flex justify-center items-center gap-1 font-bold xs:text-bodyRegular;
@@ -92,7 +92,7 @@
     @apply text-bodyMd font-bold p-2 w-[135px] place-self-center rounded-xl border border-darkFont hover:border-accent hover:bg-accent hover:text-lightFont transition ease-in-out duration-300 sm:w-[150px] sm:text-bodyRegular;
   }
   .staff-contact-icon {
-    @apply text-accent;
+    @apply text-accent hover:text-darkBg/80 transition duration-300 ease-in-out hover:scale-110;
   }
   .guid-link {
     @apply font-bold text-error cursor-pointer text-bodyRegular hover:underline;
@@ -113,9 +113,21 @@
     @apply text-accent text-button px-3 pt-2;
   }
   .dropdown {
-    @apply flex flex-col gap-4 absolute right-0 top-[50px] p-[80px] w-[90%] bg-lightBg text-darkFont text-bodyMd font-semibold py-4 pl-[15%] rounded-l-md md:w-full md:px-2 md:rounded-md;
+    @apply flex flex-col gap-4 absolute right-0 top-[50px] p-[80px] w-[90%] bg-lightBg text-darkFont text-bodyMd font-semibold py-4 pl-[15%] rounded-l-md md:w-full md:px-2 md:rounded-md text-left;
   }
   .dropdown a {
-    @apply w-fit border-b-2 border-lightBg hover:border-darkFont md:border-b-2 md:w-[90%];
+    @apply w-fit border-b-2 border-lightBg hover:border-darkFont md:border-b-2;
+  }
+  .is-disabled {
+    @apply text-darkBg/80 border-t-2 border-b-2 border-accent opacity-80;
+  }
+  .is-error {
+    @apply text-error border-t-2 border-b-2 border-error opacity-80;
+  }
+  .is-valid {
+    @apply text-lightFont rounded bg-accent cursor-pointer hover:bg-darkBg/80 focus:outline-none;
+  }
+  .submit-btn {
+    @apply w-full font-bold px-2 py-3 my-1 mt-4 text-center transition-all duration-[200ms] ease-in-out;
   }
 }

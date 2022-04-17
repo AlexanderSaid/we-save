@@ -6,7 +6,7 @@ import BasketSummary from "./Components/BasketSummary";
 import CoverShop from "./Components/CoverShop";
 
 //- Common classes
-function CreateBasket() {
+function MyShop() {
   const { user } = useContext(UserContext);
   const [baskets, setBaskets] = useState();
   const [basket, setBasket] = useState(null);
@@ -48,7 +48,7 @@ function CreateBasket() {
   return (
     <>
       <CoverShop />
-      <section className="max-w-6xl p-6 mx-auto my-10 bg-[rgba(255,255,255,0.5)] rounded-md shadow-md">
+      <section className="max-w-6xl p-6 mx-auto my-10 bg-lightBg/60 rounded-md shadow-md">
         <h1 className="mb-8 text-3xl text-center text-accent">Your Baskets</h1>
 
         {baskets.length === 0 ? (
@@ -74,4 +74,4 @@ function CreateBasket() {
     </>
   );
 }
-export default CreateBasket;
+export default MyShop;

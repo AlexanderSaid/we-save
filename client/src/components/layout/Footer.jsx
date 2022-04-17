@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  SiFoodpanda,
-  SiLinkedin,
-  SiFacebook,
-  SiTwitter,
-  SiYoutube,
-} from "react-icons/si";
+import { SiLinkedin, SiFacebook, SiTwitter, SiYoutube } from "react-icons/si";
+import logo1 from "../../assets/logo/logo1.png";
 
 const Footer = () => {
   return (
@@ -32,7 +27,7 @@ const Footer = () => {
           href="#top"
           className="flex flex-col items-center justify-center gap-4"
         >
-          <SiFoodpanda size={60} />
+          <img src={logo1} alt="logo" className="h-[60px] w-[60px]" />
           <span className="font-[lato] tracking-wider font-bold text-bodyRegular md:text-[26px] mb-4">
             WeSave
           </span>

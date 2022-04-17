@@ -2,9 +2,6 @@ import React from "react";
 import ShopGuidCard from "./ShopGuidCard";
 import shopCover from "../../../assets/shop-bg.png";
 //- Steps Logos
-// import one from "../../../assets/1.png";
-// import two from "../../../assets/2.png";
-// import three from "../../../assets/3.png";
 import user from "../../../assets/guid/user.png";
 import shop from "../../../assets/guid/shop.png";
 import basket from "../../../assets/guid/basket.png";
@@ -39,7 +36,7 @@ const CostumerGuid = () => {
         <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl">
           <img
             src={shopCover}
-            alt="Grocery bag with piggy bank"
+            alt="Grocery basket is been given"
             className="absolute object-cover w-full h-full"
           />
           <div className="z-10 flex items-center justify-center w-full h-full py-4 md:justify-end">
@@ -53,7 +50,7 @@ const CostumerGuid = () => {
                 whatever you are selling. Its 100% better for you and the
                 planet.
               </p>
-              <p className='text-center rounded-md font-semibold tracking-wide p-2 bg-darkBg text-lightFont opacity-90 font-["Roboto"]'>
+              <p className='text-center font-semibold tracking-wide p-2  text-darkBg/80 font-["Roboto"] border-t-2 border-b-2 border-accent'>
                 Join us following below instructions
               </p>
             </div>
