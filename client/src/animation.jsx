@@ -163,7 +163,7 @@ export const scrollRight = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.3,
+      duration: 1,
     },
   },
 };
@@ -171,14 +171,14 @@ export const scrollRight = {
 export const scrollLeft = {
   hidden: {
     opacity: 0,
-    x: 600,
+    x: 1600,
     transition: { duration: 0.5 },
   },
   show: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
+      duration: 1,
     },
   },
 };
