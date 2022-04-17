@@ -47,16 +47,16 @@ function CreateBasket() {
   }
   return (
     <>
-      <CoverShop />
-      <section className="max-w-6xl p-6 mx-auto my-10 bg-[rgba(255,255,255,0.5)] rounded-md shadow-md">
-        <h1 className="mb-8 text-3xl text-center text-accent">Your Baskets</h1>
+      <section className="w-[100%] max-w-[1140px] p-4 mx-auto bg-lightBg ">
+        <CoverShop />
+        <h1 className="mb-4 text-3xl text-center text-accent">YOUR BASKETS</h1>
 
         {baskets.length === 0 ? (
           <p className="mb-8 text-center text-black-400">
             You dont have any baskets right now!
           </p>
         ) : (
-          <div className="grid grid-flow-col gap-4 px-4 mb-20 overflow-x-auto rounded place-content-start auto-cols-max md:auto-cols-min bg-gray-50">
+          <div className=" grid grid-flow-col overflow-x-auto auto-cols-max  md:auto-cols-min rounded-md shadow-lg mb-[40px]">
             {baskets.map((basket, index) => {
               return (
                 <BasketSummary
@@ -68,8 +68,12 @@ function CreateBasket() {
             })}
           </div>
         )}
-
-        <CreateBasketForm basket={basket} setBasket={setBasket} />
+        <h1 className=" text-3xl text-center text-accent">
+          {basket ? "EDIT YOUR BASKET" : "CREATE A BASKET"}
+        </h1>
+        <div className=" w-[100%] max-w-[1140px] p-4 mx-auto">
+          <CreateBasketForm basket={basket} setBasket={setBasket} />
+        </div>
       </section>
     </>
   );

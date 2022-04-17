@@ -64,49 +64,53 @@ const BasketSummary = ({ basket, getBasket }) => {
     <>
       {isDeleted && <DeleteSuccessMessage setIsDeleted={setIsDeleted} />}
 
-      <div className="  min-w-[300px] rounded border border-primary bg-primary m-4">
+      <div className="flex flex-col justify-between w-[280px] rounded border-2 border-secondary bg-white m-4">
         <img
-          className="w-full rounded-t h-[180px] object-cover"
+          className="w-full rounded-t h-[164px] object-cover"
           src={getImage()}
         />
+
         <div className="px-4 py-4">
-          <div className="text-xl font-bold ">{basket.name}</div>
-          <div className="flex flex-row ">
-            {basket.categories.map((category, idx) => (
-              <div
-                className="mx-1 my-auto mt-2 mb-3 text-button basket-category"
-                key={idx}
-              >
-                {category}
+          <div className="text-xl font-bold text-center ">{basket.name}</div>
+          <div className="flex flex-1 flex-row  justify-center ">
+            <div className="flex flex-row my-2">
+              {basket.categories.map((category, idx) => (
+                <div
+                  className="mx-1 my-auto text-bodySmall basket-category"
+                  key={idx}
+                >
+                  {category}
+                </div>
+              ))}
+              <div className="mx-1 my-auto baskets-left  text-bodySmall">
+                <span className="quantity">{basket.quantity}</span>
+                <FaShoppingBasket className="inline" />
               </div>
-            ))}
-            <div className="mt-2 mb-3 baskets-left w-fit text-button">
-              <span className="quantity">{basket.quantity}</span>
-              <FaShoppingBasket className="inline" />
             </div>
           </div>
-
-          <p className="text-base text-left text-gray-700 text-button">
-            {basket.description}
-          </p>
-          <div className="flex justify-between py-2 my-6 shop-details">
-            <p className="pickup">
+          <div className="flex flex-1 justify-center shop-details m-auto">
+            <p className="pickup text-bodySmall text-center">
               Pickup: {basket.pickup.from} - {basket.pickup.to}
             </p>
           </div>
         </div>
+        <div className="px-4 py-4">
+          <p className="text-base text-left text-gray-700 text-button">
+            {basket.description}
+          </p>
+        </div>
 
-        <div className="mx-4 mt-1 mb-4">
+        <div className="mx-4 mt-1 mb-4 flex justify-evenly">
           <button
             value={basket._id}
             onClick={handleDelete}
-            className="inline-block p-2 mr-2 text-red-700 uppercase bg-red-100 rounded text-bodyMd hover:bg-red-500 hover:text-white"
+            className="min-w-[64px] inline-block p-2 mr-2 text-red-700 uppercase bg-red-100 rounded text-bodyMd hover:bg-red-500 hover:text-white"
           >
             Delete
           </button>
           <button
             onClick={() => getBasket(basket)}
-            className="inline-block p-2 text-yellow-500 uppercase bg-yellow-100 rounded text-bodyMd hover:bg-yellow-500 hover:text-white"
+            className="min-w-[64px] inline-block p-2 text-blue-500 uppercase bg-blue-100 rounded text-bodyMd hover:bg-blue-500 hover:text-white"
           >
             Edit
           </button>
