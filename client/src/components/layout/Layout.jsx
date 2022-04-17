@@ -6,6 +6,7 @@ import SkipLinks from "./SkipLinks";
 //import motion
 import { motion } from "framer-motion";
 import { pageAnimation, footerAnimation } from "../../animation";
+import ScrollTop from "../ScrollTop";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -16,6 +17,7 @@ const Layout = () => {
         {pathname === "/" && <SkipLinks />}
         <NavBar />
       </header>
+
       <motion.main
         variants={pageAnimation}
         initial="hidden"
@@ -23,7 +25,9 @@ const Layout = () => {
         exit="exit"
         className=" grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip"
       >
-        <Outlet />
+        <ScrollTop>
+          <Outlet />
+        </ScrollTop>
       </motion.main>
       <motion.footer
         variants={footerAnimation}

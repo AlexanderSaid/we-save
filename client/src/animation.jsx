@@ -44,7 +44,8 @@ export const footerAnimation = {
   show: {
     opacity: 1,
     transition: {
-      duration: 3,
+      duration: 0.5,
+      delay: 2,
     },
   },
   exit: {
@@ -58,6 +59,22 @@ export const footerAnimation = {
 export const titleAnim = {
   hidden: {
     y: 200,
+  },
+  show: {
+    y: 0,
+    transition: {
+      duration: 1,
+      ease: "easeOut",
+    },
+  },
+};
+export const titleAnimAbove = {
+  hidden: {
+    y: -200,
+    transition: {
+      duration: 1,
+      ease: "easeOut",
+    },
   },
   show: {
     y: 0,

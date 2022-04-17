@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import * as Si from "react-icons/si";
 
 const StaffCard = ({ member }) => {

@@ -1,12 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-
-import { fade, SliderContainer } from "../../../animation";
+import { fade } from "../../../animation";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
 
 const Thanks = () => {
-  const [element, view] = useInView({ threshold: 0.3 });
+  const [element, view] = useInView({ threshold: 0.5 });
   const controls = useAnimation();
   if (view) {
     controls.start("show");
@@ -43,9 +42,6 @@ const Thanks = () => {
   return (
     <motion.section
       ref={element}
-      variants={SliderContainer}
-      initial="hidden"
-      animate={controls}
       className="flex flexitems-center justify-center bg-lightBg/80 w-full min-h-[250px] py-4"
     >
       <motion.div
@@ -69,7 +65,7 @@ const Thanks = () => {
                   opacity: 1,
                   transition: {
                     duration: 0.3,
-                    delay: index * 0.3,
+                    delay: index * 0.2,
                     ease: "easeOut",
                   },
                 },
@@ -100,7 +96,7 @@ const Thanks = () => {
               opacity: 1,
               transition: {
                 duration: 0.4,
-                delay: 2,
+                delay: 1.5,
                 ease: "easeOut",
               },
             },

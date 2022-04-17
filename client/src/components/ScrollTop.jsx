@@ -1,15 +1,21 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { fade } from "../animation";
+import PropTypes from "prop-types";
 
-const ScrollTop = () => {
-  const { pathname } = useLocation();
+const ScrollTop = ({ children }) => {
   useEffect(() => {
     window.scroll({
       top: 0,
       left: 0,
     });
-  }, [pathname]);
-  return null;
+  }, []);
+
+  return <motion.div variants={fade}>{children}</motion.div>;
+};
+
+ScrollTop.propTypes = {
+  children: PropTypes.node,
 };
 
 export default ScrollTop;
