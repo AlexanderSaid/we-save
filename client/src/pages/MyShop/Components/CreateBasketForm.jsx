@@ -195,7 +195,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     return <UpdateBasketSuccessMessage setSuccess={setSuccessUpdate} />;
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div className="flex flex-col items-center">
         <div className="flex">
           <h1 className="mt-10 text-xl font-bold text-gray-600 md:text-2xl">
@@ -254,7 +254,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                     name={item}
                     id="category"
                     value={item}
-                    onChange={handleCategory}
+                    onChange={(e) => handleCategory(e)}
                     checked={category.includes(item)}
                   />
                   <label className="ml-2 text-gray-500 ">{item}</label>

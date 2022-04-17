@@ -84,7 +84,7 @@ function SignIn({ openSignIn, setOpenSignIn }) {
               </button>
               <h1 className="mb-8 text-3xl text-center text-accent">Sign In</h1>
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="relative mb-12">
                   <input
                     type="email"
@@ -93,7 +93,7 @@ function SignIn({ openSignIn, setOpenSignIn }) {
                     required
                     className="form-input peer"
                     placeholder="Email"
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e)}
                   />
                   <label htmlFor="email" className="form-label">
                     Email
@@ -107,7 +107,7 @@ function SignIn({ openSignIn, setOpenSignIn }) {
                     required
                     className="form-input peer"
                     placeholder="password"
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e)}
                   />
                   <div className="absolute cursor-pointer top-2 right-1">
                     <AiFillEye

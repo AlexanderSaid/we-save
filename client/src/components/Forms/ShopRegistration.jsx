@@ -178,7 +178,7 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
               <AiOutlineArrowLeft />
             </button>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="input-container">
                 {shopName && !shopNameFocus ? (
                   validShopName ? (

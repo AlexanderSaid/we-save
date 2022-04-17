@@ -22,7 +22,7 @@ const CostumerGuid = () => {
       logo: basket,
       title: "Baskets & Reservations",
 
-      text: "Easily add, edit or even delete you baskets. Now you get reservations emails with deliver code.",
+      text: "Easily add, edit or even delete you baskets. Receive reservation emails with deliver code.",
     },
   ];
 
@@ -59,7 +59,7 @@ const CostumerGuid = () => {
       </div>
 
       {/* Guid section */}
-      <div className="flex items-center justify-center w-full ">
+      <div className="flex items-center justify-center w-full">
         <div className="flex flex-wrap items-stretch w-full gap-4 px-12 py-12 text-center justify-evenly max-w-1440">
           {shopGuid.map((guid, i) => (
             <ShopGuidCard key={i} props={guid} />
