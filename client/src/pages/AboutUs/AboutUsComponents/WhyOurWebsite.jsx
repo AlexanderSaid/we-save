@@ -13,10 +13,12 @@ const WhyOurWebsite = () => {
             Why our website?
           </h4>
           <p className="text-bodyMd text-center self-center text-darkFont sm:text-bodyRegular font-bold sm:text-justify">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem
-            non nulla ut commodi dicta rerum, maiores velit voluptates amet
-            neque vel recusandae adipisci quas animi dolorum fugiat maxime
-            consectetur et quae, corrupti veniam? Necessitatibus, consectetur!
+            Every day, delicious, fresh food goes to waste at cafes,
+            restaurants, hotels, shops and manufacturers just because it hasn’t
+            sold in time. Our application lets you buy and collect this food at
+            a great price so it gets eaten instead of wasted. You won’t know
+            exactly what’s in your order until you pick it up it’s all part of
+            the surprise
           </p>
         </div>
       </div>

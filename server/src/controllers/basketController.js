@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import Basket from "../models/Basket.js";
 import User from "../models/User.js";
 import Shop from "../models/Shop.js";
+import cloudinary from "../utils/cloudinary.js";
 
 //@des Get all the Baskets
 //@route GET /api/baskets
@@ -77,6 +78,21 @@ const createShopBasket = asyncHandler(async (req, res) => {
   ) {
     res.status(400).json({ msg: "Please fill all the fields" });
   }
+  //- Uploading Image
+  let uploadedResponse;
+  if (image) {
+    uploadedResponse = await cloudinary.uploader.upload(image, {
+      upload_preset: "dev_setups",
+    });
+    if (!uploadedResponse) {
+      res
+        .status(401)
+        .json({ msg: "Something went wrong with uploading the image" });
+    }
+  } else {
+    uploadedResponse = "";
+  }
+
   const price = { original, discount };
   const pickup = { from, to };
   const user = await User.findById(req.user.id);
@@ -94,7 +110,7 @@ const createShopBasket = asyncHandler(async (req, res) => {
     quantity,
     description,
     pickup,
-    image,
+    image: uploadedResponse?.url,
     owner_id: req.user.id,
     shop_id: shopId,
   });
@@ -161,6 +177,16 @@ const updateBasket = asyncHandler(async (req, res) => {
   if (shop.owner_id.toString() !== req.user.id) {
     res.status(401).json("User not Authorized");
   }
+  //- Uploading Image
+  const fileStr = image;
+  const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+    upload_preset: "dev_setups",
+  });
+  if (!uploadedResponse) {
+    res
+      .status(401)
+      .json({ msg: "Something went wrong with uploading the image" });
+  }
   const basketToUpdate = await Basket.findById(basketId);
   if (
     basketToUpdate.shop_id.toString() !== shop._id.toString() &&
@@ -207,4 +233,5 @@ export {
   getBaskets,
   getOneBasket,
   updateBasket,
+  // uploadImage,
 };

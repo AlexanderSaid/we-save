@@ -4,6 +4,7 @@ import CurrentLocation from "./CurrentLocation";
 import { motion } from "framer-motion";
 import { inputAnim, fade, titleAnim } from "../../animation";
 import { useLocation } from "react-router-dom";
+import Spinner from "../layout/Spinner";
 const SearchBar = () => {
   const { pathname } = useLocation();
   const {
@@ -65,7 +66,11 @@ const SearchBar = () => {
               Please try again later
             </span>
           ) : searchLoading ? (
-            "Loading ..."
+            <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+              <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+                <Spinner />
+              </div>
+            </section>
           ) : !isExist && inputValue ? (
             <span>
               This postcode is not exist. <br className="sm:hidden" />

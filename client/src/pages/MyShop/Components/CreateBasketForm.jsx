@@ -6,15 +6,6 @@ import UpdateBasketSuccessMessage from "./UpdateBasketSuccessMessage";
 import PropTypes from "prop-types";
 import validation from "../../../assets/validation";
 
-const FORM_INPUT_CLASSES =
-  "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
-const FORM_LABEL_CLASSES =
-  "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
-const INPUT_CONTAINER = "input-container relative my-7 ";
-const VALID_NOTE = "text-error text-button px-3 pt-2";
-const DESCRIPTION_INPUT_CLASSES =
-  "block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
-
 const CreateBasketForm = ({ basket, setBasket }) => {
   //- Regex validation
   const { DESCRIPTION_REGEX, PRICE_REGEX } = validation;
@@ -29,41 +20,67 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   ];
   const categoriesArr = [
     "Meals",
-    "Bread & Pastries",
+    "Bakery",
     "Groceries",
     "Vegetarian",
     "Diary & Meat",
   ];
 
   const [basketName, setBasketName] = useState(null);
+  const [validName, setValidName] = useState(false);
   const [originalPrice, setOriginalPrice] = useState(1);
   const [validOriginalPrice, setValidOriginalPrice] = useState(false);
-  const [discountPrice, setDiscountPrice] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState(0.5);
   const [validDiscountPrice, setValidDiscountPrice] = useState(false);
   const [priceFocus, setLastPriceFocus] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState([]);
+  const [validCategory, setValidCategory] = useState(false);
   const [pickup, setpickup] = useState({
     from: "",
     to: "",
   });
+
+  const [validPickup, setValidPickup] = useState(true);
   const { from, to } = pickup;
   const [description, setDescription] = useState("");
   const [validDescription, setValidDescription] = useState(false);
   const [descriptionFocus, setDescriptionFocus] = useState(false);
-  const [errMessage, setErrorMessage] = useState("please include all fields");
   const [success, setSuccess] = useState(false);
   const [successUpdate, setSuccessUpdate] = useState(false);
+
+  const [isDisabled, setDisabled] = useState(true);
+
+  //states for uploading image
+  const [previewSource, setPreviewSource] = useState(null);
+  const [fileInputState, setFileInputState] = useState("");
+
+
   const errRef = useRef();
   //- Fetching data
-  const { performFetch, cancelFetch, error } = useFetch(
+  const { performFetch, cancelFetch } = useFetch(
     `/shops/${user.shop_id}/baskets`,
     () => {
       setSuccess(true);
     }
   );
 
-  //-updateing data
+  // uploading image handler
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+    setFileInputState("");
+  };
+
+  //-updating data
   const {
     performFetch: performUpdatingBasket,
     cancelFetch: cancelFetchBasket,
@@ -78,13 +95,70 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   useEffect(() => {
     return { cancelFetch, cancelFetchBasket };
   }, []);
-  useEffect(() => {
-    error && setErrorMessage(error);
-  }, [error]);
+
   //- useEffect hooks to check validation when inputs changed
   useEffect(() => {
     setValidDescription(DESCRIPTION_REGEX.test(description));
   }, [description]);
+
+  useEffect(() => {
+    if (basketName !== null) {
+      setValidName(true);
+    }
+  }, [basketName]);
+
+  useEffect(() => {
+    if (category.length >= 1) {
+      setValidCategory(true);
+    }
+    if (category.length > 2) {
+      setValidCategory(false);
+    }
+  }, [category]);
+
+  useEffect(() => {
+    if (from !== "" || to !== "") {
+      setValidPickup(true);
+    }
+    if (to < from) {
+      setValidPickup(false);
+    }
+  }, [from, to]);
+
+  useEffect(() => {
+    if (originalPrice <= 0) {
+      setOriginalPrice(false);
+    }
+    setValidOriginalPrice(PRICE_REGEX.test(originalPrice));
+  }, [originalPrice]);
+  useEffect(() => {
+    if (discountPrice >= originalPrice) {
+      setValidDiscountPrice(false);
+    } else {
+      setValidDiscountPrice(PRICE_REGEX.test(discountPrice));
+    }
+  }, [discountPrice]);
+
+  //- Determine button state
+  useEffect(() => {
+    !validOriginalPrice ||
+    !validDiscountPrice ||
+    !validDescription ||
+    !validName ||
+    !validCategory ||
+    !validPickup
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [
+    validOriginalPrice,
+    validDiscountPrice,
+    validDescription,
+    validCategory,
+    validName,
+    from,
+    to,
+  ]);
+
   useEffect(() => {
     if (basket) {
       setOriginalPrice(basket.price.original);
@@ -99,16 +173,31 @@ const CreateBasketForm = ({ basket, setBasket }) => {
       setCategory(basket.categories);
     }
   }, [basket]);
+
+
+
+  const handleCancel = () => {
+    setOriginalPrice(1);
+    setDiscountPrice(0);
+    setDescription("");
+    setQuantity(1);
+    setpickup({
+      from: "",
+      to: "",
+    });
+    setBasketName("");
+    setCategory([]);
+    setBasket(null);
+  };
+
   useEffect(() => {
     setValidOriginalPrice(PRICE_REGEX.test(originalPrice));
   }, [originalPrice]);
   useEffect(() => {
     setValidDiscountPrice(PRICE_REGEX.test(discountPrice));
   }, [discountPrice]);
+
   //- Determine error message
-  useEffect(() => {
-    setErrorMessage("");
-  }, [description, originalPrice, discountPrice, quantity]);
 
   const handleCategory = (e) => {
     const { value, checked } = e.target;
@@ -118,35 +207,16 @@ const CreateBasketForm = ({ basket, setBasket }) => {
       setCategory(category.filter((e) => e !== value));
     }
   };
+  useEffect(() => {
+    if (category.length === 3) {
+      setCategory([]);
+    }
+  }, [category]);
 
   //-Submit the form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !category ||
-      !pickup ||
-      !basketName ||
-      !originalPrice ||
-      !discountPrice ||
-      !description ||
-      !quantity
-    ) {
-      setErrorMessage("please include all fields");
-    } else if (discountPrice >= originalPrice) {
-      setErrorMessage(
-        "the original price should be less than the discount price"
-      );
-    } else if (pickup.from >= pickup.to) {
-      setErrorMessage("pick up time not correct");
-    } else if (quantity <= 0) {
-      setErrorMessage("quantity should be 1 at least");
-    } else if (description.length <= 10) {
-      setErrorMessage("description field should have at least 10 characters");
-    } else if (category.length === 0) {
-      setErrorMessage("please include one category at least");
-    } else if (error) {
-      setErrorMessage(error);
-    } else if (basket) {
+    if (basket) {
       performUpdatingBasket({
         method: "PUT",
         headers: {
@@ -167,6 +237,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
       });
     } else {
       setSuccess(true);
+
       performFetch({
         method: "POST",
         headers: {
@@ -183,9 +254,13 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           from,
           to,
           description,
+          image: previewSource,
         }),
       });
     }
+
+    // saving string to database
+    // if (!previewSource) return;
   };
 
   if (success) {
@@ -194,22 +269,12 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   if (successUpdate) {
     return <UpdateBasketSuccessMessage setSuccess={setSuccessUpdate} />;
   }
+
   return (
     <form
-      className="border-2 bg-white border-darkBg p-4 mx-auto"
+      className="p-4 mx-auto bg-white border-2 border-darkBg"
       onSubmit={handleSubmit}
     >
-      {errMessage && (
-        <div className="flex items-center justify-center w-full index-0">
-          <h1
-            aria-live="assertive"
-            ref={errRef}
-            className="w-[50%] mb-4 text-xl text-center  text-error border-2 border-error rounded"
-          >
-            {errMessage}
-          </h1>
-        </div>
-      )}
       <section>
         <div className="grid grid-cols-1 gap-4 mt-4 lg:grid-cols-2">
           <div className="px-4 py-6 rounded ">
@@ -237,9 +302,15 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </div>
           </div>
 
-          <div className="px-4 py-6 rounded ">
-            <label className="text-black " htmlFor="emailAddress">
+          <div className="px-4 py-6 rounded">
+            <label
+              className="text-black flex justify-between "
+              htmlFor="emailAddress"
+            >
               Choose Category
+              <p className="text-button mt-1">
+                ( please choose max of 2 categories )
+              </p>
             </label>
 
             <div className="grid grid-cols-2">
@@ -256,61 +327,67 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                   <label className="ml-2 text-gray-500 ">{item}</label>
                 </div>
               ))}
+              <p
+                id="fn-note"
+                className={`valid-note ${!validCategory ? "block" : "hidden"}`}
+              >
+                categories cant be more than 2
+              </p>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4 ">
-            <div className={INPUT_CONTAINER}>
+            <div className="input-container">
               <input
                 type="number"
-                min="0"
+                min="0.00"
+                step="0.001"
                 id="price"
                 autoComplete="off"
-                onChange={(e) => setOriginalPrice(parseInt(e.target.value))}
+                onChange={(e) => setOriginalPrice(parseFloat(e.target.value))}
                 required
                 aria-invalid={validOriginalPrice ? "false" : "true"}
                 aria-describedby="fn-note"
                 onFocus={() => setLastPriceFocus(true)}
                 onBlur={() => setLastPriceFocus(false)}
-                className={FORM_INPUT_CLASSES}
+                className="form-input peer"
                 value={originalPrice}
               />
-              <label className={FORM_LABEL_CLASSES} htmlFor="orgprice">
+              <label className="form-label" htmlFor="orgprice">
                 Original Price
               </label>
               <p
                 id="fn-note"
-                className={`${VALID_NOTE}  ${
-                  priceFocus && originalPrice && !validOriginalPrice
-                    ? "block"
-                    : "hidden"
+                className={`valid-note ${
+                  !validOriginalPrice ? "block" : "hidden"
                 }`}
               >
                 Price cannot be 0
               </p>
             </div>
 
-            <div className={INPUT_CONTAINER}>
+            <div className="input-container">
               <input
                 type="number"
-                min="0"
+                min="0.00"
+                step="0.001"
                 id="price"
                 autoComplete="off"
-                onChange={(e) => setDiscountPrice(parseInt(e.target.value))}
+                onChange={(e) => setDiscountPrice(parseFloat(e.target.value))}
                 required
                 aria-invalid={validDiscountPrice ? "false" : "true"}
                 aria-describedby="fn-note"
                 onFocus={() => setLastPriceFocus(true)}
                 onBlur={() => setLastPriceFocus(false)}
                 value={discountPrice}
-                className={FORM_INPUT_CLASSES}
+                className="form-input peer"
               />
-              <label className={FORM_LABEL_CLASSES} htmlFor="disprice">
+              <label className="form-label" htmlFor="disprice">
                 Discounted Price
               </label>
               <p
                 id="fn-note"
-                className={`${VALID_NOTE}  ${
+                className={`valid-note  ${
                   priceFocus && discountPrice && !validDiscountPrice
                     ? "block"
                     : "hidden"
@@ -319,7 +396,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
               <div>
                 <p
                   id="fn-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note ${
                     originalPrice <= discountPrice ? "block" : "hidden"
                   }`}
                 >
@@ -330,7 +407,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-1 ">
-            <div className={INPUT_CONTAINER}>
+            <div className="input-container">
               <input
                 type="number"
                 id="quantity"
@@ -339,9 +416,9 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                 autoComplete="off"
                 onChange={(e) => setQuantity(e.target.value)}
                 required
-                className={FORM_INPUT_CLASSES}
+                className="form-input peer"
               />
-              <label className={FORM_LABEL_CLASSES} htmlFor="quantity">
+              <label className="form-label" htmlFor="quantity">
                 Quantity of the basket
               </label>
             </div>
@@ -354,7 +431,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
             <input
               required
-              className={FORM_INPUT_CLASSES}
+              className="form-input peer"
               value={from}
               type="time"
               id="pickup"
@@ -365,6 +442,12 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                 })
               }
             />
+            <p
+              id="fn-note"
+              className={`valid-note  ${!validPickup ? "block" : "hidden"}`}
+            >
+              The pickup time is not correct
+            </p>
           </div>
           <div>
             <label className="text-black " htmlFor="pickupfrom">
@@ -372,7 +455,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </label>
             <input
               required
-              className={FORM_INPUT_CLASSES}
+              className="form-input peer"
               value={to}
               onChange={(e) =>
                 setpickup({
@@ -385,6 +468,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
               id="pickup"
             />
           </div>
+
           <div>
             <label htmlFor="description" className="text-black">
               Description
@@ -400,40 +484,48 @@ const CreateBasketForm = ({ basket, setBasket }) => {
               aria-describedby="fn-note"
               onFocus={() => setDescriptionFocus(true)}
               onBlur={() => setDescriptionFocus(false)}
-              className={DESCRIPTION_INPUT_CLASSES}
+              className="description-field"
               // placeholder="description"
               value={description}
             />
 
             <p
               id="fn-note"
-              className={`${VALID_NOTE}  ${
+              className={`valid-note  ${
                 descriptionFocus && description && !validDescription
                   ? "block"
                   : "hidden"
               }`}
             >
-              Text is too short
+              Text is too short, must be at least 20 letters
             </p>
           </div>
           <div>
             <label className="text-black">Image</label>
             <div className="flex justify-center px-4 py-2 mt-2 border-2 border-gray-300 border-dashed rounded-md">
               <div className="space-y-1 text-center">
-                <svg
-                  className="w-12 h-12 mx-auto text-black"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {previewSource ? (
+                  <img
+                    src={previewSource}
+                    alt="chosen"
+                    style={{ height: "100px", margin: "auto" }}
                   />
-                </svg>
+                ) : (
+                  <svg
+                    className="w-12 h-12 mx-auto text-black"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
                 <div className="flex text-sm text-gray-600">
                   <label
                     htmlFor="file-upload"
@@ -446,6 +538,8 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                       type="file"
                       accept=".jpg,.png,.jpeg"
                       className="sr-only"
+                      onChange={handleFileInputChange}
+                      value={fileInputState}
                     />
                   </label>
                   <p className="pl-1 text-black">or drag and drop</p>
@@ -458,16 +552,24 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
         <div className="flex justify-center mt-6">
           <button
+            disabled={isDisabled}
+            ref={errRef}
             type="submit"
-            className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform rounded-md bg-darkBg hover:bg-darkBgHover focus:outline-none focus:bg-lightBg"
+            className={`${isDisabled ? "is-disabled" : "is-valid"} submit-btn`}
           >
-            {basket ? "Update" : "Create"}
+            {basket
+              ? "Update"
+              : isDisabled
+              ? "Please fill All fields correctly"
+              : "Create"}
           </button>
           {basket && (
+
             <button
-              onClick={() => setBasket(null)}
-              className="px-6 py-2 mx-2 leading-5 text-white transition-colors duration-200 transform rounded-md bg-darkBg hover:bg-darkBgHover focus:outline-none focus:bg-lightBg"
+              onClick={handleCancel}
+              className="cancel-btn"
             >
+
               {"Cancel"}
             </button>
           )}
