@@ -2,7 +2,7 @@ import React from "react";
 import ShopGuidCard from "./ShopGuidCard";
 import { motion } from "framer-motion";
 import { useScroll } from "../../../hooks/useScrolls";
-import { scrollRight, scrollLeft, scrollRevealToBig } from "../../../animation";
+import { scrollRight, scrollLeft, scrollReveal } from "../../../animation";
 import shopCover from "../../../assets/images/homepage/shop-bg.png";
 import user from "../../../assets/images/guid/user.png";
 import shop from "../../../assets/images/guid/shop.png";
@@ -74,7 +74,7 @@ const CostumerGuid = () => {
 
       {/* Guid section */}
       <motion.div
-        variants={scrollRevealToBig}
+        variants={scrollReveal}
         initial="hidden"
         animate={controls1}
         ref={element1}
