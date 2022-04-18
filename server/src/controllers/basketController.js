@@ -79,14 +79,20 @@ const createShopBasket = asyncHandler(async (req, res) => {
     res.status(400).json({ msg: "Please fill all the fields" });
   }
   //- Uploading Image
-  const uploadedResponse = await cloudinary.uploader.upload(image, {
-    upload_preset: "dev_setups",
-  });
-  if (!uploadedResponse) {
-    res
-      .status(401)
-      .json({ msg: "Something went wrong with uploading the image" });
+  let uploadedResponse;
+  if (image) {
+    uploadedResponse = await cloudinary.uploader.upload(image, {
+      upload_preset: "dev_setups",
+    });
+    if (!uploadedResponse) {
+      res
+        .status(401)
+        .json({ msg: "Something went wrong with uploading the image" });
+    }
+  } else {
+    uploadedResponse = "";
   }
+
   const price = { original, discount };
   const pickup = { from, to };
   const user = await User.findById(req.user.id);
@@ -104,7 +110,7 @@ const createShopBasket = asyncHandler(async (req, res) => {
     quantity,
     description,
     pickup,
-    image: uploadedResponse.url,
+    image: uploadedResponse?.url,
     owner_id: req.user.id,
     shop_id: shopId,
   });
