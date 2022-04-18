@@ -17,7 +17,7 @@ import bag from "../../../assets/images/guid/bag.png";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 const CostumerGuid = () => {
-  const [element, controls] = useScroll(0.5);
+  const [element, controls] = useScroll(0.3);
   const { setIsOpen } = useContext(SignInContext);
   const { loggedIn } = useAuthentication();
 
