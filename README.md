@@ -1,7 +1,7 @@
 <div id="top"></div>
 
 <p align="center">
-  <img width="80%"  src="https://user-images.githubusercontent.com/76748316/163634183-671b5aeb-334b-4832-a8ef-21e68e92ff75.png">
+  <img width="80%"  src="https://github.com/HackYourFuture/class34-project-candc/blob/c9f4dd10d16e525b5415bbaafb1e8ab3ec3480c8/client/src/assets/images/readme-images/laptop-home.png">
 </p>
 
 <p align="center">
