@@ -99,6 +99,21 @@ const CreateBasketForm = ({ basket, setBasket }) => {
       setCategory(basket.categories);
     }
   }, [basket]);
+
+  const handleCancel = () => {
+    setOriginalPrice(1);
+    setDiscountPrice(0);
+    setDescription("");
+    setQuantity(1);
+    setpickup({
+      from: "",
+      to: "",
+    });
+    setBasketName("");
+    setCategory([]);
+    setBasket(null);
+  };
+
   useEffect(() => {
     setValidOriginalPrice(PRICE_REGEX.test(originalPrice));
   }, [originalPrice]);
@@ -196,7 +211,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   }
   return (
     <form
-      className="border-2 bg-white border-darkBg p-4 mx-auto"
+      className="p-4 mx-auto bg-white border-2 border-darkBg"
       onSubmit={handleSubmit}
     >
       {errMessage && (
@@ -465,7 +480,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           </button>
           {basket && (
             <button
-              onClick={() => setBasket(null)}
+              onClick={handleCancel}
               className="px-6 py-2 mx-2 leading-5 text-white transition-colors duration-200 transform rounded-md bg-darkBg hover:bg-darkBgHover focus:outline-none focus:bg-lightBg"
             >
               {"Cancel"}

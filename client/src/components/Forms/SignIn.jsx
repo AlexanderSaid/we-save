@@ -6,20 +6,13 @@ import ForgetPassword from "./ForgetPassword";
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
 function SignIn({ openSignIn, setOpenSignIn }) {
   const { user, login, error, isLoading, setError } = useContext(UserContext);
-  const [signInForm, setSignInForm] = useState({ email: "", password: "" });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
-  const { email, password } = signInForm;
   const errRef = useRef();
   const [isDisabled, setDisabled] = useState(true);
-
-  const handleChange = (e) => {
-    setSignInForm((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }));
-  };
 
   useEffect(() => {
     if (user) {
@@ -29,14 +22,15 @@ function SignIn({ openSignIn, setOpenSignIn }) {
 
   //- Determine button state
   useEffect(() => {
-    !email || !password ? setDisabled(true) : setDisabled(false);
-  }, [email, password]);
+    !email || !password || error ? setDisabled(true) : setDisabled(false);
+  }, [email, password, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = { email, password };
     login(userData);
-    setSignInForm({ email: "", password: "" });
+    setEmail("");
+    setPassword("");
   };
 
   const closeWindow = () => {
@@ -93,7 +87,9 @@ function SignIn({ openSignIn, setOpenSignIn }) {
                     required
                     className="form-input peer"
                     placeholder="Email"
-                    onChange={(e) => handleChange(e)}
+                    onFocus={() => setError("")}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <label htmlFor="email" className="form-label">
                     Email
@@ -107,7 +103,9 @@ function SignIn({ openSignIn, setOpenSignIn }) {
                     required
                     className="form-input peer"
                     placeholder="password"
-                    onChange={(e) => handleChange(e)}
+                    onFocus={() => setError("")}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <div className="absolute cursor-pointer top-2 right-1">
                     <AiFillEye
@@ -149,7 +147,11 @@ function SignIn({ openSignIn, setOpenSignIn }) {
                   aria-live="assertive"
                   ref={errRef}
                   className={`${
-                    isDisabled ? "is-disabled" : error ? "is-error" : "is-valid"
+                    isDisabled && !error
+                      ? "is-disabled"
+                      : error
+                      ? "is-error"
+                      : "is-valid"
                   } submit-btn`}
                 >
                   {isDisabled
