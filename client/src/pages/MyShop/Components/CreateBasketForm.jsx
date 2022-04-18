@@ -195,14 +195,10 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     return <UpdateBasketSuccessMessage setSuccess={setSuccessUpdate} />;
   }
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <div className="flex flex-col items-center">
-        <div className="flex">
-          <h1 className="mt-10 text-xl font-bold text-gray-600 md:text-2xl">
-            {basket ? "EDIT YOUR BASKET" : "CREATE A BASKET"}
-          </h1>
-        </div>
-      </div>
+    <form
+      className="border-2 bg-white border-darkBg p-4 mx-auto"
+      onSubmit={handleSubmit}
+    >
       {errMessage && (
         <div className="flex items-center justify-center w-full index-0">
           <h1
@@ -215,9 +211,9 @@ const CreateBasketForm = ({ basket, setBasket }) => {
         </div>
       )}
       <section>
-        <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
-          <div className="px-4 py-6 rounded bg-gray-50">
-            <label className="text-black " htmlFor="basketname">
+        <div className="grid grid-cols-1 gap-4 mt-4 lg:grid-cols-2">
+          <div className="px-4 py-6 rounded ">
+            <label className="text-black" htmlFor="basketname">
               Basket Name
             </label>
             <div className="grid grid-cols-2">
@@ -241,7 +237,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             </div>
           </div>
 
-          <div className="px-4 py-6 rounded bg-gray-50">
+          <div className="px-4 py-6 rounded ">
             <label className="text-black " htmlFor="emailAddress">
               Choose Category
             </label>
