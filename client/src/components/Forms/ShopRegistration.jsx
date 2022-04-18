@@ -9,24 +9,19 @@ import {
 } from "react-icons/ai";
 import useFetch from "../../hooks/useFetch.js";
 
-//- Declare regex validations
-const SHOP_NAME_REGEX = /^[a-zA-Z0-9\s]{2,}$/;
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
-// (123) 456-7890
-// (123)456-7890
-// 123-456-7890
-// 123.456.7890
-// 1234567890
-// +31636363634
-// 075-63546725
-const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
-const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
-const KVK_REGEX = /^[0-9a-zA-Z]{8}/;
+import validation from "../../assets/validation";
 
 const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
+  //- Regex validations
+  const {
+    SHOP_NAME_REGEX,
+    EMAIL_REGEX,
+    PHONE_REGEX,
+    POSTCODE_REGEX,
+    KVK_REGEX,
+  } = validation;
 
   /**
    * Every input has 3 states:

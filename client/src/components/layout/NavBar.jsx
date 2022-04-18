@@ -13,7 +13,7 @@ import UserContext from "../../context/UserContext";
 import SignInContext from "../../context/SignInContext";
 import SignIn from "../Forms/SignIn";
 import ShopRegistration from "../Forms/ShopRegistration";
-import logo1 from "../../assets/logo/logo1.png";
+import logo1 from "../../assets/images/logo/logo1.png";
 
 const NavBar = () => {
   //- Side nav bar visibility state

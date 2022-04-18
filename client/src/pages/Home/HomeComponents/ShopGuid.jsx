@@ -1,10 +1,10 @@
 import React from "react";
 import ShopGuidCard from "./ShopGuidCard";
-import shopCover from "../../../assets/shop-bg.png";
+import shopCover from "../../../assets/images/homepage/shop-bg.png";
 //- Steps Logos
-import user from "../../../assets/guid/user.png";
-import shop from "../../../assets/guid/shop.png";
-import basket from "../../../assets/guid/basket.png";
+import user from "../../../assets/images/guid/user.png";
+import shop from "../../../assets/images/guid/shop.png";
+import basket from "../../../assets/images/guid/basket.png";
 
 const CostumerGuid = () => {
   const shopGuid = [

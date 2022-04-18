@@ -6,10 +6,10 @@ import {
 } from "react-icons/ai";
 import PropTypes from "prop-types";
 import useFetch from "../../hooks/useFetch.js";
+import validation from "../../assets/validation";
 
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
 function ForgetPassword({ setForgetPassword }) {
+  const { EMAIL_REGEX } = validation;
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);

@@ -1,6 +1,6 @@
 import React from "react";
 import { SiLinkedin, SiFacebook, SiTwitter, SiYoutube } from "react-icons/si";
-import logo1 from "../../assets/logo/logo1.png";
+import logo1 from "../../assets/images/logo/logo1.png";
 
 const Footer = () => {
   return (

@@ -8,19 +8,14 @@ import {
 } from "react-icons/ai";
 import useFetch from "../../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
-
-//- Declare regex validations
-const NAME_REGEX = /^[a-zA-Z]{3,}$/;
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
+import validation from "../../assets/validation.js";
 
 const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
-
+  //- Regex validations
+  const { NAME_REGEX, EMAIL_REGEX, PASSWORD_REGEX, POSTCODE_REGEX } =
+    validation;
   /**
    * Every input has 3 states:
    * For value, for validation and for focus
