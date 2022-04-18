@@ -100,8 +100,8 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
 
-  //- switch to signin page
-  const handleSigninPage = () => {
+  //- switch to sign in page
+  const handleSignInPage = () => {
     setSignInOpen(true);
     setSignUpOpen(false);
   };
@@ -387,7 +387,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   Already have an account?
                   <span
                     className="px-2 cursor-pointer text-accent"
-                    onClick={handleSigninPage}
+                    onClick={handleSignInPage}
                   >
                     Sign in
                   </span>
