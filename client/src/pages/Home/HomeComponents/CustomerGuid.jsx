@@ -11,9 +11,9 @@ import {
   scrollReveal,
   pageAnimation,
 } from "../../../animation";
-import location from "../../../assets/guid/location.png";
-import cart from "../../../assets/guid/cart.png";
-import bag from "../../../assets/guid/bag.png";
+import location from "../../../assets/images/guid/location.png";
+import cart from "../../../assets/images/guid/cart.png";
+import bag from "../../../assets/images/guid/bag.png";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 const CostumerGuid = () => {

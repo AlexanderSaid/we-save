@@ -3,10 +3,10 @@ import ShopGuidCard from "./ShopGuidCard";
 import { motion } from "framer-motion";
 import { useScroll } from "../../../hooks/useScrolls";
 import { scrollRight, scrollLeft, scrollRevealToBig } from "../../../animation";
-import shopCover from "../../../assets/shop-bg.png";
-import user from "../../../assets/guid/user.png";
-import shop from "../../../assets/guid/shop.png";
-import basket from "../../../assets/guid/basket.png";
+import shopCover from "../../../assets/images/homepage/shop-bg.png";
+import user from "../../../assets/images/guid/user.png";
+import shop from "../../../assets/images/guid/shop.png";
+import basket from "../../../assets/images/guid/basket.png";
 const CostumerGuid = () => {
   const [element, controls] = useScroll(0.2);
   const [element1, controls1] = useScroll(0.5);
