@@ -6,21 +6,13 @@ import Spinner from "../../../components/layout/Spinner";
 
 function DeleteShopMessage({ setDeleteShop }) {
   const { user, logout } = useContext(UserContext);
-  // const [success, setSuccess] = useState(false);
 
   const { isLoading, performFetch, cancelFetch } = useFetch(
     `/shops/${user?.shop_id}`,
     () => {
-      logout();
       setDeleteShop(false);
     }
   );
-
-  // useEffect(() => {
-  //   if (success) {
-  //     logout();
-  //   }
-  // }, [success]);
 
   useEffect(() => {
     return cancelFetch;
@@ -56,6 +48,7 @@ function DeleteShopMessage({ setDeleteShop }) {
               href="/"
               onClick={() => {
                 deleteShop();
+                logout();
               }}
               className="w-[50%] py-2 my-1 text-center font-bold text-darkFont hover:text-accent focus:outline-none mt-4 transition duration-300 hover:ease-in-out"
             >
