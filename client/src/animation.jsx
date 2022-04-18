@@ -58,7 +58,7 @@ export const footerAnimation = {
 
 export const titleAnim = {
   hidden: {
-    y: 200,
+    y: 100,
   },
   show: {
     y: 0,
