@@ -4,12 +4,12 @@ import useFetch from "../../../hooks/useFetch";
 import { FaShoppingBasket } from "react-icons/fa";
 import PropTypes from "prop-types";
 import DeleteSuccessMessage from "./DeleteSuccessMessage";
-import breakfast1 from "../../../assets/breakfast1.jpeg";
-import dairy from "../../../assets/dairy.png";
-import lunchbox from "../../../assets/lunchbox.jpeg";
-import dinnerbox from "../../../assets/dinnerbox.jpeg";
-import grocery2 from "../../../assets/grocery2.jpg";
-import pestries from "../../../assets/pestries.jpeg";
+import breakfast1 from "../../../assets/images/baskets/breakfast1.jpeg";
+import dairy from "../../../assets/images/baskets/dairy.png";
+import lunchbox from "../../../assets/images/baskets/lunchbox.jpeg";
+import dinnerbox from "../../../assets/images/baskets/dinnerbox.jpeg";
+import grocery2 from "../../../assets/images/baskets/grocery2.jpg";
+import pestries from "../../../assets/images/baskets/pestries.jpeg";
 
 const BasketSummary = ({ basket, getBasket }) => {
   const { user } = useContext(UserContext);

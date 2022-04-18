@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import customer from "../../../assets/customer-bg.png";
+import customer from "../../../assets/images/homepage/customer-bg.png";
 import CustomerGuidCard from "./CustomerGuidCard";
-import location from "../../../assets/guid/location.png";
-import cart from "../../../assets/guid/cart.png";
-import bag from "../../../assets/guid/bag.png";
+import location from "../../../assets/images/guid/location.png";
+import cart from "../../../assets/images/guid/cart.png";
+import bag from "../../../assets/images/guid/bag.png";
 import SignInContext from "../../../context/SignInContext";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 const CostumerGuid = () => {
@@ -44,20 +44,25 @@ const CostumerGuid = () => {
               <h3 className="text-title4 font-bold text-center md:text-left">
                 Fresh food for you, more food for others.
               </h3>
-              <p className="text-bodyRegular text-darkFont/80 font-bold md:w-[90%] md:text-justify text-center md:text-left">
+              <p className="text-bodyRegular text-darkFont/80 font-bold md:w-[90%] text-center md:text-left">
                 Start saving delicious products that your local entrepreneur
                 will have left at the end of the day. Always a surprise at a low
                 price and you immediately do something good for the planet.
                 Start today!
               </p>
               <a className="self-center md:self-end md:mr-4">
-                <button
-                  className="btn btn-dark"
-                  disabled={loggedIn ? true : false}
-                  onClick={setIsOpen}
-                >
-                  {loggedIn ? "Welcome Back" : "Sign In"}
-                </button>
+                {loggedIn ? (
+                  <p className='font-bold py-4 px-6 text-darkBg/80 font-["Roboto"] border-t-2 border-b-2 border-accent'>
+                    Welcome Back
+                  </p>
+                ) : (
+                  <button
+                    className="btn btn-dark"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Sign In
+                  </button>
+                )}
               </a>
             </div>
           </div>

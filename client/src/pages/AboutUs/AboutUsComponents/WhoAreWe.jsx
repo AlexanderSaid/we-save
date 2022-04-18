@@ -1,11 +1,11 @@
 import React from "react";
 import StaffCard from "./StaffCard";
 //- Import the staff photos
-import Abd from "../../../assets/staff-photos/Abd.jpg";
-import Alex from "../../../assets/staff-photos/Alex.jpg";
-import Bachar from "../../../assets/staff-photos/Bachar.jpg";
-import George from "../../../assets/staff-photos/George.jpg";
-import Said from "../../../assets/staff-photos/Said.jpg";
+import Abd from "../../../assets/images/staff-photos/Abd.jpg";
+import Alex from "../../../assets/images/staff-photos/Alex.jpg";
+import Bachar from "../../../assets/images/staff-photos/Bachar.jpg";
+import George from "../../../assets/images/staff-photos/George.jpg";
+import Said from "../../../assets/images/staff-photos/Said.jpg";
 const WhoAreWe = () => {
   const staff = [
     {

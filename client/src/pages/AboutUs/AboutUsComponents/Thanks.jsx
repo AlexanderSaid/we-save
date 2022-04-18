@@ -38,7 +38,7 @@ const Thanks = () => {
           {mentors.map((mentor) => (
             <li
               key={mentor.name}
-              className="transition duration-300 ease-in-out hover:scale-110 trans"
+              className="transition duration-300 ease-in-out hover:scale-110"
             >
               <a href={mentor.linkedIn} className="text-center">
                 <h5 className="text-bodyRegular text-darkFont/80 font-bold pb-2 md:text-bodyLarge underline underline-offset-4">
@@ -59,7 +59,7 @@ const Thanks = () => {
             All our mentors in{" "}
             <a
               href="https://www.hackyourfuture.net/"
-              className="text-error font-bold text-bodyLarge"
+              className="text-error font-bold text-bodyLarge hover:underline"
             >
               HYF
             </a>
@@ -69,7 +69,7 @@ const Thanks = () => {
             and class-34 mentor
           </p>
           <a href="https://www.linkedin.com/in/robvk/">
-            <span className="text-bodyRegular font-bold text-error md:text-bodyLarge">
+            <span className="text-bodyRegular font-bold text-error md:text-bodyLarge hover:underline">
               Rob van Kruijsdijk
             </span>
           </a>

@@ -1,13 +1,10 @@
 import React from "react";
 import ShopGuidCard from "./ShopGuidCard";
-import shopCover from "../../../assets/shop-bg.png";
+import shopCover from "../../../assets/images/homepage/shop-bg.png";
 //- Steps Logos
-// import one from "../../../assets/1.png";
-// import two from "../../../assets/2.png";
-// import three from "../../../assets/3.png";
-import user from "../../../assets/guid/user.png";
-import shop from "../../../assets/guid/shop.png";
-import basket from "../../../assets/guid/basket.png";
+import user from "../../../assets/images/guid/user.png";
+import shop from "../../../assets/images/guid/shop.png";
+import basket from "../../../assets/images/guid/basket.png";
 
 const CostumerGuid = () => {
   const shopGuid = [
@@ -25,7 +22,7 @@ const CostumerGuid = () => {
       logo: basket,
       title: "Baskets & Reservations",
 
-      text: "Easily add, edit or even delete you baskets. Now you get reservations emails with deliver code.",
+      text: "Easily add, edit or even delete you baskets. Receive reservation emails with deliver code.",
     },
   ];
 
@@ -39,7 +36,7 @@ const CostumerGuid = () => {
         <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl">
           <img
             src={shopCover}
-            alt="Grocery bag with piggy bank"
+            alt="Grocery basket is been given"
             className="absolute object-cover w-full h-full"
           />
           <div className="z-10 flex items-center justify-center w-full h-full py-4 md:justify-end">
@@ -53,7 +50,7 @@ const CostumerGuid = () => {
                 whatever you are selling. Its 100% better for you and the
                 planet.
               </p>
-              <p className='text-center rounded-md font-semibold tracking-wide p-2 bg-darkBg text-lightFont opacity-90 font-["Roboto"]'>
+              <p className='text-center font-semibold tracking-wide p-2  text-darkBg/80 font-["Roboto"] border-t-2 border-b-2 border-accent'>
                 Join us following below instructions
               </p>
             </div>
@@ -62,7 +59,7 @@ const CostumerGuid = () => {
       </div>
 
       {/* Guid section */}
-      <div className="flex items-center justify-center w-full ">
+      <div className="flex items-center justify-center w-full">
         <div className="flex flex-wrap items-stretch w-full gap-4 px-12 py-12 text-center justify-evenly max-w-1440">
           {shopGuid.map((guid, i) => (
             <ShopGuidCard key={i} props={guid} />

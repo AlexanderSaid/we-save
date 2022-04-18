@@ -9,14 +9,14 @@ const Layout = () => {
   return (
     <>
       <a id="top"></a>
-      <header className="w-full h-[100px] bg-darkFont fixed top-0 flex items-center justify-center block z-50">
+      <header className="w-full h-[100px] bg-darkFont fixed top-0 flex items-center justify-center z-50">
         {pathname === "/" && <SkipLinks />}
         <NavBar />
       </header>
       <main className=" grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip">
         <Outlet />
       </main>
-      <footer className="w-full text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center">
+      <footer className="w-full text-lightFont bg-darkFont shrink-0 flex items-center justify-center">
         <Footer />
       </footer>
     </>
