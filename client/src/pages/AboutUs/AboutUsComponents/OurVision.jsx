@@ -1,7 +1,12 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { fade } from "../../../animation";
 const OurVision = () => {
   return (
-    <section className="flex items-center justify-center bg-lightBg block w-full min-h-[250px] py-4">
+    <motion.section
+      variants={fade}
+      className="flex items-center justify-center bg-lightBg block w-full min-h-[250px] py-4"
+    >
       <div className="flex justify-center max-w-1440">
         <div className="w-[80%] md:w-[70%] lg:w-[50%] flex flex-col justify-evenly">
           <h4 className="text-center text-bodyLarge font-extrabold text-accent self-center sm:text-title4 sm:self-end pb-4">
@@ -15,7 +20,7 @@ const OurVision = () => {
           </p>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 export default OurVision;

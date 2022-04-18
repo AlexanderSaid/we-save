@@ -4,6 +4,8 @@ import useFetch from "../../../hooks/useFetch";
 import TextArea from "../ContactComponents/TextArea";
 import SuccessMessage from "./SuccessMessage";
 import UserContext from "../../../context/UserContext";
+import { motion } from "framer-motion";
+import { fade } from "../../../animation";
 
 const EnterData = () => {
   const [fullName, setFullName] = useState("");
@@ -44,7 +46,10 @@ const EnterData = () => {
   }
 
   return (
-    <div className="py-12 px-4 xs:p-12 bg-lightFont text-darkFont w-full min-w-[50%]">
+    <motion.div
+      variants={fade}
+      className="py-12 px-4 xs:p-12 bg-lightFont text-darkFont w-full min-w-[50%]"
+    >
       <h1 className="pb-12 text-2xl font-extrabold text-center font-[Fira]">
         Send Us Message
       </h1>
@@ -85,7 +90,7 @@ const EnterData = () => {
           Submit
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

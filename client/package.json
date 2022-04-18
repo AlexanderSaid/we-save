@@ -57,12 +57,14 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "framer-motion": "^6.3.0",
     "geolib": "^3.3.3",
     "postcss-loader": "^6.2.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-intersection-observer": "^8.34.0",
     "react-router-dom": "^6.0.2",
     "tailwindcss": "^3.0.23"
   }
