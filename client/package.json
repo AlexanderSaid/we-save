@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "cloudinary-react": "^1.7.2",
     "framer-motion": "^6.3.0",
     "geolib": "^3.3.3",
     "postcss-loader": "^6.2.1",

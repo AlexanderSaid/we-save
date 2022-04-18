@@ -48,7 +48,14 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   const [descriptionFocus, setDescriptionFocus] = useState(false);
   const [success, setSuccess] = useState(false);
   const [successUpdate, setSuccessUpdate] = useState(false);
+
   const [isDisabled, setDisabled] = useState(true);
+
+  //states for uploading image
+  const [previewSource, setPreviewSource] = useState(null);
+  const [fileInputState, setFileInputState] = useState("");
+
+
   const errRef = useRef();
   //- Fetching data
   const { performFetch, cancelFetch } = useFetch(
@@ -58,7 +65,22 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     }
   );
 
-  //-updateing data
+  // uploading image handler
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+    setFileInputState("");
+  };
+
+  //-updating data
   const {
     performFetch: performUpdatingBasket,
     cancelFetch: cancelFetchBasket,
@@ -152,6 +174,29 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     }
   }, [basket]);
 
+
+
+  const handleCancel = () => {
+    setOriginalPrice(1);
+    setDiscountPrice(0);
+    setDescription("");
+    setQuantity(1);
+    setpickup({
+      from: "",
+      to: "",
+    });
+    setBasketName("");
+    setCategory([]);
+    setBasket(null);
+  };
+
+  useEffect(() => {
+    setValidOriginalPrice(PRICE_REGEX.test(originalPrice));
+  }, [originalPrice]);
+  useEffect(() => {
+    setValidDiscountPrice(PRICE_REGEX.test(discountPrice));
+  }, [discountPrice]);
+
   //- Determine error message
 
   const handleCategory = (e) => {
@@ -209,9 +254,13 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           from,
           to,
           description,
+          image: previewSource,
         }),
       });
     }
+
+    // saving string to database
+    // if (!previewSource) return;
   };
 
   if (success) {
@@ -223,7 +272,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
   return (
     <form
-      className="border-2 bg-white border-darkBg p-4 mx-auto"
+      className="p-4 mx-auto bg-white border-2 border-darkBg"
       onSubmit={handleSubmit}
     >
       <section>
@@ -455,20 +504,28 @@ const CreateBasketForm = ({ basket, setBasket }) => {
             <label className="text-black">Image</label>
             <div className="flex justify-center px-4 py-2 mt-2 border-2 border-gray-300 border-dashed rounded-md">
               <div className="space-y-1 text-center">
-                <svg
-                  className="w-12 h-12 mx-auto text-black"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {previewSource ? (
+                  <img
+                    src={previewSource}
+                    alt="chosen"
+                    style={{ height: "100px", margin: "auto" }}
                   />
-                </svg>
+                ) : (
+                  <svg
+                    className="w-12 h-12 mx-auto text-black"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
                 <div className="flex text-sm text-gray-600">
                   <label
                     htmlFor="file-upload"
@@ -481,6 +538,8 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                       type="file"
                       accept=".jpg,.png,.jpeg"
                       className="sr-only"
+                      onChange={handleFileInputChange}
+                      value={fileInputState}
                     />
                   </label>
                   <p className="pl-1 text-black">or drag and drop</p>
@@ -505,7 +564,12 @@ const CreateBasketForm = ({ basket, setBasket }) => {
               : "Create"}
           </button>
           {basket && (
-            <button onClick={() => setBasket(null)} className="cancel-btn ">
+
+            <button
+              onClick={handleCancel}
+              className="cancel-btn"
+            >
+
               {"Cancel"}
             </button>
           )}
