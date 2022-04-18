@@ -94,10 +94,24 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
   //- Determine button state
   useEffect(() => {
-    !validShopName || !validPostcode || !validKvkNumber || !validPhone
+    !validShopName ||
+    !validPostcode ||
+    !validKvkNumber ||
+    !validPhone ||
+    !streetName ||
+    !houseNumber ||
+    errMessage
       ? setDisabled(true)
       : setDisabled(false);
-  }, [validShopName, validPostcode, validKvkNumber, validPhone]);
+  }, [
+    validShopName,
+    validPostcode,
+    validKvkNumber,
+    validPhone,
+    streetName,
+    houseNumber,
+    errMessage,
+  ]);
 
   //- Clear error message when user start typing
   useEffect(() => {
@@ -407,14 +421,14 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
                 aria-live="assertive"
                 ref={errRef}
                 className={`${
-                  isDisabled
+                  isDisabled && !errMessage
                     ? "is-disabled"
                     : errMessage
                     ? "is-error"
                     : "is-valid"
                 } submit-btn`}
               >
-                {isDisabled
+                {isDisabled && !errMessage
                   ? "Please fill required fields correctly"
                   : errMessage
                   ? errMessage

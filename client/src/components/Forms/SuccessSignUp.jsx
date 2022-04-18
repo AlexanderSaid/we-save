@@ -6,7 +6,7 @@ import SignInContext from "../../context/SignInContext";
 const SuccessSignUp = ({ setSignUp, setSuccess }) => {
   const { setIsOpen } = useContext(SignInContext);
   return (
-    <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+    <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full h-full z-[1000]">
       <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
         <div className="bg-lightFont px-6 py-8 rounded shadow-md text-darkFont max-w-[600px] w-[90%]  relative">
           <h3 className="text-3xl font-bold text-center mb-9 text-accent">

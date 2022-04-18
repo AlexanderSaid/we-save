@@ -90,10 +90,18 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
     !validLastName ||
     !validEmail ||
     !validPassword ||
-    !validMatch
+    !validMatch ||
+    errMessage
       ? setDisabled(true)
       : setDisabled(false);
-  }, [validFirstName, validLastName, validEmail, validPassword, validMatch]);
+  }, [
+    validFirstName,
+    validLastName,
+    validEmail,
+    validPassword,
+    validMatch,
+    errMessage,
+  ]);
 
   //- Clear error message when user start typing
   useEffect(() => {
@@ -401,14 +409,14 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                 aria-live="assertive"
                 ref={errRef}
                 className={`${
-                  isDisabled
+                  isDisabled && !errMessage
                     ? "is-disabled"
                     : errMessage
                     ? "is-error"
                     : "is-valid"
                 } submit-btn`}
               >
-                {isDisabled
+                {isDisabled && !errMessage
                   ? "Please fill required fields correctly"
                   : errMessage
                   ? errMessage

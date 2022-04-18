@@ -23,7 +23,7 @@ const Layout = () => {
         initial="hidden"
         animate="show"
         exit="exit"
-        className=" grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip"
+        className="w-screen grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip"
       >
         <ScrollTop>
           <Outlet />
