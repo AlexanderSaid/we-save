@@ -5,8 +5,9 @@
 </p>
 
 <p align="center">
-  <img width="20%" src="https://user-images.githubusercontent.com/76748316/163634200-c795132c-65cb-471e-af57-409e9c986b70.png">
-  <img width="20%"  src="https://user-images.githubusercontent.com/76748316/163634205-fdd85c74-331c-413c-bc59-3f32c6fee293.png">
+  <img width="20%" src="https://github.com/HackYourFuture/class34-project-candc/blob/c9f4dd10d16e525b5415bbaafb1e8ab3ec3480c8/client/src/assets/images/readme-images/mobile-home.png">
+  <img width="20%"  src="https://github.com/HackYourFuture/class34-project-candc/blob/c9f4dd10d16e525b5415bbaafb1e8ab3ec3480c8/client/src/assets/images/readme-images/mobile-results.png">
+  <img width="20%"  src="https://github.com/HackYourFuture/class34-project-candc/blob/c9f4dd10d16e525b5415bbaafb1e8ab3ec3480c8/client/src/assets/images/readme-images/mobile-myShop.png">
 </p>
 
 
@@ -31,6 +32,7 @@
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#improvements">Further Improvements</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -186,6 +188,9 @@ For more information on how these work together including the automatic deployme
 - `jest` || To run our tests and coverage. See [docs](https://jestjs.io/)
 - `jest-fetch-mock` || To mock out the backend for our testing purposes. See [docs](https://github.com/jefflau/jest-fetch-mock#readme)
 - `prop-types` || To type-check our components. See [docs](https://github.com/facebook/prop-types)
+- `Tailwind CSS` || To do the css design for all the components. See[docs](https://tailwindcss.com)
+- `Framer`|| To apply animation to style. See [docs](https://www.framer.com/motion/)
+- `geolib` || To do basic geospatial operations like distance calculation, conversion of lat&lon to postcodes, etc. See [docs](https://www.npmjs.com/package/geolib)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -199,12 +204,30 @@ For more information on how these work together including the automatic deployme
 - `mongodb-memory-server` || To mock out our database in our backend tests. See [docs](https://github.com/nodkz/mongodb-memory-server)
 - `cors` || To open up our API. See [docs](https://github.com/expressjs/cors#readme)
 - `mongoose` || To add schemas to our database. See [docs](https://mongoosejs.com/)
+- `geolib` || To do basic geospatial operations like distance calculation, conversion of lat&lon to postcodes, etc. See [docs](https://www.npmjs.com/package/geolib)
+- `jsonwebtoken` || To create tokesn to check the authorization. See [docs](https://www.npmjs.com/package/jsonwebtoken)
+- `nodemailer`|| To send emails after confirmation of basket reservation and sending message through Contact Us page See [docs](https://nodemailer.com/about/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<div id="improvements"></div>
+
+## 4. Further Improvements
+
+- To create a customer profile and shop profile pages to be able to display information of the user/shop.
+- The functionality that allows customer/shop-owner to edit personal/shop-related info
+- Adding "cart" functionality to be able to store one or multiple baskets in it before payment
+- Adding payment functionality
+- Being able to upload custom images for baskets, shop-covers, and shop-logo
+- History of purchase/sell for customer/owner 
+
+We, as a WeSave team, really would like to hear your amazing ideas about further improvements!! To do so, please reach us <a href="#contact"> here!</a>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <div id="contributing"></div>
 
-## 4. Contributing
+## 5. Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -221,7 +244,7 @@ Don't forget to give the project a star! Thanks again!
 
 <div id="license"></div>
 
-## 5. License
+## 6. License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
@@ -230,7 +253,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <div id="contact"></div>
 
-## 6. Contact
+## 7. Contact
 
 Email - main-wesave@outlook.com
 
