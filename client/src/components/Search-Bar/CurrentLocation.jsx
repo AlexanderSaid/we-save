@@ -68,7 +68,9 @@ const CurrentLocation = () => {
         size={30}
         onClick={handleCurrentLocation}
         className={`${
-          searchLoading ? "cursor-wait opacity-75" : "cursor-pointer"
+          searchLoading
+            ? "cursor-wait opacity-75"
+            : "cursor-pointer text-darkBg/80 hover:text-accent transition-all duration-[400ms] ease-in-out"
         }`}
       />
     </div>

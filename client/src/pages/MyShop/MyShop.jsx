@@ -6,7 +6,7 @@ import BasketSummary from "./Components/BasketSummary";
 import CoverShop from "./Components/CoverShop";
 
 //- Common classes
-function CreateBasket() {
+function MyShop() {
   const { user } = useContext(UserContext);
   const [baskets, setBaskets] = useState();
   const [basket, setBasket] = useState(null);
@@ -78,4 +78,4 @@ function CreateBasket() {
     </>
   );
 }
-export default CreateBasket;
+export default MyShop;

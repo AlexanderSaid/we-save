@@ -8,12 +8,13 @@ import {
   FiChevronDown,
   FiChevronUp,
 } from "react-icons/fi";
-import { SiFoodpanda } from "react-icons/si";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import UserContext from "../../context/UserContext";
 import SignInContext from "../../context/SignInContext";
 import SignIn from "../Forms/SignIn";
 import ShopRegistration from "../Forms/ShopRegistration";
+import logo1 from "../../assets/images/logo/logo1.png";
+
 const NavBar = () => {
   //- Side nav bar visibility state
   const [hidden, setHidden] = useState(true);
@@ -29,7 +30,10 @@ const NavBar = () => {
   const sideBarState = () => {
     setHidden(!hidden);
   };
-
+  const handleLinkClick = () => {
+    setHidden(true);
+    setMenu(false);
+  };
   const handleLogin = () => {
     setIsOpen(true);
     setHidden(true);
@@ -40,7 +44,7 @@ const NavBar = () => {
         <div className="relative flex items-center justify-between">
           <Link to="/">
             <div className="logo-container">
-              <SiFoodpanda size={40} />
+              <img src={logo1} alt="logo" className="h-[50px] w-[50px]" />
               <span className="font-[lato] tracking-wider text-bodyRegular md:text-bodyLarge lg:text-[26px]">
                 WeSave
               </span>
@@ -62,7 +66,7 @@ const NavBar = () => {
         >
           <Link
             to="/"
-            onClick={() => setHidden(true)}
+            onClick={handleLinkClick}
             className="nav-link nav-link-md"
           >
             Home
@@ -70,8 +74,8 @@ const NavBar = () => {
 
           {user && user.is_owner ? (
             <Link
-              to="/createBasket"
-              onClick={() => setHidden(true)}
+              to="my-shop"
+              onClick={handleLinkClick}
               className="nav-link nav-link-md"
             >
               MyShop
@@ -80,15 +84,15 @@ const NavBar = () => {
 
           <Link
             to="about-us"
-            onClick={() => setHidden(true)}
+            onClick={handleLinkClick}
             className="nav-link nav-link-md"
           >
             About Us
           </Link>
 
           <Link
-            to="/contact"
-            onClick={() => setHidden(true)}
+            to="contact"
+            onClick={handleLinkClick}
             className="nav-link nav-link-md"
           >
             Contact
@@ -115,7 +119,7 @@ const NavBar = () => {
               </div>
               <div className={`${menu ? "" : "hidden -right-[100%]"} dropdown`}>
                 {user && user.is_owner && user.shop_id ? (
-                  <a href="/createBasket" onClick={() => setHidden(true)}>
+                  <a href="my-shop" onClick={handleLinkClick}>
                     MyShop
                   </a>
                 ) : (

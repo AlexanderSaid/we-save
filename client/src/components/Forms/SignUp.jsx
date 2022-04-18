@@ -8,19 +8,14 @@ import {
 } from "react-icons/ai";
 import useFetch from "../../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
-
-//- Declare regex validations
-const NAME_REGEX = /^[a-zA-Z]{3,}$/;
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
+import validation from "../../assets/validation.js";
 
 const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
-
+  //- Regex validations
+  const { NAME_REGEX, EMAIL_REGEX, PASSWORD_REGEX, POSTCODE_REGEX } =
+    validation;
   /**
    * Every input has 3 states:
    * For value, for validation and for focus
@@ -105,8 +100,8 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
     setErrorMessage("");
   }, [firstName, lastName, email, password, matchPassword]);
 
-  //- switch to signin page
-  const handleSigninPage = () => {
+  //- switch to sign in page
+  const handleSignInPage = () => {
     setSignInOpen(true);
     setSignUpOpen(false);
   };
@@ -115,7 +110,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Set error message from backend
 
   useEffect(() => {
-    error && setErrorMessage(error);
+    error && setErrorMessage("This email is already exists.");
   }, [error]);
 
   //- Send the form
@@ -144,30 +139,18 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
         <SuccessSignUp setSuccess={setSuccess} setSignUp={setSignUpOpen} />
       </>
     ) : (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)] left-0 right-0 w-full  h-full overflow-auto  z-[1000]">
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full overflow-auto  z-[1000]">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
           <div className="bg-lightFont px-6 py-8 rounded shadow-md max-w-[600px] w-[90%]  relative">
-            {errMessage && (
-              <div className="flex items-center justify-center w-full">
-                <h1
-                  aria-live="assertive"
-                  ref={errRef}
-                  className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded"
-                >
-                  {errMessage}
-                </h1>
-              </div>
-            )}
-
-            <h1 className="mb-8 text-3xl text-center text-accent">
-              CREATE ACCOUNT
-            </h1>
             <button
               className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
               onClick={() => setSignUpOpen(false)}
             >
               <AiOutlineArrowLeft />
             </button>
+            <h1 className="mb-8 text-3xl text-center text-accent">
+              CREATE ACCOUNT
+            </h1>
             <form onSubmit={handleSubmit}>
               <div className="input-container">
                 {firstName && !firstNameFocus ? (
@@ -404,7 +387,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
                   Already have an account?
                   <span
                     className="px-2 cursor-pointer text-accent"
-                    onClick={handleSigninPage}
+                    onClick={handleSignInPage}
                   >
                     Sign in
                   </span>
@@ -413,12 +396,23 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
 
               <button
                 //- Disable SignUp button till all validation passed
+                type="submit"
                 disabled={isDisabled}
-                className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
+                aria-live="assertive"
+                ref={errRef}
+                className={`${
+                  isDisabled
+                    ? "is-disabled"
+                    : errMessage
+                    ? "is-error"
+                    : "is-valid"
+                } submit-btn`}
               >
                 {isDisabled
                   ? "Please fill required fields correctly"
-                  : "Create Account"}
+                  : errMessage
+                  ? errMessage
+                  : "Submit"}
               </button>
             </form>
           </div>

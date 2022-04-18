@@ -53,8 +53,8 @@ const EnterData = () => {
       )}
       <form
         id="contact"
-        className="flex flex-col items-center justify-between block w-full mb-6 "
-        onSubmit={handleSubmit}
+        className="flex flex-col items-center justify-between w-full mb-6 "
+        onSubmit={(e) => handleSubmit(e)}
       >
         <InputField
           onChange={(e) => setFullName(e.target.value)}
