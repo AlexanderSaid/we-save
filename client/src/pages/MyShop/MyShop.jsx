@@ -4,12 +4,14 @@ import useFetch from "../../hooks/useFetch";
 import CreateBasketForm from "./Components/CreateBasketForm";
 import BasketSummary from "./Components/BasketSummary";
 import CoverShop from "./Components/CoverShop";
+import DeleteShopMessage from "./Components/DeleteShopMessage";
 
 //- Common classes
 function MyShop() {
   const { user } = useContext(UserContext);
   const [baskets, setBaskets] = useState();
   const [basket, setBasket] = useState(null);
+  const [deletePopup, setDeletePopup] = useState(false);
   const getBasket = (obj) => {
     setBasket(obj);
   };
@@ -47,6 +49,7 @@ function MyShop() {
   }
   return (
     <>
+      {deletePopup && <DeleteShopMessage setDeleteShop={setDeletePopup} />}
       <section className="w-[100%] max-w-[1140px] p-4 mx-auto bg-lightBg ">
         <CoverShop />
         <h1 className="mb-4 text-3xl text-center text-accent">YOUR BASKETS</h1>
@@ -68,12 +71,18 @@ function MyShop() {
             })}
           </div>
         )}
-        <h1 className=" text-3xl text-center text-accent">
+        <h1 className="text-3xl text-center text-accent">
           {basket ? "EDIT YOUR BASKET" : "CREATE A BASKET"}
         </h1>
         <div className=" w-[100%] max-w-[1140px] p-4 mx-auto">
           <CreateBasketForm basket={basket} setBasket={setBasket} />
         </div>
+        <button
+          onClick={() => setDeletePopup(true)}
+          className="delete-btn submit-btn"
+        >
+          Delete Shop
+        </button>
       </section>
     </>
   );

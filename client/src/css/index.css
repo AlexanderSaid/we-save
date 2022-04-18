@@ -33,7 +33,7 @@
     @apply w-[220px] text-right text-bodySmall rounded-r-md bg-primary text-darkFont font-bold py-2 pr-[20px] absolute top-[100px] -left-[120%] focus:transition-all duration-[400ms] focus:left-0 z-[100];
   }
   .logo-container {
-    @apply flex items-center justify-center gap-4 text-xl font-bold text-lightFont ml-2;
+    @apply flex items-center justify-center gap-4 ml-2 text-xl font-bold text-lightFont;
   }
   .footer-link {
     @apply text-lightFont hover:text-primary hover:cursor-pointer;
@@ -48,17 +48,17 @@
     @apply w-full rounded-l-md bg-primary text-darkFont font-medium py-2 pl-[15%] transition duration-[300ms] ease-in-out hover:bg-lightBg;
   }
   .nav-link-md {
-    @apply md:text-center md:w-fit md:p-2 md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md  md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
+    @apply md:text-center md:w-fit md:p-2 md:ml-2 md:text-lightFont md:bg-darkFont md:transition-colors md:rounded-md md:hover:bg-primary md:hover:text-darkFont md:text-bodyRegular;
   }
   .nav-link-md.login,
   .nav-link.login {
-    @apply border border-lightBg bg-darkFont md:rounded-md text-lightBg cursor-pointer;
+    @apply border cursor-pointer border-lightBg bg-darkFont md:rounded-md text-lightBg;
   }
   .btn {
     @apply rounded-md font-bold py-4 px-6 flex items-center  transition-all duration-[400ms] ease-in-out opacity-90 hover:opacity-100;
   }
   .btn-blank {
-    @apply bg-primary border-2 border-accent text-darkFont hover:bg-accent hover:text-lightFont;
+    @apply border-2 bg-primary border-accent text-darkFont hover:bg-accent hover:text-lightFont;
   }
   .btn-dark {
     @apply bg-darkBg text-lightFont hover:bg-accent hover:text-lightFont;
@@ -67,10 +67,10 @@
     @apply w-[80%] max-w-[200px] self-center text-bodySmall font-bold text-lightBg bg-darkBg rounded-full p-2 hover:bg-accent hover:text-lightFont transition-all duration-[400ms] ease-in-out;
   }
   .basket-name {
-    @apply text-bodyRegular font-bold text-darkFont py-1 text-clip;
+    @apply py-1 font-bold text-bodyRegular text-darkFont text-clip;
   }
   .basket-category {
-    @apply text-button text-accent border border-accent rounded-full px-2 pt-1 bg-lightBg w-fit font-bold md:py-1 mr-1;
+    @apply px-2 pt-1 mr-1 font-bold border rounded-full text-button text-accent border-accent bg-lightBg w-fit md:py-1;
   }
   .description {
     @apply text-button  py-2 text-darkFont text-center font-['Roboto'] font-bold xs:text-bodySmall md:p-0 lg:px-2 md:text-bodyMd;
@@ -79,61 +79,64 @@
     @apply text-bodySmall rounded-full text-error px-2.5 border border-error w-[60px] flex justify-center items-center gap-1 font-bold xs:text-bodyRegular;
   }
   .shop-name {
-    @apply font-bold text-darkFont pt-2 px-1 text-bodyRegular md:self-end md:pr-4;
+    @apply px-1 pt-2 font-bold text-darkFont text-bodyRegular md:self-end md:pr-4;
   }
   .pickup {
-    @apply font-bold text-button text-shade px-1 border-b w-fit md:self-end md:pr-4;
+    @apply px-1 font-bold border-b text-button text-shade w-fit md:self-end md:pr-4;
   }
   .address,
   .distance-container {
-    @apply text-accent text-bodySmall leading-4 font-bold;
+    @apply font-bold leading-4 text-accent text-bodySmall;
   }
   .category {
     @apply text-bodyMd font-bold p-2 w-[135px] place-self-center rounded-xl border border-darkFont hover:border-accent hover:bg-accent hover:text-lightFont transition ease-in-out duration-300 sm:w-[150px] sm:text-bodyRegular;
   }
   .staff-contact-icon {
-    @apply text-accent hover:text-darkBg/80 transition duration-300 ease-in-out hover:scale-110;
+    @apply transition duration-300 ease-in-out text-accent hover:text-darkBg/80 hover:scale-110;
   }
   .guid-link {
-    @apply font-bold text-error cursor-pointer text-bodyRegular hover:underline;
+    @apply font-bold cursor-pointer text-error text-bodyRegular hover:underline;
   }
   .shop-guid {
     @apply border border-accent/60 w-[65%] rounded-xl bg-lightFont py-2 px-4 shadow-xl shadow-darkBg/40;
   }
   .form-input {
-    @apply text-darkFont  text-bodyRegular placeholder-transparent focus:outline-none block border-b-2 border-darkBg/20 w-full h-10 p-3 bg-transparent;
+    @apply block w-full h-10 p-3 placeholder-transparent bg-transparent border-b-2 text-darkFont text-bodyRegular focus:outline-none border-darkBg/20;
   }
   .form-label {
-    @apply absolute left-3 -top-2 text-darkFont/90  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-darkFont/90 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase;
+    @apply absolute transition-all left-3 -top-2 text-darkFont/90 text-button peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-darkFont/90 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase;
   }
   .input-container {
     @apply relative my-7;
   }
   .valid-note {
-    @apply text-accent text-button px-3 pt-2;
+    @apply px-3 pt-2 text-accent text-button;
   }
   .description-field {
-    @apply block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring;
+    @apply block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring;
   }
   .dropdown {
     @apply flex flex-col gap-4 absolute right-0 top-[50px] p-[80px] w-[90%] bg-lightBg text-darkFont text-bodyMd font-semibold py-4 pl-[15%] rounded-l-md md:w-full md:px-2 md:rounded-md text-left;
   }
   .dropdown a {
-    @apply w-fit border-b-2 border-lightBg hover:border-darkFont md:border-b-2;
+    @apply border-b-2 w-fit border-lightBg hover:border-darkFont md:border-b-2;
   }
   .is-disabled {
-    @apply text-darkBg/80 border-t-2 border-b-2 border-accent opacity-80;
+    @apply border-t-2 border-b-2 text-darkBg/80 border-accent opacity-80;
   }
   .is-error {
-    @apply text-error border-t-2 border-b-2 border-error opacity-80;
+    @apply border-t-2 border-b-2 text-error border-error opacity-80;
   }
   .is-valid {
-    @apply text-lightFont rounded bg-accent cursor-pointer hover:bg-darkBg/80 focus:outline-none;
+    @apply rounded cursor-pointer text-lightFont bg-accent hover:bg-darkBg/80 focus:outline-none;
   }
   .submit-btn {
     @apply w-full font-bold px-2 py-3 my-1 mx-1 mt-4 text-center transition-all duration-[200ms] ease-in-out;
   }
   .cancel-btn {
     @apply w-full font-bold px-2 py-3 my-1 mt-4 mx-1 rounded text-center text-white  transition-all duration-[200ms] ease-in-out bg-darkBg;
+  }
+  .delete-btn {
+    @apply rounded cursor-pointer text-lightFont bg-error/80 hover:bg-error focus:outline-none;
   }
 }

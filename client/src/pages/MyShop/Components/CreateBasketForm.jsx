@@ -55,7 +55,6 @@ const CreateBasketForm = ({ basket, setBasket }) => {
   const [previewSource, setPreviewSource] = useState(null);
   const [fileInputState, setFileInputState] = useState("");
 
-
   const errRef = useRef();
   //- Fetching data
   const { performFetch, cancelFetch } = useFetch(
@@ -173,8 +172,6 @@ const CreateBasketForm = ({ basket, setBasket }) => {
       setCategory(basket.categories);
     }
   }, [basket]);
-
-
 
   const handleCancel = () => {
     setOriginalPrice(1);
@@ -564,12 +561,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
               : "Create"}
           </button>
           {basket && (
-
-            <button
-              onClick={handleCancel}
-              className="cancel-btn"
-            >
-
+            <button onClick={handleCancel} className="cancel-btn">
               {"Cancel"}
             </button>
           )}
