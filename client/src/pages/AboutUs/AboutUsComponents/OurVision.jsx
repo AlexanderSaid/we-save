@@ -13,10 +13,13 @@ const OurVision = () => {
             Our Vision ...
           </h4>
           <p className="text-bodyMd text-center self-center text-darkFont sm:text-bodyRegular font-bold sm:text-justify">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem
-            non nulla ut commodi dicta rerum, maiores velit voluptates amet
-            neque vel recusandae adipisci quas animi dolorum fugiat maxime
-            consectetur et quae, corrupti veniam? Necessitatibus, consectetur!
+            Our mission is to inspire and empower everyone to take action
+            against food waste. We know that to live and breathe this every day,
+            we need to turn our words into actions. With this in mind we have
+            set out a new ambition - to contribute in every way we can to
+            building the global food waste movement. Its only when we all come
+            together to fight food waste, that we will be able to generate a
+            positive change in society.
           </p>
         </div>
       </div>

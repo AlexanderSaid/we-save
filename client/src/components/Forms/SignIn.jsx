@@ -4,6 +4,7 @@ import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
 import ForgetPassword from "./ForgetPassword";
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
+import Spinner from "../layout/Spinner";
 function SignIn({ openSignIn, setOpenSignIn }) {
   const { user, login, error, isLoading, setError } = useContext(UserContext);
   const [email, setEmail] = useState("");
@@ -43,6 +44,8 @@ function SignIn({ openSignIn, setOpenSignIn }) {
     setOpenSignIn(false);
   };
 
+  useEffect(() => {}, [email, password]);
+
   if (signUpOpen) {
     return (
       <SignUp
@@ -52,13 +55,12 @@ function SignIn({ openSignIn, setOpenSignIn }) {
       />
     );
   }
+
   if (isLoading) {
     return (
       <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
-          <div className="text-center bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-            <h1>Loading...</h1>
-          </div>
+          <Spinner />
         </div>
       </section>
     );

@@ -102,10 +102,14 @@ const BasketSummary = ({ basket, getBasket }) => {
             <p className="pickup text-bodySmall text-center">
               Pickup: {basket.pickup.from} - {basket.pickup.to}
             </p>
+            <div className="price inline-block text-bodySmall font-bold xs:text-bodySmall transition-all duration-[400ms] ease-in-out">
+              <span className="line-through old text-shade">{`€ ${basket.price.original}`}</span>
+              <span className="new text-accent">{` / € ${basket.price.discount}`}</span>
+            </div>
           </div>
         </div>
-        <div className="px-4 py-4">
-          <p className="text-base text-left text-gray-700 text-button">
+        <div className=" m-2  bg-gray-50 rounded px-4 py-4 overflow-y-auto h-[100px] break-words">
+          <p className=" text-left text-gray-700 text-button w-[80%] ">
             {basket.description}
           </p>
         </div>
