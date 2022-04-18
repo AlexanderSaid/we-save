@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import customer from "../../../assets/customer-bg.png";
+import customer from "../../../assets/images/homepage/customer-bg.png";
 import CustomerGuidCard from "./CustomerGuidCard";
 import { useScroll } from "../../../hooks/useScrolls";
 import { motion } from "framer-motion";

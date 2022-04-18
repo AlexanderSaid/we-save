@@ -4,12 +4,8 @@ import CreateBasketSuccessMessage from "./CreateBasketSuccessMessage";
 import UserContext from "../../../context/UserContext";
 import UpdateBasketSuccessMessage from "./UpdateBasketSuccessMessage";
 import PropTypes from "prop-types";
+import validation from "../../../assets/validation";
 
-//- Declare regex validations
-const DESCRIPTION_REGEX = /^[a-zA-Z0-20\s]{20,}$/;
-// const QUANTITY_REGEX = /^[1-9][0-9]{1,}$/;
-const ORIGINAL_PRICE_REGEX = /^[1-9][0-9]$/;
-const DISCOUNT_PRICE_REGEX = /^[1-9][0-9]$/;
 const FORM_INPUT_CLASSES =
   "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
 const FORM_LABEL_CLASSES =
@@ -18,7 +14,11 @@ const INPUT_CONTAINER = "input-container relative my-7 ";
 const VALID_NOTE = "text-error text-button px-3 pt-2";
 const DESCRIPTION_INPUT_CLASSES =
   "block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-blue-500  focus:outline-none focus:ring";
+
 const CreateBasketForm = ({ basket, setBasket }) => {
+  //- Regex validation
+  const { DESCRIPTION_REGEX, PRICE_REGEX } = validation;
+
   const { user } = useContext(UserContext);
   const names = [
     "Breakfast basket",
@@ -100,10 +100,10 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     }
   }, [basket]);
   useEffect(() => {
-    setValidOriginalPrice(ORIGINAL_PRICE_REGEX.test(originalPrice));
+    setValidOriginalPrice(PRICE_REGEX.test(originalPrice));
   }, [originalPrice]);
   useEffect(() => {
-    setValidDiscountPrice(DISCOUNT_PRICE_REGEX.test(discountPrice));
+    setValidDiscountPrice(PRICE_REGEX.test(discountPrice));
   }, [discountPrice]);
   //- Determine error message
   useEffect(() => {
@@ -195,7 +195,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     return <UpdateBasketSuccessMessage setSuccess={setSuccessUpdate} />;
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div className="flex flex-col items-center">
         <div className="flex">
           <h1 className="mt-10 text-xl font-bold text-gray-600 md:text-2xl">
@@ -254,7 +254,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
                     name={item}
                     id="category"
                     value={item}
-                    onChange={handleCategory}
+                    onChange={(e) => handleCategory(e)}
                     checked={category.includes(item)}
                   />
                   <label className="ml-2 text-gray-500 ">{item}</label>

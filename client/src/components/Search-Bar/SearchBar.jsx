@@ -53,7 +53,7 @@ const SearchBar = () => {
             type="submit"
             value={"Search"}
             disabled={searchLoading ? true : false}
-            className='className="h-full px-4 py-1 sm:py-4 text-center rounded text-bodySmall text-darkFont bg-primary font-semibold cursor-pointer disabled:opacity-75 disabled:cursor-wait'
+            className='className="h-full px-4 py-1 sm:py-4 text-center rounded text-bodyMd text-darkFont/80 bg-primary opacity-80 font-semibold cursor-pointer transition-all duration-[400ms] ease-in-out disabled:opacity-75 disabled:cursor-wait hover:opacity-100'
           >
             Search
           </motion.button>

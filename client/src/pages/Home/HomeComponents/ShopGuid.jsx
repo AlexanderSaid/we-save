@@ -25,7 +25,7 @@ const CostumerGuid = () => {
       logo: basket,
       title: "Baskets & Reservations",
 
-      text: "Easily add, edit or even delete you baskets. Now you get reservations emails with deliver code.",
+      text: "Easily add, edit or even delete you baskets. Receive reservation emails with deliver code.",
     },
   ];
 
@@ -45,7 +45,7 @@ const CostumerGuid = () => {
         >
           <img
             src={shopCover}
-            alt="Grocery bag with piggy bank"
+            alt="Grocery basket is been given"
             className="absolute object-cover w-full h-full"
           />
           <motion.div
@@ -64,7 +64,7 @@ const CostumerGuid = () => {
                 whatever you are selling. Its 100% better for you and the
                 planet.
               </p>
-              <p className='text-center rounded-md font-semibold tracking-wide p-2 bg-darkBg text-lightFont opacity-90 font-["Roboto"]'>
+              <p className='text-center font-semibold tracking-wide p-2  text-darkBg/80 font-["Roboto"] border-t-2 border-b-2 border-accent'>
                 Join us following below instructions
               </p>
             </div>

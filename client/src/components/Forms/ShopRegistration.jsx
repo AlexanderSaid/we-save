@@ -2,27 +2,26 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
 import UserContext from "../../context/UserContext";
-import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineArrowLeft,
+  AiOutlineClose,
+  AiOutlineCheck,
+} from "react-icons/ai";
 import useFetch from "../../hooks/useFetch.js";
 
-//- Declare regex validations
-const SHOP_NAME_REGEX = /^[a-zA-Z0-9\s]{2,}$/;
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]{2,}(.[a-zA-Z0-9-]{2,})?$/;
-// (123) 456-7890
-// (123)456-7890
-// 123-456-7890
-// 123.456.7890
-// 1234567890
-// +31636363634
-// 075-63546725
-const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
-const POSTCODE_REGEX = /^[1-9][0-9]{3} ?[a-z]{2}$/i;
-const KVK_REGEX = /^[0-9a-zA-Z]{8}/;
+import validation from "../../assets/validation";
 
 const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
   const errRef = useRef();
+  //- Regex validations
+  const {
+    SHOP_NAME_REGEX,
+    EMAIL_REGEX,
+    PHONE_REGEX,
+    POSTCODE_REGEX,
+    KVK_REGEX,
+  } = validation;
 
   /**
    * Every input has 3 states:
@@ -159,21 +158,9 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
         />
       </>
     ) : (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000] overflow-auto">
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000] overflow-auto">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
           <div className="bg-lightFont px-6 py-8 rounded shadow-md max-w-[600px] w-[90%]  relative">
-            {errMessage && (
-              <div className="flex items-center justify-center w-full">
-                <h1
-                  aria-live="assertive"
-                  ref={errRef}
-                  className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded"
-                >
-                  {errMessage}
-                </h1>
-              </div>
-            )}
-
             <h1 className="mb-8 text-3xl text-center text-accent">
               Register You Shop
             </h1>
@@ -185,13 +172,18 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
             >
               <AiOutlineArrowLeft />
             </button>
-            <form onSubmit={handleSubmit}>
+
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validShopName || !shopName ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {shopName && !shopNameFocus ? (
+                  validShopName ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   id="shop-name"
@@ -220,11 +212,15 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validEmail || !email ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {email && !emailFocus ? (
+                  validEmail ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="email"
                   id="email"
@@ -250,11 +246,15 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validPhone || !phone ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {phone && !phoneFocus ? (
+                  validPhone ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   id="phone"
@@ -281,11 +281,15 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
                 </p>
               </div>
               <div className="input-container">
-                <AiOutlineClose
-                  className={`${
-                    validKvkNumber || !kvkNumber ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+                {kvkNumber && !kvkNumberFocus ? (
+                  validKvkNumber ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   id="kvk-number"
@@ -331,11 +335,15 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
               <div className="flex justify-between -my-7">
                 <div className="input-container">
-                  <AiOutlineClose
-                    className={`${
-                      validPostcode || !postcode ? "hidden" : "visible"
-                    } absolute text-error top-4 right-1`}
-                  />
+                  {postcode && !postcodeFocus ? (
+                    validPostcode ? (
+                      <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                    ) : (
+                      <AiOutlineClose className="absolute text-error top-4 right-1" />
+                    )
+                  ) : (
+                    ""
+                  )}
                   <input
                     type="text"
                     id="postcode"
@@ -394,12 +402,22 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
 
               <button
                 //- Disable SignUp button till all validation passed
-
+                type="submit"
                 disabled={isDisabled}
-                className="w-full py-3 my-1 text-center rounded bg-accent text-lightFont hover:bg-green-dark focus:outline-none mt-9"
+                aria-live="assertive"
+                ref={errRef}
+                className={`${
+                  isDisabled
+                    ? "is-disabled"
+                    : errMessage
+                    ? "is-error"
+                    : "is-valid"
+                } submit-btn`}
               >
                 {isDisabled
                   ? "Please fill required fields correctly"
+                  : errMessage
+                  ? errMessage
                   : "Submit"}
               </button>
             </form>
