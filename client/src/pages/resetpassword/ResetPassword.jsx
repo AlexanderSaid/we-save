@@ -1,18 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch.js";
 import { useSearchParams, useNavigate } from "react-router-dom";
-
-import { AiOutlineClose } from "react-icons/ai";
-const FORM_INPUT_CLASSES =
-  "peer  text-darkFont  text-bodySmall placeholder-transparent focus:outline-none block border-b-2 border-grey-600 w-full h-10 p-3 bg-transparent ";
-const FORM_LABEL_CLASSES =
-  "absolute left-3 -top-1 text-gray-600  text-button transition-all peer-placeholder-shown:text-bodySmall peer-placeholder-shown:uppercase peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-xs peer-focus:text-accent peer-focus:uppercase ";
-const INPUT_CONTAINER = "input-container relative my-7 ";
-const VALID_NOTE = "text-error text-button px-3 pt-2";
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
+import validation from "../../assets/validation.js";
 
 function ResetPassword() {
+  const { PASSWORD_REGEX } = validation;
   const errRef = useRef();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -26,6 +19,8 @@ function ResetPassword() {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
   const [errMessage, setErrorMessage] = useState("");
+
+  const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
   const { performFetch, cancelFetch, error } = useFetch(
@@ -44,6 +39,11 @@ function ResetPassword() {
     const match = password === matchPassword;
     setValidMatch(match);
   }, [password, matchPassword]);
+
+  //- Determine button state
+  useEffect(() => {
+    !validPassword || !validMatch ? setDisabled(true) : setDisabled(false);
+  }, [validPassword, validMatch]);
 
   //- Connect with backend
   //- Set error message from backend
@@ -81,25 +81,18 @@ function ResetPassword() {
             <h1 className="mb-8 text-3xl text-center text-accent">
               Reset Password
             </h1>
-            {errMessage && (
-              <div className="flex items-center justify-center w-full">
-                <h1
-                  aria-live="assertive"
-                  ref={errRef}
-                  className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded"
-                >
-                  {errMessage}
-                </h1>
-              </div>
-            )}
-            <form onSubmit={handleSubmit}>
-              <div className={INPUT_CONTAINER}>
-                <AiOutlineClose
-                  className={`${
-                    validPassword || !password ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
 
+            <form onSubmit={handleSubmit}>
+              <div className="input-container">
+                {password && !passwordFocus ? (
+                  validPassword ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="password"
                   id="password"
@@ -110,15 +103,15 @@ function ResetPassword() {
                   aria-describedby="pwd-note"
                   onFocus={() => setPasswordFocus(true)}
                   onBlur={() => setPasswordFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input"
                   placeholder="Password *"
                 />
-                <label htmlFor="password" className={FORM_LABEL_CLASSES}>
+                <label htmlFor="password" className="form-label">
                   New Password
                 </label>
                 <p
                   id="pwd-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     passwordFocus && password && !validPassword
                       ? "block"
                       : "hidden"
@@ -136,12 +129,16 @@ function ResetPassword() {
                   <span aria-label="percent">%</span>
                 </p>
               </div>
-              <div className={INPUT_CONTAINER}>
-                <AiOutlineClose
-                  className={`${
-                    validMatch || !matchPassword ? "hidden" : "visible"
-                  } absolute text-error top-4 right-1`}
-                />
+              <div className="input-container">
+                {matchPassword && !matchFocus ? (
+                  validMatch ? (
+                    <AiOutlineCheck className="absolute text-accent top-4 right-1" />
+                  ) : (
+                    <AiOutlineClose className="absolute text-error top-4 right-1" />
+                  )
+                ) : (
+                  ""
+                )}
                 <input
                   type="password"
                   id="confirm-password"
@@ -152,18 +149,15 @@ function ResetPassword() {
                   aria-describedby="confirm-note"
                   onFocus={() => setMatchFocus(true)}
                   onBlur={() => setMatchFocus(false)}
-                  className={FORM_INPUT_CLASSES}
+                  className="form-input"
                   placeholder="confirm Password *"
                 />
-                <label
-                  htmlFor="confirm-password"
-                  className={FORM_LABEL_CLASSES}
-                >
+                <label htmlFor="confirm-password" className="form-label">
                   Confirm New Password
                 </label>
                 <p
                   id="confirm-note"
-                  className={`${VALID_NOTE}  ${
+                  className={`valid-note  ${
                     matchFocus && !validMatch ? "block" : "hidden"
                   }`}
                 >
@@ -172,10 +166,24 @@ function ResetPassword() {
               </div>
 
               <button
+                //- Disable SignUp button till all validation passed
                 type="submit"
-                className="w-full px-2 py-3 my-1 mt-4 text-center text-white rounded lg:float-right bg-accent cursor-pointe hover:bg-green-dark focus:outline-none"
+                disabled={isDisabled}
+                aria-live="assertive"
+                ref={errRef}
+                className={`${
+                  isDisabled
+                    ? "is-disabled"
+                    : errMessage
+                    ? "is-error"
+                    : "is-valid"
+                } submit-btn`}
               >
-                Submit
+                {isDisabled
+                  ? "Please fill required fields correctly"
+                  : errMessage
+                  ? errMessage
+                  : "Submit"}
               </button>
             </form>
           </div>

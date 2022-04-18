@@ -1,19 +1,21 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import SignUp from "./SignUp";
 import UserContext from "../../context/UserContext";
 import ForgetPassword from "./ForgetPassword";
 import { AiFillEye, AiOutlineArrowLeft } from "react-icons/ai";
-function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
+function SignIn({ openSignIn, setOpenSignIn }) {
   const { user, login, error, isLoading, setError } = useContext(UserContext);
-  const [signinForm, setSigninForm] = useState({ email: "", password: "" });
+  const [signInForm, setSignInForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
-  const { email, password } = signinForm;
+  const { email, password } = signInForm;
+  const errRef = useRef();
+  const [isDisabled, setDisabled] = useState(true);
 
   const handleChange = (e) => {
-    setSigninForm((prev) => ({
+    setSignInForm((prev) => ({
       ...prev,
       [e.target.id]: e.target.value,
     }));
@@ -25,24 +27,24 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
     }
   }, [user]);
 
+  //- Determine button state
+  useEffect(() => {
+    !email || !password ? setDisabled(true) : setDisabled(false);
+  }, [email, password]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = { email, password };
     login(userData);
-    if (owner) {
-      setShopIsOpen(true);
-    }
-
-    setSigninForm({ email: "", password: "" });
+    setSignInForm({ email: "", password: "" });
   };
 
   const closeWindow = () => {
     setOpenSignIn(false);
     setError("");
-    setOwner(false);
   };
 
-  const handleSignupPage = () => {
+  const handleSignUpPage = () => {
     setSignUpOpen(true);
     setOpenSignIn(false);
   };
@@ -58,7 +60,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
   }
   if (isLoading) {
     return (
-      <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
         <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
           <div className="text-center bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
             <h1>Loading...</h1>
@@ -71,24 +73,18 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
   return (
     <>
       {openSignIn && (
-        <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">
+        <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
           <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
             <div className="bg-lightFont px-6 py-8 rounded shadow-md text-black max-w-[600px] w-[90%]  relative">
-              {error && (
-                <div className="flex items-center justify-center w-full">
-                  <h1 className="w-[50%] mb-4 text-xl text-center text-error border-2 border-error rounded">
-                    {error}
-                  </h1>
-                </div>
-              )}
-              <h1 className="mb-8 text-3xl text-center text-accent">Sign In</h1>
               <button
                 className="absolute mt-4 w-2 px-3 py-1 text-black-400  left-[10px] top-[5px]"
                 onClick={() => setOpenSignIn(false)}
               >
                 <AiOutlineArrowLeft onClick={closeWindow} />
               </button>
-              <form onSubmit={handleSubmit}>
+              <h1 className="mb-8 text-3xl text-center text-accent">Sign In</h1>
+
+              <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="relative mb-12">
                   <input
                     type="email"
@@ -97,7 +93,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
                     required
                     className="form-input peer"
                     placeholder="Email"
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e)}
                   />
                   <label htmlFor="email" className="form-label">
                     Email
@@ -111,7 +107,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
                     required
                     className="form-input peer"
                     placeholder="password"
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e)}
                   />
                   <div className="absolute cursor-pointer top-2 right-1">
                     <AiFillEye
@@ -128,7 +124,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
                     Create new Account?
                     <span
                       className="px-2 cursor-pointer text-accent"
-                      onClick={handleSignupPage}
+                      onClick={handleSignUpPage}
                     >
                       Sign Up
                     </span>
@@ -147,10 +143,20 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
                 </div>
 
                 <button
+                  //- Disable SignUp button till all validation passed
                   type="submit"
-                  className="w-full px-2 py-3 my-1 mt-4 text-center text-white rounded lg:float-right bg-accent cursor-pointe hover:bg-green-dark focus:outline-none"
+                  disabled={isDisabled}
+                  aria-live="assertive"
+                  ref={errRef}
+                  className={`${
+                    isDisabled ? "is-disabled" : error ? "is-error" : "is-valid"
+                  } submit-btn`}
                 >
-                  Sign In
+                  {isDisabled
+                    ? "Please fill required fields correctly"
+                    : error
+                    ? error
+                    : "Sign In"}
                 </button>
               </form>
             </div>
@@ -158,10 +164,7 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
         </section>
       )}
       {forgetPassword && (
-        <ForgetPassword
-          forgetPassword={forgetPassword}
-          setForgetPassword={setForgetPassword}
-        />
+        <ForgetPassword setForgetPassword={setForgetPassword} />
       )}
     </>
   );
@@ -169,11 +172,6 @@ function SignIn({ openSignIn, setOpenSignIn, setShopIsOpen, owner, setOwner }) {
 SignIn.propTypes = {
   setOpenSignIn: PropTypes.func,
   openSignIn: PropTypes.bool,
-  setShopIsOpen: PropTypes.func,
-  owner: PropTypes.bool,
-  setOwner: PropTypes.func,
-  setHasShop: PropTypes.func,
-  hasShop: PropTypes.bool,
 };
 
 export default SignIn;

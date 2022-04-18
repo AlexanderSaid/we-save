@@ -5,10 +5,13 @@ const SignInContext = createContext({});
 
 export const SignInProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [shopIsOpen, setShopIsOpen] = useState(false);
 
   const value = {
     isOpen,
     setIsOpen,
+    shopIsOpen,
+    setShopIsOpen,
   };
 
   return (

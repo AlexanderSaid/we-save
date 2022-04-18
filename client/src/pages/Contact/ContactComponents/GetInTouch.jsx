@@ -1,11 +1,13 @@
 import React from "react";
 import { FiPhoneCall } from "react-icons/fi";
 import { AiOutlineMail } from "react-icons/ai";
+import { motion } from "framer-motion";
+import { fade } from "../../../animation";
 
 const GetInTouch = () => {
   return (
     <div className="py-16 bg-darkBg text-lightFont">
-      <div className="px-8 mx-auto lg:py-16">
+      <motion.div variants={fade} className="px-8 mx-auto lg:py-16">
         <h1 className="pb-4 text-title3 font-bold ">Get in touch</h1>
         <p className="pb-8 text-xl font-normal leading-relaxed">
           Got a question about us? Are you interested in partnering with us?
@@ -36,7 +38,7 @@ const GetInTouch = () => {
           Overhoeksplein 2<br />
           1031 KS, Amsterdam
         </a>
-      </div>
+      </motion.div>
     </div>
   );
 };
