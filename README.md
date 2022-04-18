@@ -29,6 +29,7 @@
         <li><a href="#configLib">Configuration Libraries</a></li>
         <li><a href="#clientLib">Client-side Libraries</a></li>
         <li><a href="#serverLib">Server-side Libraries</a></li>
+          <li><a href="#apis">API's used</a></li>
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -205,10 +206,16 @@ For more information on how these work together including the automatic deployme
 - `cors` || To open up our API. See [docs](https://github.com/expressjs/cors#readme)
 - `mongoose` || To add schemas to our database. See [docs](https://mongoosejs.com/)
 - `geolib` || To do basic geospatial operations like distance calculation, conversion of lat&lon to postcodes, etc. See [docs](https://www.npmjs.com/package/geolib)
-- `jsonwebtoken` || To create tokesn to check the authorization. See [docs](https://www.npmjs.com/package/jsonwebtoken)
+- `jsonwebtoken` || To create tokens to check the authorization. See [docs](https://www.npmjs.com/package/jsonwebtoken)
 - `nodemailer`|| To send emails after confirmation of basket reservation and sending message through Contact Us page See [docs](https://nodemailer.com/about/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+<div id="apis"></div>
+
+### 3.4 API's used
+
+- `geoapify` || To deal with geospatial operations/ See [docs](https://www.geoapify.com)
 
 <div id="improvements"></div>
 
