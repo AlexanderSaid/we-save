@@ -56,7 +56,7 @@ function MyShop() {
             You dont have any baskets right now!
           </p>
         ) : (
-          <div className=" grid grid-flow-col overflow-x-auto auto-cols-max  md:auto-cols-min rounded-md shadow-lg mb-[40px]">
+          <div className=" justify-center grid grid-flow-col overflow-x-auto auto-cols-max  md:auto-cols-min rounded-md shadow-lg mb-[40px]">
             {baskets.map((basket, index) => {
               return (
                 <BasketSummary
