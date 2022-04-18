@@ -92,8 +92,8 @@ client
 |   └── pages
 |   |   └── AboutUs
 |   |   └── Contact
-|   |   └── CreateBasket
 |   |   └── Home
+|   |   └── MyShop
 |   |   └── resetpassword
 |   |   └── Results
 |   |
