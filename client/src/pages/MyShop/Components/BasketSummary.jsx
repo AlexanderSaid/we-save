@@ -4,12 +4,14 @@ import useFetch from "../../../hooks/useFetch";
 import { FaShoppingBasket } from "react-icons/fa";
 import PropTypes from "prop-types";
 import DeleteSuccessMessage from "./DeleteSuccessMessage";
+
 import breakfast1 from "../../../assets/images/baskets/breakfast1.jpeg";
 import dairy from "../../../assets/images/baskets/dairy.png";
 import lunchbox from "../../../assets/images/baskets/lunchbox.jpeg";
 import dinnerbox from "../../../assets/images/baskets/dinnerbox.jpeg";
 import grocery2 from "../../../assets/images/baskets/grocery2.jpg";
 import pestries from "../../../assets/images/baskets/pestries.jpeg";
+import { Image } from "cloudinary-react";
 
 const BasketSummary = ({ basket, getBasket }) => {
   const { user } = useContext(UserContext);
@@ -64,11 +66,19 @@ const BasketSummary = ({ basket, getBasket }) => {
     <>
       {isDeleted && <DeleteSuccessMessage setIsDeleted={setIsDeleted} />}
 
-      <div className="flex flex-col justify-between w-[280px] rounded border-2 border-secondary bg-white m-4">
-        <img
-          className="w-full rounded-t h-[164px] object-cover"
-          src={getImage()}
-        />
+      <div className="  flex flex-col justify-between w-[280px] rounded border-2 border-secondary bg-white m-4">
+        {basket.image ? (
+          <Image
+            src={basket.image}
+            cloudName={name}
+            className="w-full rounded-t h-[164px] object-cover"
+          ></Image>
+        ) : (
+          <img
+            className="w-full rounded-t h-[164px] object-cover"
+            src={getImage()}
+          />
+        )}
 
         <div className="px-4 py-4">
           <div className="text-xl font-bold text-center ">{basket.name}</div>
