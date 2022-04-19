@@ -33,7 +33,7 @@ const Layout = () => {
         variants={footerAnimation}
         initial="hidden"
         animate="show"
-        className="w-screen text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center overflow-x-clip"
+        className="flex items-center justify-center w-screen text-lightFont body-font bg-darkFont shrink-0 overflow-x-clip"
       >
         <Footer />
       </motion.footer>

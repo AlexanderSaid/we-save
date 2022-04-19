@@ -5,6 +5,7 @@ import UserContext from "../../../context/UserContext";
 import UpdateBasketSuccessMessage from "./UpdateBasketSuccessMessage";
 import PropTypes from "prop-types";
 import validation from "../../../assets/validation";
+import Spinner from "../../../components/layout/Spinner";
 
 const CreateBasketForm = ({ basket, setBasket }) => {
   //- Regex validation
@@ -57,7 +58,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
   const errRef = useRef();
   //- Fetching data
-  const { performFetch, cancelFetch } = useFetch(
+  const { performFetch, cancelFetch, isLoading } = useFetch(
     `/shops/${user.shop_id}/baskets`,
     () => {
       setSuccess(true);
@@ -230,6 +231,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           from,
           to,
           description,
+          image: previewSource,
         }),
       });
     } else {
@@ -267,6 +269,16 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     return <UpdateBasketSuccessMessage setSuccess={setSuccessUpdate} />;
   }
 
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <form
       className="p-4 mx-auto bg-white border-2 border-darkBg"
@@ -301,11 +313,11 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
           <div className="px-4 py-6 rounded">
             <label
-              className="text-black flex justify-between "
+              className="flex justify-between text-black "
               htmlFor="emailAddress"
             >
               Choose Category
-              <p className="text-button mt-1">
+              <p className="mt-1 text-button">
                 ( please choose max of 2 categories )
               </p>
             </label>

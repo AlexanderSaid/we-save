@@ -3,6 +3,7 @@ import useFetch from "../../hooks/useFetch.js";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import validation from "../../assets/validation.js";
+import Spinner from "../../components/layout/Spinner.jsx";
 
 function ResetPassword() {
   const { PASSWORD_REGEX } = validation;
@@ -23,7 +24,7 @@ function ResetPassword() {
   const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  const { performFetch, cancelFetch, error } = useFetch(
+  const { performFetch, cancelFetch, isLoading, error } = useFetch(
     `/users/reset-password?token=${token}`,
     () => {
       navigate("/");
@@ -72,6 +73,16 @@ function ResetPassword() {
       });
     }
   };
+
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>

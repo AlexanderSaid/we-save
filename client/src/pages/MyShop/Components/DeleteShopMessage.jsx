@@ -7,7 +7,7 @@ import Spinner from "../../../components/layout/Spinner";
 function DeleteShopMessage({ setDeleteShop }) {
   const { user, logout } = useContext(UserContext);
 
-  const { isLoading, performFetch, cancelFetch } = useFetch(
+  const { performFetch, cancelFetch, isLoading } = useFetch(
     `/shops/${user?.shop_id}`,
     () => {
       setDeleteShop(false);
@@ -30,7 +30,13 @@ function DeleteShopMessage({ setDeleteShop }) {
   };
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
   }
 
   return (
