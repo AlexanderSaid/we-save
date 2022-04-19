@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import "./css/index.css";
 import Layout from "./components/layout/Layout";
@@ -26,6 +26,7 @@ const App = () => {
             <Route path="contact" element={<Contact />} />
             <Route path="my-shop" element={<MyShop />} />
             <Route path="resetpassword" element={<ResetPassword />} />
+            <Route path="/*" element={<Navigate to="/" />} />
           </Route>
         </Routes>
       </AnimatePresence>

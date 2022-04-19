@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { fade } from "../../../animation";
+import { fade } from "../../../components/animation";
 const OurVision = () => {
   return (
     <motion.section

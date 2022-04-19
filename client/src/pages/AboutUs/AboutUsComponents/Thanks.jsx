@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { fade } from "../../../animation";
+import { fade } from "../../../components/animation";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
 
@@ -34,7 +34,7 @@ const Thanks = () => {
       linkedIn: "https://www.linkedin.com/in/samkrouwer",
     },
     {
-      name: "Obada ElSharbatly",
+      name: "Obada Moustafa",
       role: "Tech assistant",
       linkedIn: "https://www.linkedin.com/in/obada-elsharbatly/",
     },
@@ -73,7 +73,7 @@ const Thanks = () => {
               initial="hidden"
               animate={controls}
               key={mentor.name}
-              className="transition duration-300 ease-in-out hover:scale-110"
+              className="transition duration-300 ease-in-out hover:scale-110 min-w-[150px]"
             >
               <a href={mentor.linkedIn} className="text-center">
                 <h5 className="text-bodyRegular text-darkFont/80 font-bold pb-2 md:text-bodyLarge underline underline-offset-4">

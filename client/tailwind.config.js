@@ -43,7 +43,7 @@ module.exports = {
         1440: "1440px",
       },
       minHeight: {
-        high: "70vh",
+        high: "80vh",
       },
     },
   },

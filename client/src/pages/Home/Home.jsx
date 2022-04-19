@@ -4,7 +4,7 @@ import CustomerGuid from "./HomeComponents/CustomerGuid";
 import ShopGuid from "./HomeComponents/ShopGuid";
 //import motion
 import { motion } from "framer-motion";
-import { pageAnimation } from "../../animation";
+import { pageAnimation } from "../../components/animation";
 
 const Home = () => {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { FiPhoneCall } from "react-icons/fi";
 import { AiOutlineMail } from "react-icons/ai";
 import { motion } from "framer-motion";
-import { fade } from "../../../animation";
+import { fade } from "../../../components/animation";
 
 const GetInTouch = () => {
   return (

@@ -2,7 +2,11 @@ import React from "react";
 import ShopGuidCard from "./ShopGuidCard";
 import { motion } from "framer-motion";
 import { useScroll } from "../../../hooks/useScrolls";
-import { scrollRight, scrollLeft, scrollReveal } from "../../../animation";
+import {
+  scrollRight,
+  scrollLeft,
+  scrollReveal,
+} from "../../../components/animation";
 import shopCover from "../../../assets/images/homepage/shop-bg.png";
 import user from "../../../assets/images/guid/user.png";
 import shop from "../../../assets/images/guid/shop.png";
@@ -36,12 +40,12 @@ const CostumerGuid = () => {
       className="flex flex-col items-center justify-center w-full"
     >
       {/* Intro section */}
-      <div className="flex items-center justify-center w-[90%] sm:w-full ">
+      <div className="flex items-center justify-center w-[85%] sm:w-[95%] ">
         <motion.div
           variants={scrollRight}
           initial="hidden"
           animate={controls}
-          className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-full shadow-2xl shadow-darkBg/60 rounded-2xl"
+          className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl"
         >
           <img
             src={shopCover}
@@ -52,13 +56,13 @@ const CostumerGuid = () => {
             variants={scrollLeft}
             initial="hidden"
             animate={controls}
-            className="z-10 flex items-center justify-center w-full h-full py-4 md:justify-end"
+            className="w-full h-full z-10 flex items-center justify-center py-4 md:justify-end"
           >
-            <div className="w-[80%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:mr-[5%] lg:mr-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4 ">
+            <div className="w-[85%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:mr-[5%] lg:mr-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4 ">
               <h3 className="font-bold text-center text-title4 md:text-left">
                 Want to be our partner for fighting food waste?
               </h3>
-              <p className="text-bodyRegular font-bold text-darkFont/80 md:w-[90%] md:text-justify text-center md:text-left">
+              <p className="text-bodyRegular font-bold text-darkFont/80 md:w-[90%] md:text-justify text-center">
                 We love to welcome new partners in the fight against food waste.
                 We will help you cut costs and reduce your carbon footprint,
                 whatever you are selling. Its 100% better for you and the

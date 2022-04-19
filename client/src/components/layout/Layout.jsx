@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import SkipLinks from "./SkipLinks";
 //import motion
 import { motion } from "framer-motion";
-import { pageAnimation, footerAnimation } from "../../animation";
+import { pageAnimation, footerAnimation } from "../animation";
 import ScrollTop from "../ScrollTop";
 
 const Layout = () => {
@@ -23,7 +23,7 @@ const Layout = () => {
         initial="hidden"
         animate="show"
         exit="exit"
-        className="w-screen grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip"
+        className="w-screen min-h-high grow basis-full mt-[100px] flex items-center justify-start flex-col"
       >
         <ScrollTop>
           <Outlet />
@@ -33,7 +33,7 @@ const Layout = () => {
         variants={footerAnimation}
         initial="hidden"
         animate="show"
-        className="w-full text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center"
+        className="w-screen text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center"
       >
         <Footer />
       </motion.footer>

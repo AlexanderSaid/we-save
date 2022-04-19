@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { fade } from "../animation";
+import { fade } from "./animation";
 import PropTypes from "prop-types";
 
 const ScrollTop = ({ children }) => {

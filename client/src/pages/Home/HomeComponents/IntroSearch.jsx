@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../../../components/Search-Bar/SearchBar";
 import { motion } from "framer-motion";
-import { fade, titleAnim } from "../../../animation";
+import { fade, titleAnim } from "../../../components/animation";
 
 const IntroSearch = () => {
   return (
