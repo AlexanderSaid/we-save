@@ -5,6 +5,7 @@ import UserContext from "../../../context/UserContext";
 import UpdateBasketSuccessMessage from "./UpdateBasketSuccessMessage";
 import PropTypes from "prop-types";
 import validation from "../../../assets/validation";
+import Spinner from "../../../components/layout/Spinner";
 
 const CreateBasketForm = ({ basket, setBasket }) => {
   //- Regex validation
@@ -57,7 +58,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
 
   const errRef = useRef();
   //- Fetching data
-  const { performFetch, cancelFetch } = useFetch(
+  const { performFetch, cancelFetch, isLoading } = useFetch(
     `/shops/${user.shop_id}/baskets`,
     () => {
       setSuccess(true);
@@ -259,7 +260,15 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     // saving string to database
     // if (!previewSource) return;
   };
-
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
   if (success) {
     return <CreateBasketSuccessMessage setSuccess={setSuccess} />;
   }

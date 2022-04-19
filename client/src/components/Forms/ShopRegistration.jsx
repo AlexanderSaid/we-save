@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
 import UserContext from "../../context/UserContext";
+import Spinner from "../layout/Spinner";
 import {
   AiOutlineArrowLeft,
   AiOutlineClose,
@@ -62,9 +63,12 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   const [isDisabled, setDisabled] = useState(true);
 
   //- Fetching data
-  const { performFetch, cancelFetch, error } = useFetch("/shops", () => {
-    setSuccess(true);
-  });
+  const { performFetch, cancelFetch, isLoading, error } = useFetch(
+    "/shops",
+    () => {
+      setSuccess(true);
+    }
+  );
 
   // -
   useEffect(() => {
@@ -162,6 +166,15 @@ const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
     }
   }, [success]);
 
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
   return (
     shopRegisterOpen &&
     (success ? (
