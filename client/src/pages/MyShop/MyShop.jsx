@@ -115,7 +115,6 @@ function MyShop() {
           <motion.div variants={fade}>
             <CreateBasketForm basket={basket} setBasket={setBasket} />
           </motion.div>
-
         </div>
         <motion.button
           variants={fade}

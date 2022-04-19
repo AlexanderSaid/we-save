@@ -11,7 +11,6 @@ import {
 import useFetch from "../../hooks/useFetch.js";
 
 import validation from "../../assets/validation";
-import Spinner from "../layout/Spinner";
 
 const ShopRegistration = ({ shopRegisterOpen, setShopRegisterOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader

@@ -10,7 +10,6 @@ import {
 import useFetch from "../../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
 import validation from "../../assets/validation.js";
-import Spinner from "../layout/Spinner.jsx";
 
 const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader

@@ -166,7 +166,6 @@ const Basket = ({ basket }) => {
             </div>
 
             <div className="truncate address hover:text-darkFont">
-
               <a
                 href={`https://www.google.com/maps/place/${link}`}
                 target="_blank"
