@@ -112,7 +112,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   const output = `
   <h2>Please Click On Given link to Reset Your Password</h2>
   <h3>The link will be expired within 20 minutes </h3>
-  <a href="http://localhost:8080/resetpassword?token=${token}">Click to reset Password</a>
+  <a href="https://hyf-c34-candc-stage.herokuapp.com/resetpassword?token=${token}">Click to reset Password</a>
 `;
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
