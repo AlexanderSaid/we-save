@@ -230,6 +230,7 @@ const CreateBasketForm = ({ basket, setBasket }) => {
           from,
           to,
           description,
+          image: previewSource,
         }),
       });
     } else {
