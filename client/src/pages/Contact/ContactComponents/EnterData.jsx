@@ -3,7 +3,7 @@ import InputField from "./InputField";
 import useFetch from "../../../hooks/useFetch";
 import TextArea from "../ContactComponents/TextArea";
 import SuccessMessage from "./SuccessMessage";
-
+import Spinner from "../../../components/layout/Spinner";
 import { motion } from "framer-motion";
 import { fade } from "../../../components/animation";
 
@@ -22,7 +22,10 @@ const EnterData = () => {
     setSuccess(true);
   };
 
-  const { performFetch, cancelFetch, error } = useFetch("/contact", setStates);
+  const { performFetch, cancelFetch, isLoading, error } = useFetch(
+    "/contact",
+    setStates
+  );
 
   useEffect(() => {
     return cancelFetch;
@@ -38,6 +41,16 @@ const EnterData = () => {
       body: JSON.stringify({ fullName, email, phone, message }),
     });
   };
+
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
 
   if (success) {
     return <SuccessMessage setSuccess={() => setSuccess(true)} />;
