@@ -70,7 +70,7 @@
     @apply py-1 font-bold text-bodyRegular text-darkFont text-clip;
   }
   .basket-category {
-    @apply px-2 pt-1 mr-1 font-bold border rounded-full text-button text-accent border-accent bg-lightBg w-fit md:py-1;
+    @apply my-1 px-2 pt-1 mr-1 font-bold border rounded-full text-button text-accent border-accent bg-lightBg w-fit md:py-1;
   }
   .description {
     @apply text-button  py-2 text-darkFont text-center font-['Roboto'] font-bold xs:text-bodySmall md:p-0 lg:px-2 md:text-bodyMd;
