@@ -82,7 +82,7 @@ const BasketSummary = ({ basket, getBasket }) => {
 
         <div className="px-4 py-4">
           <div className="text-xl font-bold text-center ">{basket.name}</div>
-          <div className="flex flex-1 flex-row  justify-center ">
+          <div className="flex flex-row justify-center flex-1 ">
             <div className="flex flex-row my-2">
               {basket.categories.map((category, idx) => (
                 <div
@@ -92,20 +92,23 @@ const BasketSummary = ({ basket, getBasket }) => {
                   {category}
                 </div>
               ))}
-              <div className="mx-1 my-auto baskets-left  text-bodySmall">
-                <span className="quantity">{basket.quantity}</span>
-                <FaShoppingBasket className="inline" />
-              </div>
             </div>
           </div>
-          <div className="flex flex-1 justify-center shop-details m-auto">
-            <p className="pickup text-bodySmall text-center">
-              Pickup: {basket.pickup.from} - {basket.pickup.to}
-            </p>
+          <div className="flex items-center flex-1 py-2 m-auto justify-evenly shop-details">
+            <div className="mx-1 my-auto baskets-left text-bodySmall">
+              <span className="quantity">{basket.quantity}</span>
+              <FaShoppingBasket className="inline" />
+            </div>
+
             <div className="price inline-block text-bodySmall font-bold xs:text-bodySmall transition-all duration-[400ms] ease-in-out">
               <span className="line-through old text-shade">{`€ ${basket.price.original}`}</span>
               <span className="new text-accent">{` / € ${basket.price.discount}`}</span>
             </div>
+          </div>
+          <div className="flex items-center justify-center w-full mt-1 ">
+            <p className="pl-4 text-center pickup text-bodySmall">
+              Pickup: {basket.pickup.from} - {basket.pickup.to}
+            </p>
           </div>
         </div>
         <div className=" m-2  bg-gray-50 rounded px-4 py-4 overflow-y-auto h-[100px] break-words">
@@ -114,7 +117,7 @@ const BasketSummary = ({ basket, getBasket }) => {
           </p>
         </div>
 
-        <div className="mx-4 mt-1 mb-4 flex justify-evenly">
+        <div className="flex mx-4 mt-1 mb-4 justify-evenly">
           <button
             value={basket._id}
             onClick={handleDelete}

@@ -13,7 +13,7 @@ const Layout = () => {
   return (
     <div>
       <a id="top"></a>
-      <header className="w-full h-[100px] bg-darkFont fixed top-0 flex items-center justify-center z-50">
+      <header className="w-screen h-[100px] bg-darkFont fixed top-0 flex items-center justify-center z-50 overflow-x-clip">
         {pathname === "/" && <SkipLinks />}
         <NavBar />
       </header>
@@ -23,7 +23,7 @@ const Layout = () => {
         initial="hidden"
         animate="show"
         exit="exit"
-        className="w-screen min-h-high grow basis-full mt-[100px] flex items-center justify-start flex-col"
+        className="w-screen min-h-high grow basis-full mt-[100px] flex items-center justify-start flex-col overflow-x-clip"
       >
         <ScrollTop>
           <Outlet />
@@ -33,7 +33,7 @@ const Layout = () => {
         variants={footerAnimation}
         initial="hidden"
         animate="show"
-        className="w-screen text-lightFont body-font bg-darkFont shrink-0 flex items-center justify-center"
+        className="flex items-center justify-center w-screen text-lightFont body-font bg-darkFont shrink-0 overflow-x-clip"
       >
         <Footer />
       </motion.footer>

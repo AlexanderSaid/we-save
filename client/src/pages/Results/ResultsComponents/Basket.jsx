@@ -98,12 +98,12 @@ const Basket = ({ basket }) => {
         </div>
 
         <div className="basket-info flex flex-col justify-between row-span-2 p-2 md:gap-2 md:flex-row md:h-[150px] md:grow transition-all duration-[400ms] ease-in-out">
-          <div className="w-full h-full flex flex-col justify-start md:justify-between md:basis-36 md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
+          <div className="w-full h-full flex flex-col justify-start md:justify-between md:w-[170px] md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
             <h5 className="basket-name">{name}</h5>
             {categories.length && (
               <div className="flex flex-col">
                 {categories.map((cat) => (
-                  <span key={cat} className="basket-category">
+                  <span key={cat} className="inline-block basket-category">
                     {cat}
                   </span>
                 ))}
@@ -164,7 +164,9 @@ const Basket = ({ basket }) => {
               </span>
               <gi.GiWalk className="inline-block " />
             </div>
-            <div className="address hover:text-darkFont truncate ">
+
+            <div className="truncate address hover:text-darkFont">
+
               <a
                 href={`https://www.google.com/maps/place/${link}`}
                 target="_blank"

@@ -10,6 +10,7 @@ import {
 import useFetch from "../../hooks/useFetch.js";
 import SuccessSignUp from "./SuccessSignUp.jsx";
 import validation from "../../assets/validation.js";
+import Spinner from "../layout/Spinner.jsx";
 
 const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
   //- Reference to ErrorMessage to focus for screen reader
@@ -143,6 +144,16 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
       }),
     });
   };
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
+
   if (isLoading) {
     return (
       <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
@@ -401,7 +412,7 @@ const SignUp = ({ signUpOpen, setSignUpOpen, setSignInOpen }) => {
               </div>
 
               <div className="pl-3 mt-6 text-darkFont text-bodySmall ">
-                <p className="text-darkFont/80 text-button mb-2 lg:mb-0 lg:float-right ">
+                <p className="mb-2 text-darkFont/80 text-button lg:mb-0 lg:float-right ">
                   Field with * is required
                 </p>
                 <p>

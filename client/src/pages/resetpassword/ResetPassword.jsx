@@ -73,6 +73,7 @@ function ResetPassword() {
       });
     }
   };
+
   if (isLoading) {
     return (
       <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
@@ -82,6 +83,7 @@ function ResetPassword() {
       </section>
     );
   }
+
   return (
     <>
       <section className="flex flex-col fixed top-0 bg-[rgba(255,255,255,0.5)]   left-0 right-0 w-full  h-full  z-[1000]">

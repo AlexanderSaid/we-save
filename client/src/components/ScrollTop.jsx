@@ -11,7 +11,11 @@ const ScrollTop = ({ children }) => {
     });
   }, []);
 
-  return <motion.div variants={fade}>{children}</motion.div>;
+  return (
+    <motion.div variants={fade} className="w-full">
+      {children}
+    </motion.div>
+  );
 };
 
 ScrollTop.propTypes = {

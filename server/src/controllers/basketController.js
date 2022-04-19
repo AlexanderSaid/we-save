@@ -181,7 +181,9 @@ const updateBasket = asyncHandler(async (req, res) => {
   } else {
     uploadedResponse = "";
   }
+
   const basketToUpdate = await Basket.findByIdAndUpdate(basketId, req.body);
+
   if (
     basketToUpdate.shop_id.toString() !== shop._id.toString() &&
     basketToUpdate.owner_id.toString() !== req.user.id

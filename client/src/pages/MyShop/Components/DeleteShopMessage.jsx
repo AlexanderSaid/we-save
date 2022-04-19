@@ -7,7 +7,7 @@ import Spinner from "../../../components/layout/Spinner";
 function DeleteShopMessage({ setDeleteShop }) {
   const { user, logout } = useContext(UserContext);
 
-  const { isLoading, performFetch, cancelFetch } = useFetch(
+  const { performFetch, cancelFetch, isLoading } = useFetch(
     `/shops/${user?.shop_id}`,
     () => {
       setDeleteShop(false);
