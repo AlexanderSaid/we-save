@@ -159,17 +159,7 @@ const deleteBasket = asyncHandler(async (req, res) => {
 const updateBasket = asyncHandler(async (req, res) => {
   const { shopId, basketId } = req.params;
   const user = await User.findById(req.user.id);
-  const {
-    name,
-    original,
-    discount,
-    categories,
-    quantity,
-    description,
-    from,
-    to,
-    image,
-  } = req.body;
+
   if (!user) {
     res.status(401).json({ msg: "User not found" });
   }
@@ -177,39 +167,29 @@ const updateBasket = asyncHandler(async (req, res) => {
   if (shop.owner_id.toString() !== req.user.id) {
     res.status(401).json("User not Authorized");
   }
-  //- Uploading Image
-  const fileStr = image;
-  const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-    upload_preset: "dev_setups",
-  });
-  if (!uploadedResponse) {
-    res
-      .status(401)
-      .json({ msg: "Something went wrong with uploading the image" });
+  // - Uploading Image
+  let uploadedResponse;
+  if (req.body.image) {
+    uploadedResponse = await cloudinary.uploader.upload(req.body.image, {
+      upload_preset: "dev_setups",
+    });
+    if (!uploadedResponse) {
+      res
+        .status(401)
+        .json({ msg: "Something went wrong with uploading the image" });
+    }
+  } else {
+    uploadedResponse = "";
   }
-  const basketToUpdate = await Basket.findById(basketId);
+  const basketToUpdate = await Basket.findByIdAndUpdate(basketId, req.body);
   if (
     basketToUpdate.shop_id.toString() !== shop._id.toString() &&
     basketToUpdate.owner_id.toString() !== req.user.id
   ) {
     res.status(401).json({ msg: "This basket doesn't belong to this shop" });
   }
-  basketToUpdate.name = name ? name : basketToUpdate.name;
-  basketToUpdate.price.original = original ? original : basketToUpdate.original;
-  basketToUpdate.price.discount = discount ? discount : basketToUpdate.discount;
-  basketToUpdate.categories = categories
-    ? categories
-    : basketToUpdate.categories;
-  basketToUpdate.quantity = quantity ? quantity : basketToUpdate.quantity;
-  basketToUpdate.description = description
-    ? description
-    : basketToUpdate.description;
-  basketToUpdate.pickup.from = from ? from : basketToUpdate.from;
-  basketToUpdate.pickup.to = to ? to : basketToUpdate.to;
-  basketToUpdate.image = image ? image : basketToUpdate.image;
 
-  const UpdatedBasket = await basketToUpdate.save();
-  res.status(200).json({ success: true, result: UpdatedBasket });
+  res.status(200).json({ success: true, result: basketToUpdate });
 });
 
 //@des decrease the quantity of baskets from a specific shop

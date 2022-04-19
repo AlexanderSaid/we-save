@@ -3,5 +3,6 @@
   "editor.tabSize": 2,
   "cSpell.words": ["testid"],
   "files.eol": "auto",
-  "prettier.endOfLine": "lf"
+  "prettier.endOfLine": "lf",
+  "compile-hero.disable-compile-files-on-did-save-code": false
 }
