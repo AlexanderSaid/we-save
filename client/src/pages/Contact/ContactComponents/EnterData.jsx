@@ -53,7 +53,7 @@ const EnterData = () => {
   }
 
   if (success) {
-    return <SuccessMessage setSuccess={() => setSuccess(true)} />;
+    return <SuccessMessage setSuccess={setSuccess} />;
   }
 
   return (

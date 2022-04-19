@@ -164,13 +164,13 @@ const Basket = ({ basket }) => {
               </span>
               <gi.GiWalk className="inline-block " />
             </div>
-            <div className="address hover:text-darkFont ">
+            <div className="address hover:text-darkFont truncate ">
               <a
                 href={`https://www.google.com/maps/place/${link}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <io.IoLocationSharp className="inline-block" />
+                <io.IoLocationSharp className="inline-block " />
                 {`${street} ${house}${addition ? addition : ""}`}
               </a>
             </div>
