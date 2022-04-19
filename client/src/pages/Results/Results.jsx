@@ -27,21 +27,19 @@ const Results = () => {
   }, [selectedCategory, orderedBaskets]);
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center w-full">
-        <div
-          id="search-results"
-          className="flex items-center justify-center w-full py-8 bg-darkBg"
-        >
-          <SearchBar />
-        </div>
-        <Categories
-          selectedCategory={selectedCategory}
-          onClick={clickSelectedCategory}
-        />
-        <ResultsSection baskets={basketsToPass} input={inputValue} />
+    <div className="flex flex-col items-center justify-center ">
+      <div
+        id="search-results"
+        className="flex items-center justify-center py-8 bg-darkBg w-screen"
+      >
+        <SearchBar />
       </div>
-    </>
+      <Categories
+        selectedCategory={selectedCategory}
+        onClick={clickSelectedCategory}
+      />
+      <ResultsSection baskets={basketsToPass} input={inputValue} />
+    </div>
   );
 };
 export default Results;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Basket from "./Basket";
 import SearchContext from "../../../context/SearchContext";
 import { motion } from "framer-motion";
-import { fade } from "../../../animation";
+import { fade } from "../../../components/animation";
 
 const ResultsSection = ({ baskets }) => {
   const { toShow, setToShow, INCREMENT, isAmsterdam, inputValue } =
@@ -43,6 +43,7 @@ const ResultsSection = ({ baskets }) => {
               (basket) =>
                 basket.quantity && (
                   <motion.li
+                    key={basket._id}
                     variants={fade}
                     className="w-full h-fit border border-shade rounded-xl overflow-hidden my-4 md:max-w-[1000px]"
                   >

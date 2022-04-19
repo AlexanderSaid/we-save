@@ -8,7 +8,7 @@ const validation = {
   KVK_REGEX: /^[0-9a-zA-Z]{8}$/,
   PHONE_REGEX: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im,
   PRICE_REGEX: /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/,
-  DESCRIPTION_REGEX: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-\s]{20,200}$/,
+  DESCRIPTION_REGEX: /^[a-zA-Z0-9.,!#$%&'*+/:()=?^_`{|}~-\s]{20,200}$/,
 };
 
 export default validation;

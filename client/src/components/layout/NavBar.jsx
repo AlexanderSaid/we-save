@@ -104,7 +104,11 @@ const NavBar = () => {
               className="justify-center nav-link nav-link-md login relative min-w-[120px]"
             >
               <div className="">
-                <span>{user?.name?.first}</span>
+                <span>
+                  {user?.name?.first &&
+                    user.name.first.charAt(0).toUpperCase() +
+                      user.name.first.slice(1)}
+                </span>
                 {menu ? (
                   <FiChevronUp
                     className="inline-block ml-2 font-semibold"

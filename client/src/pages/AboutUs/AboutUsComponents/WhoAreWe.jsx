@@ -8,7 +8,7 @@ import George from "../../../assets/images/staff-photos/George.jpg";
 import Said from "../../../assets/images/staff-photos/Said.jpg";
 import { useScroll } from "../../../hooks/useScrolls";
 import { motion } from "framer-motion";
-import { titleAnimAbove } from "../../../animation";
+import { titleAnimAbove } from "../../../components/animation";
 
 const WhoAreWe = () => {
   const [element, controls] = useScroll(0.3);

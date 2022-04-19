@@ -3,7 +3,7 @@ import { BiCurrentLocation } from "react-icons/bi";
 import SearchContext from "../../context/SearchContext";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { fade } from "../../animation";
+import { fade } from "../../components/animation";
 const CurrentLocation = () => {
   const {
     setInputValue,

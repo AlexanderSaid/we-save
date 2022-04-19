@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import customer from "../../../assets/images/homepage/customer-bg.png";
+import customer from "../../../assets/images/homepage/healthy-foods.jpg";
 import CustomerGuidCard from "./CustomerGuidCard";
 import { useScroll } from "../../../hooks/useScrolls";
 import { motion } from "framer-motion";
@@ -10,7 +10,7 @@ import {
   customAnimation,
   scrollReveal,
   pageAnimation,
-} from "../../../animation";
+} from "../../../components/animation";
 import location from "../../../assets/images/guid/location.png";
 import cart from "../../../assets/images/guid/cart.png";
 import bag from "../../../assets/images/guid/bag.png";
@@ -47,7 +47,7 @@ const CostumerGuid = () => {
       {/* Intro section */}
       <motion.div
         variants={fade}
-        className="flex items-center justify-center w-[90%] sm:w-[95%] "
+        className="flex items-center justify-center w-[85%] sm:w-[95%] "
       >
         <div className="flex items-center justify-center h-[450px] relative overflow-hidden max-w-1440 w-[95%] xs:w-full shadow-2xl shadow-darkBg/60 rounded-2xl mt-12">
           <motion.img
@@ -65,7 +65,7 @@ const CostumerGuid = () => {
               initial="hidden"
               animate="show"
               exit="exit"
-              className="w-[70%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:ml-[5%] lg:ml-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4"
+              className="w-[85%] md2:w-[60%] lg:w-[50%] max-h-full flex flex-col justify-between gap-4 md:ml-[5%] lg:ml-[10%] text-darkBg border border-accent rounded-md bg-lightBg/80 p-4"
             >
               <div className="overflow-hidden">
                 <motion.h3
@@ -78,7 +78,7 @@ const CostumerGuid = () => {
               <div className="overflow-hidden">
                 <motion.p
                   variants={titleAnim}
-                  className="text-bodyRegular text-darkFont/80 font-bold md:w-[90%] md:text-justify text-center md:text-left"
+                  className="text-bodyRegular text-darkFont/80 font-bold md:w-[90%] md:text-justify text-center"
                 >
                   Start saving delicious products that your local entrepreneur
                   will have left at the end of the day. Always a surprise at a
@@ -87,14 +87,19 @@ const CostumerGuid = () => {
                 </motion.p>
               </div>
               <a className="self-center md:self-end md:mr-4">
-                <motion.button
-                  variants={fade}
-                  className="btn btn-dark"
-                  disabled={loggedIn ? true : false}
-                  onClick={setIsOpen}
-                >
-                  {loggedIn ? "Welcome Back" : "Sign In"}
-                </motion.button>
+                {loggedIn ? (
+                  <p className='font-bold py-4 px-6 text-darkBg/80 font-["Roboto"] border-t-2 border-b-2 border-accent'>
+                    Welcome Back
+                  </p>
+                ) : (
+                  <motion.button
+                    variants={fade}
+                    className="btn btn-dark"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Sign In
+                  </motion.button>
+                )}
               </a>
             </motion.div>
           </motion.div>

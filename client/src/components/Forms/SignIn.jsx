@@ -156,7 +156,7 @@ function SignIn({ openSignIn, setOpenSignIn }) {
                       : "is-valid"
                   } submit-btn`}
                 >
-                  {isDisabled
+                  {isDisabled && !error
                     ? "Please fill required fields correctly"
                     : error
                     ? error
