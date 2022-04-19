@@ -261,7 +261,15 @@ const CreateBasketForm = ({ basket, setBasket }) => {
     // saving string to database
     // if (!previewSource) return;
   };
-
+  if (isLoading) {
+    return (
+      <section className="flex flex-col fixed top-0 bg-lightBg/60 left-0 right-0 w-full  h-full  z-[1000]">
+        <div className="container flex flex-col items-center justify-center flex-1 px-2 mx-auto mb-6">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
   if (success) {
     return <CreateBasketSuccessMessage setSuccess={setSuccess} />;
   }

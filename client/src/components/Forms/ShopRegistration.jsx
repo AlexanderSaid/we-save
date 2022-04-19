@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import SuccessShopRegister from "./SuccessShopRegister";
 import UserContext from "../../context/UserContext";
+import Spinner from "../layout/Spinner";
 import {
   AiOutlineArrowLeft,
   AiOutlineClose,

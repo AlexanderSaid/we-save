@@ -101,7 +101,7 @@ const Basket = ({ basket }) => {
           <div className="w-full h-full flex flex-col justify-start md:justify-between md:w-[170px] md:shrink-0 md:grow-0 transition-all duration-[400ms] ease-in-out">
             <h5 className="basket-name">{name}</h5>
             {categories.length && (
-              <div>
+              <div className="flex flex-col">
                 {categories.map((cat) => (
                   <span key={cat} className="inline-block basket-category">
                     {cat}
@@ -109,7 +109,7 @@ const Basket = ({ basket }) => {
                 ))}
               </div>
             )}
-            <div className="quantity-price flex items-center justify-between pt-3 pr-1 transition-all duration-[400ms] ease-in-out">
+            <div className=" w-[200px] quantity-price flex items-center justify-start pt-3 pr-1 transition-all duration-[400ms] ease-in-out">
               <div className="baskets-left">
                 <span className="quantity">
                   {quantity > 5 ? "+5" : quantity}
@@ -117,7 +117,7 @@ const Basket = ({ basket }) => {
                 <FaShoppingBasket className="inline" />
               </div>
 
-              <div className="price inline-block text-bodySmall font-bold xs:text-bodyRegular transition-all duration-[400ms] ease-in-out">
+              <div className="price inline-block text-bodySmall font-bold xs:text-bodyRegular transition-all duration-[400ms] ease-in-out ml-1">
                 <span className="line-through old text-shade">{`€ ${original}`}</span>
                 <span className="new text-accent">{` / € ${discount}`}</span>
               </div>
@@ -164,13 +164,15 @@ const Basket = ({ basket }) => {
               </span>
               <gi.GiWalk className="inline-block " />
             </div>
+
             <div className="truncate address hover:text-darkFont">
+
               <a
                 href={`https://www.google.com/maps/place/${link}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <io.IoLocationSharp className="inline-block" />
+                <io.IoLocationSharp className="inline-block " />
                 {`${street} ${house}${addition ? addition : ""}`}
               </a>
             </div>

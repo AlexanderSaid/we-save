@@ -32,8 +32,9 @@ const SearchBar = () => {
             Find Shops Near You in Amsterdam
           </motion.h5>
         </div>
-        <form
-          // variants={pathname === "/" ? inputAnim : null}
+
+        <motion.form
+          variants={pathname === "/" ? inputAnim : null}
           className="flex rounded bg-lightFont w-[80%] xs:w-full border border-darkBg mb-2 max-w-[500px]"
           onSubmit={(e) => onSearch(e)}
         >
@@ -58,7 +59,7 @@ const SearchBar = () => {
           >
             Search
           </motion.button>
-        </form>
+        </motion.form>
         <div className="search-message mb-4 text-primary text-bodySmall sm:text-bodyRegular h-5">
           {searchError ? (
             <span>

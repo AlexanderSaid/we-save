@@ -114,7 +114,8 @@ function MyShop() {
         <div className=" w-[100%] max-w-[1140px] p-4 mx-auto">
           <motion.div variants={fade}>
             <CreateBasketForm basket={basket} setBasket={setBasket} />
-          </motion.div>{" "}
+          </motion.div>
+
         </div>
         <motion.button
           variants={fade}
