@@ -6,7 +6,7 @@ const categoryList = [
   "Groceries",
   "Vegetarian",
   "Diary & Meat",
-  "Bread & Pastries",
+  "Bakery",
   "Other",
 ];
 
