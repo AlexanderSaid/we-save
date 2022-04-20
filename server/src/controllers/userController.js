@@ -118,12 +118,12 @@ const forgotPassword = asyncHandler(async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "main-wesave@outlook.com", // generated ethereal user
-      pass: "wesave-12345", // generated ethereal password
+      user: process.env.EMAIL_ADDRESS, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
   const mailOptions = {
-    from: "main-wesave@outlook.com", // sender address
+    from: process.env.EMAIL_ADDRESS, // sender address
     to: email, // list of receivers
     subject: "Forgot your Password", // Subject line
     text: "Hello world?", // plain text body
@@ -167,12 +167,12 @@ const reSettingPassword = asyncHandler(async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "main-wesave@outlook.com", // generated ethereal user
-      pass: "wesave-12345", // generated ethereal password
+      user: process.env.EMAIL_ADDRESS, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
   const mailOptions = {
-    from: "main-wesave@outlook.com", // sender address
+    from: process.env.EMAIL_ADDRESS, // sender address
     to: user.email, // list of receivers
     subject: "Reset Password", // Subject line
     text: "Hello world?", // plain text body

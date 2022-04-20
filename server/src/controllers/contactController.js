@@ -19,15 +19,15 @@ const contactEmail = (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "main-wesave@outlook.com", // generated ethereal user
+      user: process.env.EMAIL_ADDRESS, // generated ethereal user
       pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: "main-wesave@outlook.com", // sender address
-    to: "main-wesave@outlook.com", // list of receivers
+    from: process.env.EMAIL_ADDRESS, // sender address
+    to: process.env.EMAIL_ADDRESS, // list of receivers
     subject: "Customer Message", // Subject line
     text: "Hello world?", // plain text body
     html: output, // html body
@@ -66,14 +66,14 @@ const confirmationEmail = asyncHandler(async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "main-wesave@outlook.com", // generated ethereal user
+      user: process.env.EMAIL_ADDRESS, // generated ethereal user
       pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: "main-wesave@outlook.com", // sender address
+    from: process.env.EMAIL_ADDRESS, // sender address
     to: req.user.email, // list of receivers
     subject: "WeSave Confirmation Message", // Subject line
     text: "Hello world?", // plain text body
