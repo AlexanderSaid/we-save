@@ -48,7 +48,7 @@ This is the final project for the HackYourFuture curriculum we did as a class us
 Everyday 1/3 of the food goes waste globally. To help to reduce the food waste and create a connection between stores and people in need, we -as a WeSave team- took our responsibility! 
 This app is created to help shops to be able to sell their almost-expired food for a very reasonable prices and customers to locate them according to their postcodes. 
 
-`[Click here for the Demo version](https://hyf-c34-candc-stage.herokuapp.com)`
+[Click here for the Demo version](https://we-save.herokuapp.com/)
 
 <div id="setup"></div>
 
